@@ -496,26 +496,6 @@ Creates a polar (circular) anchor layout.
 ----|----
 `AnchorPolar('M20 8.8', 0.35, 6, 'Straight', 0.2, '#', 0)` | Six straight anchors of length 350 mm on a circle of radius 200 mm
 
-### Parametric cross-section functions
-
-The following functions redefine the cross-section they are assigned to from basic dimensional parameters. They only take effect when the expression is assigned to a **cross-section** property item — evaluating them in a standalone parameter has no effect. All dimensions are entered in basic SI units (m).
-
-| **Expression** | **Description** |
-| --- | -- |
-| **IProfile(width, height, flangeThickness, webThickness)** | Creates a welded I-section. |
-| **UProfile(width, height, flangeThickness, webThickness, webRadius, flangeRadius)** | Creates a channel (U) section. |
-| **LProfile(width, height, legThickness, legThickness2, webRadius, flangeRadius)** | Creates an angle (L) section. |
-| **PProfile(width, height, thickness, radius)** | Creates a rectangular hollow section (RHS). |
-| **OProfile(diameter, thickness)** | Creates a circular hollow section. |
-| **PDProfile(diameter, thickness)** | Creates a circular hollow (pipe) section. |
-| **CCProfile(width, height, thickness, lip)** | Creates a cold-formed C section. |
-| **PLProfile(width, height)** | Creates a rectangular plate section. |
-
-**Example Input** | **Description**
-----|----
-`IProfile(0.2, 0.4, 0.012, 0.008)` | Welded I-section 200 mm wide, 400 mm deep, with 12 mm flanges and an 8 mm web
-`PLProfile([width], [thickness])` | Plate section driven by previously defined parameters
-
 ## Further information
 
 Further information on using expressions can be found on the [NCalc](https://github.com/ncalc/ncalc/wiki) wiki page.

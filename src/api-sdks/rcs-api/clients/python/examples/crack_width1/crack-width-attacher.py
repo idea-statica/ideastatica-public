@@ -83,7 +83,7 @@ with rcs_api_service_attacher.RcsApiServiceAttacher(baseUrl).create_api_client()
 
     fu_my =  fu["my"]
 
-    my = capacity_res["internalFores"]["my"]
+    my = capacity_res["internalForces"]["my"]
 
 
     # crack with

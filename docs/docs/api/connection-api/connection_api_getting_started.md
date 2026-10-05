@@ -2,7 +2,7 @@
 
 This guide takes you from a clean machine to a first working script: install the client SDK, start the Connection REST API service, open a project, run the CBFEM calculation, read the check results, and save a report.
 
-The Connection API is a REST API (OpenAPI 3) exposed by a locally hosted service that ships with the IDEA StatiCa desktop installation. This guide was written and verified against **IDEA StatiCa 26.0** (API version 3.0). The Connection API requires **IDEA StatiCa 24.1 or later**.
+The Connection API is a REST API (OpenAPI 3) exposed by a locally hosted service that ships with the IDEA StatiCa desktop installation. This guide was written and verified against **IDEA StatiCa 26.0** and applies to **IDEA StatiCa 26.1** (API version 5.0). The Connection API requires **IDEA StatiCa 24.1 or later**.
 
 ## Prerequisites
 
@@ -14,7 +14,7 @@ The Connection API is a REST API (OpenAPI 3) exposed by a locally hosted service
   <!-- TODO (SDK team): confirm the supported Python floor. setup.py declares PYTHON_REQUIRES = ">= 3.8" but does not pass it to setup(), so the published package carries no requires-python constraint, and the generated client README says 3.7+. -->
 
 > [!IMPORTANT]
-> The client SDK version must match the version of the installed IDEA StatiCa service. Always install the SDK package whose version corresponds to your IDEA StatiCa version — for IDEA StatiCa 26.0, use a 26.0.x package. Mixing versions leads to missing endpoints or deserialization errors.
+> The client SDK version must match the version of the installed IDEA StatiCa service. Always install the SDK package whose version corresponds to your IDEA StatiCa version — for IDEA StatiCa 26.1, use a 26.1.x package. Mixing versions leads to missing endpoints or deserialization errors; the service still serves the previous API versions, but marks them deprecated and removes each one release after its deprecation.
 
 ## Install the client SDK
 
@@ -28,7 +28,7 @@ Install the [IdeaStatiCa.ConnectionApi](https://www.nuget.org/packages/IdeaStati
 dotnet add package IdeaStatiCa.ConnectionApi
 ```
 
-Pick the package version that matches your installed IDEA StatiCa version (for IDEA StatiCa 26.0, a 26.0.x package).
+Pick the package version that matches your installed IDEA StatiCa version (for IDEA StatiCa 26.1, a 26.1.x package).
 
 # [Python](#tab/python)
 
@@ -41,7 +41,7 @@ pip install ideastatica_connection_api
 To pin the package to your installed IDEA StatiCa version (recommended), use for example:
 
 ```console
-pip install "ideastatica_connection_api==26.0.*"
+pip install "ideastatica_connection_api==26.1.*"
 ```
 
 ---

@@ -27,13 +27,20 @@ namespace IdeaStatiCa.BimImporter.Importers
 					Offset = cut.Offset,
 					Direction = cut.CutOrientation,
 					PlanePoint = ctx.Import(workPlane.Origin).Element as Point3D,
-
+					OriginalModelId = cut.Id,
 				};
 				var beamIOM = FindIOMObjectData(cut, connectionData);
 
 				if (beamIOM is BeamData beam)
 				{
 					(beam.Cuts ?? (beam.Cuts = new List<CutData>())).Add(cutData);
+
+					//set correct Id - max across all beam cuts in the connection, same convention as plates
+					var maxCutId = (connectionData.Beams ?? Enumerable.Empty<BeamData>())
+						.Where(b => b.Cuts != null)
+						.SelectMany(b => b.Cuts)
+						.Max(c => (int?)c.Id) ?? 0;
+					cutData.Id = maxCutId + 1;
 				}
 
 				return cutData;
@@ -68,10 +75,14 @@ namespace IdeaStatiCa.BimImporter.Importers
 						} : null),
 						ExtendBeforeCut = cut.ExtendBeforeCut,
 						Name = cut.Name,
+						OriginalModelId = cut.Id,
 					};
 
 
 					(connectionData.CutBeamByBeams ?? (connectionData.CutBeamByBeams = new List<CutBeamByBeamData>())).Add(cutIOM);
+
+					//set correct Id - max existing in the connection, same convention as plates
+					cutIOM.Id = connectionData.CutBeamByBeams.Max(c => c.Id) + 1;
 
 					return cutIOM;
 				}

@@ -99,7 +99,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/connections/{connectionId}/members 
+> **POST** /api/5/projects/{projectId}/connections/{connectionId}/members 
 
 #### Using the AddMemberWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -232,7 +232,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **DELETE** /api/4/projects/{projectId}/connections/{connectionId}/members/{memberId} 
+> **DELETE** /api/5/projects/{projectId}/connections/{connectionId}/members/{memberId} 
 
 #### Using the DeleteMemberWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -364,7 +364,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/connections/{connectionId}/members/{memberId} 
+> **GET** /api/5/projects/{projectId}/connections/{connectionId}/members/{memberId} 
 
 #### Using the GetMemberWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -494,7 +494,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/projects/{projectId}/connections/{connectionId}/members 
+> **GET** /api/5/projects/{projectId}/connections/{connectionId}/members 
 
 #### Using the GetMembersWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -626,7 +626,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/members/{memberId}/set-bearing-member 
+> **PUT** /api/5/projects/{projectId}/connections/{connectionId}/members/{memberId}/set-bearing-member 
 
 #### Using the SetBearingMemberWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -759,7 +759,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **PUT** /api/4/projects/{projectId}/connections/{connectionId}/members 
+> **PUT** /api/5/projects/{projectId}/connections/{connectionId}/members 
 
 #### Using the UpdateMemberWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.

@@ -164,6 +164,7 @@ namespace IdeaStatiCa.BimApiLink
 					_pluginHook.EnterImport(countryCode);
 					try
 					{
+						(_pluginHook as ISynchronizationHook)?.EnterSynchronization(GetMembers(items));
 						return Synchronize(countryCode, items);
 					}
 					finally
@@ -186,6 +187,30 @@ namespace IdeaStatiCa.BimApiLink
 		protected abstract ModelBIM ImportSelection(CountryCode countryCode, RequestedItemsType requestedType);
 
 		protected abstract List<ModelBIM> Synchronize(CountryCode countryCode, List<BIMItemsGroup> items);
+
+		private List<Identifier<IIdeaMember1D>> GetMembers(List<BIMItemsGroup> groups)
+		{
+			return groups
+				.SelectMany(x => x.Items)
+				.Where(x => x.Type == BIMItemType.Member)
+				.Select(x => GetPersistenceTokenOrNull(x.Id))
+				.OfType<Identifier<IIdeaMember1D>>()
+				.Distinct()
+				.ToList();
+		}
+
+		private IIdeaPersistenceToken GetPersistenceTokenOrNull(int iomId)
+		{
+			// the project throws for an id with no stored token; the synchronization skips such an item the same way
+			try
+			{
+				return _project.GetPersistenceToken(iomId);
+			}
+			catch (KeyNotFoundException)
+			{
+				return null;
+			}
+		}
 
 		private void ImportFinished()
 			=> _projectStorage.Save();

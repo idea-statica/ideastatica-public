@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **project_number** | **str** |  | [optional] 
 **author** | **str** |  | [optional] 
 **country_code** | [**CountryCode**](CountryCode.md) |  | [optional] 
+**steel_edition** | [**ConSteelCodeEditionEnum**](ConSteelCodeEditionEnum.md) |  | [optional] 
 **var_date** | **datetime** |  | [optional] 
 
 ## Example

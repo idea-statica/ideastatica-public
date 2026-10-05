@@ -84,7 +84,15 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
             }
         }
 
-        public Task Run()
+        /// <param name="checkbotProjectPath">
+        /// The Checkbot project to use. Null derives it from the open model, as it always has; pass one when the
+        /// project was chosen elsewhere — the Checkbot launcher asks the user where it should go.
+        /// </param>
+        /// <param name="checkbotArguments">
+        /// Extra arguments for Checkbot, appended to the ones the host passes. Use it together with a project the
+        /// launcher chose but that does not exist yet, so Checkbot creates it (<c>-new -designCode:…</c>).
+        /// </param>
+        public Task Run(string checkbotProjectPath = null, string checkbotArguments = null)
         {
             pluginLogger?.LogInformation("Run - Method started");
             try
@@ -96,7 +104,9 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
                 pluginLogger?.LogInformation($"Run - IModelClient resolved: {modelClient?.GetType().FullName}");
 
                 pluginLogger?.LogInformation("Run - Creating project directory");
-                string projectPath = CreateProjectDirectory(modelClient);
+                string projectPath = string.IsNullOrWhiteSpace(checkbotProjectPath)
+                    ? CreateProjectDirectory(modelClient)
+                    : checkbotProjectPath;
                 pluginLogger?.LogInformation($"Run - Project path: {projectPath}");
 
                 pluginLogger?.LogInformation("Run - Getting Checkbot location");
@@ -105,7 +115,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 
                 pluginLogger?.LogInformation("Run - Creating BimLink");
                 BimLink bimLink = TeklaCadBimLink.Create(LinkName, projectPath)
-                    .WithIdeaStatiCa(checkbotLocation);
+                    .WithIdeaStatiCa(checkbotLocation)
+                    .WithIdeaStatiCaArguments(checkbotArguments);
 
                 pluginLogger?.LogInformation("Run - Resolving AppVisibility");
                 AppVisibility appVisibility = container.Resolve<AppVisibility>();

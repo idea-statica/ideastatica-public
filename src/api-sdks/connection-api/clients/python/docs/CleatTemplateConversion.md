@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | **str** |  | [optional] [default to 'IdeaStatiCa.Api.Connection.Model.CleatTemplateConversion, IdeaStatiCa.Api']
+**type** | **str** |  | [default to 'IdeaStatiCa.Api.Connection.Model.CleatTemplateConversion, IdeaStatiCa.Api']
 
 ## Example
 

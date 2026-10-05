@@ -21,7 +21,6 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
-    <PackageReference Include="NSubstitute" />
     <PackageReference Include="Idea.Bentley.Ram" />
   </ItemGroup>
 

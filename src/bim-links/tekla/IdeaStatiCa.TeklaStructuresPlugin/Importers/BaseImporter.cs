@@ -2,6 +2,9 @@
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Importers;
 using IdeaStatiCa.Plugin;
+using System.Collections.Generic;
+using TSG = Tekla.Structures.Geometry3d;
+using TSM = Tekla.Structures.Model;
 
 namespace IdeaStatiCa.TeklaStructuresPlugin.BimApi
 {
@@ -26,6 +29,61 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.BimApi
 				return typedObject;
 			}
 			return default;
+		}
+
+		/// <summary>
+		/// Adds the part a weld or bolt group names to <paramref name="connectedParts"/>, as whichever of plate or
+		/// member it was imported as, and reports it when it was imported as neither. <c>CheckMaybe</c> probes the
+		/// object cache rather than importing, so a part the walk has not reached yet is silently absent - and
+		/// fabrication left holding one part is dropped downstream as unbuildable, taking with it the only thing that
+		/// said these two pieces of steel are one connection.
+		/// </summary>
+		protected void AddConnectedPart(TSM.ModelObject part, List<IIdeaObjectConnectable> connectedParts, string owner, string role)
+		{
+			if (part == null)
+			{
+				PlugInLogger.LogInformation($"{owner} {role}: the source names no part");
+				return;
+			}
+
+			int before = connectedParts.Count;
+			AddIfAlreadyImported<IIdeaPlate>(part, connectedParts);
+			AddIfAlreadyImported<IIdeaMember1D>(part, connectedParts);
+			if (connectedParts.Count != before)
+			{
+				return;
+			}
+
+			var named = part as TSM.Part;
+			var describe = named != null
+				? $"'{named.Name}' profile '{named.Profile?.ProfileString}'"
+				: $"'{part.GetType().Name}'";
+			PlugInLogger.LogInformation($"{owner} {role}: part {describe} guid {part.Identifier.GUID} is cached as neither plate nor member - dropped from ConnectedParts");
+		}
+
+		/// <summary>A fastener grid's frame in the form the model expects, from axes read off the source unchanged.</summary>
+		protected static IdeaRS.OpenModel.Geometry3D.CoordSystemByVector ToCoordSystem(TSG.Vector axisX, TSG.Vector axisY, TSG.Vector axisZ)
+			=> new IdeaRS.OpenModel.Geometry3D.CoordSystemByVector()
+			{
+				VecX = new IdeaRS.OpenModel.Geometry3D.Vector3D { X = axisX.X, Y = axisX.Y, Z = axisX.Z },
+				VecY = new IdeaRS.OpenModel.Geometry3D.Vector3D { X = axisY.X, Y = axisY.Y, Z = axisY.Z },
+				VecZ = new IdeaRS.OpenModel.Geometry3D.Vector3D { X = axisZ.X, Y = axisZ.Y, Z = axisZ.Z },
+			};
+
+		private void AddIfAlreadyImported<TConnectable>(TSM.ModelObject part, List<IIdeaObjectConnectable> connectedParts)
+			where TConnectable : IIdeaObjectConnectable
+		{
+			var id = part.Identifier.GUID.ToString();
+			if (CheckMaybe<TConnectable>(id) == null)
+			{
+				return;
+			}
+
+			var imported = GetMaybe<TConnectable>(id);
+			if (imported != null)
+			{
+				connectedParts.Add(imported);
+			}
 		}
 	}
 }

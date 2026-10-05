@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **ConnectedParts** | [**List&lt;ReferenceElement&gt;**](ReferenceElement.md) | List of the connected parts | [optional] 
 **Name** | **string** | Name | [optional] 
 **Length** | **double** | Length | [optional] 
+**OriginalModelId** | **string** | Get or set the identification in the original model  In the case of the imported connection from another application | [optional] 
 **Id** | **int** | Element Id | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

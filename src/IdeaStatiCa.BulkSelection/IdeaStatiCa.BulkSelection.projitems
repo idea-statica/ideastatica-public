@@ -10,5 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ItemsSorter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MemberEndMiss.cs" />
   </ItemGroup>
 </Project>

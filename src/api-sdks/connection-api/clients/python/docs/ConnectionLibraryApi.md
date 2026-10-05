@@ -68,7 +68,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/connection-library/get-picture 
+> **GET** /api/5/connection-library/get-picture 
 
 ### Authorization
 
@@ -144,7 +144,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/connection-library/get-design-sets 
+> **GET** /api/5/connection-library/get-design-sets 
 
 ### Authorization
 
@@ -225,7 +225,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **GET** /api/4/connection-library/get-template 
+> **GET** /api/5/connection-library/get-template 
 
 ### Authorization
 
@@ -311,7 +311,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/connections/{connectionId}/propose 
+> **POST** /api/5/projects/{projectId}/connections/{connectionId}/propose 
 
 ### Authorization
 
@@ -395,7 +395,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/connections/{connectionId}/publish 
+> **POST** /api/5/projects/{projectId}/connections/{connectionId}/publish 
 
 ### Authorization
 

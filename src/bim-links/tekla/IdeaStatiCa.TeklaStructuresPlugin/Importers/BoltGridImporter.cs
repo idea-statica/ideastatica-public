@@ -35,50 +35,13 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 				};
 
 				//This test due to plate as member and we are not sure if its imported as plate or member
-				CheckAndAddConnectedObject<IIdeaPlate>(boltGroup.PartToBoltTo, boltgrid);
-				CheckAndAddConnectedObject<IIdeaMember1D>(boltGroup.PartToBoltTo, boltgrid);
-
-				CheckAndAddConnectedObject<IIdeaPlate>(boltGroup.PartToBeBolted, boltgrid);
-				CheckAndAddConnectedObject<IIdeaMember1D>(boltGroup.PartToBeBolted, boltgrid);
-
-				if (boltGroup.OtherPartsToBolt != null)
+				foreach (var bolted in Utilities.BulkSelectionHelper.PartsBoltedBy(boltGroup))
 				{
-					foreach (var obj in boltGroup.OtherPartsToBolt)
-					{
-						if (!(obj is TS.Part otherPart))
-						{
-							continue;
-						}
-						CheckAndAddConnectedObject<IIdeaPlate>(otherPart, boltgrid);
-						CheckAndAddConnectedObject<IIdeaMember1D>(otherPart, boltgrid);
-					}
+					AddConnectedPart(bolted.Part, boltgrid.ConnectedParts as List<IIdeaObjectConnectable>, boltgrid.Id, bolted.Role);
 				}
-				var boltCs = boltGroup.GetCoordinateSystem();
-				var boltAxisZ = TSG.Vector.Cross(boltCs.AxisX, boltCs.AxisY);
-
-				boltgrid.OriginNo = Model.GetPointId(boltCs.Origin);
-				boltgrid.LocalCoordinateSystem = new IdeaRS.OpenModel.Geometry3D.CoordSystemByVector()
-				{
-					VecX = new IdeaRS.OpenModel.Geometry3D.Vector3D
-					{
-						X = boltCs.AxisX.X,
-						Y = boltCs.AxisX.Y,
-						Z = boltCs.AxisX.Z
-					},
-					VecY = new IdeaRS.OpenModel.Geometry3D.Vector3D
-					{
-						X = boltCs.AxisY.X,
-						Y = boltCs.AxisY.Y,
-						Z = boltCs.AxisY.Z
-					},
-					VecZ = new IdeaRS.OpenModel.Geometry3D.Vector3D
-					{
-						X = boltAxisZ.X,
-						Y = boltAxisZ.Y,
-						Z = boltAxisZ.Z
-
-					}
-				};
+				var frame = Utilities.BulkSelectionHelper.BoltFrame(boltGroup);
+				boltgrid.OriginNo = Model.GetPointId(frame.Origin);
+				boltgrid.LocalCoordinateSystem = ToCoordSystem(frame.X, frame.Y, frame.Z);
 
 				var midPoints = boltGroup.BoltPositions;
 				foreach (var p in midPoints)
@@ -93,20 +56,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 			else
 			{
 				return null;
-			}
-		}
-
-		private void CheckAndAddConnectedObject<T>(TS.Part part, BoltGrid boltgrid)
-			where T : IIdeaObjectConnectable
-		{
-			IIdeaObject ideaObject = CheckMaybe<T>(part.Identifier.GUID.ToString());
-			if (ideaObject != null)
-			{
-				IIdeaObjectConnectable mainObject = GetMaybe<T>(part.Identifier.GUID.ToString());
-				if (mainObject != null)
-				{
-					(boltgrid.ConnectedParts as List<IIdeaObjectConnectable>).Add(mainObject);
-				}
 			}
 		}
 
@@ -133,7 +82,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
 
 			double boltDiameter = ((double)doublePropTable[TeklaPropertiesKeys.BoltDiameterKey]).MilimetersToMeters();
 
-			return new BoltAssembly(boltGroup.Identifier.GUID.ToString())
+			return new BoltAssembly(BoltAssemblyIdentity.Create(boltAssemblyName, boltGrade, boltDiameter))
 			{
 				BoreHole = boltDiameter + 0.001,
 				DiagonalHeadDiameter = boltDiameter * 1.7,

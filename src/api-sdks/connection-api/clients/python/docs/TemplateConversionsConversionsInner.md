@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **new_value** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
 **new_template_id** | **str** |  | [optional] 
-**type** | **str** |  | [optional] [default to 'IdeaStatiCa.Api.Connection.Model.PinTemplateConversion, IdeaStatiCa.Api']
+**type** | **str** |  | [default to 'IdeaStatiCa.Api.Connection.Model.PinTemplateConversion, IdeaStatiCa.Api']
 **is_bearing** | **bool** |  | [optional] 
 **original_member_name** | **str** |  | [optional] 
 **new_member_name** | **str** |  | [optional] 

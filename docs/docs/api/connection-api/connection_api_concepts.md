@@ -7,7 +7,7 @@ The Connection API requires IDEA StatiCa 24.1 or later. The SDK clients ship per
 If you have not run the service and made your first call yet, start with [Getting started](connection_api_getting_started.md). For what the API is and what it can do at a glance, see the [overview](connection_api_overview.md).
 
 > [!NOTE]
-> All REST paths on this page are relative to the API base path `/api/3`. The tables list the Python SDK accessor (`api_client.<group>.<method>`) and the C# SDK accessor (`conClient.<Group>.<Method>`) for each endpoint; both call the same REST operation.
+> All REST paths on this page are relative to the API base path `/api/5`. The tables list the Python SDK accessor (`api_client.<group>.<method>`) and the C# SDK accessor (`conClient.<Group>.<Method>`) for each endpoint; both call the same REST operation.
 
 ## Service and client lifecycle
 
@@ -303,8 +303,13 @@ Material endpoints follow one simple convention: **GET lists the items already u
 | `GET` / `POST /materials/welding` | `material.get_welding_materials` / `material.add_material_weld` | `Material.GetWeldingMaterialsAsync` / `Material.AddMaterialWeldAsync` |
 | `GET` / `POST /materials/headed-stud-grade` | `material.get_headed_stud_grade_materials` / `material.add_material_headed_stud_grade` | `Material.GetHeadedStudGradeMaterialsAsync` / `Material.AddMaterialHeadedStudGradeAsync` |
 | `GET` / `POST /materials/cross-sections` | `material.get_cross_sections` / `material.add_cross_section` | `Material.GetCrossSectionsAsync` / `Material.AddCrossSectionAsync` |
+| `GET /materials/cross-sections/{cssId}` | `material.get_cross_section` | `Material.GetCrossSectionAsync` |
+| `GET /materials/cross-sections/{cssId}/geometry` | `material.get_cross_section_geometry` | `Material.GetCrossSectionGeometryAsync` |
+| `GET /materials/cross-sections/parametric/shapes` / `.../shapes/{shapeType}` | `material.get_parametric_cross_section_shapes` / `material.get_parametric_cross_section_shape_template` | `Material.GetParametricCrossSectionShapesAsync` / `Material.GetParametricCrossSectionShapeTemplateAsync` |
+| `POST /materials/cross-sections/parametric` / `PUT .../parametric/{cssId}` | `material.add_parametric_cross_section` / `material.update_parametric_cross_section` | `Material.AddParametricCrossSectionAsync` / `Material.UpdateParametricCrossSectionAsync` |
 | `GET` / `POST /materials/bolt-assemblies` | `material.get_bolt_assemblies` / `material.add_bolt_assembly` | `Material.GetBoltAssembliesAsync` / `Material.AddBoltAssemblyAsync` |
 
+Cross-sections are a typed resource since API 5.0. Every cross-section route returns a `ConCrossSection` (`id`, `name`, `definition`); the definition is one of three kinds — a **library** section (MPRL name, material, mirroring), a **parametric** section (shape type, material, dimensions) or a **custom** section (components, each with its own material). The evaluated outline is a separate resource, `GET /materials/cross-sections/{cssId}/geometry`: closed chains of line and arc segments per component, each component naming the material it is made of, enough to draw the section. A parametric section is created from a shape template: list the shapes, fetch the template of one, change the dimensions you care about, set the material and post it back; `PUT` replaces the stored definition as a whole. API 4.0 and older return the IOM representation from `GET /materials/cross-sections` and serve none of the other cross-section routes.
 ## Calculation and results
 
 The calculate endpoint runs the CBFEM (Component-Based Finite Element Method) analysis — the same solver as the desktop application — for the connection ids you pass, and returns one `ConResultSummary` per connection. Results come at three levels of detail:

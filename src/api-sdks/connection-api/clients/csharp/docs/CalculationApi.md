@@ -96,7 +96,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/connections/calculate 
+> **POST** /api/5/projects/{projectId}/connections/calculate 
 
 #### Using the CalculateWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -229,7 +229,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/connections/{connectionId}/calculate 
+> **POST** /api/5/projects/{projectId}/connections/{connectionId}/calculate 
 
 #### Using the CalculateConnectionWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -364,7 +364,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/connections/{connectionId}/rawresults-text 
+> **POST** /api/5/projects/{projectId}/connections/{connectionId}/rawresults-text 
 
 #### Using the GetConnectionRawJsonResultsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -497,7 +497,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/connections/rawresults-text 
+> **POST** /api/5/projects/{projectId}/connections/rawresults-text 
 
 #### Using the GetRawJsonResultsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.
@@ -628,7 +628,7 @@ Looking for a code sample? request some help on our [discussion](https://github.
 
 All URIs are relative to *http://localhost*
 
-> **POST** /api/4/projects/{projectId}/connections/results 
+> **POST** /api/5/projects/{projectId}/connections/results 
 
 #### Using the GetResultsWithHttpInfo variant
 This returns an ApiResponse object which contains the response data, status code and headers.

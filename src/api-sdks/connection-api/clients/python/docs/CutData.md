@@ -6,10 +6,7 @@ Provides data of the cut beam
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**plane_point** | [**Point3D**](Point3D.md) |  | [optional] 
-**normal_vector** | [**Vector3D**](Vector3D.md) |  | [optional] 
-**direction** | [**CutOrientation**](CutOrientation.md) |  | [optional] 
-**offset** | **float** | Offset - shift of cut | [optional] 
+**id** | **int** | Element Id | [optional] 
 
 ## Example
 

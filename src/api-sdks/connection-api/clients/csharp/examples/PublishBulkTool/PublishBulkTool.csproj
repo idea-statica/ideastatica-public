@@ -14,6 +14,17 @@
 		<SelfContained>true</SelfContained>
 		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
 		<EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+
+		<!--
+			Publish really is one file: symbols go inside the executable, and the .pdb/.xml that come
+			with referenced assemblies are not copied next to it. This is what gets handed to customers
+			from the support page, so anything beside the .exe is something they can lose or mismatch.
+		-->
+		<DebugType>embedded</DebugType>
+		<PublishDocumentationFile>false</PublishDocumentationFile>
+		<PublishReferencesDocumentationFiles>false</PublishReferencesDocumentationFiles>
+		<AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
+		<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
 		<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
 	</PropertyGroup>
 
