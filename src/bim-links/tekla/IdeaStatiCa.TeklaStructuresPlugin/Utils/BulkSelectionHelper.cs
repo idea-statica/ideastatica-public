@@ -90,11 +90,13 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 						// look at when a connection is reported missing, so say which parts moved and how thick they came out.
 						var madeBy = beam.GetFatherComponent();
 						plugInLogger?.LogDebug($"FindJoints read as a plate rather than a member: '{beam.Name}' profile '{beam.Profile?.ProfileString}' thickness {plateItem.Thickness:F1} madeBy {madeBy?.GetType().Name ?? "(none)"} '{madeBy?.Name}' guid {beam.Identifier.GUID}");
-						continue;
 					}
-					var beamItem = new BIM.Common.Member(beam, partLcs, begin, end, cssBounds);
-					Register(beam, beamItem);
-					bMembers.Add(beamItem);
+					else
+					{
+						var beamItem = new BIM.Common.Member(beam, partLcs, begin, end, cssBounds);
+						Register(beam, beamItem);
+						bMembers.Add(beamItem);
+					}
 				}
 
 				if (currentPart is PolyBeam polyBeam)
@@ -176,15 +178,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 
 			ResolveClampedItems(clampedPartsByFastener, itemsByPart, plugInLogger);
 
-			var sorterData = new BIM.Common.SorterData
-			{
-				Members = bMembers,
-				Plates = plates,
-				Welds = welds,
-				Fasteners = fasteners
-			};
-
-			var sorter = new BIM.Common.ItemsSorter();
 			if (settings == null)
 			{
 				settings = new BIM.Common.SorterSettings
@@ -196,6 +189,16 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				};
 			}
 
+			var sorterData = new BIM.Common.SorterData
+			{
+				Members = bMembers,
+				Plates = plates,
+				Welds = welds,
+				Fasteners = fasteners,
+				MemberJoins = settings.UsesMemberJoins ? MembersJoinedByConnections(bMembers, itemsByPart, plugInLogger) : null,
+			};
+
+			var sorter = new BIM.Common.ItemsSorter();
 			var sortedJoints = sorter.Sort(sorterData, settings);
 
 			ReportItemsNoJointTook(sorterData, sortedJoints, settings, plugInLogger);
@@ -284,6 +287,74 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		}
 
 		/// <summary>
+		/// The pairs of selected members a Tekla connection joins: its primary part with each of its secondary parts,
+		/// where the selection built a member for both. Seams, details and other components are passed over; a
+		/// connection is what states that two members meet.
+		/// </summary>
+		private static List<(BIM.Common.Member First, BIM.Common.Member Second)> MembersJoinedByConnections(
+			IEnumerable<BIM.Common.Member> members,
+			IReadOnlyDictionary<string, List<BIM.Common.Item>> itemsByPart,
+			IPluginLogger plugInLogger)
+		{
+			var watch = System.Diagnostics.Stopwatch.StartNew();
+			var joins = new List<(BIM.Common.Member First, BIM.Common.Member Second)>();
+			var seenConnections = new HashSet<string>();
+			var seenPairs = new HashSet<(string, string)>();
+			foreach (var member in members)
+			{
+				if (!(member.Parent is Part part) || MemberBuiltFor(part, itemsByPart) == null)
+				{
+					continue;
+				}
+
+				var components = part.GetComponents();
+				while (components != null && components.MoveNext())
+				{
+					if (!(components.Current is Connection connection) || !seenConnections.Add(connection.Identifier.GUID.ToString()))
+					{
+						continue;
+					}
+
+					var primary = MemberBuiltFor(connection.GetPrimaryObject(), itemsByPart);
+					if (primary == null)
+					{
+						continue;
+					}
+
+					foreach (var secondaryObject in connection.GetSecondaryObjects()?.OfType<ModelObject>() ?? Enumerable.Empty<ModelObject>())
+					{
+						var secondary = MemberBuiltFor(secondaryObject, itemsByPart);
+						if (secondary == null || ReferenceEquals(secondary, primary))
+						{
+							continue;
+						}
+
+						var first = (primary.Parent as ModelObject).Identifier.GUID.ToString();
+						var second = (secondary.Parent as ModelObject).Identifier.GUID.ToString();
+						if (!seenPairs.Add(string.CompareOrdinal(first, second) < 0 ? (first, second) : (second, first)))
+						{
+							continue;
+						}
+
+						joins.Add((primary, secondary));
+						plugInLogger?.LogDebug($"FindJoints connection '{connection.Name}' ({connection.Number}) joins {Describe(primary.Parent as ModelObject)} and {Describe(secondary.Parent as ModelObject)}");
+					}
+				}
+			}
+
+			plugInLogger?.LogInformation($"FindJoints {seenConnections.Count} connections join {joins.Count} pairs of selected members, read in {watch.ElapsedMilliseconds} ms");
+			return joins;
+		}
+
+		// A polybeam's member runs between its first two points only, so its ends say nothing about where it meets.
+		private static BIM.Common.Member MemberBuiltFor(ModelObject source, IReadOnlyDictionary<string, List<BIM.Common.Item>> itemsByPart)
+		{
+			return source != null && !(source is PolyBeam) && itemsByPart.TryGetValue(source.Identifier.GUID.ToString(), out var built)
+				? built.OfType<BIM.Common.Member>().FirstOrDefault()
+				: null;
+		}
+
+		/// <summary>
 		/// Names every selected part no joint claimed. A part the user selected but no node box reached is not taken,
 		/// so it never widens the box toward itself and stays untaken - and it is then absent from the model entirely,
 		/// which downstream reads as a bolt grid or weld holding one part rather than as a plate that went missing.
@@ -292,6 +363,10 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		/// <para>
 		/// For such a member it also says, end by end, where the nearest member lies: against its contact band, and
 		/// relative to the end's own node box.
+		/// </para>
+		/// <para>
+		/// For such a plate it names every bolt group a joint took that clamps it: a group a node box takes does not
+		/// bring the plates it clamps along.
 		/// </para>
 		/// </summary>
 		private static void ReportItemsNoJointTook(BIM.Common.SorterData sorterData, BIM.Common.SorterResult sortedJoints, BIM.Common.SorterSettings settings, IPluginLogger plugInLogger)
@@ -314,6 +389,23 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				.Concat(sorterData.Fasteners ?? Enumerable.Empty<BIM.Common.FastenerGrid>())
 				.Concat(sorterData.Welds ?? Enumerable.Empty<BIM.Common.Weld>());
 
+			var takenGroupsByClampedItem = new Dictionary<BIM.Common.Item, List<(BIM.Common.Joint Joint, BIM.Common.FastenerGrid Group)>>();
+			foreach (var joint in sortedJoints.Joints)
+			{
+				foreach (var group in joint.Fasteners)
+				{
+					foreach (var clamped in group.ClampedItems.Distinct())
+					{
+						if (!takenGroupsByClampedItem.TryGetValue(clamped, out var groups))
+						{
+							takenGroupsByClampedItem[clamped] = groups = new List<(BIM.Common.Joint, BIM.Common.FastenerGrid)>();
+						}
+
+						groups.Add((joint, group));
+					}
+				}
+			}
+
 			foreach (var item in selected)
 			{
 				if (taken.Contains(item))
@@ -322,6 +414,16 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 				}
 
 				plugInLogger.LogInformation($"FindJoints selected but no joint took it: {item.GetType().Name} {Describe(item.Parent as ModelObject)}");
+
+				if (!(item is BIM.Common.Plate plate) || !takenGroupsByClampedItem.TryGetValue(plate, out var clampingGroups))
+				{
+					continue;
+				}
+
+				foreach (var (joint, group) in clampingGroups)
+				{
+					plugInLogger.LogInformation($"FindJoints {Describe(group.Parent as ModelObject)} clamps it, and the joint at ({joint.Location.X:F0}, {joint.Location.Y:F0}, {joint.Location.Z:F0}) took that group without it");
+				}
 			}
 
 			foreach (var miss in BIM.Common.MemberEndMiss.Measure(members.Where(m => !taken.Contains(m)), members, settings))

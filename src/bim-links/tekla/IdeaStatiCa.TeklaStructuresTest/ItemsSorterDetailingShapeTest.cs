@@ -184,6 +184,98 @@ namespace IdeaStatiCa.TeklaStructuresTest
 			result.Joints.Count(j => j.Fasteners.Contains(bolts)).Should().Be(1);
 		}
 
+		/// <summary>
+		/// The last pass hands a joint the plates a fastener clamps after the joint's welds were collected, so a weld on
+		/// such a plate has to be collected again, or it stays out of the joint that holds both of its items.
+		/// </summary>
+		[Test]
+		public void PlateTheLastPassTakes_BringsItsWeldIntoTheJoint()
+		{
+			var frame = Frame();
+			// Outside the node box, but within the reach of the weld that ties it to the beam.
+			var gusset = MakePlate("gusset", at: new Point3D(0, 300, 0), halfSize: 100);
+			// Welded only to each other, so no weld leads to either from anything a joint holds: only the fastener
+			// places them.
+			var tab = MakePlate("tab", at: new Point3D(0, 600, 0), halfSize: 100);
+			var cleat = MakePlate("cleat", at: new Point3D(0, 800, 0), halfSize: 100);
+			var bolts = MakeFastener("bolts", new Point3D(0, 450, 0), gusset, tab, cleat);
+			var tabWeld = new Weld("tab-weld", tab, cleat);
+
+			var data = new SorterData
+			{
+				Members = new List<Member>(frame),
+				Plates = new List<Plate> { gusset, tab, cleat },
+				Welds = new List<Weld> { new Weld("beam-weld", frame[1], gusset), tabWeld },
+				Fasteners = new List<FastenerGrid> { bolts },
+			};
+
+			var joint = new ItemsSorter().Sort(data, ModelCoordinatorSettings).Joints.Single();
+
+			joint.Plates.Should().Contain(new[] { tab, cleat });
+			joint.Welds.Should().Contain(tabWeld);
+		}
+
+		/// <summary>
+		/// A joint reaches for a plate from every node it was built from, so it is measured from the nearest of them
+		/// too. The cleat is welded to a beam both joints hold and lies within the reach of both; it sits beside the end
+		/// of the brace that framed into the first joint, while the node that joint was built around is farther from
+		/// it than the second joint is.
+		/// </summary>
+		[Test]
+		public void PlateBothJointsReach_GoesToTheJointWithTheNearestNode()
+		{
+			var nearColumn = MakeMember("near-column", from: new Point3D(0, 0, -3000), to: Origin, cssWidth: 300, cssHeight: 400);
+			var beam = MakeMember("beam", from: Origin, to: new Point3D(1600, 0, 0), cssWidth: 200, cssHeight: 500);
+			var farColumn = MakeMember("far-column", from: new Point3D(1600, 0, -3000), to: new Point3D(1600, 0, 0), cssWidth: 300, cssHeight: 400);
+			// Ends inside the beam's node box at the origin, 350 mm along the beam.
+			var brace = MakeMember("brace", from: new Point3D(350, 0, -150), to: new Point3D(350, -2000, -2150), cssWidth: 100, cssHeight: 100);
+			// 950 mm from the origin and 650 mm from the far column, but about 610 mm from the brace's end.
+			var cleat = MakePlate("cleat", at: new Point3D(950, 0, 0), halfSize: 50);
+
+			var data = new SorterData
+			{
+				Members = new List<Member> { nearColumn, beam, farColumn, brace },
+				Plates = new List<Plate> { cleat },
+				Welds = new List<Weld> { new Weld("cleat-weld", beam, cleat) },
+				Fasteners = new List<FastenerGrid>(),
+			};
+
+			var result = new ItemsSorter().Sort(data, ModelCoordinatorSettings);
+
+			result.Joints.Should().HaveCount(2);
+			result.Joints.Single(j => j.Plates.Contains(cleat)).Members.Should().Contain(brace);
+		}
+
+		/// <summary>
+		/// A node box is clamped to the maximum inflate extent only when it inflates, and the girder's end connects
+		/// nothing of its own, so its box is still the one its deep section sizes. The reach it lends the joint must be
+		/// clamped like every other, or a cleat welded far along the girder lands in a joint it has nothing to do with.
+		/// </summary>
+		[Test]
+		public void PlateWeldedFarAlongADeepMember_IsNotRecoveredThroughAnEndThatNeverInflated()
+		{
+			var column = MakeMember("column", from: new Point3D(0, 0, -3000), to: Origin, cssWidth: 300, cssHeight: 400);
+			var beam = MakeMember("beam", from: Origin, to: new Point3D(0, -6000, 0), cssWidth: 200, cssHeight: 500);
+			// Its end lies inside the beam's node box, but that node lies 200 mm across the girder, outside the end's own
+			// box, so the end's box takes nothing.
+			var girder = MakeMember("girder", from: new Point3D(0, 200, 0), to: new Point3D(8000, 200, 0), cssWidth: 300, cssHeight: 1000);
+			// Within three times the girder end's own box, beyond three times any clamped one.
+			var cleat = MakePlate("cleat", at: new Point3D(1500, 200, 0), halfSize: 50);
+
+			var data = new SorterData
+			{
+				Members = new List<Member> { column, beam, girder },
+				Plates = new List<Plate> { cleat },
+				Welds = new List<Weld> { new Weld("cleat-weld", girder, cleat) },
+				Fasteners = new List<FastenerGrid>(),
+			};
+
+			var joint = new ItemsSorter().Sort(data, ModelCoordinatorSettings).Joints.Single();
+
+			joint.Members.Should().Contain(girder);
+			joint.Plates.Should().NotContain(cleat);
+		}
+
 		private static readonly IPoint3D Origin = new Point3D(0, 0, 0);
 
 		/// <summary>
