@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.ComponentModel;
 
 namespace IdeaStatiCa.Api.Connection.Model
 {
@@ -16,8 +16,13 @@ namespace IdeaStatiCa.Api.Connection.Model
 		//Related to connection?
 		public ConAnalysisTypeEnum AnalysisType { get; set; }
 
-		[Obsolete("This property is currently ignored and not updated")]
-		public bool IsCalculated { get; }
+		/// <summary>
+		/// True when the connection has calculated results, which the results and report endpoints read.
+		/// Set by the service; a value sent in an update is ignored. Changing the analysis type or the
+		/// buckling switch removes the results, so it goes back to false.
+		/// </summary>
+		[ReadOnly(true)]
+		public bool IsCalculated { get; set; }
 
 		public bool IncludeBuckling { get; set; }
 
