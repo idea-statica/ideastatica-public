@@ -34,10 +34,9 @@ class ConConnection(BaseModel):
     name: Optional[StrictStr] = None
     description: Optional[StrictStr] = None
     analysis_type: Optional[ConAnalysisTypeEnum] = Field(default=None, alias="analysisType")
-    is_calculated: Optional[StrictBool] = Field(default=None, alias="isCalculated")
     include_buckling: Optional[StrictBool] = Field(default=None, alias="includeBuckling")
     steel_edition: Optional[ConSteelCodeEditionEnum] = Field(default=None, alias="steelEdition")
-    __properties: ClassVar[List[str]] = ["id", "identifier", "name", "description", "analysisType", "isCalculated", "includeBuckling", "steelEdition"]
+    __properties: ClassVar[List[str]] = ["id", "identifier", "name", "description", "analysisType", "includeBuckling", "steelEdition"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -72,7 +71,6 @@ class ConConnection(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
-            "is_calculated",
         ])
 
         _dict = self.model_dump(
@@ -112,7 +110,6 @@ class ConConnection(BaseModel):
             "name": obj.get("name"),
             "description": obj.get("description"),
             "analysisType": obj.get("analysisType"),
-            "isCalculated": obj.get("isCalculated"),
             "includeBuckling": obj.get("includeBuckling"),
             "steelEdition": obj.get("steelEdition")
         })
