@@ -11515,6 +11515,7 @@ components:
       enum:
       - new
       - existing
+      - "no"
       type: string
     ConBoltGridOperation:
       additionalProperties: false

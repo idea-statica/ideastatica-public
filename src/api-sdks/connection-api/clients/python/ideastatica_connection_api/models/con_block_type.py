@@ -29,6 +29,7 @@ class ConBlockType(str, Enum):
     """
     NEW = 'new'
     EXISTING = 'existing'
+    NO = 'no'
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

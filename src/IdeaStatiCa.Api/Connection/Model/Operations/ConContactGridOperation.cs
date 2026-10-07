@@ -6,7 +6,8 @@ using Newtonsoft.Json;
 namespace IdeaStatiCa.Api.Connection.Model.Operations
 {
 	/// <summary>
-	/// Contact grid operation. A base plate placed against a foundation block (no fasteners).
+	/// Contact grid operation (no fasteners). A base plate placed against a foundation block, or —
+	/// with <see cref="BlockType"/> <see cref="ConBlockType.No"/> — plates in contact with each other.
 	/// Maps to the new-model <c>ContactGridOperation</c>.
 	///
 	/// <para>Not to be confused with the "Contact" element of the WeldOrContact operation,
@@ -25,7 +26,7 @@ namespace IdeaStatiCa.Api.Connection.Model.Operations
 			Active = true;
 		}
 
-		/// <summary>Plates / members connected by the contact.</summary>
+		/// <summary>Plates / members connected by the contact. At least two when <see cref="BlockType"/> is <see cref="ConBlockType.No"/>.</summary>
 		public List<ConConnectedItem> ConnectedItems { get; set; } = new List<ConConnectedItem>();
 
 		/// <summary>New block properties. Required when <see cref="BlockType"/> is <see cref="ConBlockType.New"/>.</summary>
