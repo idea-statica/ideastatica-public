@@ -11785,7 +11785,6 @@ components:
         identifier: identifier
         includeBuckling: true
         steelEdition: NotSpecified
-        isCalculated: true
         name: name
         description: description
         id: 0
@@ -11805,10 +11804,6 @@ components:
           type: string
         analysisType:
           $ref: '#/components/schemas/ConAnalysisTypeEnum'
-        isCalculated:
-          deprecated: true
-          readOnly: true
-          type: boolean
         includeBuckling:
           type: boolean
         steelEdition:
@@ -14078,7 +14073,6 @@ components:
         - identifier: identifier
           includeBuckling: true
           steelEdition: NotSpecified
-          isCalculated: true
           name: name
           description: description
           id: 0
@@ -14086,7 +14080,6 @@ components:
         - identifier: identifier
           includeBuckling: true
           steelEdition: NotSpecified
-          isCalculated: true
           name: name
           description: description
           id: 0

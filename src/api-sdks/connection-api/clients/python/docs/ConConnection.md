@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **name** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
 **analysis_type** | [**ConAnalysisTypeEnum**](ConAnalysisTypeEnum.md) |  | [optional] 
-**is_calculated** | **bool** |  | [optional] [readonly] 
 **include_buckling** | **bool** |  | [optional] 
 **steel_edition** | [**ConSteelCodeEditionEnum**](ConSteelCodeEditionEnum.md) |  | [optional] 
 
