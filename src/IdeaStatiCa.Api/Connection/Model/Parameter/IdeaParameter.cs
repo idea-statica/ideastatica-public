@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using IdeaStatiCa.Api.Connection.Model.Parameters;
+using Newtonsoft.Json;
 
 namespace IdeaStatiCa.Api.Connection.Model
 {
@@ -22,12 +23,9 @@ namespace IdeaStatiCa.Api.Connection.Model
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public bool? IsVisible { get; set; }
 
-		/// <summary>
-		/// The quantity the value stands for, e.g. <c>LengthComponent</c>, <c>WeldSize</c>, <c>Angle</c> -
-		/// the application's <i>Value type</i>, which decides the unit it displays the value in.
-		/// </summary>
+		/// <summary>The quantity the value stands for, which decides the unit the application displays it in.</summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string ValueType { get; set; }
+		public ConParameterValueType? ValueType { get; set; }
 	}
 
 	public class IdeaParameterValidation
@@ -59,7 +57,7 @@ namespace IdeaStatiCa.Api.Connection.Model
 		public string Unit { get; set; }
 
 		/// <summary>The quantity the value stands for - the application's <i>Value type</i>.</summary>
-		public string ValueType { get; set; }
+		public ConParameterValueType? ValueType { get; set; }
 
 		public string ParameterType { get; set; }
 
