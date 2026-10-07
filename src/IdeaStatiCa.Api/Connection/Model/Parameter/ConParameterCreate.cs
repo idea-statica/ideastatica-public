@@ -29,6 +29,22 @@ namespace IdeaStatiCa.Api.Connection.Model.Parameters
 
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string? UpperBound { get; set; }
+
+		/// <summary>
+		/// Whether the application lists the parameter as an input. Omitted means visible; send false for a
+		/// derived parameter that only carries an expression other parameters or properties use.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public bool? IsVisible { get; set; }
+
+		/// <summary>
+		/// The quantity the value stands for, e.g. <c>LengthComponent</c>, <c>WeldSize</c>, <c>Angle</c> -
+		/// the application's <i>Value type</i>, which decides the unit it displays the value in. Values
+		/// are always written in SI; this changes only how they are shown. Omitted means <c>Generic</c>,
+		/// shown with no unit.
+		/// </summary>
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public string? ValueType { get; set; }
 	}
 
 	/// <summary>
