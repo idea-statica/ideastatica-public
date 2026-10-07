@@ -230,7 +230,7 @@ We provide a general **GetValue(member, property, default)** function that can b
 
 The third parameter `default` is optional. When the property is not found:
 
-* with a default provided, the default value is returned, e.g. `GetValue('B', 'Css.R2', 50)` returns `50`;
+* with a default provided, the default value is returned, e.g. `GetValue('B', 'Css.FooProperty', 50)` returns `50`;
 * without a default, the string `Property '<property>' not found` is returned.
 
 Properties whose value is an enumeration are returned as strings (e.g. `GetValue('B', 'ForcesIn')` returns `'Node'`).
@@ -410,12 +410,29 @@ Painting surface as surface of 1m long part of beam with that cross-section | `G
 
 #### Cross-section geometry components
 
-Geometric properties of the cross-section shape components (e.g. fillet radii of rolled sections) can be accessed via the `Css.` prefix. The property is searched in the geometry of the cross-section components of the member. The optional default value of `GetValue` is useful here because the available properties differ per section shape.
+Geometric properties of the cross-section shape, such as the radii of rolled sections, can be read with the `Css.` prefix: `GetValue(member, 'Css.<Property>')`. The property names depend on the section shape and are the internal names of the section geometry, not the symbols from section tables. Values are returned in m.
+
+**Section** | **Web-flange joint radius** ¹⁾ | **Flange bevel radius** | **Other radii**
+----|----|----|----
+Rolled I (e.g. IPE, HEA, IPN), also Rolled pair of I and Welded Box made of two rolled I | `Css.Arc` | `Css.R1` | –
+Rolled T (e.g. WT), also Rolled T (I-cut) | `Css.R` | `Css.R1` | `Css.R2` – web tip radius
+Rolled angle section, also rolled pairs of L | `Css.Rw` | `Css.ToeRadius` | –
+Rolled channel section (e.g. UPN), also rolled pairs of U | `Css.Rw` | `Css.Rf` | –
+Welded I section, Welded T section, Welded Box made of plates | – | – | –
+
+> [NOTE]
+> * ¹⁾ A Rolled angle section has two legs instead of a web and a flange, so for an angle this is the root radius between the legs. The cross-section editor uses the same label, *Web-flange joint radius*, for angles.
+> * `Css.R1` is the **flange bevel radius**, not the r1 of DIN/EN section tables (where r1 is the web-flange joint radius). For the web-flange joint radius of a Rolled I use `Css.Arc`.
+> * A radius which the section does not have is stored as 0.0001 m. For example, `Css.R1` of an IPE or HEA (flanges without a bevel radius) returns `0.0001`, not `0`.
+> * Welded sections have no radii, so no radius property is found on them. To use the same expression for rolled and welded members, provide a default value, e.g. `GetValue('B', 'Css.Arc', 0)`.
 
 **Description** | **Example Input** | **Example Output**
 ----|----|----
-Fillet radius of a rolled section | `GetValue('B', 'Css.R1')` | 
-Fillet radius with a fallback when the shape has no R2 | `GetValue('B', 'Css.R2', 0)` | 
+Web-flange joint radius of a Rolled I (`B` = IPE200) | `GetValue('B', 'Css.Arc')` | 0.012
+Flange bevel radius of a Rolled I (`B` = IPN200) | `GetValue('B', 'Css.R1')` | 0.0045
+Web-flange joint radius of a Rolled T (`B` = WT4X9) | `GetValue('B', 'Css.R')` | 0.00762
+Web-flange joint radius of a Rolled angle section (`B` = L100x10) | `GetValue('B', 'Css.Rw')` | 0.012
+Property which does not exist, with a default value | `GetValue('B', 'Css.FooProperty', 0)` | 0
 
 ### Member relating section material property functions
 
