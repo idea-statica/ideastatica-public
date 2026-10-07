@@ -38,13 +38,11 @@ namespace IdeaStatiCa.Api.Connection.Model.Parameters
 		public bool? IsVisible { get; set; }
 
 		/// <summary>
-		/// The quantity the value stands for, e.g. <c>LengthComponent</c>, <c>WeldSize</c>, <c>Angle</c> -
-		/// the application's <i>Value type</i>, which decides the unit it displays the value in. Values
-		/// are always written in SI; this changes only how they are shown. Omitted means <c>Generic</c>,
-		/// shown with no unit.
+		/// The quantity the value stands for, which decides the unit the application displays it in.
+		/// Omitted means <see cref="ConParameterValueType.Generic"/>, shown with no unit.
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public string? ValueType { get; set; }
+		public ConParameterValueType? ValueType { get; set; }
 	}
 
 	/// <summary>
