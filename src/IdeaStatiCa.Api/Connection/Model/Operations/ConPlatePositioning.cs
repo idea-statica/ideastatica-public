@@ -9,7 +9,7 @@ namespace IdeaStatiCa.Api.Connection.Model.Operations
 		public ConPlatePositioningEnum? ConPlatePositioningType { get; set; }
 
 		/// <summary>
-		/// Used with <see cref="ConPlatePositioningEnum.ConcreteBlock"/>. Despite the name, not a block index: the id
+		/// Used when conPlatePositioningType is concreteBlock. Despite the name, not a block index: the id
 		/// of the operation that creates the concrete block, i.e. an anchor grid or contact grid whose blockType is
 		/// new (list them with GET .../operations/anchor-grid and .../operations/contact-grid). The operation must
 		/// come before the plate, i.e. have a lower id.
@@ -17,7 +17,7 @@ namespace IdeaStatiCa.Api.Connection.Model.Operations
 		public int ConcreteBlockIndex { get; set; }
 
 		/// <summary>
-		/// Used with <see cref="ConPlatePositioningEnum.ConcreteBlock"/>. The face of the block the plate is placed
+		/// Used when conPlatePositioningType is concreteBlock. The face of the block the plate is placed
 		/// on, 1 to 6 for a rectangular block: 1 to 4 are the sides, 5 is the bottom and 6 is the top.
 		/// </summary>
 		public int ConcreteSurface { get; set; }
