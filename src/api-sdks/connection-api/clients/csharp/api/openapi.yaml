@@ -11303,7 +11303,6 @@ components:
         - angle: 4.145608029883936
           sizeFactor: 7.386281948385884
         washerPlateSize: 7.061401241503109
-        existingBlockOperationId: 1
         isExploded: true
         anchorAssemblyId: 0
         anchorDiameter: 5.962133916683182
@@ -11331,7 +11330,6 @@ components:
             z: 7.386281948385884
         id: 4
         headDiameter: 5.637376656633329
-        blockType: new
         foundationBlock:
           offsetTop: 7.386281948385884
           mortarThickness: 7.457744773683766
@@ -11474,12 +11472,6 @@ components:
           type: array
         foundationBlock:
           $ref: '#/components/schemas/ConFoundationBlockDto'
-        blockType:
-          $ref: '#/components/schemas/ConBlockType'
-        existingBlockOperationId:
-          format: int32
-          nullable: true
-          type: integer
         plateSide:
           $ref: '#/components/schemas/ConPlateSide'
         isImported:
@@ -11495,6 +11487,8 @@ components:
           type: string
         active:
           type: boolean
+      required:
+      - foundationBlock
       type: object
     ConAnchorType:
       enum:
@@ -11910,9 +11904,7 @@ components:
     ConContactGridOperation:
       additionalProperties: false
       example:
-        existingBlockOperationId: 0
         isImported: true
-        blockType: new
         foundationBlock:
           offsetTop: 7.386281948385884
           mortarThickness: 7.457744773683766
@@ -11945,12 +11937,6 @@ components:
           type: array
         foundationBlock:
           $ref: '#/components/schemas/ConFoundationBlockDto'
-        blockType:
-          $ref: '#/components/schemas/ConBlockType'
-        existingBlockOperationId:
-          format: int32
-          nullable: true
-          type: integer
         plateSide:
           $ref: '#/components/schemas/ConPlateSide'
         isImported:
@@ -12739,6 +12725,12 @@ components:
         height: 6.84685269835264
         shearForceTransfer: friction
       properties:
+        blockType:
+          $ref: '#/components/schemas/ConBlockType'
+        existingBlockOperationId:
+          format: int32
+          nullable: true
+          type: integer
         concreteMaterialId:
           format: int32
           type: integer

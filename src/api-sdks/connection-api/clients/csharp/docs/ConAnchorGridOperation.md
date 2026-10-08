@@ -23,9 +23,7 @@ Name | Type | Description | Notes
 **DefinedBy** | **ConDefinedBy** |  | [optional] 
 **CoordinateSystem** | [**ConLocalCoordinateSystem**](ConLocalCoordinateSystem.md) |  | [optional] 
 **SlottedHoles** | [**List&lt;ConSlottedHole&gt;**](ConSlottedHole.md) |  | [optional] 
-**FoundationBlock** | [**ConFoundationBlockDto**](ConFoundationBlockDto.md) |  | [optional] 
-**BlockType** | **ConBlockType** |  | [optional] 
-**ExistingBlockOperationId** | **int?** |  | [optional] 
+**FoundationBlock** | [**ConFoundationBlockDto**](ConFoundationBlockDto.md) |  | 
 **PlateSide** | **ConPlateSide** |  | [optional] 
 **IsImported** | **bool** |  | [optional] 
 **OperationType** | **string** |  | [optional] 

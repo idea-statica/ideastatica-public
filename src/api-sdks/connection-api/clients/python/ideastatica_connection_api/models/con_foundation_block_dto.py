@@ -21,6 +21,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from ideastatica_connection_api.models.con_base_plate_contact_type import ConBasePlateContactType
+from ideastatica_connection_api.models.con_block_type import ConBlockType
 from ideastatica_connection_api.models.con_shear_force_transfer_method import ConShearForceTransferMethod
 from typing import Optional, Set
 from typing_extensions import Self
@@ -29,6 +30,8 @@ class ConFoundationBlockDto(BaseModel):
     """
     ConFoundationBlockDto
     """ # noqa: E501
+    block_type: Optional[ConBlockType] = Field(default=None, alias="blockType")
+    existing_block_operation_id: Optional[StrictInt] = Field(default=None, alias="existingBlockOperationId")
     concrete_material_id: Optional[StrictInt] = Field(default=None, alias="concreteMaterialId")
     offset_top: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="offsetTop")
     offset_bottom: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="offsetBottom")
@@ -38,7 +41,7 @@ class ConFoundationBlockDto(BaseModel):
     shear_force_transfer: Optional[ConShearForceTransferMethod] = Field(default=None, alias="shearForceTransfer")
     contact_type: Optional[ConBasePlateContactType] = Field(default=None, alias="contactType")
     mortar_thickness: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="mortarThickness")
-    __properties: ClassVar[List[str]] = ["concreteMaterialId", "offsetTop", "offsetBottom", "offsetLeft", "offsetRight", "height", "shearForceTransfer", "contactType", "mortarThickness"]
+    __properties: ClassVar[List[str]] = ["blockType", "existingBlockOperationId", "concreteMaterialId", "offsetTop", "offsetBottom", "offsetLeft", "offsetRight", "height", "shearForceTransfer", "contactType", "mortarThickness"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -79,6 +82,11 @@ class ConFoundationBlockDto(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if existing_block_operation_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.existing_block_operation_id is None and "existing_block_operation_id" in self.model_fields_set:
+            _dict['existingBlockOperationId'] = None
+
         return _dict
 
     @classmethod
@@ -91,6 +99,8 @@ class ConFoundationBlockDto(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "blockType": obj.get("blockType"),
+            "existingBlockOperationId": obj.get("existingBlockOperationId"),
             "concreteMaterialId": obj.get("concreteMaterialId"),
             "offsetTop": obj.get("offsetTop"),
             "offsetBottom": obj.get("offsetBottom"),
