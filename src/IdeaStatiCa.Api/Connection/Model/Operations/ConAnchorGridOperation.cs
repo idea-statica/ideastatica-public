@@ -111,15 +111,9 @@ namespace IdeaStatiCa.Api.Connection.Model.Operations
 
 		// --- Foundation block ---
 
-		/// <summary>New block properties. Required when <see cref="BlockType"/> is <see cref="ConBlockType.New"/>.</summary>
+		/// <summary>The concrete block the anchors go into — a new one or an existing one. Required.</summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public ConFoundationBlockDto? FoundationBlock { get; set; }
-
-		public ConBlockType BlockType { get; set; } = ConBlockType.New;
-
-		/// <summary>Operation ID of the existing block. Required when <see cref="BlockType"/> is <see cref="ConBlockType.Existing"/>.</summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public int? ExistingBlockOperationId { get; set; }
 
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public ConPlateSide? PlateSide { get; set; }

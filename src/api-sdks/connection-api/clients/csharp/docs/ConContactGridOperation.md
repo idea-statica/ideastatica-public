@@ -6,8 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ConnectedItems** | [**List&lt;ConConnectedItem&gt;**](ConConnectedItem.md) |  | [optional] 
 **FoundationBlock** | [**ConFoundationBlockDto**](ConFoundationBlockDto.md) |  | [optional] 
-**BlockType** | **ConBlockType** |  | [optional] 
-**ExistingBlockOperationId** | **int?** |  | [optional] 
 **PlateSide** | **ConPlateSide** |  | [optional] 
 **IsImported** | **bool** |  | [optional] 
 **OperationType** | **string** |  | [optional] 

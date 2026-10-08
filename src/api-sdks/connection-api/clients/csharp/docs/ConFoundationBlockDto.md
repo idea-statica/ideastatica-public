@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**BlockType** | **ConBlockType** |  | [optional] 
+**ExistingBlockOperationId** | **int?** |  | [optional] 
 **ConcreteMaterialId** | **int** |  | [optional] 
 **OffsetTop** | **double** |  | [optional] 
 **OffsetBottom** | **double** |  | [optional] 

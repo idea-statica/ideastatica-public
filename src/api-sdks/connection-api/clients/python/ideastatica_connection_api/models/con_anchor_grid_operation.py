@@ -21,7 +21,6 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from ideastatica_connection_api.models.con_anchor_type import ConAnchorType
-from ideastatica_connection_api.models.con_block_type import ConBlockType
 from ideastatica_connection_api.models.con_connected_item import ConConnectedItem
 from ideastatica_connection_api.models.con_defined_by import ConDefinedBy
 from ideastatica_connection_api.models.con_foundation_block_dto import ConFoundationBlockDto
@@ -58,15 +57,13 @@ class ConAnchorGridOperation(BaseModel):
     coordinate_system: Optional[ConLocalCoordinateSystem] = Field(default=None, alias="coordinateSystem")
     slotted_holes: Optional[List[ConSlottedHole]] = Field(default=None, alias="slottedHoles")
     foundation_block: Optional[ConFoundationBlockDto] = Field(default=None, alias="foundationBlock")
-    block_type: Optional[ConBlockType] = Field(default=None, alias="blockType")
-    existing_block_operation_id: Optional[StrictInt] = Field(default=None, alias="existingBlockOperationId")
     plate_side: Optional[ConPlateSide] = Field(default=None, alias="plateSide")
     is_imported: Optional[StrictBool] = Field(default=None, alias="isImported")
     operation_type: Optional[StrictStr] = Field(default=None, alias="operationType")
     id: Optional[StrictInt] = None
     name: Optional[StrictStr] = None
     active: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["connectedItems", "anchorType", "anchorAssemblyId", "embedmentDepth", "hookLength", "anchorDiameter", "headDiameter", "headedStudMaterialId", "washerPlateShape", "washerPlateSize", "reinforcementMaterialId", "reinforcementShape", "mandrelDiameter", "hookRotations", "isExploded", "geometry", "definedBy", "coordinateSystem", "slottedHoles", "foundationBlock", "blockType", "existingBlockOperationId", "plateSide", "isImported", "operationType", "id", "name", "active"]
+    __properties: ClassVar[List[str]] = ["connectedItems", "anchorType", "anchorAssemblyId", "embedmentDepth", "hookLength", "anchorDiameter", "headDiameter", "headedStudMaterialId", "washerPlateShape", "washerPlateSize", "reinforcementMaterialId", "reinforcementShape", "mandrelDiameter", "hookRotations", "isExploded", "geometry", "definedBy", "coordinateSystem", "slottedHoles", "foundationBlock", "plateSide", "isImported", "operationType", "id", "name", "active"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -160,11 +157,6 @@ class ConAnchorGridOperation(BaseModel):
         if self.slotted_holes is None and "slotted_holes" in self.model_fields_set:
             _dict['slottedHoles'] = None
 
-        # set to None if existing_block_operation_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.existing_block_operation_id is None and "existing_block_operation_id" in self.model_fields_set:
-            _dict['existingBlockOperationId'] = None
-
         # set to None if operation_type (nullable) is None
         # and model_fields_set contains the field
         if self.operation_type is None and "operation_type" in self.model_fields_set:
@@ -207,8 +199,6 @@ class ConAnchorGridOperation(BaseModel):
             "coordinateSystem": ConLocalCoordinateSystem.from_dict(obj["coordinateSystem"]) if obj.get("coordinateSystem") is not None else None,
             "slottedHoles": [ConSlottedHole.from_dict(_item) for _item in obj["slottedHoles"]] if obj.get("slottedHoles") is not None else None,
             "foundationBlock": ConFoundationBlockDto.from_dict(obj["foundationBlock"]) if obj.get("foundationBlock") is not None else None,
-            "blockType": obj.get("blockType"),
-            "existingBlockOperationId": obj.get("existingBlockOperationId"),
             "plateSide": obj.get("plateSide"),
             "isImported": obj.get("isImported"),
             "operationType": obj.get("operationType"),
