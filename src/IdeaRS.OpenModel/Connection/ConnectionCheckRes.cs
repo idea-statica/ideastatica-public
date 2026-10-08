@@ -353,8 +353,9 @@ namespace IdeaRS.OpenModel.Connection
 
 		/// <summary>
 		/// True when the check does not rate this weld by a stress utilisation, so its check is
-		/// satisfied by definition. Set for butt/bevel welds (e.g. CJP) and for any weld placed
-		/// edge-to-edge - despite the name, the latter includes fillet welds, so this flag is not a
+		/// satisfied by definition. Set for full-penetration butt welds assumed as strong as the parent
+		/// metal (a CJP weld set to be checked is rated like a fillet or PJP weld instead) and for any weld
+		/// placed edge-to-edge - despite the name, the latter includes fillet welds, so this flag is not a
 		/// statement that the weld develops the capacity of the connected plates. <see cref="UnityCheck"/>
 		/// is NaN and <see cref="CheckStatus"/> is true in that case
 		/// </summary>
