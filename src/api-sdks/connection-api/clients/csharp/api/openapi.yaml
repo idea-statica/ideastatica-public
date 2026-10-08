@@ -11487,6 +11487,8 @@ components:
           type: string
         active:
           type: boolean
+      required:
+      - foundationBlock
       type: object
     ConAnchorType:
       enum:

@@ -111,9 +111,9 @@ namespace IdeaStatiCa.Api.Connection.Model.Operations
 
 		// --- Foundation block ---
 
-		/// <summary>The concrete block the anchors go into — a new one or an existing one. Required.</summary>
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public ConFoundationBlockDto? FoundationBlock { get; set; }
+		/// <summary>The concrete block the anchors go into — a new one or an existing one.</summary>
+		[JsonProperty(Required = Required.Always)]
+		public ConFoundationBlockDto FoundationBlock { get; set; } = new ConFoundationBlockDto();
 
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public ConPlateSide? PlateSide { get; set; }

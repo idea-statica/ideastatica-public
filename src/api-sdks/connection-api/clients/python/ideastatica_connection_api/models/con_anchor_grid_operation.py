@@ -56,7 +56,7 @@ class ConAnchorGridOperation(BaseModel):
     defined_by: Optional[ConDefinedBy] = Field(default=None, alias="definedBy")
     coordinate_system: Optional[ConLocalCoordinateSystem] = Field(default=None, alias="coordinateSystem")
     slotted_holes: Optional[List[ConSlottedHole]] = Field(default=None, alias="slottedHoles")
-    foundation_block: Optional[ConFoundationBlockDto] = Field(default=None, alias="foundationBlock")
+    foundation_block: ConFoundationBlockDto = Field(alias="foundationBlock")
     plate_side: Optional[ConPlateSide] = Field(default=None, alias="plateSide")
     is_imported: Optional[StrictBool] = Field(default=None, alias="isImported")
     operation_type: Optional[StrictStr] = Field(default=None, alias="operationType")
