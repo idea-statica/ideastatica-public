@@ -8,8 +8,9 @@ namespace IdeaStatiCa.Api.Connection.Model.Operations
 	/// <summary>
 	/// Fastener grid geometry. Fill the block that matches <see cref="Type"/>:
 	/// <list type="bullet">
-	/// <item>Orthogonal: <see cref="TopLayers"/>/<see cref="BottomLayers"/>/<see cref="LeftLayers"/>/<see cref="RightLayers"/>.
-	/// Distances are in metres.</item>
+	/// <item>Orthogonal: <see cref="TopLayers"/> and <see cref="LeftLayers"/> — the Rows and Positions of the desktop
+	/// Fastener grid. Each is one signed list along a local axis of the grid plane, in metres; a negative value places
+	/// fasteners on the negative side of the axis (<c>[0.03, -0.03]</c> gives two rows, one on each side).</item>
 	/// <item>Polar: <see cref="Radii"/> (metres) plus either <see cref="PolarCounts"/> (when <see cref="PolarInput"/> = ByCount)
 	/// or <see cref="Angles"/> (in <b>radians</b>, when <see cref="PolarInput"/> = ByAngle).</item>
 	/// </list>
@@ -32,17 +33,13 @@ namespace IdeaStatiCa.Api.Connection.Model.Operations
 		public ConGridLayout RowsGridLayout { get; set; }
 
 		// Orthogonal
+		/// <summary>Rows: signed offsets along the local y axis of the grid plane, in metres.</summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public ConGridPositions? TopLayers { get; set; }
 
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public ConGridPositions? BottomLayers { get; set; }
-
+		/// <summary>Positions: signed offsets along the local x axis of the grid plane, in metres.</summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public ConGridPositions? LeftLayers { get; set; }
-
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public ConGridPositions? RightLayers { get; set; }
 
 		// Polar
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
