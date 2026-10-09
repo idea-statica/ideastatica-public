@@ -15,7 +15,11 @@ namespace IdeaStatiCa.Api.Connection.Model.Parameters
 		/// <summary>Identifier used in expressions and when linking; unique within the connection.</summary>
 		public string Key { get; set; } = string.Empty;
 
-		/// <summary>Int, Float, Bool, String or Expression. Library-typed parameters are not supported yet.</summary>
+		/// <summary>
+		/// Int, Float, Bool, String, Expression or Weld. For a Weld parameter, <see cref="Expression"/> holds the
+		/// weld as JSON, e.g. <c>{"weldType": "DoubleFillet", "size": 0.006}</c>, and bounds are not accepted.
+		/// Library-typed parameters are not supported yet.
+		/// </summary>
 		public string ParameterType { get; set; } = string.Empty;
 
 		/// <summary>The value, or an expression evaluating to it.</summary>

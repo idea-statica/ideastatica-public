@@ -513,6 +513,40 @@ Creates a polar (circular) anchor layout.
 ----|----
 `AnchorPolar('M20 8.8', 0.35, 6, 'Straight', 0.2, '#', 0)` | Six straight anchors of length 350 mm on a circle of radius 200 mm
 
+## Weld values
+
+A weld property takes a whole weld: its type, its size and, optionally, its material. A **Weld** parameter holds such a value, and an **Expression** parameter that drives a weld has to evaluate to one. The value is written as JSON:
+
+```json
+{ "weldType": "DoubleFillet", "size": 0.006, "name": "S 355" }
+```
+
+* **weldType** (required) - one of `None`, `LeftFillet`, `RightFillet`, `DoubleFillet`, `Bevel`, `PJP`, written by name.
+  * `LeftFillet` / `RightFillet` - a fillet weld on the front / rear side
+  * `Bevel` - a complete joint penetration (CJP) groove weld
+  * `PJP` - a partial joint penetration groove weld, available only under the design codes whose weld dialogs offer it (EN, American, AASHTO, Australian and Canadian)
+* **size** - the weld size in metres, not negative.
+* **name**, **tableId** (optional) - the weld material. Without a name, the weld takes its material from the connected member. On an operation weld, the material is used only when both are given.
+
+**Welds of a welded cross-section** - for example *Top flange-web* and *Bottom flange-web* of a welded I section - take the same value, with these differences, which follow the cross-section dialog:
+
+* `None` is not accepted: the parts of a welded cross-section are always welded.
+* A size of `0` lets the application determine the size.
+* The material **name** has to be one of the connection's welding materials. A **tableId** narrows the name to that material table. A material the connection does not hold is reported, not added.
+
+**Example Input** | **Description**
+----|----
+`'{"weldType":"Bevel","size":0}'` | An Expression evaluating to a CJP weld; note the single quotes around the JSON
+`if(t > 0.02, '{"weldType":"Bevel","size":0}', '{"weldType":"DoubleFillet","size":0.004}')` | A CJP weld for plates thicker than 20 mm, a 4 mm double fillet weld otherwise
+
+Over the REST API, create a Weld parameter with the JSON as its `expression`:
+
+```json
+{ "key": "flangeWeld", "parameterType": "Weld", "expression": "{\"weldType\":\"DoubleFillet\",\"size\":0.006}" }
+```
+
+A value that is not a weld is refused when the parameter is created, and reported when it is applied.
+
 ## Further information
 
 Further information on using expressions can be found on the [NCalc](https://github.com/ncalc/ncalc/wiki) wiki page.
