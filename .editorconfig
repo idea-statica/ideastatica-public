@@ -35,3 +35,20 @@ generated_code = true
 
 [src/api-sdks/connection-api/clients/csharp/src/IdeaStatiCa.ConnectionApi/{Api,Client,Model}/**.cs]
 generated_code = true
+
+[*.{csproj,vcxproj,proj,props,targets}]
+build_check.BC0101.severity = none
+build_check.BC0102.severity = none
+build_check.BC0103.severity = none
+build_check.BC0104.severity = error
+build_check.BC0105.severity = none
+build_check.BC0106.severity = error
+build_check.BC0107.severity = error
+# TODO: turn on later
+build_check.BC0108.severity = none
+
+build_check.BC0201.severity = none
+build_check.BC0202.severity = none
+build_check.BC0203.severity = none
+build_check.BC0301.severity = none
+build_check.BC0302.severity = none
