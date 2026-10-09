@@ -33,8 +33,8 @@ class ConCutOperation(BaseModel):
     """
     ConCutOperation
     """ # noqa: E501
-    member: Optional[ConCutMemberTarget] = None
-    cut_by: Optional[ConCutByTarget] = Field(default=None, alias="cutBy")
+    member: ConCutMemberTarget
+    cut_by: ConCutByTarget = Field(alias="cutBy")
     cutting_method: Optional[ConCuttingMethod] = Field(default=None, alias="cuttingMethod")
     extend_member: Optional[StrictBool] = Field(default=None, alias="extendMember")
     cutting_plane: Optional[ConCuttingPlane] = Field(default=None, alias="cuttingPlane")

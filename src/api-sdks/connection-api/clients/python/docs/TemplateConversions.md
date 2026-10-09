@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**conversions** | [**List[TemplateConversionsConversionsInner]**](TemplateConversionsConversionsInner.md) |  | [optional] 
+**conversions** | [**List[TemplateConversionsConversionsInner]**](TemplateConversionsConversionsInner.md) |  | 
 **country_code** | **str** |  | [optional] 
 
 ## Example

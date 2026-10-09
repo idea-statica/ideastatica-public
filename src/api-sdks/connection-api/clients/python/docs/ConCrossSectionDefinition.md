@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **mirror_y** | **bool** |  | [optional] 
 **mirror_z** | **bool** |  | [optional] 
 **type** | **str** |  | [default to 'IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionCustomDefinition, IdeaStatiCa.Api']
-**shape_type** | **str** |  | [optional] 
+**shape_type** | **str** |  | 
 **dimensions** | [**List[ConCrossSectionParametricDefinitionDimensionsInner]**](ConCrossSectionParametricDefinitionDimensionsInner.md) |  | [optional] 
 **components** | [**List[ConCrossSectionCustomComponent]**](ConCrossSectionCustomComponent.md) |  | [optional] 
 

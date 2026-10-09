@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**modified_object** | [**ConCutByTarget**](ConCutByTarget.md) |  | [optional] 
-**cut_by** | [**ConCutByTarget**](ConCutByTarget.md) |  | [optional] 
+**modified_object** | [**ConCutByTarget**](ConCutByTarget.md) |  | 
+**cut_by** | [**ConCutByTarget**](ConCutByTarget.md) |  | 
 **cutting_method** | [**ConCuttingMethod**](ConCuttingMethod.md) |  | [optional] 
 **remaining_part** | [**ConPlateSide**](ConPlateSide.md) |  | [optional] 
 **offset** | **float** |  | [optional] 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Member** | [**ConCutMemberTarget**](ConCutMemberTarget.md) |  | [optional] 
-**CutBy** | [**ConCutByTarget**](ConCutByTarget.md) |  | [optional] 
+**Member** | [**ConCutMemberTarget**](ConCutMemberTarget.md) |  | 
+**CutBy** | [**ConCutByTarget**](ConCutByTarget.md) |  | 
 **CuttingMethod** | **ConCuttingMethod** |  | [optional] 
 **ExtendMember** | **bool** |  | [optional] 
 **CuttingPlane** | **ConCuttingPlane** |  | [optional] 

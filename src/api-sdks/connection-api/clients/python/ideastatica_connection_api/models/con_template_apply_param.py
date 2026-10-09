@@ -19,7 +19,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from typing import Any, ClassVar, Dict, List
 from ideastatica_connection_api.models.template_conversions import TemplateConversions
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,8 +28,8 @@ class ConTemplateApplyParam(BaseModel):
     """
     ConTemplateApplyParam
     """ # noqa: E501
-    connection_template: Optional[StrictStr] = Field(default=None, alias="connectionTemplate")
-    mapping: Optional[TemplateConversions] = None
+    connection_template: StrictStr = Field(alias="connectionTemplate")
+    mapping: TemplateConversions
     __properties: ClassVar[List[str]] = ["connectionTemplate", "mapping"]
 
     model_config = ConfigDict(
@@ -74,11 +74,6 @@ class ConTemplateApplyParam(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of mapping
         if self.mapping:
             _dict['mapping'] = self.mapping.to_dict()
-        # set to None if connection_template (nullable) is None
-        # and model_fields_set contains the field
-        if self.connection_template is None and "connection_template" in self.model_fields_set:
-            _dict['connectionTemplate'] = None
-
         return _dict
 
     @classmethod

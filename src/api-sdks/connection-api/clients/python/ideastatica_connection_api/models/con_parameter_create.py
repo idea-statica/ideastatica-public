@@ -27,9 +27,9 @@ class ConParameterCreate(BaseModel):
     """
     ConParameterCreate
     """ # noqa: E501
-    key: Optional[StrictStr] = None
-    parameter_type: Optional[StrictStr] = Field(default=None, alias="parameterType")
-    expression: Optional[StrictStr] = None
+    key: StrictStr
+    parameter_type: StrictStr = Field(alias="parameterType")
+    expression: StrictStr
     description: Optional[StrictStr] = None
     lower_bound: Optional[StrictStr] = Field(default=None, alias="lowerBound")
     upper_bound: Optional[StrictStr] = Field(default=None, alias="upperBound")
@@ -74,21 +74,6 @@ class ConParameterCreate(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if key (nullable) is None
-        # and model_fields_set contains the field
-        if self.key is None and "key" in self.model_fields_set:
-            _dict['key'] = None
-
-        # set to None if parameter_type (nullable) is None
-        # and model_fields_set contains the field
-        if self.parameter_type is None and "parameter_type" in self.model_fields_set:
-            _dict['parameterType'] = None
-
-        # set to None if expression (nullable) is None
-        # and model_fields_set contains the field
-        if self.expression is None and "expression" in self.model_fields_set:
-            _dict['expression'] = None
-
         # set to None if description (nullable) is None
         # and model_fields_set contains the field
         if self.description is None and "description" in self.model_fields_set:
