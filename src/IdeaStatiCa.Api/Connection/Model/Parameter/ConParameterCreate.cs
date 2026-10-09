@@ -13,6 +13,7 @@ namespace IdeaStatiCa.Api.Connection.Model.Parameters
 	public class ConParameterCreate
 	{
 		/// <summary>Identifier used in expressions and when linking; unique within the connection.</summary>
+		[JsonProperty(Required = Required.Always)]
 		public string Key { get; set; } = string.Empty;
 
 		/// <summary>
@@ -20,9 +21,11 @@ namespace IdeaStatiCa.Api.Connection.Model.Parameters
 		/// weld as JSON, e.g. <c>{"weldType": "DoubleFillet", "size": 0.006}</c>, and bounds are not accepted.
 		/// Library-typed parameters are not supported yet.
 		/// </summary>
+		[JsonProperty(Required = Required.Always)]
 		public string ParameterType { get; set; } = string.Empty;
 
 		/// <summary>The value, or an expression evaluating to it.</summary>
+		[JsonProperty(Required = Required.Always)]
 		public string Expression { get; set; } = string.Empty;
 
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

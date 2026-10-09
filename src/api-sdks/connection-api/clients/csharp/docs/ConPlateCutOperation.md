@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ModifiedObject** | [**ConCutByTarget**](ConCutByTarget.md) |  | [optional] 
-**CutBy** | [**ConCutByTarget**](ConCutByTarget.md) |  | [optional] 
+**ModifiedObject** | [**ConCutByTarget**](ConCutByTarget.md) |  | 
+**CutBy** | [**ConCutByTarget**](ConCutByTarget.md) |  | 
 **CuttingMethod** | **ConCuttingMethod** |  | [optional] 
 **RemainingPart** | **ConPlateSide** |  | [optional] 
 **Offset** | **double** |  | [optional] 

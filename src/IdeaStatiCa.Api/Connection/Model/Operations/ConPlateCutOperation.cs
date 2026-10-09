@@ -29,13 +29,15 @@ namespace IdeaStatiCa.Api.Connection.Model.Operations
 		}
 
 		/// <summary>
-		/// The plate (or plate-like entity) being cut. Required.
+		/// The plate (or plate-like entity) being cut.
 		/// </summary>
+		[JsonProperty(Required = Required.Always)]
 		public ConCutByTarget ModifiedObject { get; set; } = new ConCutByTarget();
 
 		/// <summary>
-		/// The entity that cuts the plate (plate, member, work plane, etc.). Required.
+		/// The entity that cuts the plate (plate, member, work plane, etc.).
 		/// </summary>
+		[JsonProperty(Required = Required.Always)]
 		public ConCutByTarget CutBy { get; set; } = new ConCutByTarget();
 
 		/// <summary>

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace IdeaStatiCa.Api.Connection.Model.Material
 {
@@ -33,6 +34,7 @@ namespace IdeaStatiCa.Api.Connection.Model.Material
 	public class ConCrossSectionParametricDefinition : ConCrossSectionDefinition
 	{
 		/// <summary>Shape type identifier (e.g. "Iw", "Tw", "BoxFl", "CHSPar").</summary>
+		[JsonProperty(Required = Required.Always)]
 		public string ShapeType { get; set; }
 
 		/// <summary>Name of the material the section is made of.</summary>

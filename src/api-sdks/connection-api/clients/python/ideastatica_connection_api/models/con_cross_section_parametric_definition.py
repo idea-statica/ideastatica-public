@@ -28,7 +28,7 @@ class ConCrossSectionParametricDefinition(BaseModel):
     """
     ConCrossSectionParametricDefinition
     """ # noqa: E501
-    shape_type: Optional[StrictStr] = Field(default=None, alias="shapeType")
+    shape_type: StrictStr = Field(alias="shapeType")
     material_name: Optional[StrictStr] = Field(default=None, alias="materialName")
     dimensions: Optional[List[ConCrossSectionParametricDefinitionDimensionsInner]] = None
     type: StrictStr = Field(alias="$type")
@@ -80,11 +80,6 @@ class ConCrossSectionParametricDefinition(BaseModel):
                 if _item_dimensions:
                     _items.append(_item_dimensions.to_dict())
             _dict['dimensions'] = _items
-        # set to None if shape_type (nullable) is None
-        # and model_fields_set contains the field
-        if self.shape_type is None and "shape_type" in self.model_fields_set:
-            _dict['shapeType'] = None
-
         # set to None if material_name (nullable) is None
         # and model_fields_set contains the field
         if self.material_name is None and "material_name" in self.model_fields_set:

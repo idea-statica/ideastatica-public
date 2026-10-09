@@ -28,7 +28,7 @@ class TemplateConversions(BaseModel):
     """
     TemplateConversions
     """ # noqa: E501
-    conversions: Optional[List[TemplateConversionsConversionsInner]] = None
+    conversions: List[TemplateConversionsConversionsInner]
     country_code: Optional[StrictStr] = Field(default=None, alias="countryCode")
     __properties: ClassVar[List[str]] = ["conversions", "countryCode"]
 
@@ -78,11 +78,6 @@ class TemplateConversions(BaseModel):
                 if _item_conversions:
                     _items.append(_item_conversions.to_dict())
             _dict['conversions'] = _items
-        # set to None if conversions (nullable) is None
-        # and model_fields_set contains the field
-        if self.conversions is None and "conversions" in self.model_fields_set:
-            _dict['conversions'] = None
-
         # set to None if country_code (nullable) is None
         # and model_fields_set contains the field
         if self.country_code is None and "country_code" in self.model_fields_set:
