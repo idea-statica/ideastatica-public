@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace IdeaStatiCa.Api.Connection.Model
+﻿namespace IdeaStatiCa.Api.Connection.Model
 {
 	public class ConConnection
 	{
@@ -15,9 +13,6 @@ namespace IdeaStatiCa.Api.Connection.Model
 
 		//Related to connection?
 		public ConAnalysisTypeEnum AnalysisType { get; set; }
-
-		[Obsolete("This property is currently ignored and not updated")]
-		public bool IsCalculated { get; }
 
 		public bool IncludeBuckling { get; set; }
 

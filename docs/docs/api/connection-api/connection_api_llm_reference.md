@@ -417,7 +417,7 @@ ConLoadEffectSectionLoad(n=, vy=, vz=, mx=, my=, mz=)
 
 ConConnection
   .id int  .identifier  .name  .description
-  .analysis_type (analysisType)  .is_calculated (isCalculated)  .include_buckling (includeBuckling)
+  .analysis_type (analysisType)  .include_buckling (includeBuckling)
 
 ConMember
   .id int  .name  .active  .is_continuous (isContinuous)  .cross_section_id (crossSectionId)

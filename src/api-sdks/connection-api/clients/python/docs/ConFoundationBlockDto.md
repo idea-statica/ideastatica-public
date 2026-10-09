@@ -5,6 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**block_type** | [**ConBlockType**](ConBlockType.md) |  | [optional] 
+**existing_block_operation_id** | **int** |  | [optional] 
 **concrete_material_id** | **int** |  | [optional] 
 **offset_top** | **float** |  | [optional] 
 **offset_bottom** | **float** |  | [optional] 

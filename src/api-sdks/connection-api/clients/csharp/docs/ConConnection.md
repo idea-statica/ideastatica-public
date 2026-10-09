@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **Name** | **string** |  | [optional] 
 **Description** | **string** |  | [optional] 
 **AnalysisType** | **ConAnalysisTypeEnum** |  | [optional] 
-**IsCalculated** | **bool** |  | [optional] [readonly] 
 **IncludeBuckling** | **bool** |  | [optional] 
 **SteelEdition** | **ConSteelCodeEditionEnum** |  | [optional] 
 

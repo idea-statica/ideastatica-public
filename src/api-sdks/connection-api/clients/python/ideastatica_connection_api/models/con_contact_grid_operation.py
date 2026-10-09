@@ -20,7 +20,6 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from ideastatica_connection_api.models.con_block_type import ConBlockType
 from ideastatica_connection_api.models.con_connected_item import ConConnectedItem
 from ideastatica_connection_api.models.con_foundation_block_dto import ConFoundationBlockDto
 from ideastatica_connection_api.models.con_plate_side import ConPlateSide
@@ -33,15 +32,13 @@ class ConContactGridOperation(BaseModel):
     """ # noqa: E501
     connected_items: Optional[List[ConConnectedItem]] = Field(default=None, alias="connectedItems")
     foundation_block: Optional[ConFoundationBlockDto] = Field(default=None, alias="foundationBlock")
-    block_type: Optional[ConBlockType] = Field(default=None, alias="blockType")
-    existing_block_operation_id: Optional[StrictInt] = Field(default=None, alias="existingBlockOperationId")
     plate_side: Optional[ConPlateSide] = Field(default=None, alias="plateSide")
     is_imported: Optional[StrictBool] = Field(default=None, alias="isImported")
     operation_type: Optional[StrictStr] = Field(default=None, alias="operationType")
     id: Optional[StrictInt] = None
     name: Optional[StrictStr] = None
     active: Optional[StrictBool] = None
-    __properties: ClassVar[List[str]] = ["connectedItems", "foundationBlock", "blockType", "existingBlockOperationId", "plateSide", "isImported", "operationType", "id", "name", "active"]
+    __properties: ClassVar[List[str]] = ["connectedItems", "foundationBlock", "plateSide", "isImported", "operationType", "id", "name", "active"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -97,11 +94,6 @@ class ConContactGridOperation(BaseModel):
         if self.connected_items is None and "connected_items" in self.model_fields_set:
             _dict['connectedItems'] = None
 
-        # set to None if existing_block_operation_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.existing_block_operation_id is None and "existing_block_operation_id" in self.model_fields_set:
-            _dict['existingBlockOperationId'] = None
-
         # set to None if operation_type (nullable) is None
         # and model_fields_set contains the field
         if self.operation_type is None and "operation_type" in self.model_fields_set:
@@ -126,8 +118,6 @@ class ConContactGridOperation(BaseModel):
         _obj = cls.model_validate({
             "connectedItems": [ConConnectedItem.from_dict(_item) for _item in obj["connectedItems"]] if obj.get("connectedItems") is not None else None,
             "foundationBlock": ConFoundationBlockDto.from_dict(obj["foundationBlock"]) if obj.get("foundationBlock") is not None else None,
-            "blockType": obj.get("blockType"),
-            "existingBlockOperationId": obj.get("existingBlockOperationId"),
             "plateSide": obj.get("plateSide"),
             "isImported": obj.get("isImported"),
             "operationType": obj.get("operationType"),
