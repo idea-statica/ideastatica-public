@@ -12318,6 +12318,7 @@ components:
           type: string
       required:
       - $type
+      - shapeType
       type: object
     ConCssArcSegment:
       allOf:
@@ -12621,6 +12622,9 @@ components:
           type: string
         active:
           type: boolean
+      required:
+      - cutBy
+      - member
       type: object
     ConCuttingDirection:
       enum:
@@ -13647,6 +13651,10 @@ components:
         upperBound:
           nullable: true
           type: string
+      required:
+      - expression
+      - key
+      - parameterType
       type: object
     ConParameterDeleteResult:
       additionalProperties: false
@@ -13911,6 +13919,9 @@ components:
           type: string
         active:
           type: boolean
+      required:
+      - cutBy
+      - modifiedObject
       type: object
     ConPlateFunction:
       enum:
@@ -14533,6 +14544,9 @@ components:
           type: string
         mapping:
           $ref: '#/components/schemas/TemplateConversions'
+      required:
+      - connectionTemplate
+      - mapping
       type: object
     ConTemplateApplyResult:
       additionalProperties: false
@@ -17593,6 +17607,8 @@ components:
         countryCode:
           nullable: true
           type: string
+      required:
+      - conversions
       type: object
     Text:
       additionalProperties: false

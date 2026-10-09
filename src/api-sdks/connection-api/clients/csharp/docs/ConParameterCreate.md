@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | **string** |  | [optional] 
-**ParameterType** | **string** |  | [optional] 
-**Expression** | **string** |  | [optional] 
+**Key** | **string** |  | 
+**ParameterType** | **string** |  | 
+**Expression** | **string** |  | 
 **Description** | **string** |  | [optional] 
 **LowerBound** | **string** |  | [optional] 
 **UpperBound** | **string** |  | [optional] 

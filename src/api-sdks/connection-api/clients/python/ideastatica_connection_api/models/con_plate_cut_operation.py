@@ -31,8 +31,8 @@ class ConPlateCutOperation(BaseModel):
     """
     ConPlateCutOperation
     """ # noqa: E501
-    modified_object: Optional[ConCutByTarget] = Field(default=None, alias="modifiedObject")
-    cut_by: Optional[ConCutByTarget] = Field(default=None, alias="cutBy")
+    modified_object: ConCutByTarget = Field(alias="modifiedObject")
+    cut_by: ConCutByTarget = Field(alias="cutBy")
     cutting_method: Optional[ConCuttingMethod] = Field(default=None, alias="cuttingMethod")
     remaining_part: Optional[ConPlateSide] = Field(default=None, alias="remainingPart")
     offset: Optional[Union[StrictFloat, StrictInt]] = None

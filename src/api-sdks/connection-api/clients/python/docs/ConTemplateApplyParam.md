@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**connection_template** | **str** |  | [optional] 
-**mapping** | [**TemplateConversions**](TemplateConversions.md) |  | [optional] 
+**connection_template** | **str** |  | 
+**mapping** | [**TemplateConversions**](TemplateConversions.md) |  | 
 
 ## Example
 

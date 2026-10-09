@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **MirrorY** | **bool** |  | [optional] 
 **MirrorZ** | **bool** |  | [optional] 
 **Type** | **string** |  | [default to "IdeaStatiCa.Api.Connection.Model.Material.ConCrossSectionCustomDefinition, IdeaStatiCa.Api"]
-**ShapeType** | **string** |  | [optional] 
+**ShapeType** | **string** |  | 
 **Dimensions** | [**List&lt;ConCrossSectionParametricDefinitionDimensionsInner&gt;**](ConCrossSectionParametricDefinitionDimensionsInner.md) |  | [optional] 
 **Components** | [**List&lt;ConCrossSectionCustomComponent&gt;**](ConCrossSectionCustomComponent.md) |  | [optional] 
 

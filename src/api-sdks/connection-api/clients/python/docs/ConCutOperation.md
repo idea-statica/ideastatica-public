@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**member** | [**ConCutMemberTarget**](ConCutMemberTarget.md) |  | [optional] 
-**cut_by** | [**ConCutByTarget**](ConCutByTarget.md) |  | [optional] 
+**member** | [**ConCutMemberTarget**](ConCutMemberTarget.md) |  | 
+**cut_by** | [**ConCutByTarget**](ConCutByTarget.md) |  | 
 **cutting_method** | [**ConCuttingMethod**](ConCuttingMethod.md) |  | [optional] 
 **extend_member** | **bool** |  | [optional] 
 **cutting_plane** | [**ConCuttingPlane**](ConCuttingPlane.md) |  | [optional] 

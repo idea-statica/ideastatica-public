@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**key** | **str** |  | [optional] 
-**parameter_type** | **str** |  | [optional] 
-**expression** | **str** |  | [optional] 
+**key** | **str** |  | 
+**parameter_type** | **str** |  | 
+**expression** | **str** |  | 
 **description** | **str** |  | [optional] 
 **lower_bound** | **str** |  | [optional] 
 **upper_bound** | **str** |  | [optional] 
