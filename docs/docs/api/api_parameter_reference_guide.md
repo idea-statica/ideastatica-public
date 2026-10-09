@@ -513,6 +513,46 @@ Creates a polar (circular) anchor layout.
 ----|----
 `AnchorPolar('M20 8.8', 0.35, 6, 'Straight', 0.2, '#', 0)` | Six straight anchors of length 350 mm on a circle of radius 200 mm
 
+## Weld values
+
+A weld value is a whole weld: its type, its size and, optionally, its material. A **Weld** parameter holds one, and an **Expression** parameter can evaluate to one, or pass on a Weld parameter by its name. The value is written as JSON:
+
+```json
+{ "weldType": "DoubleFillet", "size": 0.006, "name": "S 355" }
+```
+
+* **weldType** (required) - one of `None`, `LeftFillet`, `RightFillet`, `DoubleFillet`, `Bevel`, `PJP`, written by name.
+  * `LeftFillet` / `RightFillet` - a fillet weld on the front / rear side
+  * `Bevel` - a complete joint penetration (CJP) groove weld
+  * `PJP` - a partial joint penetration groove weld, available only under the design codes whose weld dialogs offer it (EN, American, AASHTO, Australian and Canadian)
+* **size** - the throat thickness in metres, not negative: the size the model stores. Where the design code's settings show weld sizes as leg sizes, the throat is the leg divided by √2.
+* **name**, **tableId** (optional) - the weld material. Without a name, the weld takes its material from the connected member. On an operation weld, the material is used only when both are given.
+
+Where a weld value applies:
+
+* **A weld of a welded cross-section** - for example *Top flange-web* and *Bottom flange-web* of a welded I section - is one property holding the whole weld, so a Weld parameter or an Expression evaluating to a weld drives it.
+* **A weld of an operation** is published as three properties, *Size*, *Weld Type* and *Material*, which take plain values (a number, a weld type name, a material name). A Weld parameter linked to any of the three writes the whole weld.
+
+A cross-section weld follows its dialog:
+
+* `None` is not accepted: the parts of a welded cross-section are always welded.
+* A size of `0` lets the application determine the size.
+* The material **name** has to be one of the connection's welding materials. A **tableId** narrows the name to that material table. A material the connection does not hold is reported, not added.
+
+**Example Input** | **Description**
+----|----
+`'{"weldType":"Bevel","size":0}'` | An Expression evaluating to a CJP weld; note the single quotes around the JSON
+`if(t > 0.02, '{"weldType":"Bevel","size":0}', '{"weldType":"DoubleFillet","size":0.004}')` | A CJP weld for plates thicker than 20 mm, a double fillet weld with a 4 mm throat otherwise
+`if(t > 0.02, buttWeld, filletWeld)` | The same choice between two Weld parameters
+
+Over the REST API, create a Weld parameter with the JSON as its `expression`:
+
+```json
+{ "key": "flangeWeld", "parameterType": "Weld", "expression": "{\"weldType\":\"DoubleFillet\",\"size\":0.006}" }
+```
+
+A value that is not a weld is refused when the parameter is created, and reported when it is applied.
+
 ## Further information
 
 Further information on using expressions can be found on the [NCalc](https://github.com/ncalc/ncalc/wiki) wiki page.

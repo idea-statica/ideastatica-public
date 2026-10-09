@@ -32,6 +32,11 @@ namespace IdeaRS.OpenModel.Parameters
 		/// Bevel weld
 		/// </summary>
 		Bevel,
+
+		/// <summary>
+		/// Partial joint penetration groove weld. Offered only where the design code allows it
+		/// </summary>
+		PJP,
 	}
 
 	/// <summary>
