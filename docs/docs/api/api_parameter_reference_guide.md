@@ -515,7 +515,7 @@ Creates a polar (circular) anchor layout.
 
 ## Weld values
 
-A weld property takes a whole weld: its type, its size and, optionally, its material. A **Weld** parameter holds such a value, and an **Expression** parameter that drives a weld has to evaluate to one. The value is written as JSON:
+A weld value is a whole weld: its type, its size and, optionally, its material. A **Weld** parameter holds one, and an **Expression** parameter can evaluate to one, or pass on a Weld parameter by its name. The value is written as JSON:
 
 ```json
 { "weldType": "DoubleFillet", "size": 0.006, "name": "S 355" }
@@ -525,10 +525,15 @@ A weld property takes a whole weld: its type, its size and, optionally, its mate
   * `LeftFillet` / `RightFillet` - a fillet weld on the front / rear side
   * `Bevel` - a complete joint penetration (CJP) groove weld
   * `PJP` - a partial joint penetration groove weld, available only under the design codes whose weld dialogs offer it (EN, American, AASHTO, Australian and Canadian)
-* **size** - the weld size in metres, not negative.
+* **size** - the throat thickness in metres, not negative: the size the model stores. Where the design code's settings show weld sizes as leg sizes, the throat is the leg divided by √2.
 * **name**, **tableId** (optional) - the weld material. Without a name, the weld takes its material from the connected member. On an operation weld, the material is used only when both are given.
 
-**Welds of a welded cross-section** - for example *Top flange-web* and *Bottom flange-web* of a welded I section - take the same value, with these differences, which follow the cross-section dialog:
+Where a weld value applies:
+
+* **A weld of a welded cross-section** - for example *Top flange-web* and *Bottom flange-web* of a welded I section - is one property holding the whole weld, so a Weld parameter or an Expression evaluating to a weld drives it.
+* **A weld of an operation** is published as three properties, *Size*, *Weld Type* and *Material*, which take plain values (a number, a weld type name, a material name). A Weld parameter linked to any of the three writes the whole weld.
+
+A cross-section weld follows its dialog:
 
 * `None` is not accepted: the parts of a welded cross-section are always welded.
 * A size of `0` lets the application determine the size.
@@ -537,7 +542,8 @@ A weld property takes a whole weld: its type, its size and, optionally, its mate
 **Example Input** | **Description**
 ----|----
 `'{"weldType":"Bevel","size":0}'` | An Expression evaluating to a CJP weld; note the single quotes around the JSON
-`if(t > 0.02, '{"weldType":"Bevel","size":0}', '{"weldType":"DoubleFillet","size":0.004}')` | A CJP weld for plates thicker than 20 mm, a 4 mm double fillet weld otherwise
+`if(t > 0.02, '{"weldType":"Bevel","size":0}', '{"weldType":"DoubleFillet","size":0.004}')` | A CJP weld for plates thicker than 20 mm, a double fillet weld with a 4 mm throat otherwise
+`if(t > 0.02, buttWeld, filletWeld)` | The same choice between two Weld parameters
 
 Over the REST API, create a Weld parameter with the JSON as its `expression`:
 
