@@ -56,9 +56,9 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         # Modify mapping
 
         # Apply the template to the connection with the modified mapping
-        applyTemplateData =  ideastatica_connection_api.ConTemplateApplyParam() # ConTemplateApplyParam | Template to apply (optional)
-        applyTemplateData.connection_template = templateParam.template
-        applyTemplateData.mapping = default_mapping
+        applyTemplateData = ideastatica_connection_api.ConTemplateApplyParam(
+            connection_template=templateParam.template,
+            mapping=default_mapping)
 
         applyTemplateResult = api_client.template.apply_template(api_client.project.active_project_id, connection1.id, applyTemplateData)
 

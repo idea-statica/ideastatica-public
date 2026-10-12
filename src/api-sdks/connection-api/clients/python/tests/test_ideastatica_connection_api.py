@@ -94,9 +94,9 @@ def test_should_apply_template():
         default_mapping = api_client.template.get_default_template_mapping(api_client.project.active_project_id, connection1.id, templateParam)
 
         # Apply the template to the connection with the default mapping
-        applyTemplateData =  ideastatica_connection_api.ConTemplateApplyParam() # ConTemplateApplyParam | Template to apply (optional)
-        applyTemplateData.connection_template = templateParam.template
-        applyTemplateData.mapping = default_mapping
+        applyTemplateData = ideastatica_connection_api.ConTemplateApplyParam(
+            connection_template=templateParam.template,
+            mapping=default_mapping)
 
         applyTemplateResult = api_client.template.apply_template(api_client.project.active_project_id, connection1.id, applyTemplateData)
 
