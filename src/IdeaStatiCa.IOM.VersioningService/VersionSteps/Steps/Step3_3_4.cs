@@ -103,7 +103,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 					nameToId[materialName] = newId;
 					_logger.LogInformation($"UpStep {Version}: materialized MatConcrete '{materialName}' (Id {newId}, {concreteXsiType})");
 				}
-				ConnectionRefTool.StringToReference(block, "Material", "MatConcrete", nameToId, _logger);
+				ConnectionRefTool.StringToReference(block, "Material", "MatConcrete", nameToId);
 			}
 		}
 

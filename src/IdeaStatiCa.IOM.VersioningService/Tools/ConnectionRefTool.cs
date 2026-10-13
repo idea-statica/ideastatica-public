@@ -83,23 +83,27 @@ namespace IdeaStatiCa.IOM.VersioningService.Tools
 
 		/// <summary>
 		/// Convert a name-string material property (e.g. &lt;Material&gt;S355&lt;/Material&gt;) into a
-		/// ReferenceElement (TypeName + Id). A missing/unresolved material leaves the property absent.
+		/// ReferenceElement (TypeName + Id). A missing or empty name leaves the property absent.
 		/// </summary>
-		public static void StringToReference(SObject owner, string property, string refType, Dictionary<string, string> nameToId, IPluginLogger logger)
+		/// <returns>
+		/// The name when <paramref name="nameToId"/> does not resolve it, which leaves the property absent too, so the
+		/// caller decides whether the element may lose its material; otherwise <see langword="null"/>.
+		/// </returns>
+		public static string StringToReference(SObject owner, string property, string refType, Dictionary<string, string> nameToId)
 		{
 			var name = owner.TryGetElementValue(property);
 			owner.RemoveElementProperty(property);
 			if (string.IsNullOrEmpty(name))
 			{
-				return;
+				return null;
 			}
 			if (!nameToId.TryGetValue(name, out var id))
 			{
-				logger.LogTrace($"Material '{name}' not found in {refType}; reference left empty");
-				return;
+				return name;
 			}
 			var refObj = owner.CreateElementProperty(property);
 			IRIOMTool.CreateIOMReferenceElement(refObj, refType, id);
+			return null;
 		}
 
 		/// <summary>
