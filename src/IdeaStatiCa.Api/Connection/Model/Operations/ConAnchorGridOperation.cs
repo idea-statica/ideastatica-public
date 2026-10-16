@@ -47,7 +47,11 @@ namespace IdeaStatiCa.Api.Connection.Model.Operations
 		/// <summary>Embedment depth [m] (the GUI "Embedment depth"), for all anchor sub-types.</summary>
 		public double EmbedmentDepth { get; set; }
 
-		/// <summary>Hook length [m] for <see cref="ConAnchorType.HookedAnchor"/> and <see cref="ConAnchorType.Reinforcement"/>.</summary>
+		/// <summary>
+		/// Hook length. For <see cref="ConAnchorType.HookedAnchor"/> a multiple of the anchor diameter [-];
+		/// for <see cref="ConAnchorType.Reinforcement"/> a length [m]. Either must be at least 5 anchor
+		/// diameters on an EN project, 3 on an AISC project and 1 on any other; a shorter hook is refused.
+		/// </summary>
 		public double HookLength { get; set; }
 
 		/// <summary>Shaft diameter [m] for <see cref="ConAnchorType.HeadedStud"/>; rebar diameter for <see cref="ConAnchorType.Reinforcement"/>.</summary>
