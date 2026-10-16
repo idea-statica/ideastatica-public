@@ -840,7 +840,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 					}
 
 					// Check if the current user is in the role specified by the rule
-					if (rule.IdentityReference.Value.StartsWith("S-1-"))
+					if (rule.IdentityReference.Value.StartsWith("S-1-", StringComparison.Ordinal))
 					{
 						// Create a SecurityIdentifier from the rule's identity reference
 						var sid = new SecurityIdentifier(rule.IdentityReference.Value);

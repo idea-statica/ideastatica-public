@@ -521,7 +521,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utilities
 		{
 			var father = beam.GetFatherComponent();
 
-			return father is Connection || father?.Name.ToUpper() == HaunchMemberName;
+			return father is Connection || father?.Name.ToUpperInvariant() == HaunchMemberName;
 		}
 
 		/// <summary>
