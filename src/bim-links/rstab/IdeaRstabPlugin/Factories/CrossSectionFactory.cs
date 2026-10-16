@@ -172,7 +172,7 @@ namespace IdeaRstabPlugin.Factories
 				case "DICKQ":
 				default:
 					//if (!ResolveThinwalledCssShapeV3(crossSectionParameter, css))
-					if (cssType.StartsWith("2") || !TryImportCssThinWalled(crossSectionParameter, css))
+					if (cssType.StartsWith("2", StringComparison.Ordinal) || !TryImportCssThinWalled(crossSectionParameter, css))
 					{
 						var cssComponent = CssHelperFactory.CreateCrossSectionByComponents(css, objectFactory);
 						if (cssComponent != null)

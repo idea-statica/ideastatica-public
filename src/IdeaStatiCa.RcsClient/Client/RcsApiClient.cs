@@ -136,7 +136,7 @@ namespace IdeaStatiCa.RcsClient.Client
 			catch (OperationCanceledException ex)
 			{
 				pluginLogger.LogDebug($"{ex.Message}");
-				throw ex;
+				throw;
 			}
 		}
 

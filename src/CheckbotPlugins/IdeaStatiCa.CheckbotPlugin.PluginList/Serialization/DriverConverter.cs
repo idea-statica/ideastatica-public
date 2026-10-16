@@ -24,7 +24,7 @@ namespace IdeaStatiCa.CheckbotPlugin.PluginList.Serialization
 
 		private static Maybe<Driver> DeserializeDriver(string type, JsonDocument doc, JsonSerializerOptions options)
 		{
-			return type.ToLower() switch
+			return type.ToLowerInvariant() switch
 			{
 				DotNetRunnerDriver.TypeName => JsonSerializer.Deserialize<DotNetRunnerDriver>(doc.RootElement.GetRawText(), options)!.ToMaybe<Driver>(),
 				ExecutableDriver.TypeValue => JsonSerializer.Deserialize<ExecutableDriver>(doc.RootElement.GetRawText(), options)!.ToMaybe<Driver>(),

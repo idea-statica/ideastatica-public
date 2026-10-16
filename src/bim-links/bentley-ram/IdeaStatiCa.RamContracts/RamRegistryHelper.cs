@@ -30,7 +30,7 @@ namespace IdeaStatiCa.RamContracts
 								  StringComparison.OrdinalIgnoreCase))
 				{
 					var version = productKey.GetValue("Version") as string;
-					if (version is { } && version.StartsWith(checkedVersion))
+					if (version is { } && version.StartsWith(checkedVersion, StringComparison.Ordinal))
 					{
 						return true;
 					}
