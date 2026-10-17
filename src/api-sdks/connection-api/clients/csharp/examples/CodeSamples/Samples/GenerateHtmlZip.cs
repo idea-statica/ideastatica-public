@@ -21,12 +21,8 @@ namespace CodeSamples
 			string fileName = "simple cleat connection report.zip";
 			string zipFilePath = Path.Combine(exampleFolder, fileName);
 
-			//Generate the report in HTML format and get its content as a byte array.
-			var response = await conClient.Report.GenerateHtmlZipWithHttpInfoAsync(conClient.ActiveProjectId, connectionId, "application/octet-stream");
-			byte[] buffer = (byte[])response.Data;
-
 			//Save the zipped HTML report.
-			await File.WriteAllBytesAsync(zipFilePath, buffer);
+			await conClient.Report.SaveReportHtmlZipAsync(conClient.ActiveProjectId, connectionId, zipFilePath);
 
 			Console.WriteLine($"Report saved to: {zipFilePath}");
 

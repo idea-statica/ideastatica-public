@@ -80,3 +80,19 @@ class ReportExtApi(ReportApi):
         )
         with open(file_name, 'wb') as file:
             file.write(response.raw_data)
+
+    def save_report_html_zip(self, project_id: StrictStr, connection_id: StrictInt, file_name: str):
+        """
+        Saves the report for the specified project and connection as a zipped HTML package.
+
+        Args:
+            project_id (str): The ID of the project.
+            connection_id (int): The ID of the connection.
+            file_name (str): The name of the file to save the report.
+
+        Returns:
+            None
+        """
+        response = super().generate_html_zip_with_http_info(project_id, connection_id)
+        with open(file_name, 'wb') as file:
+            file.write(response.raw_data)

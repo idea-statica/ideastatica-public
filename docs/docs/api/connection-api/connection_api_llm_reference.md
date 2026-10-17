@@ -272,6 +272,7 @@ There is no endpoint returning FEM mesh stress/strain fields; `get_raw_json_resu
 |---|---|
 | `save_report_pdf(project_id, connection_id, file_name)` (ext, preferred) | writes a single-connection PDF report |
 | `save_report_word(project_id, connection_id, file_name)` (ext, preferred) | writes a single-connection Word report |
+| `save_report_html_zip(project_id, connection_id, file_name)` (ext, preferred) | writes a single-connection report as a zipped HTML package |
 | `save_multiple_report_pdf(project_id, connection_ids, file_name)` (ext) | one PDF with a section per connection — use for batches, do not loop single reports |
 | `save_multiple_report_word(project_id, connection_ids, file_name)` (ext) | Word equivalent |
 | `generate_pdf` / `generate_word` / `generate_html_zip` / `generate_pdf_for_mutliple` / `generate_word_for_multiple` | raw generated methods; note `generate_pdf_for_mutliple` is spelled exactly like that (a shipped operationId typo) |
@@ -281,6 +282,8 @@ There is no endpoint returning FEM mesh stress/strain fields; `get_raw_json_resu
 | Method | Returns / notes |
 |---|---|
 | `export_ifc_file(project_id, connection_id, file_name)` (ext, preferred) | writes the connection to an IFC file |
+| `export_dwg_file(project_id, connection_id, file_name)` (ext, preferred) | writes the connection to a DWG drawing; the drawing is produced by the cloud Viewer under the licence signed in on the service machine, and the call waits for it - up to ten minutes |
+| `export_dwg(project_id, connection_id)` | raw generated method; returns nothing, so use `export_dwg_file` |
 | `export_iom(project_id, connection_id, version=None)` | `str` — IOM XML including `OpenModelContainer` |
 | `export_iom_connection_data(project_id, connection_id)` | `ConnectionData` (IdeaRS.OpenModel.Connection.ConnectionData) |
 | `export_ifc(project_id, connection_id)` | `str` — raw IFC content |
@@ -336,7 +339,9 @@ Generated method names are the Python names in PascalCase with an `Async` suffix
 | `Report.SaveReportPdfAsync(projectId, connectionId, filePath)` | `save_report_pdf` |
 | `Report.SaveMultipleReportsPdfAsync(projectId, connectionIds, filePath)` | `save_multiple_report_pdf` — note the C# name is plural "Reports", the Python name is singular "report" |
 | `Report.SaveReportWordAsync` / `SaveMultipleReportsWordAsync` | Word equivalents |
+| `Report.SaveReportHtmlZipAsync(projectId, connectionId, filePath)` | `save_report_html_zip` |
 | `Export.ExportIfcFileAsync(projectId, connectionId, filePath)` | `export_ifc_file` |
+| `Export.ExportDwgFileAsync(projectId, connectionId, filePath)` | `export_dwg_file` |
 | `Template.ImportTemplateFromFile(fileName)` | no Python equivalent; reads a `.contemp` file into `ConTemplateMappingGetParam` |
 | `ConnectionLibrary.GetDesignItemPictureDataAsync(designSetId, designItemId)` | returns `byte[]` |
 | `ConnectionLibrary.SaveDesignItemPictureAsync(designSetId, designItemId, filePath)` | `save_design_item_picture` |
