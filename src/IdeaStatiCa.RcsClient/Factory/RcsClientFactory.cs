@@ -140,7 +140,7 @@ namespace IdeaStatiCa.RcsClient.Factory
 
 			// IdeaStatiCa.RcsRestApi.exe is expected in net6.0-windows subdir. Do a chact and modified id if it is needed
 			string modifiedDir = directory;
-			if (!directory.ToLower().Contains("net6.0-windows"))
+			if (!directory.ToLowerInvariant().Contains("net6.0-windows"))
 			{
 				pluginLogger.LogDebug("GetRcsRestApiPath trying to find subdir 'net6.0-windows'");
 				var dir = Path.Combine(directory, "net6.0-windows");
