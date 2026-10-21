@@ -17,6 +17,7 @@ using Tekla.Structures.Geometry3d;
 using Tekla.Structures.Model;
 using Picker = Tekla.Structures.Model.UI.Picker;
 using TS = Tekla.Structures.Model;
+using UiModelObjectSelector = Tekla.Structures.Model.UI.ModelObjectSelector;
 
 namespace IdeaStatiCa.TeklaStructuresPlugin
 {
@@ -25,14 +26,16 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 		private readonly TS.Model teklaModel;
 		private readonly IPluginLogger plugInLogger;
 		private readonly BIM.Common.SorterSettings sorterSettings;
+		private readonly BulkSelectionSource bulkSelectionSource;
 
 		private readonly Dictionary<IIdentifier, IIdeaObject> cachedObjects;
 
-		public ModelClient(TS.Model teklaModel, IPluginLogger plugInLogger, BIM.Common.SorterSettings sorterSettings)
+		public ModelClient(TS.Model teklaModel, IPluginLogger plugInLogger, BIM.Common.SorterSettings sorterSettings, BulkSelectionSource bulkSelectionSource)
 		{
 			this.teklaModel = teklaModel;
 			this.plugInLogger = plugInLogger;
 			this.sorterSettings = sorterSettings;
+			this.bulkSelectionSource = bulkSelectionSource;
 			cachedObjects = new Dictionary<IIdentifier, IIdeaObject>();
 		}
 
@@ -237,6 +240,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 				return selection.Parts;
 			}
 
+			var skipped = new SortedDictionary<string, int>(StringComparer.Ordinal);
 			while (partsEnumerator.MoveNext())
 			{
 				var partOfEnumerator = partsEnumerator.Current;
@@ -274,9 +278,16 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 						}
 					}
 				}
+				else
+				{
+					string skippedType = partOfEnumerator?.GetType().Name ?? "null";
+					skipped.TryGetValue(skippedType, out int count);
+					skipped[skippedType] = count + 1;
+				}
 			}
 
-			plugInLogger.LogInformation($"ProcessUserSelection {selection.Parts.Count} parts; {selection.RepeatedComponents} repeated components and {selection.RepeatedParts} repeated parts skipped");
+			string skippedTypes = skipped.Count == 0 ? "none" : string.Join(", ", skipped.Select(s => $"{s.Value} {s.Key}"));
+			plugInLogger.LogInformation($"ProcessUserSelection {selection.Parts.Count} parts; {selection.RepeatedComponents} repeated components and {selection.RepeatedParts} repeated parts skipped; objects of other types skipped: {skippedTypes}");
 			return selection.Parts;
 		}
 
@@ -388,6 +399,12 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
 				{
 					plugInLogger.LogInformation($"GetBulkSelection - select Whole Model");
 					partsEnumerator = myModel.GetModelObjectSelector().GetAllObjects();
+				}
+				else if (bulkSelectionSource == BulkSelectionSource.CurrentSelection)
+				{
+					partsEnumerator = new UiModelObjectSelector().GetSelectedObjects();
+					var modelInfo = myModel.GetInfo();
+					plugInLogger.LogInformation($"GetBulkSelection - read the current selection of model '{modelInfo.ModelName}' in '{modelInfo.ModelPath}': {partsEnumerator.GetSize()} objects");
 				}
 				else
 				{

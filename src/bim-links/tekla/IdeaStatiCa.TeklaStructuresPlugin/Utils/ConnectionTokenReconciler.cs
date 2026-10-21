@@ -56,28 +56,28 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 
 						break;
 					case StringIdentifier<IIdeaPlate> plate:
-						AddIfNew(id.Plates, plate);
+						AddIfNew(id, id.Plates, plate, logger);
 						break;
 					case StringIdentifier<IIdeaBoltGrid> bolt:
-						AddIfNew(id.BoltGrids, bolt);
+						AddIfNew(id, id.BoltGrids, bolt, logger);
 						break;
 					case StringIdentifier<IIdeaWeld> weld:
-						AddIfNew(id.Welds, weld);
+						AddIfNew(id, id.Welds, weld, logger);
 						break;
 					case StringIdentifier<IIdeaCut> cut:
-						AddIfNew(id.Cuts, cut);
+						AddIfNew(id, id.Cuts, cut, logger);
 						break;
 					case StringIdentifier<IIdeaAnchorGrid> anchor:
-						AddIfNew(id.AnchorGrids, anchor);
+						AddIfNew(id, id.AnchorGrids, anchor, logger);
 						break;
 					case StringIdentifier<IIdeaFoldedPlate> folded:
-						AddIfNew(id.FoldedPlates, folded);
+						AddIfNew(id, id.FoldedPlates, folded, logger);
 						break;
 				}
 			}
 		}
 
-		private static void AddIfNew<T>(IList<ImmutableIdentifier<T>> collection, ImmutableIdentifier<T> item)
+		private static void AddIfNew<T>(ConnectionIdentifier<IIdeaConnectionPoint> id, IList<ImmutableIdentifier<T>> collection, ImmutableIdentifier<T> item, IPluginLogger logger)
 			where T : IIdeaObject
 		{
 			if (collection is null)
@@ -89,6 +89,8 @@ namespace IdeaStatiCa.TeklaStructuresPlugin.Utils
 			if (!collection.Any(e => string.Equals(e.GetId()?.ToString(), newId, StringComparison.OrdinalIgnoreCase)))
 			{
 				collection.Add(item);
+				logger?.LogInformation(
+					$"CAD re-sync: {typeof(T).Name} '{newId}' is connected at joint '{id.GetStringId()}' but was not part of the imported connection; it is added.");
 			}
 		}
 	}

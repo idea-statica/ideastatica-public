@@ -199,5 +199,37 @@ namespace IdeaStatiCa.TeklaStructuresTest
 			act.Should().NotThrow();
 			Ids(id.ConnectedMembers).Should().Equal("M1");
 		}
+
+		// 11. Every component the re-sync adds is logged with its joint, so a field log shows a part the import left out
+		// coming back.
+		[Test]
+		public void Apply_logsEachComponentItAdds()
+		{
+			var id = MakeToken(members: new[] { "M1" });
+			var logger = Substitute.For<IPluginLogger>();
+			var discovered = new List<IIdentifier>
+			{
+				new StringIdentifier<IIdeaPlate>("P1"),
+				new StringIdentifier<IIdeaWeld>("W1"),
+			};
+
+			ConnectionTokenReconciler.Apply(id, discovered, logger);
+
+			logger.Received(1).LogInformation(Arg.Is<string>(s => s.Contains("'P1'") && s.Contains(id.GetStringId())), Arg.Any<Exception>());
+			logger.Received(1).LogInformation(Arg.Is<string>(s => s.Contains("'W1'") && s.Contains(id.GetStringId())), Arg.Any<Exception>());
+		}
+
+		// 12. A component the token already lists is not logged.
+		[Test]
+		public void Apply_doesNotLogComponentAlreadyInToken()
+		{
+			var id = MakeToken(members: new[] { "M1" }, plates: new[] { "P1" });
+			var logger = Substitute.For<IPluginLogger>();
+			var discovered = new List<IIdentifier> { new StringIdentifier<IIdeaPlate>("P1") };
+
+			ConnectionTokenReconciler.Apply(id, discovered, logger);
+
+			logger.DidNotReceive().LogInformation(Arg.Any<string>(), Arg.Any<Exception>());
+		}
 	}
 }
