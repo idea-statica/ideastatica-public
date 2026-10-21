@@ -15,6 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)bimapi\library\CrossSectionByCenterLine.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BimApi\NegativePlate.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BimApi\Plate.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BulkSelectionSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IdeaStatiCaClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IModelClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Importers\BaseImporter.cs" />

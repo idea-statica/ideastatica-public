@@ -29,7 +29,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
             pluginLogger?.LogInformation($"Plugin logger type: {pluginLogger?.GetType().FullName}");
         }
 
-        private IContainer BuildContainer()
+        private IContainer BuildContainer(BulkSelectionSource bulkSelectionSource)
         {
             pluginLogger?.LogInformation("BuildContainer - Start");
             try
@@ -64,7 +64,11 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
                 builder.RegisterInstance(resolvedSorterSettings).AsSelf().SingleInstance();
 
                 builder.RegisterType<Model>();
-                builder.RegisterType<ModelClient>().WithParameter(new TypedParameter(typeof(Tekla.Structures.Model.Model), new Tekla.Structures.Model.Model())).AsImplementedInterfaces().SingleInstance();
+                builder.RegisterType<ModelClient>()
+                    .WithParameter(new TypedParameter(typeof(Tekla.Structures.Model.Model), new Tekla.Structures.Model.Model()))
+                    .WithParameter(new TypedParameter(typeof(BulkSelectionSource), bulkSelectionSource))
+                    .AsImplementedInterfaces()
+                    .SingleInstance();
 
                 builder.RegisterInstance(pluginLogger).As<IPluginLogger>().SingleInstance();
 
@@ -97,7 +101,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
             pluginLogger?.LogInformation("Run - Method started");
             try
             {
-                IContainer container = BuildContainer();
+                IContainer container = BuildContainer(BulkSelectionSource.Pick);
 
                 pluginLogger?.LogInformation("Run - Resolving IModelClient");
                 var modelClient = container.Resolve<IModelClient>();
@@ -143,13 +147,14 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
             }
         }
 
-        public IApplicationBIM GetBimLink(IProgressMessaging progressMessaging = null, IProjectStorage projectStorage = null)
+        public IApplicationBIM GetBimLink(IProgressMessaging progressMessaging = null, IProjectStorage projectStorage = null, BulkSelectionSource bulkSelectionSource = BulkSelectionSource.Pick)
         {
             pluginLogger?.LogInformation("GetBimLink - Method started");
             pluginLogger?.LogInformation($"GetBimLink - ProgressMessaging: {(progressMessaging != null ? "provided" : "null")}");
+            pluginLogger?.LogInformation($"GetBimLink - Bulk selection source: {bulkSelectionSource}");
             try
             {
-                IContainer container = BuildContainer();
+                IContainer container = BuildContainer(bulkSelectionSource);
 
                 pluginLogger?.LogInformation("GetBimLink - Resolving IModelClient");
                 var modelClient = container.Resolve<IModelClient>();
@@ -167,9 +172,6 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
                     .WithTaskScheduler(TaskScheduler.FromCurrentSynchronizationContext())
                     .WithIdeaStatiCa(checkbotLocation);
 
-                pluginLogger?.LogInformation("GetBimLink - Resolving AppVisibility");
-                AppVisibility appVisibility = container.Resolve<AppVisibility>();
-
                 pluginLogger?.LogInformation("GetBimLink - Resolving Model");
                 Model model = container.Resolve<Model>();
 
@@ -177,11 +179,17 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
                 bimLink
                     .WithLogger(container.Resolve<IPluginLogger>())
                     .WithImporters(x => x.RegisterContainer(new AutofacServiceProvider(container)))
-                    .WithPluginHook(appVisibility)
                     .WithProgressMessaging(progressMessaging)
                     .WithProjectStorage(projectStorage)
                     .WithItemsComparer(new IdentifierComparer())
                     .WithUserDataSource(container.Resolve<UserDataSource>());
+
+                // AppVisibility brings Tekla forward for the pick; with nothing to pick it would only cover the caller's window.
+                if (bulkSelectionSource == BulkSelectionSource.Pick)
+                {
+                    pluginLogger?.LogInformation("GetBimLink - Resolving AppVisibility");
+                    bimLink.WithPluginHook(container.Resolve<AppVisibility>());
+                }
 
                 pluginLogger?.LogInformation("GetBimLink - Creating IApplicationBIM");
                 var result = bimLink.Create(model);
@@ -200,7 +208,7 @@ namespace IdeaStatiCa.TeklaStructuresPlugin
             pluginLogger?.LogInformation("GetProjectPath - Method started");
             try
             {
-                IContainer container = BuildContainer();
+                IContainer container = BuildContainer(BulkSelectionSource.Pick);
                 pluginLogger?.LogInformation("GetProjectPath - Resolving IModelClient");
                 var model = container.Resolve<IModelClient>();
                 string path = model.GetProjectPath();
