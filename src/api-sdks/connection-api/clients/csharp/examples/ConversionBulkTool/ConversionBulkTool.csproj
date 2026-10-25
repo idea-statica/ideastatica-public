@@ -10,8 +10,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UseWPF>true</UseWPF>
 		<UseWindowsForms>true</UseWindowsForms>
-		<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
-		
+
 		<!-- Self-contained single file config -->
 		<PublishSingleFile>true</PublishSingleFile>
 		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
@@ -25,14 +24,10 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" />
 	</ItemGroup>
 
-	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
+	<ItemGroup>
 		<PackageReference Include="IdeaStatiCa.ConnectionApi" />
 		<PackageReference Include="IdeaStatiCa.OpenModel" />
 		<PackageReference Include="IdeaStatiCa.PluginLogger" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
-		<ProjectReference Include="..\..\src\IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj" />
-	</ItemGroup>
-	
 </Project>

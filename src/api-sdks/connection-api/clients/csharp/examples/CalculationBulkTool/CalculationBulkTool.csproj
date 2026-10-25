@@ -14,22 +14,18 @@
 		<SelfContained>true</SelfContained>
 		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
 		<EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
-		<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
 		<SignAssembly>False</SignAssembly>
 		<DelaySign>False</DelaySign>
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="IdeaStatiCa.ConnectionApi" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" />
 		<PackageReference Include="Serilog" />
 		<PackageReference Include="Serilog.Sinks.Console" />
 		<PackageReference Include="Serilog.Sinks.Debug" />
 		<PackageReference Include="Serilog.Sinks.File" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
-	  <ProjectReference Include="..\..\src\IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj" />
 	</ItemGroup>
 
 </Project>

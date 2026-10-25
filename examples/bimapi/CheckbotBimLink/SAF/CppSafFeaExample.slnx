@@ -1,0 +1,13 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="CppSafFeaExample/CheckbotClient/CheckbotClient.vcxproj" />
+  <Project Path="CppSafFeaExample/CopyToOutputApp/CopyToOutputApp.csproj">
+    <Platform Project="x64" />
+  </Project>
+  <Project Path="CppSafFeaExample/CppFeaApp/CppFeaApp.vcxproj" />
+  <Project Path="CppSafFeaExample/SafProvider/SafProvider.vcxproj" />
+  <Project Path="SafFeaBimLink/SafFeaBimLink.csproj" />
+</Solution>

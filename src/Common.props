@@ -22,8 +22,6 @@
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
   </PropertyGroup>
 
-  <Import Project="$(MSBuildThisFileDirectory)\..\..\Common\Common.props" Condition="$(Configuration.EndsWith(`_IdeaStatiCa_Internal`))" />
-
   <PropertyGroup>
     <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
@@ -36,18 +34,5 @@
     <RepositoryUrl>https://github.com/idea-statica/ideastatica-plugin</RepositoryUrl>
     <PackageProjectUrl>https://github.com/idea-statica/ideastatica-plugin</PackageProjectUrl>
     <RepositoryType>Git</RepositoryType>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)'=='Debug_IdeaStatiCa_Internal'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <Optimize>false</Optimize>
-    <DebugType>full</DebugType>
-    <OutputPath>$(MSBuildThisFileDirectory)\..\..\bin\Debug\</OutputPath>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)'=='Release_IdeaStatiCa_Internal'">
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <OutputPath>$(MSBuildThisFileDirectory)\..\..\bin\Release\</OutputPath>
   </PropertyGroup>
 </Project>

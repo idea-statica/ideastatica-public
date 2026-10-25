@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/IomGenerator/">
+    <Project Path="../../../../../../examples/iom/csharp/ConnectionIomGenerator/ConnectionIomGenerator.UI/ConnectionIomGenerator.UI.csproj" />
+    <Project Path="../../../../../../examples/iom/csharp/ConnectionIomGenerator/ConnectionIomGenerator/ConnectionIomGenerator.csproj" />
+  </Folder>
+  <Project Path="CodeSamples/CodeSamples.csproj" />
+  <Project Path="ConApiWpfClient/ConApiWpfClientApp/ConApiWpfClientApp.csproj" />
+  <Project Path="ConversionBulkTool/ConversionBulkTool.csproj" />
+  <Project Path="PublishBulkTool/PublishBulkTool.csproj" />
+</Solution>

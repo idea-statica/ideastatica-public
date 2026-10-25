@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-	<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
 	<OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
 
@@ -10,24 +9,13 @@
 		<DebugType>full</DebugType>
 		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NuGet|AnyCPU'">
-		<DebugType>full</DebugType>
-		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 		<DebugType>pdbonly</DebugType>
 		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
 	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release_NuGet|AnyCPU' ">
-		<DebugType>pdbonly</DebugType>
-		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-	</PropertyGroup>
 
 
-	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
+	<ItemGroup>
 		<PackageReference Include="IdeaStatiCa.OpenModel"/>
-	</ItemGroup>
-	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
-		<ProjectReference Include="..\..\..\..\src\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
 	</ItemGroup>
 </Project>

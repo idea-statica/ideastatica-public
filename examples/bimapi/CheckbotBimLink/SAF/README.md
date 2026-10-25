@@ -24,10 +24,10 @@ To enable a fully functioning IDEA StatiCa Checkbot link there are some requirem
 ### Building the example
 
 1. Clone the [idea-statica/public](https://github.com/idea-statica/ideastatica-public) repository. Some typical instructions [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository?tool=desktop).
-2. In windows explorer navigate to the repository location `/examples/bimapi/CheckBotBimLink/SafFeaExample` folder and open the solution *SafFeaExample.sln* in visual studio.
+2. In windows explorer navigate to the repository location `/examples/bimapi/CheckbotBimLink/SAF` folder and open the solution *SafFeaExample.slnx* in visual studio.
 3. Build the entire solution, which may take a minute or two. There should be no errors.
 
-### Architecture (SafFeaExample.sln)
+### Architecture (SafFeaExample.slnx)
 
 There are three main projects in the example solution:
 

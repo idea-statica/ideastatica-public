@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="../../../../../../../examples/iom/csharp/ConnectionIomGenerator/ConnectionIomGenerator.UI/ConnectionIomGenerator.UI.csproj" />
+  <Project Path="../../../../../../../examples/iom/csharp/ConnectionIomGenerator/ConnectionIomGenerator/ConnectionIomGenerator.csproj" />
+  <Project Path="ConApiWpfClientApp/ConApiWpfClientApp.csproj" />
+</Solution>

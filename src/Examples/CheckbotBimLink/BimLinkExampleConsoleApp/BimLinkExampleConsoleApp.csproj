@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\examples\bimapi\CheckbotBimLink\CadExample\BimApiLinkCadExample\BimApiLinkCadExample.csproj" />
-    <ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+    <PackageReference Include="IdeaStatiCa.Plugin" />
   </ItemGroup>
 
 </Project>

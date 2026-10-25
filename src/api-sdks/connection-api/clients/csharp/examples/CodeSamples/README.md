@@ -16,15 +16,10 @@ Note: the `Samples/*.cs` files are embedded in the published Connection API refe
 
 ## Build & run
 
-The project has four configurations (see `CodeSamples.csproj`):
-
-| Configuration | Reference to the SDK |
-| --- | --- |
-| `Debug`, `Release` | Project reference to `..\..\src\IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj` (SDK built from this repository) |
-| `Debug_NuGet`, `Release_NuGet` | `IdeaStatiCa.ConnectionApi` NuGet package |
+The project references the `IdeaStatiCa.ConnectionApi` NuGet package.
 
 ```console
-dotnet run --project CodeSamples.csproj -c Debug_NuGet
+dotnet run --project CodeSamples.csproj
 ```
 
 When asked for the IDEA StatiCa directory (option `0`), enter the path of your installed version, e.g. `C:\Program Files\IDEA StatiCa\StatiCa 26.0` (the default offered by the app may point to an older version).

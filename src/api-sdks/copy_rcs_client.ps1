@@ -24,9 +24,7 @@ try {
     $ChildDirs = @(
         ".openapi-generator",
         "api",
-        "docs",
-        "src\IdeaStatiCa.RcsApi\Api",
-        "src\IdeaStatiCa.RcsApi\Client"
+        "docs"
     )
 
     foreach ($Child in $ChildDirs) {
@@ -38,17 +36,6 @@ try {
         # Copy directory
         Copy-Item -Path $SourcePath -Destination $DestinationParent -Recurse -Force
         Write-Host "Copied '$SourcePath' to '$DestinationParent'"
-    }
-
-    $ChildFiles = @(
-        "src\IdeaStatiCa.RcsApi\IdeaStatiCa.RcsApi.csproj"
-    )
-
-    $ClientDestDir = Join-Path $DestinationRoot "src\IdeaStatiCa.RcsApi"
-
-    foreach ($Child in $ChildFiles) {
-        $SourcePath      = Join-Path $SourceRoot $Child
-        Copy-Item -Path $SourcePath -Destination $ClientDestDir -Force
     }
 
     $ChildFiles = @(

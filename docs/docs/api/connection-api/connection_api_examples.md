@@ -17,7 +17,7 @@ All examples need a running Connection REST service from an installed IDEA Stati
 | Example | What it shows |
 | --- | --- |
 | [CodeSamples](https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api/clients/csharp/examples/CodeSamples) | Console app with focused samples per API area — open and calculate a project, read results, work with templates, parameters, and reports. |
-| [ConApiWpfClient](https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api/clients/csharp/examples/ConApiWpfClient) | A complete WPF desktop client: open projects, run calculations, browse results. Ships two solutions — one against the published NuGet packages, one against SDK project references for debugging. |
+| [ConApiWpfClient](https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api/clients/csharp/examples/ConApiWpfClient) | A complete WPF desktop client: open projects, run calculations, browse results. Builds against the published NuGet packages. |
 | [CalculationBulkTool](https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api/clients/csharp/examples/CalculationBulkTool) | WPF tool that batch-calculates a folder of `.ideaCon` projects. |
 | [ConversionBulkTool](https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api/clients/csharp/examples/ConversionBulkTool) | WPF tool that converts projects to a different design code in bulk. |
 | [PublishBulkTool](https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api/clients/csharp/examples/PublishBulkTool) | WPF tool that publishes connection designs to the Connection Library in bulk. |

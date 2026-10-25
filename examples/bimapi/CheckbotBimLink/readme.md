@@ -54,7 +54,7 @@ Our BimLinkFramework relys on automatic dependency injection. We use [Autofac](h
 ### Building the example
 
 1. Clone the [idea-statica/public](https://github.com/idea-statica/ideastatica-public) repository. Some typical instructions [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository?tool=desktop).
-2. In windows explorer navigate to the repository location `/src` folder and open the solution *IdeaStatiCa.Public.sln* in visual studio.
+2. In windows explorer navigate to the repository location `/src` folder and open the solution *IdeaStatiCa.Public.slnx* in visual studio.
 3. Build the entire solution, which may take a minute or two. There should be no errors. 
 4. Navigate to the example location and right click on the *BimLinkExampleRunner* and select set as start-up project.
 

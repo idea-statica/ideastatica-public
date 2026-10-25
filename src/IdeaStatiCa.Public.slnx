@@ -1,0 +1,44 @@
+<Solution>
+  <Folder Name="/CheckbotPlugins/">
+    <Project Path="CheckbotPlugins/ExamplePlugin/ExamplePlugin.csproj" />
+  </Folder>
+  <Folder Name="/Examples/" />
+  <Folder Name="/Examples/CCM/">
+    <Project Path="Examples/CCM/FEAppExample_1/FEAppExample_1.csproj" />
+  </Folder>
+  <Folder Name="/Examples/CheckbotBimLink/">
+    <File Path="../examples/bimapi/CheckbotBimLink/readme.md" />
+    <Project Path="../examples/bimapi/CheckbotBimLink/BimLinkExampleRunner/BimLinkExampleRunner.csproj" />
+    <Project Path="Examples/CheckbotBimLink/BimLinkExampleConsoleApp/BimLinkExampleConsoleApp.csproj" />
+  </Folder>
+  <Folder Name="/Examples/CheckbotBimLink/CadExample/">
+    <Project Path="../examples/bimapi/CheckbotBimLink/CadExample/BimApiLinkCadExample/BimApiLinkCadExample.csproj" />
+    <Project Path="../examples/bimapi/CheckbotBimLink/CadExample/CadBulkSelection/CadBulkSelection.csproj" />
+    <Project Path="../examples/bimapi/CheckbotBimLink/CadExample/CadExampleApi/CadExampleApi.csproj" />
+  </Folder>
+  <Folder Name="/Examples/CheckbotBimLink/FeaExample/">
+    <Project Path="../examples/bimapi/CheckbotBimLink/FeaExample/BimApiLinkFeaExample/BimApiLinkFeaExample.csproj" />
+    <Project Path="../examples/bimapi/CheckbotBimLink/FeaExample/FeaExampleApi/FeaExampleApi.csproj" />
+  </Folder>
+  <Folder Name="/Examples/IOM/">
+    <Project Path="../examples/iom/csharp/SteelFrameExample/IOM.SteelFrameDesktop/IOM.SteelFrameDesktop.csproj" />
+    <Project Path="../examples/iom/csharp/SteelFrameExample/IOM.SteelFrameExample/IOM.SteelFrameExample.csproj" />
+    <Project Path="../examples/iom/csharp/SteelFrameExample/IOM.SteelFrameWeb/IOM.SteelFrameWeb.csproj" />
+  </Folder>
+  <Folder Name="/Examples/IOMConversions/" />
+  <Folder Name="/Examples/IOMConversions/SAF2IOM-WinForm-Tester/">
+    <Project Path="../examples/bimapi/SAF2IOM-WinForm-Tester/SAF2IOM/SAF2IOM.csproj" />
+  </Folder>
+  <Folder Name="/Examples/rstab/">
+    <Project Path="bim-links/rstab/IdeaRstabPluginInstaller/IdeaRstabPluginInstaller.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="../Directory.Build.props" />
+    <File Path="../Directory.Packages.props" />
+    <File Path="Common.props" />
+  </Folder>
+  <Folder Name="/SystemTests/">
+    <Project Path="SystemTests/SystemTestService/SystemTestService.csproj" />
+  </Folder>
+  <Project Path="IdeaStatiCa.PluginsTools.Windows/IdeaStatiCa.PluginsTools.Windows.csproj" />
+</Solution>

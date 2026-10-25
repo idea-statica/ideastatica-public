@@ -9,7 +9,6 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UseWPF>true</UseWPF>
-		<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -25,12 +24,8 @@
 	  <ProjectReference Include="..\ConnectionIomGenerator\ConnectionIomGenerator.csproj" />
 	</ItemGroup>
 
-	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
+	<ItemGroup>
 		<PackageReference Include="IdeaStatiCa.PluginLogger" />
-	</ItemGroup>
-	
-	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
-		<ProjectReference Include="..\..\..\..\..\src\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

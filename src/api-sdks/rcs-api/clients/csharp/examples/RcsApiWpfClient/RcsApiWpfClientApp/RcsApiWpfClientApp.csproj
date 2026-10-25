@@ -8,7 +8,6 @@
 		<TargetFramework>net10.0-windows</TargetFramework>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
-		<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -24,14 +23,9 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" />
 	</ItemGroup>
 
-	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
+	<ItemGroup>
 		<PackageReference Include="IdeaStatiCa.PluginLogger" />
 		<PackageReference Include="IdeaStatiCa.RcsApi" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
-		<ProjectReference Include="..\..\..\..\..\..\..\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />
-		<ProjectReference Include="..\..\..\src\IdeaStatiCa.RcsApi\IdeaStatiCa.RcsApi.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

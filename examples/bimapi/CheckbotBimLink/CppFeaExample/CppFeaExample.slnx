@@ -1,0 +1,12 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="CopyToOutputApp/CopyToOutputApp.csproj">
+    <Platform Project="x64" />
+  </Project>
+  <Project Path="CppFeaApi/CppFeaApi.vcxproj" />
+  <Project Path="CppFeaApiWrapper/CppFeaApiWrapper.vcxproj" />
+  <Project Path="CppFeaApp/CppFeaApp.vcxproj" />
+  <Project Path="ImporterWrappers/ImporterWrappers.csproj" />
+</Solution>

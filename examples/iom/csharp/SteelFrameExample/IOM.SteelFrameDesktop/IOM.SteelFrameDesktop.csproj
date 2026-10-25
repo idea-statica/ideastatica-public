@@ -8,22 +8,13 @@
     <Product>IOM.SteelFrameDesktop</Product>
     <Copyright>Copyright ©  2019</Copyright>
     <OutputPath>bin\$(Configuration)\</OutputPath>
-    <Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug_NuGet|AnyCPU' ">
-	<DebugType>full</DebugType>
-	<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_NuGet|AnyCPU'">
     <DebugType>pdbonly</DebugType>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>

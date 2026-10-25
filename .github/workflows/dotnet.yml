@@ -7,11 +7,10 @@ on:
     branches: [ main, main_*, release_* ]
 env:
   DOTNET_VERSION: '10.0.105'
-  NUGET_BINARY_VERSION: '6.13.2'
 
 jobs:
   IdeaStatiCa_Public:
-    name: "Build and Test IdeaStatiCa.Public.sln"
+    name: "Build IdeaStatiCa.Public.slnx"
     runs-on: windows-latest
 
     env: # Define the global configuration variable
@@ -23,33 +22,17 @@ jobs:
       with:
         path: main
 
-    - name: 'Setup msbuild'
-      uses: microsoft/setup-msbuild@v1
-
     - name: 'Setup .NET SDK'
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: 'Setup nuget.exe'
-      uses: NuGet/setup-nuget@v1
-      with:
-        nuget-version: ${{ env.NUGET_BINARY_VERSION }}
-
-    - name: 'NuGet restore dependencies'
-      run: nuget restore ./src/IdeaStatiCa.Public.sln
-      working-directory: main
-
     - name: 'Build'
-      run:  msbuild ./src/IdeaStatiCa.Public.sln /p:Configuration=Release /p:TreatWarningsAsErrors=${{ env.TreatWarningsAsErrors }}
-      working-directory: main
-
-    - name: 'Test'
-      run: dotnet test --configuration "Release" --blame --collect "Code Coverage" ./src/IdeaStatiCa.Public.sln /p:TreatWarningsAsErrors=${{ env.TreatWarningsAsErrors }}
+      run:  dotnet build ./src/IdeaStatiCa.Public.slnx /p:Configuration=Release /p:TreatWarningsAsErrors=${{ env.TreatWarningsAsErrors }}
       working-directory: main
 
   IdeaStatiCa-SDK-Examples:
-    name: "Build IdeaStatiCa-SDK-Examples.sln"
+    name: "Build IdeaStatiCa-SDK-Examples.slnx"
     runs-on: windows-latest
 
     env: # Define the global configuration variable
@@ -61,34 +44,18 @@ jobs:
       with:
         path: main
 
-    - name: 'Setup msbuild'
-      uses: microsoft/setup-msbuild@v1
-
     - name: 'Setup .NET SDK'
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: 'Setup nuget.exe'
-      uses: NuGet/setup-nuget@v1
-      with:
-        nuget-version: ${{ env.NUGET_BINARY_VERSION }}
-
-    - name: 'NuGet restore dependencies'
-      run: nuget restore ./examples/IdeaStatiCa-SDK-Examples.sln 
-      working-directory: main
-
-    - name: 'Dotnet restore dependencies'
-      run: dotnet restore ./examples/IdeaStatiCa-SDK-Examples.sln
-      working-directory: main
-
     - name: 'Build'
-      run:  msbuild ./examples/IdeaStatiCa-SDK-Examples.sln /p:Configuration=Release /p:TreatWarningsAsErrors=${{ env.TreatWarningsAsErrors }}
+      run:  dotnet build ./examples/IdeaStatiCa-SDK-Examples.slnx /p:Configuration=Release /p:TreatWarningsAsErrors=${{ env.TreatWarningsAsErrors }}
       working-directory: main
 
-  ConRestApiClient:
-    name: "Build ConRestApiClient.sln"
-    runs-on: ubuntu-latest
+  ConnectionApiExamples:
+    name: "Build IdeaStatiCa.ConnectionApi.Examples.slnx"
+    runs-on: windows-latest
 
     steps:
     - name: 'Checkout'
@@ -101,16 +68,8 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: 'Dotnet restore dependencies'
-      run: dotnet restore ./src/api-sdks/connection-api/clients/csharp/ConRestApiClient.sln
-      working-directory: main
-
     - name: 'Build'
-      run:  dotnet build ./src/api-sdks/connection-api/clients/csharp/ConRestApiClient.sln /p:Configuration=Release
-      working-directory: main
-
-    - name: 'Test (offline unit tests; ST_ConRestApiClient needs a running service and is not run here)'
-      run: dotnet test ./src/api-sdks/connection-api/clients/csharp/src/tests/UT_ConRestApiClient/UT_ConRestApiClient.csproj --configuration Release --no-build
+      run:  dotnet build ./src/api-sdks/connection-api/clients/csharp/examples/IdeaStatiCa.ConnectionApi.Examples.slnx /p:Configuration=Release
       working-directory: main
 
   ConRestApiClient_Python:
@@ -136,9 +95,9 @@ jobs:
       run: python -m pytest -m "not requires_service"
       working-directory: main/src/api-sdks/connection-api/clients/python
 
-  RcsRestApiClient:
-    name: "Build RcsRestApiClient.sln"
-    runs-on: ubuntu-latest
+  RcsApiExamples:
+    name: "Build IdeaStatiCa.RcsApi.Examples.slnx"
+    runs-on: windows-latest
 
     steps:
     - name: 'Checkout'
@@ -151,10 +110,6 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: 'Dotnet restore dependencies'
-      run: dotnet restore ./src/api-sdks/rcs-api/clients/csharp/RcsRestApiClient.sln
-      working-directory: main
-
     - name: 'Build'
-      run:  dotnet build ./src/api-sdks/rcs-api/clients/csharp/RcsRestApiClient.sln /p:Configuration=Release
-      working-directory: main      
+      run:  dotnet build ./src/api-sdks/rcs-api/clients/csharp/examples/IdeaStatiCa.RcsApi.Examples.slnx /p:Configuration=Release
+      working-directory: main
