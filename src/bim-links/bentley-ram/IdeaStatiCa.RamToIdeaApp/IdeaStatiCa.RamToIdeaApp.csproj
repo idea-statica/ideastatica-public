@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\Common.props" />
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\RAM icon.ico</ApplicationIcon>
+    <Platforms>AnyCPU;x64</Platforms>
+    <!-- RAM DataAccess hosts the .NET Framework CLR in-process, which is not CET-compatible: with CET enabled the process is killed (0xC0000409) -->
+    <CETCompat>false</CETCompat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\RAM icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Idea.Bentley.Ram" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IdeaStatiCa.PluginLogger" />
+    <ProjectReference Include="..\IdeaStatiCa.RamToIdea\IdeaStatiCa.RamToIdea.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\RAM icon.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>

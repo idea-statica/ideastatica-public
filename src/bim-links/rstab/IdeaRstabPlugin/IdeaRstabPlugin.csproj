@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\..\Common.props" />
+  
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Platforms>x64</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+	<EnableComHosting>true</EnableComHosting>
+	<IsPublishable>true</IsPublishable>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="MathNet.Spatial" />
+    <PackageReference Include="Serilog" />
+    <PackageReference Include="Serilog.Enrichers.Process" />
+    <PackageReference Include="Serilog.Enrichers.Thread" />
+    <PackageReference Include="Serilog.Sinks.Debug" />
+    <PackageReference Include="Serilog.Sinks.File" />
+    
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IdeaStatiCa.OpenModel" />
+    <PackageReference Include="IdeaStatica.BimApi" />
+    <PackageReference Include="IdeaStatiCa.BimImporter" />
+    <PackageReference Include="IdeaStatiCa.Plugin" />
+    <PackageReference Include="IdeaStatiCa.PluginLogger" />
+  </ItemGroup>
+
+  <ItemGroup>    
+
+    <Reference Include="Dlubal.RSTAB6">
+      <HintPath>libs\Dlubal.RSTAB6.dll</HintPath>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </Reference>
+
+    <Reference Include="Dlubal.RSTAB8">
+      <HintPath>libs\Dlubal.RSTAB8.dll</HintPath>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </Reference>
+  </ItemGroup>
+
+</Project>

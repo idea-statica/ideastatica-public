@@ -14,6 +14,9 @@
     <PackageVersion Include="IdeaStatica.BimApi" Version="26.1.0.5973" />
     <PackageVersion Include="IdeaStatica.BimApiLink" Version="26.1.0.5973" />
     <PackageVersion Include="IdeaStatiCa.CheckbotPlugin" Version="26.1.0.5973" />
+    <PackageVersion Include="IdeaStatiCa.BimImporter" Version="26.1.0.5973" />
+    <PackageVersion Include="IdeaStatiCa.PluginsTools" Version="26.1.0.5973" />
+    <PackageVersion Include="IdeaStatiCa.ItemsSorter" Version="26.1.0.5973" />
     <PackageVersion Include="IdeaStatiCa.SAF2IOM" Version="26.1.0.5973" />
     <PackageVersion Include="IdeaStatiCa.PluginLogger" Version="26.1.0.5973" />
     <PackageVersion Include="IdeaStatiCa.Public" Version="26.1.0.5973" />

@@ -29,8 +29,58 @@
   <Folder Name="/Examples/IOMConversions/SAF2IOM-WinForm-Tester/">
     <Project Path="../examples/bimapi/SAF2IOM-WinForm-Tester/SAF2IOM/SAF2IOM.csproj" />
   </Folder>
-  <Folder Name="/Examples/rstab/">
+  <Folder Name="/bim-links/" />
+  <Folder Name="/bim-links/bentley-ram/">
+    <Project Path="bim-links/bentley-ram/IdeaStatiCa.BentleyCrossSections/IdeaStatiCa.BentleyCrossSections.shproj" />
+    <Project Path="bim-links/bentley-ram/IdeaStatiCa.Ram25ToIdea/IdeaStatiCa.Ram25ToIdea.csproj" />
+    <Project Path="bim-links/bentley-ram/IdeaStatiCa.Ram25ToIdeaApp/IdeaStatiCa.Ram25ToIdeaApp.csproj" />
+    <Project Path="bim-links/bentley-ram/IdeaStatiCa.RamContracts/IdeaStatiCa.RamContracts.csproj" />
+    <Project Path="bim-links/bentley-ram/IdeaStatiCa.RamToIdea/IdeaStatiCa.RamToIdea.csproj" />
+    <Project Path="bim-links/bentley-ram/IdeaStatiCa.RamToIdeaApp/IdeaStatiCa.RamToIdeaApp.csproj" />
+    <Project Path="bim-links/bentley-ram/IdeaStatiCa.RamToIdeaTest/IdeaStatiCa.RamToIdeaTest.csproj">
+      <Platform Project="x64" />
+    </Project>
+  </Folder>
+  <Folder Name="/bim-links/rstab/">
+    <Project Path="bim-links/rstab/IdeaRstabPlugin/IdeaRstabPlugin.csproj">
+      <Platform Project="x64" />
+    </Project>
     <Project Path="bim-links/rstab/IdeaRstabPluginInstaller/IdeaRstabPluginInstaller.csproj" />
+  </Folder>
+  <Folder Name="/bim-links/tekla/">
+    <Project Path="bim-links/tekla/IdeaStatiCa.BulkSelection/IdeaStatiCa.BulkSelection.shproj" />
+    <Project Path="bim-links/tekla/IdeaStatiCa.TeklaStructures2018/IdeaStatiCa.TeklaStructures2018.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="bim-links/tekla/IdeaStatiCa.TeklaStructures2019/IdeaStatiCa.TeklaStructures2019.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="bim-links/tekla/IdeaStatiCa.TeklaStructures2020/IdeaStatiCa.TeklaStructures2020.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="bim-links/tekla/IdeaStatiCa.TeklaStructures2021/IdeaStatiCa.TeklaStructures2021.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="bim-links/tekla/IdeaStatiCa.TeklaStructures2022/IdeaStatiCa.TeklaStructures2022.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="bim-links/tekla/IdeaStatiCa.TeklaStructures2023/IdeaStatiCa.TeklaStructures2023.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="bim-links/tekla/IdeaStatiCa.TeklaStructures2024/IdeaStatiCa.TeklaStructures2024.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="bim-links/tekla/IdeaStatiCa.TeklaStructures2025/IdeaStatiCa.TeklaStructures2025.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="bim-links/tekla/IdeaStatiCa.TeklaStructures2026/IdeaStatiCa.TeklaStructures2026.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="bim-links/tekla/IdeaStatiCa.TeklaStructuresPlugin/IdeaStatiCa.TeklaStructuresPlugin.shproj" />
+    <Project Path="bim-links/tekla/IdeaStatiCa.TeklaStructuresResources/IdeaStatiCa.TeklaStructuresResources.csproj">
+      <Platform Project="x64" />
+    </Project>
+    <Project Path="bim-links/tekla/IdeaStatiCa.TeklaStructuresTest/IdeaStatiCa.TeklaStructuresTest.csproj" />
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path="../Directory.Build.props" />

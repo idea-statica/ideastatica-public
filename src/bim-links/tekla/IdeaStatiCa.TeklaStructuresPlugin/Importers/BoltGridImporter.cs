@@ -1,0 +1,101 @@
+﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.Utils;
+using IdeaStatiCa.Plugin;
+using IdeaStatiCa.TeklaStructuresPlugin.BimApi;
+using IdeaStatiCa.TeklaStructuresPlugin.Utils;
+using System.Collections;
+using System.Collections.Generic;
+using TS = Tekla.Structures.Model;
+using TSG = Tekla.Structures.Geometry3d;
+using TSV = Tekla.Structures.TeklaStructuresSettings;
+
+namespace IdeaStatiCa.TeklaStructuresPlugin.Importers
+{
+	internal class BoltGridImporter : BaseImporter<IIdeaBoltGrid>
+	{
+
+
+		public BoltGridImporter(IModelClient model, IPluginLogger plugInLogger)
+			: base(model, plugInLogger)
+		{
+		}
+
+		public override IIdeaBoltGrid Create(string id)
+		{
+			var item = Model.GetItemByHandler(id);
+			if (item is TS.BoltGroup boltGroup)
+			{
+				var boltgrid = new BoltGrid(boltGroup.Identifier.GUID.ToString())
+				{
+					BoltAssembly = GetAssembly(boltGroup),
+					BoltShearType = IdeaRS.OpenModel.Parameters.BoltShearType.Interaction,
+					ConnectedParts = new List<IIdeaObjectConnectable>(),
+					Positions = new List<IIdeaNode>(),
+					Length = ((double)boltGroup.Length).MilimetersToMeters(),
+				};
+
+				//This test due to plate as member and we are not sure if its imported as plate or member
+				foreach (var bolted in Utilities.BulkSelectionHelper.PartsBoltedBy(boltGroup))
+				{
+					AddConnectedPart(bolted.Part, boltgrid.ConnectedParts as List<IIdeaObjectConnectable>, boltgrid.Id, bolted.Role);
+				}
+				var frame = Utilities.BulkSelectionHelper.BoltFrame(boltGroup);
+				boltgrid.OriginNo = Model.GetPointId(frame.Origin);
+				boltgrid.LocalCoordinateSystem = ToCoordSystem(frame.X, frame.Y, frame.Z);
+
+				var midPoints = boltGroup.BoltPositions;
+				foreach (var p in midPoints)
+				{
+					var point = p as TSG.Point;
+					var pointId = Model.GetPointId(point);
+					(boltgrid.Positions as List<IIdeaNode>).Add(Get<IIdeaNode>(pointId));
+				}
+
+				return boltgrid;
+			}
+			else
+			{
+				return null;
+			}
+		}
+
+		private IIdeaBoltAssembly GetAssembly(TS.BoltGroup boltGroup)
+		{
+			bool isImperialUnitPresented = false;
+			TSV.GetAdvancedOption("XS_IMPERIAL", ref isImperialUnitPresented);
+
+			var stringPropTable = new Hashtable();
+			boltGroup.GetStringReportProperties(new ArrayList
+				{
+					TeklaPropertiesKeys.BoltGradeKey,
+					TeklaPropertiesKeys.BoltAssemblyNameKey
+				}, ref stringPropTable);
+
+			string boltAssemblyName = (string)stringPropTable[TeklaPropertiesKeys.BoltAssemblyNameKey];
+			string boltGrade = (string)stringPropTable[TeklaPropertiesKeys.BoltGradeKey] ?? boltAssemblyName;
+
+			var doublePropTable = new Hashtable();
+			boltGroup.GetDoubleReportProperties(new ArrayList
+			{
+				TeklaPropertiesKeys.BoltDiameterKey
+			}, ref doublePropTable);
+
+			double boltDiameter = ((double)doublePropTable[TeklaPropertiesKeys.BoltDiameterKey]).MilimetersToMeters();
+
+			return new BoltAssembly(BoltAssemblyIdentity.Create(boltAssemblyName, boltGrade, boltDiameter))
+			{
+				BoreHole = boltDiameter + 0.001,
+				DiagonalHeadDiameter = boltDiameter * 1.7,
+				Diameter = boltDiameter,
+				NutThickness = 0.6 * boltDiameter,
+				HeadDiameter = boltDiameter * 1.7,
+				HeadHeight = 0.6 * boltDiameter,
+				HoleDiameter = boltDiameter + 0.001,
+				Standard = string.Empty,
+				TensileStressArea = 0.0,
+				BoltGradeNo = boltGrade,
+				Name = $"{(isImperialUnitPresented ? boltDiameter.MetersToInchesFormated() : doublePropTable[TeklaPropertiesKeys.BoltDiameterKey])} {boltAssemblyName}"
+			};
+		}
+	}
+}

@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+<Import Project="..\..\..\Common.props" />
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+	<Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Autofac" />
+		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
+		<PackageReference Include="Idea.Bentley.Ram" />
+		<PackageReference Include="MathNet.Numerics" />
+		<PackageReference Include="MathNet.Spatial" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="IdeaStatiCa.OpenModel" />
+		<PackageReference Include="IdeaStatica.BimApi" />
+		<PackageReference Include="IdeaStatiCa.BimImporter" />
+		<PackageReference Include="IdeaStatiCa.Plugin" />
+	</ItemGroup>
+	<Import Project="..\IdeaStatiCa.BentleyCrossSections\IdeaStatiCa.BentleyCrossSections.projitems" Label="Shared" />
+
+</Project>

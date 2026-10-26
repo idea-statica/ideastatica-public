@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\..\..\Common.props" />
+	<PropertyGroup>
+		<TargetFramework>net48</TargetFramework>
+		<Platforms>x64</Platforms>
+		<PlatformTarget>x64</PlatformTarget>
+		<UseWpf>true</UseWpf>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Autofac" />
+		<PackageReference Include="System.Diagnostics.DiagnosticSource" />
+		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" />
+		<PackageReference Include="Autofac.Extensions.DependencyInjection" />
+		<PackageReference Include="morelinq" />
+		<PackageReference Include="System.Management" />
+		<PackageReference Include="TeklaOpenAPI" VersionOverride="2018.1.17267" >
+			<PrivateAssets>all</PrivateAssets>
+			<ExcludeAssets>runtime</ExcludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="IdeaStatiCa.OpenModel" />
+		<PackageReference Include="IdeaStatica.BimApiLink" />
+		<PackageReference Include="IdeaStatica.BimApi" />
+		<PackageReference Include="IdeaStatiCa.BimImporter" />
+		<PackageReference Include="IdeaStatiCa.PluginsTools" />
+		<PackageReference Include="IdeaStatiCa.Plugin" />
+		<PackageReference Include="IdeaStatiCa.PluginLogger" />		
+		<ProjectReference Include="..\IdeaStatiCa.TeklaStructuresResources\IdeaStatiCa.TeklaStructuresResources.csproj" />
+	</ItemGroup>
+	
+	<Import Project="..\IdeaStatiCa.TeklaStructuresPlugin\IdeaStatiCa.TeklaStructuresPlugin.projitems" Label="Shared" />
+	<Import Project="..\IdeaStatiCa.BulkSelection\IdeaStatiCa.BulkSelection.projitems" Label="Shared" />
+</Project>
