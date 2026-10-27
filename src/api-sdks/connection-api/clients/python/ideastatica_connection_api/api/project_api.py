@@ -2244,7 +2244,7 @@ class ProjectApi:
     def update_project_data(
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
-        con_project_data: Annotated[Optional[ConProjectData], Field(description="New project data to apply. The CountryCode field may keep the project's              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code.")] = None,
+        con_project_data: Annotated[Optional[ConProjectData], Field(description="New project data to apply. The CountryCode field cannot change the design              code: it may only repeat the project's current code, and None or leaving the field out keeps it.              Any other value is refused with 422; use change-code to convert a project to another code.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2263,7 +2263,7 @@ class ProjectApi:
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param con_project_data: New project data to apply. The CountryCode field may keep the project's              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code.
+        :param con_project_data: New project data to apply. The CountryCode field cannot change the design              code: it may only repeat the project's current code, and None or leaving the field out keeps it.              Any other value is refused with 422; use change-code to convert a project to another code.
         :type con_project_data: ConProjectData
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2318,7 +2318,7 @@ class ProjectApi:
     def update_project_data_with_http_info(
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
-        con_project_data: Annotated[Optional[ConProjectData], Field(description="New project data to apply. The CountryCode field may keep the project's              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code.")] = None,
+        con_project_data: Annotated[Optional[ConProjectData], Field(description="New project data to apply. The CountryCode field cannot change the design              code: it may only repeat the project's current code, and None or leaving the field out keeps it.              Any other value is refused with 422; use change-code to convert a project to another code.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2337,7 +2337,7 @@ class ProjectApi:
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param con_project_data: New project data to apply. The CountryCode field may keep the project's              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code.
+        :param con_project_data: New project data to apply. The CountryCode field cannot change the design              code: it may only repeat the project's current code, and None or leaving the field out keeps it.              Any other value is refused with 422; use change-code to convert a project to another code.
         :type con_project_data: ConProjectData
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
@@ -2392,7 +2392,7 @@ class ProjectApi:
     def update_project_data_without_preload_content(
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
-        con_project_data: Annotated[Optional[ConProjectData], Field(description="New project data to apply. The CountryCode field may keep the project's              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code.")] = None,
+        con_project_data: Annotated[Optional[ConProjectData], Field(description="New project data to apply. The CountryCode field cannot change the design              code: it may only repeat the project's current code, and None or leaving the field out keeps it.              Any other value is refused with 422; use change-code to convert a project to another code.")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2411,7 +2411,7 @@ class ProjectApi:
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
         :type project_id: str
-        :param con_project_data: New project data to apply. The CountryCode field may keep the project's              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code.
+        :param con_project_data: New project data to apply. The CountryCode field cannot change the design              code: it may only repeat the project's current code, and None or leaving the field out keeps it.              Any other value is refused with 422; use change-code to convert a project to another code.
         :type con_project_data: ConProjectData
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request

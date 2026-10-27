@@ -3,7 +3,7 @@
 The Python package for the Connection Rest API 5.0
 
 - API version: 5.0
-- Package version: 26.1.0.4245
+- Package version: 26.1.0.5973
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -113,36 +113,38 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         connection1 = connections_in_project[0]
         pprint(connection1)
 
-        # run stress-strain CBFEM analysis for the connection id = 1
-        calcParams = ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional)
-        calcParams.connection_ids = [connection1.id]
+        # connections to calculate
+        # the analysis type is taken from the connection itself (connection1.analysis_type),
+        # set it with api_client.connection.update_connection before calculating
+        connection_ids = [connection1.id]
 
-        # run stress-strain analysis for the connection
-        con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
+        # run CBFEM analysis for the connection
+        con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, connection_ids)
         pprint(con1_cbfem_results)
-        
+
         # get detailed results. Results are list of strings
         # the number of strings in the list correspond to the number of calculated connections
-        results_text = api_client.calculation.get_raw_json_results(api_client.project.active_project_id, calcParams)
+        results_text = api_client.calculation.get_raw_json_results(api_client.project.active_project_id, connection_ids)
         firstConnectionResult = results_text[0]
         pprint(firstConnectionResult)
 
         raw_results = json.loads(firstConnectionResult)
         pprint(raw_results)
 
-        detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, calcParams)
+        detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, connection_ids)
         pprint(detailed_results)
 
         # get connection setup
-        connection_setup =  api_client.project.get_setup(api_client.project.active_project_id)
+        connection_setup = api_client.settings.get_settings(api_client.project.active_project_id)
         pprint(connection_setup)
 
-        # modify setup
-        connection_setup.hss_limit_plastic_strain = 0.02
-        modifiedSetup = api_client.project.update_setup(api_client.project.active_project_id, connection_setup)
+        # modify setup - settings are addressed by key
+        modifiedSetupValues = {}
+        modifiedSetupValues["calculationCommon/Checks/Shared/LimitPlasticStrainForHighStrengthSteel@01"] = 0.02
+        modifiedSetup = api_client.settings.update_settings(api_client.project.active_project_id, modifiedSetupValues)
 
         # recalculate connection
-        recalculate_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
+        recalculate_results = api_client.calculation.calculate(api_client.project.active_project_id, connection_ids)
         pprint(recalculate_results)
 
     except Exception as e:
@@ -347,12 +349,12 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**update_contact_grid_operation**](docs/OperationApi.md#update_contact_grid_operation) | Replaces a Contact Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
 [**update_contact_operation**](docs/OperationApi.md#update_contact_operation) | Replaces a Contact operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
 [**update_cut_operation**](docs/OperationApi.md#update_cut_operation) | Replaces a Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
-[**update_negative_member_operation**](docs/OperationApi.md#update_negative_member_operation) | Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
-[**update_negative_plate_operation**](docs/OperationApi.md#update_negative_plate_operation) | Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**update_negative_member_operation**](docs/OperationApi.md#update_negative_member_operation) | Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
+[**update_negative_plate_operation**](docs/OperationApi.md#update_negative_plate_operation) | Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 [**update_pin_grid_operation**](docs/OperationApi.md#update_pin_grid_operation) | Replaces a Pin Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
 [**update_plate_cut_operation**](docs/OperationApi.md#update_plate_cut_operation) | Replaces a Plate Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
-[**update_stiffening_member_operation**](docs/OperationApi.md#update_stiffening_member_operation) | Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
-[**update_stiffening_plate_operation**](docs/OperationApi.md#update_stiffening_plate_operation) | Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.
+[**update_stiffening_member_operation**](docs/OperationApi.md#update_stiffening_member_operation) | Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
+[**update_stiffening_plate_operation**](docs/OperationApi.md#update_stiffening_plate_operation) | Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 [**update_weld_operation**](docs/OperationApi.md#update_weld_operation) | Replaces a Weld operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
 [**update_work_plane_operation**](docs/OperationApi.md#update_work_plane_operation) | Replaces a Work Plane operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
   ### ParameterApi
@@ -544,6 +546,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConParameterDeleteResult](docs/ConParameterDeleteResult.md)
  - [ideastatica_connection_api.models.ConParameterLink](docs/ConParameterLink.md)
  - [ideastatica_connection_api.models.ConParameterLinkCreate](docs/ConParameterLinkCreate.md)
+ - [ideastatica_connection_api.models.ConParameterValueType](docs/ConParameterValueType.md)
  - [ideastatica_connection_api.models.ConPinGridOperation](docs/ConPinGridOperation.md)
  - [ideastatica_connection_api.models.ConPlateCutOperation](docs/ConPlateCutOperation.md)
  - [ideastatica_connection_api.models.ConPlateFunction](docs/ConPlateFunction.md)
@@ -559,8 +562,10 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConPropertyOwnerKind](docs/ConPropertyOwnerKind.md)
  - [ideastatica_connection_api.models.ConReinforcementAnchorShape](docs/ConReinforcementAnchorShape.md)
  - [ideastatica_connection_api.models.ConRemainingPart](docs/ConRemainingPart.md)
+ - [ideastatica_connection_api.models.ConRepeatedValue](docs/ConRepeatedValue.md)
  - [ideastatica_connection_api.models.ConResultSummary](docs/ConResultSummary.md)
  - [ideastatica_connection_api.models.ConShearForceTransferMethod](docs/ConShearForceTransferMethod.md)
+ - [ideastatica_connection_api.models.ConShearLugDto](docs/ConShearLugDto.md)
  - [ideastatica_connection_api.models.ConSlottedHole](docs/ConSlottedHole.md)
  - [ideastatica_connection_api.models.ConSteelCodeEditionEnum](docs/ConSteelCodeEditionEnum.md)
  - [ideastatica_connection_api.models.ConStiffeningMemberOperation](docs/ConStiffeningMemberOperation.md)
@@ -638,7 +643,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 This Python package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 5.0
-- Package version: 26.1.0.4245
+- Package version: 26.1.0.5973
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.PythonClientCodegen
 For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

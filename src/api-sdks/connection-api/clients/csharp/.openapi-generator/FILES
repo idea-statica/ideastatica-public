@@ -113,6 +113,7 @@ docs/ConParameterCreate.md
 docs/ConParameterDeleteResult.md
 docs/ConParameterLink.md
 docs/ConParameterLinkCreate.md
+docs/ConParameterValueType.md
 docs/ConPinGridOperation.md
 docs/ConPlateCutOperation.md
 docs/ConPlateFunction.md
@@ -128,8 +129,10 @@ docs/ConPropertyOwner.md
 docs/ConPropertyOwnerKind.md
 docs/ConReinforcementAnchorShape.md
 docs/ConRemainingPart.md
+docs/ConRepeatedValue.md
 docs/ConResultSummary.md
 docs/ConShearForceTransferMethod.md
+docs/ConShearLugDto.md
 docs/ConSlottedHole.md
 docs/ConSteelCodeEditionEnum.md
 docs/ConStiffeningMemberOperation.md
@@ -355,6 +358,7 @@ src/IdeaStatiCa.ConnectionApi/Model/ConParameterCreate.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConParameterDeleteResult.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConParameterLink.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConParameterLinkCreate.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConParameterValueType.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConPinGridOperation.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConPlateCutOperation.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConPlateFunction.cs
@@ -370,8 +374,10 @@ src/IdeaStatiCa.ConnectionApi/Model/ConPropertyOwner.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConPropertyOwnerKind.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConReinforcementAnchorShape.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConRemainingPart.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConRepeatedValue.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConResultSummary.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConShearForceTransferMethod.cs
+src/IdeaStatiCa.ConnectionApi/Model/ConShearLugDto.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConSlottedHole.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConSteelCodeEditionEnum.cs
 src/IdeaStatiCa.ConnectionApi/Model/ConStiffeningMemberOperation.cs

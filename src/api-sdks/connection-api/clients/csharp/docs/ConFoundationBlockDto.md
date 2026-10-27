@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **ShearForceTransfer** | **ConShearForceTransferMethod** |  | [optional] 
 **ContactType** | **ConBasePlateContactType** |  | [optional] 
 **MortarThickness** | **double** |  | [optional] 
+**ShearLug** | [**ConShearLugDto**](ConShearLugDto.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

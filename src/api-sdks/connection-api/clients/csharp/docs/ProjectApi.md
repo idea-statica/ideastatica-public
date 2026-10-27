@@ -1043,7 +1043,7 @@ Updates ConProjectData of project.
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
 | **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
-| **conProjectData** | [**ConProjectData**](ConProjectData.md) | New project data to apply. The CountryCode field may keep the project&#39;s              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code. | [optional]  |
+| **conProjectData** | [**ConProjectData**](ConProjectData.md) | New project data to apply. The CountryCode field cannot change the design              code: it may only repeat the project&#39;s current code, and None or leaving the field out keeps it.              Any other value is refused with 422; use change-code to convert a project to another code. | [optional]  |
 
 ### Return type
 
@@ -1081,7 +1081,7 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var conProjectData = new ConProjectData(); // ConProjectData | New project data to apply. The CountryCode field may keep the project's              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code. (optional) 
+                    var conProjectData = new ConProjectData(); // ConProjectData | New project data to apply. The CountryCode field cannot change the design              code: it may only repeat the project's current code, and None or leaving the field out keeps it.              Any other value is refused with 422; use change-code to convert a project to another code. (optional) 
 
                     try
                     {

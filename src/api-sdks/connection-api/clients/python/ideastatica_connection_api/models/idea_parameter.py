@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from ideastatica_connection_api.models.con_parameter_value_type import ConParameterValueType
 from ideastatica_connection_api.models.idea_parameter_validation import IdeaParameterValidation
 from typing import Optional, Set
 from typing_extensions import Self
@@ -33,6 +34,7 @@ class IdeaParameter(BaseModel):
     default: Optional[StrictStr] = None
     value: Optional[Any] = None
     unit: Optional[StrictStr] = None
+    value_type: Optional[ConParameterValueType] = Field(default=None, alias="valueType")
     parameter_type: Optional[StrictStr] = Field(default=None, alias="parameterType")
     description: Optional[StrictStr] = None
     validation_status: Optional[StrictStr] = Field(default=None, alias="validationStatus")
@@ -40,7 +42,7 @@ class IdeaParameter(BaseModel):
     lower_bound: Optional[StrictStr] = Field(default=None, alias="lowerBound")
     upper_bound: Optional[StrictStr] = Field(default=None, alias="upperBound")
     parameter_validation: Optional[IdeaParameterValidation] = Field(default=None, alias="parameterValidation")
-    __properties: ClassVar[List[str]] = ["key", "expression", "default", "value", "unit", "parameterType", "description", "validationStatus", "isVisible", "lowerBound", "upperBound", "parameterValidation"]
+    __properties: ClassVar[List[str]] = ["key", "expression", "default", "value", "unit", "valueType", "parameterType", "description", "validationStatus", "isVisible", "lowerBound", "upperBound", "parameterValidation"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -156,6 +158,7 @@ class IdeaParameter(BaseModel):
             "default": obj.get("default"),
             "value": obj.get("value"),
             "unit": obj.get("unit"),
+            "valueType": obj.get("valueType"),
             "parameterType": obj.get("parameterType"),
             "description": obj.get("description"),
             "validationStatus": obj.get("validationStatus"),

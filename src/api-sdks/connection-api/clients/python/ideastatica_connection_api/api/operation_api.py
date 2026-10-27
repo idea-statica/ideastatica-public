@@ -14654,7 +14654,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -14732,7 +14732,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -14810,7 +14810,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -14966,7 +14966,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -15044,7 +15044,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -15122,7 +15122,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -15902,7 +15902,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -15980,7 +15980,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -16058,7 +16058,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -16214,7 +16214,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.
+        """Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -16292,7 +16292,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.
+        """Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -16370,7 +16370,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.
+        """Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)

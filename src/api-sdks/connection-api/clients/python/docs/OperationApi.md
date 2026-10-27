@@ -53,12 +53,12 @@ Method | Description
 [**update_contact_grid_operation**](OperationApi.md#update_contact_grid_operation) | Replaces a Contact Grid operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
 [**update_contact_operation**](OperationApi.md#update_contact_operation) | Replaces a Contact operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
 [**update_cut_operation**](OperationApi.md#update_cut_operation) | Replaces a Cut operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
-[**update_negative_member_operation**](OperationApi.md#update_negative_member_operation) | Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
-[**update_negative_plate_operation**](OperationApi.md#update_negative_plate_operation) | Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
+[**update_negative_member_operation**](OperationApi.md#update_negative_member_operation) | Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
+[**update_negative_plate_operation**](OperationApi.md#update_negative_plate_operation) | Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 [**update_pin_grid_operation**](OperationApi.md#update_pin_grid_operation) | Replaces a Pin Grid operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
 [**update_plate_cut_operation**](OperationApi.md#update_plate_cut_operation) | Replaces a Plate Cut operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
-[**update_stiffening_member_operation**](OperationApi.md#update_stiffening_member_operation) | Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
-[**update_stiffening_plate_operation**](OperationApi.md#update_stiffening_plate_operation) | Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection.
+[**update_stiffening_member_operation**](OperationApi.md#update_stiffening_member_operation) | Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
+[**update_stiffening_plate_operation**](OperationApi.md#update_stiffening_plate_operation) | Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 [**update_weld_operation**](OperationApi.md#update_weld_operation) | Replaces a Weld operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
 [**update_work_plane_operation**](OperationApi.md#update_work_plane_operation) | Replaces a Work Plane operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
 
@@ -4136,7 +4136,7 @@ No authorization required
 # **update_negative_member_operation**
 > ConAddOperationResult update_negative_member_operation(project_id, connection_id, con_negative_member_operation=con_negative_member_operation)
 
-Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
 
 ### Parameters
 
@@ -4173,7 +4173,7 @@ def update_negative_member_operationExampleFunc(api_client):
     con_negative_member_operation = ideastatica_connection_api.ConNegativeMemberOperation() # ConNegativeMemberOperation | The negative member data to apply. (optional)
 
     try:
-        # Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        # Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
         api_response = api_client.operation.update_negative_member_operation(project_id, connection_id, con_negative_member_operation=con_negative_member_operation)
         print("The response of OperationApi->update_negative_member_operation:\n")
         pprint(api_response)
@@ -4221,7 +4221,7 @@ No authorization required
 # **update_negative_plate_operation**
 > ConAddOperationResult update_negative_plate_operation(project_id, connection_id, con_negative_plate_operation=con_negative_plate_operation)
 
-Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 
 ### Parameters
 
@@ -4258,7 +4258,7 @@ def update_negative_plate_operationExampleFunc(api_client):
     con_negative_plate_operation = ideastatica_connection_api.ConNegativePlateOperation() # ConNegativePlateOperation | The negative plate data to apply. (optional)
 
     try:
-        # Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        # Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
         api_response = api_client.operation.update_negative_plate_operation(project_id, connection_id, con_negative_plate_operation=con_negative_plate_operation)
         print("The response of OperationApi->update_negative_plate_operation:\n")
         pprint(api_response)
@@ -4476,7 +4476,7 @@ No authorization required
 # **update_stiffening_member_operation**
 > ConAddOperationResult update_stiffening_member_operation(project_id, connection_id, con_stiffening_member_operation=con_stiffening_member_operation)
 
-Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
 
 ### Parameters
 
@@ -4513,7 +4513,7 @@ def update_stiffening_member_operationExampleFunc(api_client):
     con_stiffening_member_operation = ideastatica_connection_api.ConStiffeningMemberOperation() # ConStiffeningMemberOperation | The stiffening member data to apply. (optional)
 
     try:
-        # Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        # Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
         api_response = api_client.operation.update_stiffening_member_operation(project_id, connection_id, con_stiffening_member_operation=con_stiffening_member_operation)
         print("The response of OperationApi->update_stiffening_member_operation:\n")
         pprint(api_response)
@@ -4561,7 +4561,7 @@ No authorization required
 # **update_stiffening_plate_operation**
 > ConAddOperationResult update_stiffening_plate_operation(project_id, connection_id, con_stiffening_plate_operation=con_stiffening_plate_operation)
 
-Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.
+Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 
 ### Parameters
 
@@ -4598,7 +4598,7 @@ def update_stiffening_plate_operationExampleFunc(api_client):
     con_stiffening_plate_operation = ideastatica_connection_api.ConStiffeningPlateOperation() # ConStiffeningPlateOperation | The stiffening plate data to apply. (optional)
 
     try:
-        # Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.
+        # Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
         api_response = api_client.operation.update_stiffening_plate_operation(project_id, connection_id, con_stiffening_plate_operation=con_stiffening_plate_operation)
         print("The response of OperationApi->update_stiffening_plate_operation:\n")
         pprint(api_response)

@@ -17,8 +17,8 @@ Changes the design code of the project.
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service (only ECEN projects are supported). |  |
-| **conConversionSettings** | [**ConConversionSettings**](ConConversionSettings.md) | Conversion table for materials in the project (pairs &#39;ECEN MATERIAL&#39; to &#39;TARGET DESIGN CODE MATERIAL&#39;). | [optional]  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
+| **conConversionSettings** | [**ConConversionSettings**](ConConversionSettings.md) | Conversion table for materials in the project (pairs &#39;SOURCE MATERIAL&#39; to &#39;TARGET DESIGN CODE MATERIAL&#39;). | [optional]  |
 
 ### Return type
 
@@ -56,7 +56,7 @@ namespace Example
                     Guid projectId = projData.ProjectId;
                     
                     // (Required) Select parameters
-                    var conConversionSettings = new ConConversionSettings(); // ConConversionSettings | Conversion table for materials in the project (pairs 'ECEN MATERIAL' to 'TARGET DESIGN CODE MATERIAL'). (optional) 
+                    var conConversionSettings = new ConConversionSettings(); // ConConversionSettings | Conversion table for materials in the project (pairs 'SOURCE MATERIAL' to 'TARGET DESIGN CODE MATERIAL'). (optional) 
 
                     try
                     {
@@ -145,7 +145,7 @@ Gets default conversion mappings for converting the project to a different desig
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service (only ECEN design code is supported). |  |
+| **projectId** | **Guid** | The unique identifier of the opened project in the ConnectionRestApi service. |  |
 | **countryCode** | **CountryCode?** | The requested design code for the converted project. | [optional]  |
 
 ### Return type

@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from ideastatica_connection_api.models.con_parameter_value_type import ConParameterValueType
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -33,7 +34,9 @@ class ConParameterCreate(BaseModel):
     description: Optional[StrictStr] = None
     lower_bound: Optional[StrictStr] = Field(default=None, alias="lowerBound")
     upper_bound: Optional[StrictStr] = Field(default=None, alias="upperBound")
-    __properties: ClassVar[List[str]] = ["key", "parameterType", "expression", "description", "lowerBound", "upperBound"]
+    is_visible: Optional[StrictBool] = Field(default=None, alias="isVisible")
+    value_type: Optional[ConParameterValueType] = Field(default=None, alias="valueType")
+    __properties: ClassVar[List[str]] = ["key", "parameterType", "expression", "description", "lowerBound", "upperBound", "isVisible", "valueType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -89,6 +92,11 @@ class ConParameterCreate(BaseModel):
         if self.upper_bound is None and "upper_bound" in self.model_fields_set:
             _dict['upperBound'] = None
 
+        # set to None if is_visible (nullable) is None
+        # and model_fields_set contains the field
+        if self.is_visible is None and "is_visible" in self.model_fields_set:
+            _dict['isVisible'] = None
+
         return _dict
 
     @classmethod
@@ -106,7 +114,9 @@ class ConParameterCreate(BaseModel):
             "expression": obj.get("expression"),
             "description": obj.get("description"),
             "lowerBound": obj.get("lowerBound"),
-            "upperBound": obj.get("upperBound")
+            "upperBound": obj.get("upperBound"),
+            "isVisible": obj.get("isVisible"),
+            "valueType": obj.get("valueType")
         })
         return _obj
 

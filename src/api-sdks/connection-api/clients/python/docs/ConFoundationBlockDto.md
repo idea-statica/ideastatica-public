@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **shear_force_transfer** | [**ConShearForceTransferMethod**](ConShearForceTransferMethod.md) |  | [optional] 
 **contact_type** | [**ConBasePlateContactType**](ConBasePlateContactType.md) |  | [optional] 
 **mortar_thickness** | **float** |  | [optional] 
+**shear_lug** | [**ConShearLugDto**](ConShearLugDto.md) |  | [optional] 
 
 ## Example
 

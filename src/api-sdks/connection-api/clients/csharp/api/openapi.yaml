@@ -1414,7 +1414,7 @@ paths:
       operationId: GetConversionMapping
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service (only ECEN design code is supported).
+          service.
         explode: false
         in: path
         name: projectId
@@ -1479,7 +1479,7 @@ paths:
       operationId: ChangeCode
       parameters:
       - description: The unique identifier of the opened project in the ConnectionRestApi
-          service (only ECEN projects are supported).
+          service.
         explode: false
         in: path
         name: projectId
@@ -1493,8 +1493,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/ConConversionSettings'
-        description: Conversion table for materials in the project (pairs 'ECEN MATERIAL'
-          to 'TARGET DESIGN CODE MATERIAL').
+        description: Conversion table for materials in the project (pairs 'SOURCE
+          MATERIAL' to 'TARGET DESIGN CODE MATERIAL').
       responses:
         "204":
           description: No Content
@@ -5825,7 +5825,9 @@ paths:
           description: Internal Server Error
       summary: "Replaces a Stiffening Plate operation (PUT semantics). Target id is\
         \ taken from\r\n`request.Id`; returns 404 when no operation with that id exists\
-        \ in the connection."
+        \ in the connection.\r\nIt is a full replacement: a body without a `positioning`\
+        \ block places the plate at the\r\njoint, so send the positioning the GET\
+        \ returns unless that is what you want."
       tags:
       - Operation
       x-requiresProject: true
@@ -6072,7 +6074,9 @@ paths:
           description: Internal Server Error
       summary: "Replaces a Stiffening Member operation (PUT semantics). Target id\
         \ is taken from `request.Id`;\r\nreturns 404 when no operation with that id\
-        \ exists in the connection."
+        \ exists in the connection.\r\nIt is a full replacement: a body without a\
+        \ `positioning` block places the member at the\r\njoint, so send the positioning\
+        \ the GET returns unless that is what you want."
       tags:
       - Operation
       x-requiresProject: true
@@ -6567,7 +6571,9 @@ paths:
           description: Internal Server Error
       summary: "Replaces a Negative Plate operation (PUT semantics). Target id is\
         \ taken from `request.Id`;\r\nreturns 404 when no operation with that id exists\
-        \ in the connection."
+        \ in the connection.\r\nIt is a full replacement: a body without a `positioning`\
+        \ block places the plate at the\r\njoint, so send the positioning the GET\
+        \ returns unless that is what you want."
       tags:
       - Operation
       x-requiresProject: true
@@ -7062,7 +7068,9 @@ paths:
           description: Internal Server Error
       summary: "Replaces a Negative Member operation (PUT semantics). Target id is\
         \ taken from `request.Id`;\r\nreturns 404 when no operation with that id exists\
-        \ in the connection."
+        \ in the connection.\r\nIt is a full replacement: a body without a `positioning`\
+        \ block places the member at the\r\njoint, so send the positioning the GET\
+        \ returns unless that is what you want."
       tags:
       - Operation
       x-requiresProject: true
@@ -8737,10 +8745,10 @@ paths:
           application/*+json:
             schema:
               $ref: '#/components/schemas/ConProjectData'
-        description: "New project data to apply. The CountryCode field may keep the\
-          \ project's\r\n            current design code or switch it to one of ECEN,\
-          \ American, Canada, Australia, RUS, CHN, India or\r\n            HKG; switching\
-          \ to any other value of the enum is refused with 422. None keeps the current\
+        description: "New project data to apply. The CountryCode field cannot change\
+          \ the design\r\n            code: it may only repeat the project's current\
+          \ code, and None or leaving the field out keeps it.\r\n            Any other\
+          \ value is refused with 422; use change-code to convert a project to another\
           \ code."
       responses:
         "200":
@@ -10880,9 +10888,9 @@ components:
       additionalProperties: false
       description: Results of the buckling analysis
       example:
-        shape: 1
+        shape: 6
         loadCaseId: 1
-        factor: 1.4894159098541704
+        factor: 7.457744773683766
       properties:
         loadCaseId:
           format: int32
@@ -10903,9 +10911,10 @@ components:
       additionalProperties: false
       description: Check value for Anchor
       example:
-        unityCheck: 2.027123023002322
+        unityCheck: 4.145608029883936
         checkStatus: true
         name: name
+        loadCaseId: 7
       properties:
         name:
           description: Name
@@ -10918,6 +10927,10 @@ components:
         checkStatus:
           description: Status of the Check
           type: boolean
+        loadCaseId:
+          description: Id of Load Case
+          format: int32
+          type: integer
       type: object
     CheckResBolt:
       additionalProperties: false
@@ -10934,6 +10947,7 @@ components:
         unityCheck: 3.616076749251911
         checkStatus: true
         name: name
+        loadCaseId: 2
       properties:
         name:
           description: "Name of the bolt (e.g., \"B15\"). The numeric suffix is an\
@@ -10949,15 +10963,19 @@ components:
         checkStatus:
           description: Status of the Check
           type: boolean
+        loadCaseId:
+          description: Id of Load Case
+          format: int32
+          type: integer
       type: object
     CheckResConcreteBlock:
       additionalProperties: false
       description: Check value for Concrete Block
       example:
-        unityCheck: 4.145608029883936
+        unityCheck: 1.2315135367772556
         checkStatus: true
         name: name
-        loadCaseId: 7
+        loadCaseId: 1
       properties:
         name:
           description: Name of Concrete Block
@@ -11075,19 +11093,22 @@ components:
           type: integer
         unityCheck:
           description: "Unity Check Stress. NaN when the weld has no computed stress\
-            \ utilisation -\r\nfull-strength welds are not stress-checked, see IdeaRS.OpenModel.Connection.CheckResWeld.IsFullStrength"
+            \ utilisation,\r\nsee IdeaRS.OpenModel.Connection.CheckResWeld.IsFullStrength"
           format: double
           type: number
         checkStatus:
           description: Status of the Check
           type: boolean
         isFullStrength:
-          description: "True when the weld is not rated by a stress utilisation and\
-            \ its check is satisfied by definition -\r\nthe check treats it as a full-strength\
-            \ weld. This applies to butt/bevel welds (e.g. CJP) and to\r\nwelds placed\
-            \ edge-to-edge. IdeaRS.OpenModel.Connection.CheckResWeld.UnityCheck is\
-            \ NaN and IdeaRS.OpenModel.Connection.CheckResWeld.CheckStatus is true\r\
-            \nin that case"
+          description: "True when the check does not rate this weld by a stress utilisation,\
+            \ so its check is\r\nsatisfied by definition. Set for full-penetration\
+            \ butt welds assumed as strong as the parent\r\nmetal (a CJP weld set\
+            \ to be checked is rated like a fillet or PJP weld instead) and for any\
+            \ weld\r\nplaced edge-to-edge - despite the name, the latter includes\
+            \ fillet welds, so this flag is not a\r\nstatement that the weld develops\
+            \ the capacity of the connected plates. IdeaRS.OpenModel.Connection.CheckResWeld.UnityCheck\r\
+            \nis NaN and IdeaRS.OpenModel.Connection.CheckResWeld.CheckStatus is true\
+            \ in that case"
           type: boolean
         loadCaseId:
           description: Id of Load Case
@@ -11298,10 +11319,10 @@ components:
         - 2.027123023002322
         - 2.027123023002322
         slottedHoles:
-        - angle: 4.145608029883936
-          sizeFactor: 7.386281948385884
-        - angle: 4.145608029883936
-          sizeFactor: 7.386281948385884
+        - angle: 1.2315135367772556
+          sizeFactor: 1.0246457001441578
+        - angle: 1.2315135367772556
+          sizeFactor: 1.0246457001441578
         washerPlateSize: 7.061401241503109
         isExploded: true
         anchorAssemblyId: 0
@@ -11328,17 +11349,43 @@ components:
             x: 2.027123023002322
             "y": 4.145608029883936
             z: 7.386281948385884
-        id: 4
+        id: 2
         headDiameter: 5.637376656633329
         foundationBlock:
-          offsetTop: 7.386281948385884
-          mortarThickness: 7.457744773683766
-          offsetLeft: 1.0246457001441578
+          offsetTop: 1.2315135367772556
+          mortarThickness: 1.1730742509559433
+          existingBlockOperationId: 4
+          blockType: new
+          shearLug:
+            positionY: 9.369310271410669
+            rotation: 6.683562403749608
+            length: 5.025004791520295
+            flangesWeld:
+              endOffset: 3.5571952270680973
+              size: 8.762042012749001
+              kind: continuous
+              gap: 1.284659006116532
+              length: 6.965117697638846
+              type: noWeld
+              materialId: 9
+              beginOffset: 6.438423552598547
+            crossSectionId: 4
+            websWeld:
+              endOffset: 3.5571952270680973
+              size: 8.762042012749001
+              kind: continuous
+              gap: 1.284659006116532
+              length: 6.965117697638846
+              type: noWeld
+              materialId: 9
+              beginOffset: 6.438423552598547
+            positionX: 9.965781217890562
+          offsetLeft: 1.4894159098541704
           contactType: direct
-          offsetBottom: 1.2315135367772556
-          offsetRight: 1.4894159098541704
-          concreteMaterialId: 4
-          height: 6.84685269835264
+          offsetBottom: 1.0246457001441578
+          offsetRight: 6.84685269835264
+          concreteMaterialId: 7
+          height: 7.457744773683766
           shearForceTransfer: friction
         active: true
         reinforcementMaterialId: 9
@@ -11356,30 +11403,49 @@ components:
         definedBy: plate
         name: name
         geometry:
-          bottomLayers:
-            values:
-            - 2.3021358869347655
-            - 2.3021358869347655
           radii:
             values:
             - 2.3021358869347655
             - 2.3021358869347655
-          rightLayers:
-            values:
-            - 2.3021358869347655
-            - 2.3021358869347655
+            rows:
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
           angles:
             values:
             - 2.3021358869347655
             - 2.3021358869347655
+            rows:
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
           polarInput: byCount
           polarCounts:
-          - 7
-          - 7
+          - 3
+          - 3
           topLayers:
             values:
             - 2.3021358869347655
             - 2.3021358869347655
+            rows:
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
           shearPlaneInThread: true
           type: orthogonal
           rowsGridLayout: regular
@@ -11387,25 +11453,34 @@ components:
             values:
             - 2.3021358869347655
             - 2.3021358869347655
+            rows:
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
           userPositions:
-          - gridIndex: 2
-            x: 9.301444243932576
-            "y": 3.616076749251911
-            hookRotation: 1.2315135367772556
+          - gridIndex: 7
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            hookRotation: 1.4894159098541704
             slottedHoles:
-            - angle: 4.145608029883936
-              sizeFactor: 7.386281948385884
-            - angle: 4.145608029883936
-              sizeFactor: 7.386281948385884
-          - gridIndex: 2
-            x: 9.301444243932576
-            "y": 3.616076749251911
-            hookRotation: 1.2315135367772556
+            - angle: 1.2315135367772556
+              sizeFactor: 1.0246457001441578
+            - angle: 1.2315135367772556
+              sizeFactor: 1.0246457001441578
+          - gridIndex: 7
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            hookRotation: 1.4894159098541704
             slottedHoles:
-            - angle: 4.145608029883936
-              sizeFactor: 7.386281948385884
-            - angle: 4.145608029883936
-              sizeFactor: 7.386281948385884
+            - angle: 1.2315135367772556
+              sizeFactor: 1.0246457001441578
+            - angle: 1.2315135367772556
+              sizeFactor: 1.0246457001441578
         operationType: operationType
         hookLength: 1.4658129805029452
         anchorType: threadedRod
@@ -11526,39 +11601,58 @@ components:
           plateSubIndex: 5
           memberId: 1
         slottedHoles:
-        - angle: 4.145608029883936
-          sizeFactor: 7.386281948385884
-        - angle: 4.145608029883936
-          sizeFactor: 7.386281948385884
+        - angle: 1.2315135367772556
+          sizeFactor: 1.0246457001441578
+        - angle: 1.2315135367772556
+          sizeFactor: 1.0246457001441578
         isExploded: true
         boltAssemblyId: 5
         definedBy: plate
         name: name
         geometry:
-          bottomLayers:
-            values:
-            - 2.3021358869347655
-            - 2.3021358869347655
           radii:
             values:
             - 2.3021358869347655
             - 2.3021358869347655
-          rightLayers:
-            values:
-            - 2.3021358869347655
-            - 2.3021358869347655
+            rows:
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
           angles:
             values:
             - 2.3021358869347655
             - 2.3021358869347655
+            rows:
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
           polarInput: byCount
           polarCounts:
-          - 7
-          - 7
+          - 3
+          - 3
           topLayers:
             values:
             - 2.3021358869347655
             - 2.3021358869347655
+            rows:
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
           shearPlaneInThread: true
           type: orthogonal
           rowsGridLayout: regular
@@ -11566,25 +11660,34 @@ components:
             values:
             - 2.3021358869347655
             - 2.3021358869347655
+            rows:
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
           userPositions:
-          - gridIndex: 2
-            x: 9.301444243932576
-            "y": 3.616076749251911
-            hookRotation: 1.2315135367772556
+          - gridIndex: 7
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            hookRotation: 1.4894159098541704
             slottedHoles:
-            - angle: 4.145608029883936
-              sizeFactor: 7.386281948385884
-            - angle: 4.145608029883936
-              sizeFactor: 7.386281948385884
-          - gridIndex: 2
-            x: 9.301444243932576
-            "y": 3.616076749251911
-            hookRotation: 1.2315135367772556
+            - angle: 1.2315135367772556
+              sizeFactor: 1.0246457001441578
+            - angle: 1.2315135367772556
+              sizeFactor: 1.0246457001441578
+          - gridIndex: 7
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            hookRotation: 1.4894159098541704
             slottedHoles:
-            - angle: 4.145608029883936
-              sizeFactor: 7.386281948385884
-            - angle: 4.145608029883936
-              sizeFactor: 7.386281948385884
+            - angle: 1.2315135367772556
+              sizeFactor: 1.0246457001441578
+            - angle: 1.2315135367772556
+              sizeFactor: 1.0246457001441578
         operationType: operationType
         coordinateSystem:
           yAxis:
@@ -11604,7 +11707,7 @@ components:
             x: 2.027123023002322
             "y": 4.145608029883936
             z: 7.386281948385884
-        id: 1
+        id: 6
       properties:
         connectedItems:
           items:
@@ -11906,14 +12009,40 @@ components:
       example:
         isImported: true
         foundationBlock:
-          offsetTop: 7.386281948385884
-          mortarThickness: 7.457744773683766
-          offsetLeft: 1.0246457001441578
+          offsetTop: 1.2315135367772556
+          mortarThickness: 1.1730742509559433
+          existingBlockOperationId: 4
+          blockType: new
+          shearLug:
+            positionY: 9.369310271410669
+            rotation: 6.683562403749608
+            length: 5.025004791520295
+            flangesWeld:
+              endOffset: 3.5571952270680973
+              size: 8.762042012749001
+              kind: continuous
+              gap: 1.284659006116532
+              length: 6.965117697638846
+              type: noWeld
+              materialId: 9
+              beginOffset: 6.438423552598547
+            crossSectionId: 4
+            websWeld:
+              endOffset: 3.5571952270680973
+              size: 8.762042012749001
+              kind: continuous
+              gap: 1.284659006116532
+              length: 6.965117697638846
+              type: noWeld
+              materialId: 9
+              beginOffset: 6.438423552598547
+            positionX: 9.965781217890562
+          offsetLeft: 1.4894159098541704
           contactType: direct
-          offsetBottom: 1.2315135367772556
-          offsetRight: 1.4894159098541704
-          concreteMaterialId: 4
-          height: 6.84685269835264
+          offsetBottom: 1.0246457001441578
+          offsetRight: 6.84685269835264
+          concreteMaterialId: 7
+          height: 7.457744773683766
           shearForceTransfer: friction
         name: name
         plateSide: lowerSide
@@ -11928,7 +12057,7 @@ components:
           operationId: 6
           plateSubIndex: 5
           memberId: 1
-        id: 6
+        id: 0
       properties:
         connectedItems:
           items:
@@ -12283,7 +12412,6 @@ components:
           \ IdeaStatiCa.Api"
       properties:
         shapeType:
-          nullable: true
           type: string
         materialName:
           nullable: true
@@ -12535,14 +12663,14 @@ components:
         isImported: true
         active: true
         flangesWeld:
-          endOffset: 8.762042012749001
-          size: 9.965781217890562
+          endOffset: 3.5571952270680973
+          size: 8.762042012749001
           kind: continuous
-          gap: 6.438423552598547
-          length: 9.018348186070783
+          gap: 1.284659006116532
+          length: 6.965117697638846
           type: noWeld
           materialId: 9
-          beginOffset: 6.683562403749608
+          beginOffset: 6.438423552598547
         cuttingMethod: boundingBox
         cutBy:
           plateId: 5
@@ -12561,14 +12689,14 @@ components:
         id: 9
         extendMember: true
         websWeld:
-          endOffset: 8.762042012749001
-          size: 9.965781217890562
+          endOffset: 3.5571952270680973
+          size: 8.762042012749001
           kind: continuous
-          gap: 6.438423552598547
-          length: 9.018348186070783
+          gap: 1.284659006116532
+          length: 6.965117697638846
           type: noWeld
           materialId: 9
-          beginOffset: 6.683562403749608
+          beginOffset: 6.438423552598547
         direction: parallel
       properties:
         member:
@@ -12687,15 +12815,15 @@ components:
     ConFastenerPosition:
       additionalProperties: false
       example:
-        gridIndex: 2
-        x: 9.301444243932576
-        "y": 3.616076749251911
-        hookRotation: 1.2315135367772556
+        gridIndex: 7
+        x: 2.027123023002322
+        "y": 4.145608029883936
+        hookRotation: 1.4894159098541704
         slottedHoles:
-        - angle: 4.145608029883936
-          sizeFactor: 7.386281948385884
-        - angle: 4.145608029883936
-          sizeFactor: 7.386281948385884
+        - angle: 1.2315135367772556
+          sizeFactor: 1.0246457001441578
+        - angle: 1.2315135367772556
+          sizeFactor: 1.0246457001441578
       properties:
         x:
           format: double
@@ -12719,14 +12847,40 @@ components:
     ConFoundationBlockDto:
       additionalProperties: false
       example:
-        offsetTop: 7.386281948385884
-        mortarThickness: 7.457744773683766
-        offsetLeft: 1.0246457001441578
+        offsetTop: 1.2315135367772556
+        mortarThickness: 1.1730742509559433
+        existingBlockOperationId: 4
+        blockType: new
+        shearLug:
+          positionY: 9.369310271410669
+          rotation: 6.683562403749608
+          length: 5.025004791520295
+          flangesWeld:
+            endOffset: 3.5571952270680973
+            size: 8.762042012749001
+            kind: continuous
+            gap: 1.284659006116532
+            length: 6.965117697638846
+            type: noWeld
+            materialId: 9
+            beginOffset: 6.438423552598547
+          crossSectionId: 4
+          websWeld:
+            endOffset: 3.5571952270680973
+            size: 8.762042012749001
+            kind: continuous
+            gap: 1.284659006116532
+            length: 6.965117697638846
+            type: noWeld
+            materialId: 9
+            beginOffset: 6.438423552598547
+          positionX: 9.965781217890562
+        offsetLeft: 1.4894159098541704
         contactType: direct
-        offsetBottom: 1.2315135367772556
-        offsetRight: 1.4894159098541704
-        concreteMaterialId: 4
-        height: 6.84685269835264
+        offsetBottom: 1.0246457001441578
+        offsetRight: 6.84685269835264
+        concreteMaterialId: 7
+        height: 7.457744773683766
         shearForceTransfer: friction
       properties:
         blockType:
@@ -12760,34 +12914,55 @@ components:
         mortarThickness:
           format: double
           type: number
+        shearLug:
+          $ref: '#/components/schemas/ConShearLugDto'
       type: object
     ConGridGeometry:
       additionalProperties: false
       example:
-        bottomLayers:
-          values:
-          - 2.3021358869347655
-          - 2.3021358869347655
         radii:
           values:
           - 2.3021358869347655
           - 2.3021358869347655
-        rightLayers:
-          values:
-          - 2.3021358869347655
-          - 2.3021358869347655
+          rows:
+          - - value: 7.061401241503109
+              repeatCount: 9
+            - value: 7.061401241503109
+              repeatCount: 9
+          - - value: 7.061401241503109
+              repeatCount: 9
+            - value: 7.061401241503109
+              repeatCount: 9
         angles:
           values:
           - 2.3021358869347655
           - 2.3021358869347655
+          rows:
+          - - value: 7.061401241503109
+              repeatCount: 9
+            - value: 7.061401241503109
+              repeatCount: 9
+          - - value: 7.061401241503109
+              repeatCount: 9
+            - value: 7.061401241503109
+              repeatCount: 9
         polarInput: byCount
         polarCounts:
-        - 7
-        - 7
+        - 3
+        - 3
         topLayers:
           values:
           - 2.3021358869347655
           - 2.3021358869347655
+          rows:
+          - - value: 7.061401241503109
+              repeatCount: 9
+            - value: 7.061401241503109
+              repeatCount: 9
+          - - value: 7.061401241503109
+              repeatCount: 9
+            - value: 7.061401241503109
+              repeatCount: 9
         shearPlaneInThread: true
         type: orthogonal
         rowsGridLayout: regular
@@ -12795,25 +12970,34 @@ components:
           values:
           - 2.3021358869347655
           - 2.3021358869347655
+          rows:
+          - - value: 7.061401241503109
+              repeatCount: 9
+            - value: 7.061401241503109
+              repeatCount: 9
+          - - value: 7.061401241503109
+              repeatCount: 9
+            - value: 7.061401241503109
+              repeatCount: 9
         userPositions:
-        - gridIndex: 2
-          x: 9.301444243932576
-          "y": 3.616076749251911
-          hookRotation: 1.2315135367772556
+        - gridIndex: 7
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          hookRotation: 1.4894159098541704
           slottedHoles:
-          - angle: 4.145608029883936
-            sizeFactor: 7.386281948385884
-          - angle: 4.145608029883936
-            sizeFactor: 7.386281948385884
-        - gridIndex: 2
-          x: 9.301444243932576
-          "y": 3.616076749251911
-          hookRotation: 1.2315135367772556
+          - angle: 1.2315135367772556
+            sizeFactor: 1.0246457001441578
+          - angle: 1.2315135367772556
+            sizeFactor: 1.0246457001441578
+        - gridIndex: 7
+          x: 2.027123023002322
+          "y": 4.145608029883936
+          hookRotation: 1.4894159098541704
           slottedHoles:
-          - angle: 4.145608029883936
-            sizeFactor: 7.386281948385884
-          - angle: 4.145608029883936
-            sizeFactor: 7.386281948385884
+          - angle: 1.2315135367772556
+            sizeFactor: 1.0246457001441578
+          - angle: 1.2315135367772556
+            sizeFactor: 1.0246457001441578
       properties:
         type:
           $ref: '#/components/schemas/ConGridGeometryType'
@@ -12823,11 +13007,7 @@ components:
           $ref: '#/components/schemas/ConGridLayout'
         topLayers:
           $ref: '#/components/schemas/ConGridPositions'
-        bottomLayers:
-          $ref: '#/components/schemas/ConGridPositions'
         leftLayers:
-          $ref: '#/components/schemas/ConGridPositions'
-        rightLayers:
           $ref: '#/components/schemas/ConGridPositions'
         polarInput:
           $ref: '#/components/schemas/ConPolarInputType'
@@ -12866,11 +13046,27 @@ components:
         values:
         - 2.3021358869347655
         - 2.3021358869347655
+        rows:
+        - - value: 7.061401241503109
+            repeatCount: 9
+          - value: 7.061401241503109
+            repeatCount: 9
+        - - value: 7.061401241503109
+            repeatCount: 9
+          - value: 7.061401241503109
+            repeatCount: 9
       properties:
         values:
           items:
             format: double
             type: number
+          nullable: true
+          type: array
+        rows:
+          items:
+            items:
+              $ref: '#/components/schemas/ConRepeatedValue'
+            type: array
           nullable: true
           type: array
       type: object
@@ -13252,6 +13448,14 @@ components:
       type: string
     ConMemberPosition:
       additionalProperties: false
+      description: "The member's placement. definedBy is rotationsOfX (by betaDirection,\
+        \ gamaPitch and alphaRotation), directionVector (by axisX and alphaRotation)\
+        \ or lcs (by axisX; the stored y and z axes are fitted to it). In a request,\
+        \ definedBy none is refused with 422, and so is a position without definedBy,\
+        \ which reads as none; a response can carry none for a member stored with\
+        \ it. axisX, axisY, axisZ and origin are the resolved local coordinate system\
+        \ in a response; in a request only axisX is read, and it must be a non-zero\
+        \ vector."
       example:
         alphaRotation: 5.962133916683182
         origin:
@@ -13616,18 +13820,17 @@ components:
         parameterType: parameterType
         expression: expression
         upperBound: upperBound
+        valueType: generic
         description: description
         lowerBound: lowerBound
+        isVisible: true
         key: key
       properties:
         key:
-          nullable: true
           type: string
         parameterType:
-          nullable: true
           type: string
         expression:
-          nullable: true
           type: string
         description:
           nullable: true
@@ -13638,6 +13841,11 @@ components:
         upperBound:
           nullable: true
           type: string
+        isVisible:
+          nullable: true
+          type: boolean
+        valueType:
+          $ref: '#/components/schemas/ConParameterValueType'
       required:
       - expression
       - key
@@ -13724,6 +13932,37 @@ components:
           nullable: true
           type: string
       type: object
+    ConParameterValueType:
+      enum:
+      - generic
+      - text
+      - wholeNumber
+      - boolean
+      - boltPosition
+      - vector
+      - crossSection
+      - weldMaterial
+      - steelMaterial
+      - concreteMaterial
+      - boltAssembly
+      - lengthStructure
+      - lengthCrossSection
+      - lengthComponent
+      - angle
+      - force
+      - moment
+      - stress
+      - temperature
+      - relativeHumidity
+      - mass
+      - weight
+      - heatTransferConvection
+      - area
+      - coeff
+      - plateThickness
+      - weldSize
+      - dropdown
+      type: string
     ConPinGridOperation:
       additionalProperties: false
       example:
@@ -13733,30 +13972,49 @@ components:
         name: name
         active: true
         geometry:
-          bottomLayers:
-            values:
-            - 2.3021358869347655
-            - 2.3021358869347655
           radii:
             values:
             - 2.3021358869347655
             - 2.3021358869347655
-          rightLayers:
-            values:
-            - 2.3021358869347655
-            - 2.3021358869347655
+            rows:
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
           angles:
             values:
             - 2.3021358869347655
             - 2.3021358869347655
+            rows:
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
           polarInput: byCount
           polarCounts:
-          - 7
-          - 7
+          - 3
+          - 3
           topLayers:
             values:
             - 2.3021358869347655
             - 2.3021358869347655
+            rows:
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
           shearPlaneInThread: true
           type: orthogonal
           rowsGridLayout: regular
@@ -13764,25 +14022,34 @@ components:
             values:
             - 2.3021358869347655
             - 2.3021358869347655
+            rows:
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
+            - - value: 7.061401241503109
+                repeatCount: 9
+              - value: 7.061401241503109
+                repeatCount: 9
           userPositions:
-          - gridIndex: 2
-            x: 9.301444243932576
-            "y": 3.616076749251911
-            hookRotation: 1.2315135367772556
+          - gridIndex: 7
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            hookRotation: 1.4894159098541704
             slottedHoles:
-            - angle: 4.145608029883936
-              sizeFactor: 7.386281948385884
-            - angle: 4.145608029883936
-              sizeFactor: 7.386281948385884
-          - gridIndex: 2
-            x: 9.301444243932576
-            "y": 3.616076749251911
-            hookRotation: 1.2315135367772556
+            - angle: 1.2315135367772556
+              sizeFactor: 1.0246457001441578
+            - angle: 1.2315135367772556
+              sizeFactor: 1.0246457001441578
+          - gridIndex: 7
+            x: 2.027123023002322
+            "y": 4.145608029883936
+            hookRotation: 1.4894159098541704
             slottedHoles:
-            - angle: 4.145608029883936
-              sizeFactor: 7.386281948385884
-            - angle: 4.145608029883936
-              sizeFactor: 7.386281948385884
+            - angle: 1.2315135367772556
+              sizeFactor: 1.0246457001441578
+            - angle: 1.2315135367772556
+              sizeFactor: 1.0246457001441578
         operationType: operationType
         connectedItems:
         - plateId: 0
@@ -13849,14 +14116,14 @@ components:
       additionalProperties: false
       example:
         weld:
-          endOffset: 8.762042012749001
-          size: 9.965781217890562
+          endOffset: 3.5571952270680973
+          size: 8.762042012749001
           kind: continuous
-          gap: 6.438423552598547
-          length: 9.018348186070783
+          gap: 1.284659006116532
+          length: 6.965117697638846
           type: noWeld
           materialId: 9
-          beginOffset: 6.683562403749608
+          beginOffset: 6.438423552598547
         cuttingMethod: boundingBox
         cutBy:
           plateId: 5
@@ -13971,9 +14238,17 @@ components:
         conPlatePositioningType:
           $ref: '#/components/schemas/ConPlatePositioningEnum'
         concreteBlockIndex:
+          description: "Used when conPlatePositioningType is concreteBlock. Despite\
+            \ the name, not a block index: the id of the operation that creates the\
+            \ concrete block, i.e. an anchor grid or contact grid whose blockType\
+            \ is new (list them with GET .../operations/anchor-grid and .../operations/contact-grid).\
+            \ The operation must come before the plate, i.e. have a lower id."
           format: int32
           type: integer
         concreteSurface:
+          description: "Used when conPlatePositioningType is concreteBlock. The face\
+            \ of the block the plate is placed on, 1 to 6 for a rectangular block:\
+            \ 1 to 4 are the sides, 5 is the bottom and 6 is the top."
           format: int32
           type: integer
         positionX:
@@ -14185,6 +14460,20 @@ components:
       - begin
       - end
       type: string
+    ConRepeatedValue:
+      additionalProperties: false
+      example:
+        value: 7.061401241503109
+        repeatCount: 9
+      properties:
+        value:
+          format: double
+          type: number
+        repeatCount:
+          format: int32
+          nullable: true
+          type: integer
+      type: object
     ConResultSummary:
       additionalProperties: false
       example:
@@ -14222,11 +14511,59 @@ components:
       - anchorBending
       - sliding
       type: string
+    ConShearLugDto:
+      additionalProperties: false
+      example:
+        positionY: 9.369310271410669
+        rotation: 6.683562403749608
+        length: 5.025004791520295
+        flangesWeld:
+          endOffset: 3.5571952270680973
+          size: 8.762042012749001
+          kind: continuous
+          gap: 1.284659006116532
+          length: 6.965117697638846
+          type: noWeld
+          materialId: 9
+          beginOffset: 6.438423552598547
+        crossSectionId: 4
+        websWeld:
+          endOffset: 3.5571952270680973
+          size: 8.762042012749001
+          kind: continuous
+          gap: 1.284659006116532
+          length: 6.965117697638846
+          type: noWeld
+          materialId: 9
+          beginOffset: 6.438423552598547
+        positionX: 9.965781217890562
+      properties:
+        crossSectionId:
+          format: int32
+          nullable: true
+          type: integer
+        length:
+          format: double
+          type: number
+        positionX:
+          format: double
+          type: number
+        positionY:
+          format: double
+          type: number
+        rotation:
+          format: double
+          type: number
+        flangesWeld:
+          $ref: '#/components/schemas/ConWeldData'
+        websWeld:
+          $ref: '#/components/schemas/ConWeldData'
+      type: object
     ConSlottedHole:
       additionalProperties: false
       example:
-        angle: 4.145608029883936
-        sizeFactor: 7.386281948385884
+        angle: 1.2315135367772556
+        sizeFactor: 1.0246457001441578
       properties:
         angle:
           format: double
@@ -14258,14 +14595,14 @@ components:
         mirrorZ: true
         materialId: 6
         weld:
-          endOffset: 8.762042012749001
-          size: 9.965781217890562
+          endOffset: 3.5571952270680973
+          size: 8.762042012749001
           kind: continuous
-          gap: 6.438423552598547
-          length: 9.018348186070783
+          gap: 1.284659006116532
+          length: 6.965117697638846
           type: noWeld
           materialId: 9
-          beginOffset: 6.683562403749608
+          beginOffset: 6.438423552598547
         length1: 1.4658129805029452
         length2: 5.962133916683182
         positioning:
@@ -14365,14 +14702,14 @@ components:
         width2: 2.3021358869347655
         materialId: 6
         weld:
-          endOffset: 8.762042012749001
-          size: 9.965781217890562
+          endOffset: 3.5571952270680973
+          size: 8.762042012749001
           kind: continuous
-          gap: 6.438423552598547
-          length: 9.018348186070783
+          gap: 1.284659006116532
+          length: 6.965117697638846
           type: noWeld
           materialId: 9
-          beginOffset: 6.683562403749608
+          beginOffset: 6.438423552598547
         height2: 7.061401241503109
         positioning:
           plateOnMemberIndex: 6
@@ -14427,7 +14764,7 @@ components:
         width: 5.962133916683182
         name: name
         operationType: operationType
-        id: 3
+        id: 9
         radius: 9.301444243932576
         height: 5.637376656633329
       properties:
@@ -14525,7 +14862,6 @@ components:
         connectionTemplate: connectionTemplate
       properties:
         connectionTemplate:
-          nullable: true
           type: string
         mapping:
           $ref: '#/components/schemas/TemplateConversions'
@@ -14676,14 +15012,14 @@ components:
     ConWeldData:
       additionalProperties: false
       example:
-        endOffset: 8.762042012749001
-        size: 9.965781217890562
+        endOffset: 3.5571952270680973
+        size: 8.762042012749001
         kind: continuous
-        gap: 6.438423552598547
-        length: 9.018348186070783
+        gap: 1.284659006116532
+        length: 6.965117697638846
         type: noWeld
         materialId: 9
-        beginOffset: 6.683562403749608
+        beginOffset: 6.438423552598547
       properties:
         kind:
           $ref: '#/components/schemas/ConWeldDataKind'
@@ -14718,14 +15054,14 @@ components:
       additionalProperties: false
       example:
         weld:
-          endOffset: 8.762042012749001
-          size: 9.965781217890562
+          endOffset: 3.5571952270680973
+          size: 8.762042012749001
           kind: continuous
-          gap: 6.438423552598547
-          length: 9.018348186070783
+          gap: 1.284659006116532
+          length: 6.965117697638846
           type: noWeld
           materialId: 9
-          beginOffset: 6.683562403749608
+          beginOffset: 6.438423552598547
         firstPlateEdgeIndex:
         - 0
         - 0
@@ -14958,28 +15294,30 @@ components:
           - 9
           - 9
         checkResAnchor:
-        - unityCheck: 2.027123023002322
+        - unityCheck: 4.145608029883936
           checkStatus: true
           name: name
-        - unityCheck: 2.027123023002322
+          loadCaseId: 7
+        - unityCheck: 4.145608029883936
           checkStatus: true
           name: name
+          loadCaseId: 7
         checkResConcreteBlock:
-        - unityCheck: 4.145608029883936
+        - unityCheck: 1.2315135367772556
           checkStatus: true
           name: name
-          loadCaseId: 7
-        - unityCheck: 4.145608029883936
+          loadCaseId: 1
+        - unityCheck: 1.2315135367772556
           checkStatus: true
           name: name
-          loadCaseId: 7
+          loadCaseId: 1
         bucklingResults:
-        - shape: 1
+        - shape: 6
           loadCaseId: 1
-          factor: 1.4894159098541704
-        - shape: 1
+          factor: 7.457744773683766
+        - shape: 6
           loadCaseId: 1
-          factor: 1.4894159098541704
+          factor: 7.457744773683766
         checkResSummary:
         - unityCheckMessage: unityCheckMessage
           checkStatus: true
@@ -15005,10 +15343,12 @@ components:
         - unityCheck: 3.616076749251911
           checkStatus: true
           name: name
+          loadCaseId: 2
         - unityCheck: 3.616076749251911
           checkStatus: true
           name: name
-        id: 6
+          loadCaseId: 2
+        id: 1
       properties:
         checkResSummary:
           description: List of CheckResSummary
@@ -16789,12 +17129,9 @@ components:
       additionalProperties: false
       example:
         parameterType: parameterType
-        default: default
-        unit: unit
         expression: expression
         upperBound: upperBound
         description: description
-        lowerBound: lowerBound
         isVisible: true
         parameterValidation:
           validationExpression: validationExpression
@@ -16805,6 +17142,10 @@ components:
           message: message
           validationStatus: validationStatus
           lowerBoundEvaluated: 0.8008281904610115
+        default: default
+        unit: unit
+        valueType: generic
+        lowerBound: lowerBound
         value: ""
         validationStatus: validationStatus
         key: key
@@ -16823,6 +17164,8 @@ components:
         unit:
           nullable: true
           type: string
+        valueType:
+          $ref: '#/components/schemas/ConParameterValueType'
         parameterType:
           nullable: true
           type: string
@@ -16848,6 +17191,9 @@ components:
       additionalProperties: false
       example:
         expression: expression
+        valueType: generic
+        description: description
+        isVisible: true
         key: key
       properties:
         key:
@@ -16856,6 +17202,14 @@ components:
         expression:
           nullable: true
           type: string
+        description:
+          nullable: true
+          type: string
+        isVisible:
+          nullable: true
+          type: boolean
+        valueType:
+          $ref: '#/components/schemas/ConParameterValueType'
       type: object
     IdeaParameterValidation:
       additionalProperties: false
@@ -17053,12 +17407,9 @@ components:
           key: key
         parameters:
         - parameterType: parameterType
-          default: default
-          unit: unit
           expression: expression
           upperBound: upperBound
           description: description
-          lowerBound: lowerBound
           isVisible: true
           parameterValidation:
             validationExpression: validationExpression
@@ -17069,16 +17420,17 @@ components:
             message: message
             validationStatus: validationStatus
             lowerBoundEvaluated: 0.8008281904610115
+          default: default
+          unit: unit
+          valueType: generic
+          lowerBound: lowerBound
           value: ""
           validationStatus: validationStatus
           key: key
         - parameterType: parameterType
-          default: default
-          unit: unit
           expression: expression
           upperBound: upperBound
           description: description
-          lowerBound: lowerBound
           isVisible: true
           parameterValidation:
             validationExpression: validationExpression
@@ -17089,6 +17441,10 @@ components:
             message: message
             validationStatus: validationStatus
             lowerBoundEvaluated: 0.8008281904610115
+          default: default
+          unit: unit
+          valueType: generic
+          lowerBound: lowerBound
           value: ""
           validationStatus: validationStatus
           key: key
@@ -17587,7 +17943,6 @@ components:
         conversions:
           items:
             $ref: '#/components/schemas/TemplateConversions_conversions_inner'
-          nullable: true
           type: array
         countryCode:
           nullable: true

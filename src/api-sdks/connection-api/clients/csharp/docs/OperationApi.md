@@ -51,12 +51,12 @@
 | [**UpdateContactGridOperationAsync**](OperationApi.md#updatecontactgridoperationasync) | Replaces a Contact Grid operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. |
 | [**UpdateContactOperationAsync**](OperationApi.md#updatecontactoperationasync) | Replaces a Contact operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. |
 | [**UpdateCutOperationAsync**](OperationApi.md#updatecutoperationasync) | Replaces a Cut operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. |
-| [**UpdateNegativeMemberOperationAsync**](OperationApi.md#updatenegativememberoperationasync) | Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. |
-| [**UpdateNegativePlateOperationAsync**](OperationApi.md#updatenegativeplateoperationasync) | Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. |
+| [**UpdateNegativeMemberOperationAsync**](OperationApi.md#updatenegativememberoperationasync) | Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want. |
+| [**UpdateNegativePlateOperationAsync**](OperationApi.md#updatenegativeplateoperationasync) | Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want. |
 | [**UpdatePinGridOperationAsync**](OperationApi.md#updatepingridoperationasync) | Replaces a Pin Grid operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. |
 | [**UpdatePlateCutOperationAsync**](OperationApi.md#updateplatecutoperationasync) | Replaces a Plate Cut operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. |
-| [**UpdateStiffeningMemberOperationAsync**](OperationApi.md#updatestiffeningmemberoperationasync) | Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. |
-| [**UpdateStiffeningPlateOperationAsync**](OperationApi.md#updatestiffeningplateoperationasync) | Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection. |
+| [**UpdateStiffeningMemberOperationAsync**](OperationApi.md#updatestiffeningmemberoperationasync) | Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want. |
+| [**UpdateStiffeningPlateOperationAsync**](OperationApi.md#updatestiffeningplateoperationasync) | Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want. |
 | [**UpdateWeldOperationAsync**](OperationApi.md#updateweldoperationasync) | Replaces a Weld operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. |
 | [**UpdateWorkPlaneOperationAsync**](OperationApi.md#updateworkplaneoperationasync) | Replaces a Work Plane operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. |
 
@@ -6515,7 +6515,7 @@ No authorization required
 ## **UpdateNegativeMemberOperationAsync**
 > **ConAddOperationResult UpdateNegativeMemberOperationAsync (Guid projectId, int connectionId, ConNegativeMemberOperation conNegativeMemberOperation = null)**
 
-Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
 
@@ -6568,7 +6568,7 @@ namespace Example
 
                     try
                     {
-                        // Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+                        // Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
                         ConAddOperationResult result = await conClient.Operation.UpdateNegativeMemberOperationAsync(projectId, connectionId, conNegativeMemberOperation);
                         Debug.WriteLine(result);
                     }
@@ -6609,7 +6609,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+    // Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
     ApiResponse<ConAddOperationResult> response = conClient.Operation.UpdateNegativeMemberOperationWithHttpInfo(projectId, connectionId, conNegativeMemberOperation);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -6648,7 +6648,7 @@ No authorization required
 ## **UpdateNegativePlateOperationAsync**
 > **ConAddOperationResult UpdateNegativePlateOperationAsync (Guid projectId, int connectionId, ConNegativePlateOperation conNegativePlateOperation = null)**
 
-Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
 
@@ -6701,7 +6701,7 @@ namespace Example
 
                     try
                     {
-                        // Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+                        // Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
                         ConAddOperationResult result = await conClient.Operation.UpdateNegativePlateOperationAsync(projectId, connectionId, conNegativePlateOperation);
                         Debug.WriteLine(result);
                     }
@@ -6742,7 +6742,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+    // Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
     ApiResponse<ConAddOperationResult> response = conClient.Operation.UpdateNegativePlateOperationWithHttpInfo(projectId, connectionId, conNegativePlateOperation);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -7047,7 +7047,7 @@ No authorization required
 ## **UpdateStiffeningMemberOperationAsync**
 > **ConAddOperationResult UpdateStiffeningMemberOperationAsync (Guid projectId, int connectionId, ConStiffeningMemberOperation conStiffeningMemberOperation = null)**
 
-Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
 
@@ -7100,7 +7100,7 @@ namespace Example
 
                     try
                     {
-                        // Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+                        // Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
                         ConAddOperationResult result = await conClient.Operation.UpdateStiffeningMemberOperationAsync(projectId, connectionId, conStiffeningMemberOperation);
                         Debug.WriteLine(result);
                     }
@@ -7141,7 +7141,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+    // Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
     ApiResponse<ConAddOperationResult> response = conClient.Operation.UpdateStiffeningMemberOperationWithHttpInfo(projectId, connectionId, conStiffeningMemberOperation);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
@@ -7180,7 +7180,7 @@ No authorization required
 ## **UpdateStiffeningPlateOperationAsync**
 > **ConAddOperationResult UpdateStiffeningPlateOperationAsync (Guid projectId, int connectionId, ConStiffeningPlateOperation conStiffeningPlateOperation = null)**
 
-Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.
+Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
 
@@ -7233,7 +7233,7 @@ namespace Example
 
                     try
                     {
-                        // Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.
+                        // Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
                         ConAddOperationResult result = await conClient.Operation.UpdateStiffeningPlateOperationAsync(projectId, connectionId, conStiffeningPlateOperation);
                         Debug.WriteLine(result);
                     }
@@ -7274,7 +7274,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    // Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.
+    // Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
     ApiResponse<ConAddOperationResult> response = conClient.Operation.UpdateStiffeningPlateOperationWithHttpInfo(projectId, connectionId, conStiffeningPlateOperation);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);

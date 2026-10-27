@@ -7,6 +7,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **key** | **str** |  | [optional] 
 **expression** | **str** |  | [optional] 
+**description** | **str** |  | [optional] 
+**is_visible** | **bool** |  | [optional] 
+**value_type** | [**ConParameterValueType**](ConParameterValueType.md) |  | [optional] 
 
 ## Example
 

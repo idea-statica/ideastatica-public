@@ -1233,7 +1233,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of ConAddOperationResult</returns>
         ApiResponse<ConAddOperationResult> UpdateCutOperationWithHttpInfo(Guid projectId, int connectionId, ConCutOperation conCutOperation = default(ConCutOperation), string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
+        /// Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -1244,7 +1244,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         ConAddOperationResult UpdateNegativeMemberOperation(Guid projectId, int connectionId, ConNegativeMemberOperation conNegativeMemberOperation = default(ConNegativeMemberOperation), int operationIndex = 0);
 
         /// <summary>
-        /// Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
+        /// Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
         /// </summary>
         /// <remarks>
         /// 
@@ -1258,7 +1258,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of ConAddOperationResult</returns>
         ApiResponse<ConAddOperationResult> UpdateNegativeMemberOperationWithHttpInfo(Guid projectId, int connectionId, ConNegativeMemberOperation conNegativeMemberOperation = default(ConNegativeMemberOperation), string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
+        /// Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -1269,7 +1269,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         ConAddOperationResult UpdateNegativePlateOperation(Guid projectId, int connectionId, ConNegativePlateOperation conNegativePlateOperation = default(ConNegativePlateOperation), int operationIndex = 0);
 
         /// <summary>
-        /// Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
+        /// Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
         /// </summary>
         /// <remarks>
         /// 
@@ -1333,7 +1333,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of ConAddOperationResult</returns>
         ApiResponse<ConAddOperationResult> UpdatePlateCutOperationWithHttpInfo(Guid projectId, int connectionId, ConPlateCutOperation conPlateCutOperation = default(ConPlateCutOperation), string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
+        /// Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -1344,7 +1344,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         ConAddOperationResult UpdateStiffeningMemberOperation(Guid projectId, int connectionId, ConStiffeningMemberOperation conStiffeningMemberOperation = default(ConStiffeningMemberOperation), int operationIndex = 0);
 
         /// <summary>
-        /// Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
+        /// Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
         /// </summary>
         /// <remarks>
         /// 
@@ -1358,7 +1358,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>ApiResponse of ConAddOperationResult</returns>
         ApiResponse<ConAddOperationResult> UpdateStiffeningMemberOperationWithHttpInfo(Guid projectId, int connectionId, ConStiffeningMemberOperation conStiffeningMemberOperation = default(ConStiffeningMemberOperation), string requestedType = null, int operationIndex = 0);
         /// <summary>
-        /// Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection.
+        /// Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -1369,7 +1369,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         ConAddOperationResult UpdateStiffeningPlateOperation(Guid projectId, int connectionId, ConStiffeningPlateOperation conStiffeningPlateOperation = default(ConStiffeningPlateOperation), int operationIndex = 0);
 
         /// <summary>
-        /// Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection.
+        /// Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
         /// </summary>
         /// <remarks>
         /// 
@@ -2880,7 +2880,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse (ConAddOperationResult)</returns>
         System.Threading.Tasks.Task<ApiResponse<ConAddOperationResult>> UpdateCutOperationWithHttpInfoAsync(Guid projectId, int connectionId, ConCutOperation conCutOperation = default(ConCutOperation), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
+        /// Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
         /// </summary>
         /// <remarks>
         /// 
@@ -2895,7 +2895,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         System.Threading.Tasks.Task<ConAddOperationResult> UpdateNegativeMemberOperationAsync(Guid projectId, int connectionId, ConNegativeMemberOperation conNegativeMemberOperation = default(ConNegativeMemberOperation), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
+        /// Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
         /// </summary>
         /// <remarks>
         /// 
@@ -2910,7 +2910,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse (ConAddOperationResult)</returns>
         System.Threading.Tasks.Task<ApiResponse<ConAddOperationResult>> UpdateNegativeMemberOperationWithHttpInfoAsync(Guid projectId, int connectionId, ConNegativeMemberOperation conNegativeMemberOperation = default(ConNegativeMemberOperation), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
+        /// Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
         /// </summary>
         /// <remarks>
         /// 
@@ -2925,7 +2925,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         System.Threading.Tasks.Task<ConAddOperationResult> UpdateNegativePlateOperationAsync(Guid projectId, int connectionId, ConNegativePlateOperation conNegativePlateOperation = default(ConNegativePlateOperation), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
+        /// Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
         /// </summary>
         /// <remarks>
         /// 
@@ -3000,7 +3000,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse (ConAddOperationResult)</returns>
         System.Threading.Tasks.Task<ApiResponse<ConAddOperationResult>> UpdatePlateCutOperationWithHttpInfoAsync(Guid projectId, int connectionId, ConPlateCutOperation conPlateCutOperation = default(ConPlateCutOperation), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
+        /// Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
         /// </summary>
         /// <remarks>
         /// 
@@ -3015,7 +3015,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         System.Threading.Tasks.Task<ConAddOperationResult> UpdateStiffeningMemberOperationAsync(Guid projectId, int connectionId, ConStiffeningMemberOperation conStiffeningMemberOperation = default(ConStiffeningMemberOperation), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
+        /// Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
         /// </summary>
         /// <remarks>
         /// 
@@ -3030,7 +3030,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// <returns>Task of ApiResponse (ConAddOperationResult)</returns>
         System.Threading.Tasks.Task<ApiResponse<ConAddOperationResult>> UpdateStiffeningMemberOperationWithHttpInfoAsync(Guid projectId, int connectionId, ConStiffeningMemberOperation conStiffeningMemberOperation = default(ConStiffeningMemberOperation), string requestedType = null, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
-        /// Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection.
+        /// Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
         /// </summary>
         /// <remarks>
         /// 
@@ -3045,7 +3045,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         System.Threading.Tasks.Task<ConAddOperationResult> UpdateStiffeningPlateOperationAsync(Guid projectId, int connectionId, ConStiffeningPlateOperation conStiffeningPlateOperation = default(ConStiffeningPlateOperation), int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection.
+        /// Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
         /// </summary>
         /// <remarks>
         /// 
@@ -10828,7 +10828,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. 
+        /// Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -10843,7 +10843,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. 
+        /// Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -10905,7 +10905,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. 
+        /// Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -10921,7 +10921,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. 
+        /// Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -10986,7 +10986,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. 
+        /// Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -11001,7 +11001,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. 
+        /// Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -11063,7 +11063,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. 
+        /// Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -11079,7 +11079,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. 
+        /// Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -11460,7 +11460,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. 
+        /// Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -11475,7 +11475,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. 
+        /// Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -11537,7 +11537,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. 
+        /// Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -11553,7 +11553,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection. 
+        /// Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -11618,7 +11618,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection. 
+        /// Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -11633,7 +11633,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection. 
+        /// Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -11695,7 +11695,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection. 
+        /// Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
@@ -11711,7 +11711,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         }
 
         /// <summary>
-        /// Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection. 
+        /// Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>

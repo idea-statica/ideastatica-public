@@ -1,4 +1,5 @@
 # IdeaStatiCa.ConnectionApi.Model.ConMemberPosition
+The member's placement. definedBy is rotationsOfX (by betaDirection, gamaPitch and alphaRotation), directionVector (by axisX and alphaRotation) or lcs (by axisX; the stored y and z axes are fitted to it). In a request, definedBy none is refused with 422, and so is a position without definedBy, which reads as none; a response can carry none for a member stored with it. axisX, axisY, axisZ and origin are the resolved local coordinate system in a response; in a request only axisX is read, and it must be a non-zero vector.
 
 ## Properties
 

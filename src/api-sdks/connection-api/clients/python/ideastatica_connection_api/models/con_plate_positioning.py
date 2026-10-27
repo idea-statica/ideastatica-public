@@ -35,8 +35,8 @@ class ConPlatePositioning(BaseModel):
     ConPlatePositioning
     """ # noqa: E501
     con_plate_positioning_type: Optional[ConPlatePositioningEnum] = Field(default=None, alias="conPlatePositioningType")
-    concrete_block_index: Optional[StrictInt] = Field(default=None, alias="concreteBlockIndex")
-    concrete_surface: Optional[StrictInt] = Field(default=None, alias="concreteSurface")
+    concrete_block_index: Optional[StrictInt] = Field(default=None, description="Used when conPlatePositioningType is concreteBlock. Despite the name, not a block index: the id of the operation that creates the concrete block, i.e. an anchor grid or contact grid whose blockType is new (list them with GET .../operations/anchor-grid and .../operations/contact-grid). The operation must come before the plate, i.e. have a lower id.", alias="concreteBlockIndex")
+    concrete_surface: Optional[StrictInt] = Field(default=None, description="Used when conPlatePositioningType is concreteBlock. The face of the block the plate is placed on, 1 to 6 for a rectangular block: 1 to 4 are the sides, 5 is the bottom and 6 is the top.", alias="concreteSurface")
     position_x: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="positionX")
     position_y: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="positionY")
     rotation_angle: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="rotationAngle")

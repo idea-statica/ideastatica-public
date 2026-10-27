@@ -30,7 +30,8 @@ class CheckResAnchor(BaseModel):
     name: Optional[StrictStr] = Field(default=None, description="Name")
     unity_check: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Unity Check", alias="unityCheck")
     check_status: Optional[StrictBool] = Field(default=None, description="Status of the Check", alias="checkStatus")
-    __properties: ClassVar[List[str]] = ["name", "unityCheck", "checkStatus"]
+    load_case_id: Optional[StrictInt] = Field(default=None, description="Id of Load Case", alias="loadCaseId")
+    __properties: ClassVar[List[str]] = ["name", "unityCheck", "checkStatus", "loadCaseId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,7 +91,8 @@ class CheckResAnchor(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "unityCheck": obj.get("unityCheck"),
-            "checkStatus": obj.get("checkStatus")
+            "checkStatus": obj.get("checkStatus"),
+            "loadCaseId": obj.get("loadCaseId")
         })
         return _obj
 

@@ -15,7 +15,7 @@
 """  # noqa: E501
 
 
-__version__ = "26.1.0.4245"
+__version__ = "26.1.0.5973"
 
 # import apis into sdk package
 from ideastatica_connection_api.api.calculation_api import CalculationApi
@@ -154,6 +154,7 @@ from ideastatica_connection_api.models.con_parameter_create import ConParameterC
 from ideastatica_connection_api.models.con_parameter_delete_result import ConParameterDeleteResult
 from ideastatica_connection_api.models.con_parameter_link import ConParameterLink
 from ideastatica_connection_api.models.con_parameter_link_create import ConParameterLinkCreate
+from ideastatica_connection_api.models.con_parameter_value_type import ConParameterValueType
 from ideastatica_connection_api.models.con_pin_grid_operation import ConPinGridOperation
 from ideastatica_connection_api.models.con_plate_cut_operation import ConPlateCutOperation
 from ideastatica_connection_api.models.con_plate_function import ConPlateFunction
@@ -169,8 +170,10 @@ from ideastatica_connection_api.models.con_property_owner import ConPropertyOwne
 from ideastatica_connection_api.models.con_property_owner_kind import ConPropertyOwnerKind
 from ideastatica_connection_api.models.con_reinforcement_anchor_shape import ConReinforcementAnchorShape
 from ideastatica_connection_api.models.con_remaining_part import ConRemainingPart
+from ideastatica_connection_api.models.con_repeated_value import ConRepeatedValue
 from ideastatica_connection_api.models.con_result_summary import ConResultSummary
 from ideastatica_connection_api.models.con_shear_force_transfer_method import ConShearForceTransferMethod
+from ideastatica_connection_api.models.con_shear_lug_dto import ConShearLugDto
 from ideastatica_connection_api.models.con_slotted_hole import ConSlottedHole
 from ideastatica_connection_api.models.con_steel_code_edition_enum import ConSteelCodeEditionEnum
 from ideastatica_connection_api.models.con_stiffening_member_operation import ConStiffeningMemberOperation

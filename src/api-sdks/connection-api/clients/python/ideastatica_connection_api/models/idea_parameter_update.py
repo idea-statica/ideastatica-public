@@ -18,8 +18,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from ideastatica_connection_api.models.con_parameter_value_type import ConParameterValueType
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -29,7 +30,10 @@ class IdeaParameterUpdate(BaseModel):
     """ # noqa: E501
     key: Optional[StrictStr] = None
     expression: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["key", "expression"]
+    description: Optional[StrictStr] = None
+    is_visible: Optional[StrictBool] = Field(default=None, alias="isVisible")
+    value_type: Optional[ConParameterValueType] = Field(default=None, alias="valueType")
+    __properties: ClassVar[List[str]] = ["key", "expression", "description", "isVisible", "valueType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -80,6 +84,16 @@ class IdeaParameterUpdate(BaseModel):
         if self.expression is None and "expression" in self.model_fields_set:
             _dict['expression'] = None
 
+        # set to None if description (nullable) is None
+        # and model_fields_set contains the field
+        if self.description is None and "description" in self.model_fields_set:
+            _dict['description'] = None
+
+        # set to None if is_visible (nullable) is None
+        # and model_fields_set contains the field
+        if self.is_visible is None and "is_visible" in self.model_fields_set:
+            _dict['isVisible'] = None
+
         return _dict
 
     @classmethod
@@ -93,7 +107,10 @@ class IdeaParameterUpdate(BaseModel):
 
         _obj = cls.model_validate({
             "key": obj.get("key"),
-            "expression": obj.get("expression")
+            "expression": obj.get("expression"),
+            "description": obj.get("description"),
+            "isVisible": obj.get("isVisible"),
+            "valueType": obj.get("valueType")
         })
         return _obj
 

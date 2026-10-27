@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Default** | **string** |  | [optional] 
 **Value** | **Object** |  | [optional] 
 **Unit** | **string** |  | [optional] 
+**ValueType** | **ConParameterValueType** |  | [optional] 
 **ParameterType** | **string** |  | [optional] 
 **Description** | **string** |  | [optional] 
 **ValidationStatus** | **string** |  | [optional] 

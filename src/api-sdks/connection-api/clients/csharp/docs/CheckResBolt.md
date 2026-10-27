@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Name** | **string** | Name of the bolt (e.g., \&quot;B15\&quot;). The numeric suffix is an opaque CBFEM solver identifier —  it may not start at 1 and may not be sequential. See IdeaRS.OpenModel.Connection.CheckResBolt remarks for details. | [optional] 
 **UnityCheck** | **double** | Unity Check | [optional] 
 **CheckStatus** | **bool** | Status of the Check | [optional] 
+**LoadCaseId** | **int** | Id of Load Case | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -40,8 +40,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// Changes the design code of the project.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service (only ECEN projects are supported).</param>
-        /// <param name="conConversionSettings">Conversion table for materials in the project (pairs &#39;ECEN MATERIAL&#39; to &#39;TARGET DESIGN CODE MATERIAL&#39;). (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="conConversionSettings">Conversion table for materials in the project (pairs &#39;SOURCE MATERIAL&#39; to &#39;TARGET DESIGN CODE MATERIAL&#39;). (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
         void ChangeCode(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), int operationIndex = 0);
@@ -53,8 +53,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service (only ECEN projects are supported).</param>
-/// <param name="conConversionSettings">Conversion table for materials in the project (pairs &#39;ECEN MATERIAL&#39; to &#39;TARGET DESIGN CODE MATERIAL&#39;). (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="conConversionSettings">Conversion table for materials in the project (pairs &#39;SOURCE MATERIAL&#39; to &#39;TARGET DESIGN CODE MATERIAL&#39;). (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
@@ -63,7 +63,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// Gets default conversion mappings for converting the project to a different design code.
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service (only ECEN design code is supported).</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
         /// <param name="countryCode">The requested design code for the converted project. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConConversionSettings</returns>
@@ -76,7 +76,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service (only ECEN design code is supported).</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
 /// <param name="countryCode">The requested design code for the converted project. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>        
         /// <param name="operationIndex">Index associated with the operation.</param>
@@ -98,8 +98,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service (only ECEN projects are supported).</param>
-        /// <param name="conConversionSettings">Conversion table for materials in the project (pairs &#39;ECEN MATERIAL&#39; to &#39;TARGET DESIGN CODE MATERIAL&#39;). (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="conConversionSettings">Conversion table for materials in the project (pairs &#39;SOURCE MATERIAL&#39; to &#39;TARGET DESIGN CODE MATERIAL&#39;). (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
@@ -112,8 +112,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service (only ECEN projects are supported).</param>
-        /// <param name="conConversionSettings">Conversion table for materials in the project (pairs &#39;ECEN MATERIAL&#39; to &#39;TARGET DESIGN CODE MATERIAL&#39;). (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="conConversionSettings">Conversion table for materials in the project (pairs &#39;SOURCE MATERIAL&#39; to &#39;TARGET DESIGN CODE MATERIAL&#39;). (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -126,7 +126,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service (only ECEN design code is supported).</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
         /// <param name="countryCode">The requested design code for the converted project. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -140,7 +140,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// 
         /// </remarks>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service (only ECEN design code is supported).</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
         /// <param name="countryCode">The requested design code for the converted project. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
@@ -271,8 +271,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// Changes the design code of the project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service (only ECEN projects are supported).</param>
-        /// <param name="conConversionSettings">Conversion table for materials in the project (pairs &#39;ECEN MATERIAL&#39; to &#39;TARGET DESIGN CODE MATERIAL&#39;). (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="conConversionSettings">Conversion table for materials in the project (pairs &#39;SOURCE MATERIAL&#39; to &#39;TARGET DESIGN CODE MATERIAL&#39;). (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns></returns>
         public void ChangeCode(Guid projectId, ConConversionSettings conConversionSettings = default(ConConversionSettings), int operationIndex = 0)
@@ -284,8 +284,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// Changes the design code of the project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service (only ECEN projects are supported).</param>
-/// <param name="conConversionSettings">Conversion table for materials in the project (pairs &#39;ECEN MATERIAL&#39; to &#39;TARGET DESIGN CODE MATERIAL&#39;). (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+/// <param name="conConversionSettings">Conversion table for materials in the project (pairs &#39;SOURCE MATERIAL&#39; to &#39;TARGET DESIGN CODE MATERIAL&#39;). (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of Object(void)</returns>
@@ -344,8 +344,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// Changes the design code of the project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service (only ECEN projects are supported).</param>
-        /// <param name="conConversionSettings">Conversion table for materials in the project (pairs &#39;ECEN MATERIAL&#39; to &#39;TARGET DESIGN CODE MATERIAL&#39;). (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="conConversionSettings">Conversion table for materials in the project (pairs &#39;SOURCE MATERIAL&#39; to &#39;TARGET DESIGN CODE MATERIAL&#39;). (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of void</returns>
@@ -358,8 +358,8 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// Changes the design code of the project. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service (only ECEN projects are supported).</param>
-        /// <param name="conConversionSettings">Conversion table for materials in the project (pairs &#39;ECEN MATERIAL&#39; to &#39;TARGET DESIGN CODE MATERIAL&#39;). (optional)</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
+        /// <param name="conConversionSettings">Conversion table for materials in the project (pairs &#39;SOURCE MATERIAL&#39; to &#39;TARGET DESIGN CODE MATERIAL&#39;). (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -421,7 +421,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// Gets default conversion mappings for converting the project to a different design code. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service (only ECEN design code is supported).</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
         /// <param name="countryCode">The requested design code for the converted project. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ConConversionSettings</returns>
@@ -435,7 +435,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// Gets default conversion mappings for converting the project to a different design code. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service (only ECEN design code is supported).</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
 /// <param name="countryCode">The requested design code for the converted project. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
@@ -497,7 +497,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// Gets default conversion mappings for converting the project to a different design code. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service (only ECEN design code is supported).</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
         /// <param name="countryCode">The requested design code for the converted project. (optional)</param>
         /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -512,7 +512,7 @@ namespace IdeaStatiCa.ConnectionApi.Api
         /// Gets default conversion mappings for converting the project to a different design code. 
         /// </summary>
         /// <exception cref="IdeaStatiCa.ConnectionApi.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service (only ECEN design code is supported).</param>
+        /// <param name="projectId">The unique identifier of the opened project in the ConnectionRestApi service.</param>
         /// <param name="countryCode">The requested design code for the converted project. (optional)</param>
         /// <param name="requestedType">Requested content type in the response.</param>
         /// <param name="operationIndex">Index associated with the operation.</param>

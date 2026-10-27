@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **name** | **str** | Name | [optional] 
 **unity_check** | **float** | Unity Check | [optional] 
 **check_status** | **bool** | Status of the Check | [optional] 
+**load_case_id** | **int** | Id of Load Case | [optional] 
 
 ## Example
 

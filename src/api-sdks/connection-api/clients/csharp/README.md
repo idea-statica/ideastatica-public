@@ -3,7 +3,7 @@
 The C# library for the Connection Rest API 5.0
 
 - API version: 5.0
-- SDK version: 26.1.0.4245
+- SDK version: 26.1.0.5973
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -86,14 +86,12 @@ namespace Example
                         return;
                     }
 
-                    // request to run plastic CBFEM for all connections in the project
-                    ConCalculationParameter conCalcParam = new ConCalculationParameter()
-                    {
-                        AnalysisType = ConAnalysisTypeEnum.Stress_Strain,
-                        ConnectionIds = projData.Connections.Select(c => c.Id).ToList()
-                    };
+                    // request to run CBFEM for all connections in the project.
+                    // The analysis type is taken from each connection (ConConnection.AnalysisType) -
+                    // set it with a connection update before calculating.
+                    List<int> connectionIds = projData.Connections.Select(c => c.Id).ToList();
 
-                    var cbfemResult = await conClient.Calculation.CalculateAsync(projData.ProjectId, conCalcParam, 0, cancellationToken);
+                    var cbfemResult = await conClient.Calculation.CalculateAsync(projData.ProjectId, connectionIds, 0, cancellationToken);
                     await conClient.Project.CloseProjectAsync(projData.ProjectId);
                 }
             }
@@ -295,12 +293,12 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**UpdateContactGridOperation**](docs/OperationApi.md#updatecontactgridoperation) | Replaces a Contact Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
 [**UpdateContactOperation**](docs/OperationApi.md#updatecontactoperation) | Replaces a Contact operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
 [**UpdateCutOperation**](docs/OperationApi.md#updatecutoperation) | Replaces a Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
-[**UpdateNegativeMemberOperation**](docs/OperationApi.md#updatenegativememberoperation) | Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
-[**UpdateNegativePlateOperation**](docs/OperationApi.md#updatenegativeplateoperation) | Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**UpdateNegativeMemberOperation**](docs/OperationApi.md#updatenegativememberoperation) | Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
+[**UpdateNegativePlateOperation**](docs/OperationApi.md#updatenegativeplateoperation) | Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 [**UpdatePinGridOperation**](docs/OperationApi.md#updatepingridoperation) | Replaces a Pin Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
 [**UpdatePlateCutOperation**](docs/OperationApi.md#updateplatecutoperation) | Replaces a Plate Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
-[**UpdateStiffeningMemberOperation**](docs/OperationApi.md#updatestiffeningmemberoperation) | Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
-[**UpdateStiffeningPlateOperation**](docs/OperationApi.md#updatestiffeningplateoperation) | Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.
+[**UpdateStiffeningMemberOperation**](docs/OperationApi.md#updatestiffeningmemberoperation) | Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
+[**UpdateStiffeningPlateOperation**](docs/OperationApi.md#updatestiffeningplateoperation) | Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 [**UpdateWeldOperation**](docs/OperationApi.md#updateweldoperation) | Replaces a Weld operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
 [**UpdateWorkPlaneOperation**](docs/OperationApi.md#updateworkplaneoperation) | Replaces a Work Plane operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
   ### ParameterApi
@@ -492,6 +490,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConParameterDeleteResult](docs/ConParameterDeleteResult.md)
  - [Model.ConParameterLink](docs/ConParameterLink.md)
  - [Model.ConParameterLinkCreate](docs/ConParameterLinkCreate.md)
+ - [Model.ConParameterValueType](docs/ConParameterValueType.md)
  - [Model.ConPinGridOperation](docs/ConPinGridOperation.md)
  - [Model.ConPlateCutOperation](docs/ConPlateCutOperation.md)
  - [Model.ConPlateFunction](docs/ConPlateFunction.md)
@@ -507,8 +506,10 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [Model.ConPropertyOwnerKind](docs/ConPropertyOwnerKind.md)
  - [Model.ConReinforcementAnchorShape](docs/ConReinforcementAnchorShape.md)
  - [Model.ConRemainingPart](docs/ConRemainingPart.md)
+ - [Model.ConRepeatedValue](docs/ConRepeatedValue.md)
  - [Model.ConResultSummary](docs/ConResultSummary.md)
  - [Model.ConShearForceTransferMethod](docs/ConShearForceTransferMethod.md)
+ - [Model.ConShearLugDto](docs/ConShearLugDto.md)
  - [Model.ConSlottedHole](docs/ConSlottedHole.md)
  - [Model.ConSteelCodeEditionEnum](docs/ConSteelCodeEditionEnum.md)
  - [Model.ConStiffeningMemberOperation](docs/ConStiffeningMemberOperation.md)
@@ -591,7 +592,7 @@ Endpoints do not require authorization.
 This C# SDK is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 5.0
-- SDK version: 26.1.0.4245
+- SDK version: 26.1.0.5973
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.CSharpClientCodegen
     For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)
