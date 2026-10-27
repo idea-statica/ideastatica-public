@@ -23,13 +23,10 @@ for machines that need one.
 
 ## Build & run
 
-The project has four configurations (see `PublishBulkTool.csproj`):
-
-- `Debug`, `Release` — project reference to `IdeaStatiCa.ConnectionApi` from this repository
-- `Debug_NuGet`, `Release_NuGet` — `IdeaStatiCa.ConnectionApi` NuGet package
+The project references the `IdeaStatiCa.ConnectionApi` NuGet package.
 
 ```console
-dotnet run --project PublishBulkTool.csproj -c Debug_NuGet
+dotnet run --project PublishBulkTool.csproj
 ```
 
 In the app: set the IDEA StatiCa path, select the folder with `.ideaCon` files, load the project items, choose the design set type, and press the publish button.

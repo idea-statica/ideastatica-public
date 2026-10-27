@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="SafFeaBimLink/SafFeaBimLink.csproj" />
+  <Project Path="SafFeaExample/SafFeaApi_MOCK/SafFeaApi_MOCK.csproj" />
+  <Project Path="SafFeaExample/SafFeaTestApp/SafFeaTestApp.csproj" />
+</Solution>

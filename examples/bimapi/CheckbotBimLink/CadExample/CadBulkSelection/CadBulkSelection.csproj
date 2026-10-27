@@ -1,17 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net10.0-windows;net48</TargetFrameworks>
-		<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
+		<TargetFrameworks>net10.0-windows10.0.22621;net48</TargetFrameworks>
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<DebugType>full</DebugType>
-		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NuGet|AnyCPU'">
 		<DebugType>full</DebugType>
 		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
 	</PropertyGroup>
@@ -21,21 +15,12 @@
 		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
 	</PropertyGroup>
 
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release_NuGet|AnyCPU' ">
-		<DebugType>pdbonly</DebugType>
-		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<ProjectReference Include="..\CadExampleApi\CadExampleApi.csproj" />
 	</ItemGroup>
-	
-	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
-		<ProjectReference Include="..\..\..\..\..\src\IdeaStatiCa.ItemsSorter\IdeaStatiCa.ItemsSorter.csproj" />
-	</ItemGroup>
 
-	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
-		<PackageReference Include="IdeaStatiCa.ItemsSorter" VersionOverride="24.0.0.3084" />
+	<ItemGroup>
+		<PackageReference Include="IdeaStatiCa.ItemsSorter" />
 	</ItemGroup>
 
 </Project>

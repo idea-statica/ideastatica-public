@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net10.0-windows;net48</TargetFrameworks>
+    <TargetFrameworks>net10.0-windows10.0.22621;net48</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\examples\bimapi\CheckbotBimLink\CadExample\BimApiLinkCadExample\BimApiLinkCadExample.csproj" />
-    <ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+    <PackageReference Include="IdeaStatiCa.Plugin" />
   </ItemGroup>
 
 </Project>

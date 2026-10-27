@@ -3,8 +3,7 @@ name: .NET build artifacts
 on:
   workflow_dispatch:
 env:
-  DOTNET_VERSION: '9.0.301'
-  NUGET_BINARY_VERSION: '6.13.2'
+  DOTNET_VERSION: '10.0.105'
 
 jobs:
   BuildAndTest:
@@ -17,25 +16,13 @@ jobs:
       with:
         path: main
 
-    - name: 'Setup msbuild'
-      uses: microsoft/setup-msbuild@v1
-
     - name: 'Setup .NET SDK'
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: 'Setup nuget.exe'
-      uses: NuGet/setup-nuget@v1
-      with:
-        nuget-version: ${{ env.NUGET_BINARY_VERSION }}
-
-    - name: Nuget restore dependencies
-      run: nuget restore ./src/api-sdks/ClientExamples.sln
-      working-directory: main
-
     - name: Build
-      run: msbuild ./src/api-sdks/ClientExamples.sln /p:Configuration=Release
+      run: dotnet build ./src/api-sdks/ClientExamples.slnx /p:Configuration=Release
       working-directory: main
 
     - name: 'Upload ConApiWpfClientApp'

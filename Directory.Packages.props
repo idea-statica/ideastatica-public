@@ -7,16 +7,20 @@
     <PackageVersion Include="AutoFixture.NUnit3" Version="4.18.1" />
     <PackageVersion Include="coverlet.collector" Version="6.0.4" />
     <PackageVersion Include="FluentAssertions" Version="6.8.0" />
-    <PackageVersion Include="IdeaStatiCa.ConnectionApi" Version="25.1.3.1518" />
-    <PackageVersion Include="IdeaStatiCa.RcsApi" Version="25.1.3.1518" />
-    <PackageVersion Include="IdeaStatiCa.Api" Version="25.1.3.1518" />
-    <PackageVersion Include="IdeaStatiCa.Plugin" Version="25.1.3.1518" />
-    <PackageVersion Include="IdeaStatica.BimApi" Version="25.1.3.1518" />
-    <PackageVersion Include="IdeaStatica.BimApiLink" Version="25.1.3.1518" />
-    <PackageVersion Include="IdeaStatiCa.SAF2IOM" Version="25.1.3.1518" />
-    <PackageVersion Include="IdeaStatiCa.PluginLogger" Version="25.1.3.1518" />
-    <PackageVersion Include="IdeaStatiCa.Public" Version="25.1.3.1518" />
-    <PackageVersion Include="IdeaStatiCa.OpenModel" Version="25.1.3.1518" />
+    <PackageVersion Include="IdeaStatiCa.ConnectionApi" Version="26.1.0.5973" />
+    <PackageVersion Include="IdeaStatiCa.RcsApi" Version="26.1.0.5973" />
+    <PackageVersion Include="IdeaStatiCa.Api" Version="26.1.0.5973" />
+    <PackageVersion Include="IdeaStatiCa.Plugin" Version="26.1.0.5973" />
+    <PackageVersion Include="IdeaStatica.BimApi" Version="26.1.0.5973" />
+    <PackageVersion Include="IdeaStatica.BimApiLink" Version="26.1.0.5973" />
+    <PackageVersion Include="IdeaStatiCa.CheckbotPlugin" Version="26.1.0.5973" />
+    <PackageVersion Include="IdeaStatiCa.BimImporter" Version="26.1.0.5973" />
+    <PackageVersion Include="IdeaStatiCa.PluginsTools" Version="26.1.0.5973" />
+    <PackageVersion Include="IdeaStatiCa.ItemsSorter" Version="26.1.0.5973" />
+    <PackageVersion Include="IdeaStatiCa.SAF2IOM" Version="26.1.0.5973" />
+    <PackageVersion Include="IdeaStatiCa.PluginLogger" Version="26.1.0.5973" />
+    <PackageVersion Include="IdeaStatiCa.Public" Version="26.1.0.5973" />
+    <PackageVersion Include="IdeaStatiCa.OpenModel" Version="26.1.0.5973" />
     <PackageVersion Include="IdeaStatiCa.ConRestApiClientUI" Version="1.2.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyModel" Version="10.0.13" />
     <PackageVersion Include="Microsoft.Bcl.HashCode" Version="6.0.0" />

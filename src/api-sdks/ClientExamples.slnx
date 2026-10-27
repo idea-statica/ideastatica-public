@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/connections/">
+    <Project Path="connection-api/clients/csharp/examples/ConApiWpfClient/ConApiWpfClientApp/ConApiWpfClientApp.csproj" />
+  </Folder>
+  <Folder Name="/connections/ConFromIomGenerator/">
+    <File Path="../../examples/iom/csharp/ConnectionIomGenerator/readme.md" />
+    <Project Path="../../examples/iom/csharp/ConnectionIomGenerator/ConnectionIomGenerator.UI/ConnectionIomGenerator.UI.csproj" />
+    <Project Path="../../examples/iom/csharp/ConnectionIomGenerator/ConnectionIomGenerator/ConnectionIomGenerator.csproj" />
+  </Folder>
+  <Folder Name="/rcs/">
+    <Project Path="rcs-api/clients/csharp/examples/RcsApiWpfClient/RcsApiWpfClientApp/RcsApiWpfClientApp.csproj" />
+  </Folder>
+</Solution>

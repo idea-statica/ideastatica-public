@@ -1,0 +1,39 @@
+<Solution>
+  <Folder Name="/BIMAPI/" />
+  <Folder Name="/BIMAPI/CheckbotBimLink/">
+    <Project Path="bimapi/CheckbotBimLink/BimLinkExampleRunner/BimLinkExampleRunner.csproj" />
+  </Folder>
+  <Folder Name="/BIMAPI/CheckbotBimLink/CadExample/">
+    <Project Path="bimapi/CheckbotBimLink/CadExample/BimApiLinkCadExample/BimApiLinkCadExample.csproj" />
+    <Project Path="bimapi/CheckbotBimLink/CadExample/CadBulkSelection/CadBulkSelection.csproj" />
+    <Project Path="bimapi/CheckbotBimLink/CadExample/CadExampleApi/CadExampleApi.csproj" />
+  </Folder>
+  <Folder Name="/BIMAPI/CheckbotBimLink/FeaExample/">
+    <Project Path="bimapi/CheckbotBimLink/FeaExample/BimApiLinkFeaExample/BimApiLinkFeaExample.csproj" />
+    <Project Path="bimapi/CheckbotBimLink/FeaExample/FeaExampleApi/FeaExampleApi.csproj" />
+  </Folder>
+  <Folder Name="/BIMAPI/CheckbotBimLink/SAF/">
+    <Project Path="bimapi/CheckbotBimLink/SAF/SafFeaBimLink/SafFeaBimLink.csproj" />
+    <Project Path="bimapi/CheckbotBimLink/SAF/SafFeaExample/SafFeaApi_Mock/SafFeaApi_MOCK.csproj" />
+    <Project Path="bimapi/CheckbotBimLink/SAF/SafFeaExample/SafFeaTestApp/SafFeaTestApp.csproj" />
+  </Folder>
+  <Folder Name="/BIMAPI/SAF2IOM-Winform-Tester/">
+    <Project Path="bimapi/SAF2IOM-WinForm-Tester/SAF2IOM/SAF2IOM.csproj" />
+  </Folder>
+  <Folder Name="/IOM/" />
+  <Folder Name="/IOM/ConnectionIomGenerator/">
+    <File Path="iom/csharp/ConnectionIomGenerator/readme.md" />
+    <Project Path="iom/csharp/ConnectionIomGenerator/ConnectionIomGenerator.UI/ConnectionIomGenerator.UI.csproj" />
+    <Project Path="iom/csharp/ConnectionIomGenerator/ConnectionIomGenerator/ConnectionIomGenerator.csproj" />
+    <Project Path="iom/csharp/ConnectionIomGenerator/ConnectionIomGeneratorApp/ConnectionIomGeneratorApp.csproj" />
+  </Folder>
+  <Folder Name="/IOM/RcsExamples/">
+    <Project Path="iom/csharp/IomToRcsExamples/IomToRcsExampleRunner/IomToRcsExampleRunner.csproj" />
+    <Project Path="iom/csharp/IomToRcsExamples/IomToRcsExamples/IomToRcsExamples.csproj" />
+  </Folder>
+  <Folder Name="/IOM/SteelFrameExample/">
+    <Project Path="iom/csharp/SteelFrameExample/IOM.SteelFrameDesktop/IOM.SteelFrameDesktop.csproj" />
+    <Project Path="iom/csharp/SteelFrameExample/IOM.SteelFrameExample/IOM.SteelFrameExample.csproj" />
+    <Project Path="iom/csharp/SteelFrameExample/IOM.SteelFrameWeb/IOM.SteelFrameWeb.csproj" />
+  </Folder>
+</Solution>

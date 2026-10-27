@@ -13,7 +13,7 @@ examples
 
 ## .Net Example Solutions
 
-Each example solution has two debug configurations 'Debug' and 'Debug_NuGet'. Projects in the IdeaStatiCa-SDK-Examples.sln are generally set to Debug_Nuget which means they referencee avaliable Nuget packages on build. As we still actively develop some of the examples avaliable against our source code we use 'Debug' for internal.
+The example projects reference the published IDEA StatiCa NuGet packages. Open IdeaStatiCa-SDK-Examples.slnx and build it in `Debug` or `Release`.
 
 ## Python Examples
 

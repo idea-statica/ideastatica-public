@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="ConnectionIomGenerator.UI/ConnectionIomGenerator.UI.csproj" />
+  <Project Path="ConnectionIomGenerator/ConnectionIomGenerator.csproj" />
+  <Project Path="ConnectionIomGeneratorApp/ConnectionIomGeneratorApp.csproj" />
+</Solution>

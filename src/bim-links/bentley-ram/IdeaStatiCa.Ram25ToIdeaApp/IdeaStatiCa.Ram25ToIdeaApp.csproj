@@ -3,7 +3,6 @@
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net10.0-windows</TargetFramework>
-		<Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
 		<UseWPF>true</UseWPF>
 		<ApplicationIcon>Resources\RAM icon.ico</ApplicationIcon>
 		<Platforms>AnyCPU;x64</Platforms>
@@ -24,7 +23,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj" />
+		<PackageReference Include="IdeaStatiCa.PluginLogger" />
 		<ProjectReference Include="..\IdeaStatiCa.Ram25ToIdea\IdeaStatiCa.Ram25ToIdea.csproj" />
 	</ItemGroup>
 
