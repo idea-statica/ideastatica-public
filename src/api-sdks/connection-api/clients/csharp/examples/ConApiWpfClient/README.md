@@ -1,2 +1,4 @@
-[ConApiWpfClient.slnx](ConApiWpfClient.slnx) uses nuget references
+[ConApiWpfClient.sln](ConApiWpfClient.sln) uses nuget references
+
+[ConApiWpfClient-deve.sln](ConApiWpfClient-deve.sln) uses project references
 

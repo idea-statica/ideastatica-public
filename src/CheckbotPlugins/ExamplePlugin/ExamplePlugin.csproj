@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IdeaStatiCa.OpenModel" />
-    <PackageReference Include="IdeaStatiCa.CheckbotPlugin" />
+    <ProjectReference Include="..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+    <ProjectReference Include="..\IdeaStatiCa.CheckbotPlugin\IdeaStatiCa.CheckbotPlugin.csproj" />
   </ItemGroup>
 
 

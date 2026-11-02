@@ -3,6 +3,7 @@
   
   <PropertyGroup>
     <TargetFramework>net10.0-windows</TargetFramework>
+    <Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
     <Platforms>x64</Platforms>
     <PlatformTarget>x64</PlatformTarget>
 	<EnableComHosting>true</EnableComHosting>
@@ -20,11 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="IdeaStatiCa.OpenModel" />
-    <PackageReference Include="IdeaStatica.BimApi" />
-    <PackageReference Include="IdeaStatiCa.BimImporter" />
-    <PackageReference Include="IdeaStatiCa.Plugin" />
-    <PackageReference Include="IdeaStatiCa.PluginLogger" />
+    <ProjectReference Include="..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+    <ProjectReference Include="..\..\..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
+    <ProjectReference Include="..\..\..\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj" />
+    <ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
   </ItemGroup>
 
   <ItemGroup>    
@@ -40,4 +40,5 @@
     </Reference>
   </ItemGroup>
 
+  <Import Project="..\..\..\Logger\SerilogFacade\SerilogFacade.projitems" Label="Shared" />
 </Project>

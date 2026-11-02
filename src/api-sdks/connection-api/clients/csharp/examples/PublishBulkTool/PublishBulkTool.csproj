@@ -25,6 +25,7 @@
 		<PublishReferencesDocumentationFiles>false</PublishReferencesDocumentationFiles>
 		<AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
 		<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+		<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -32,10 +33,14 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" />
 	</ItemGroup>
 
-	<ItemGroup>
+	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
 		<PackageReference Include="IdeaStatiCa.ConnectionApi" />
 		<PackageReference Include="IdeaStatiCa.OpenModel" />
 		<PackageReference Include="IdeaStatiCa.PluginLogger" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
+	  <ProjectReference Include="..\..\src\IdeaStatiCa.ConnectionApi\IdeaStatiCa.ConnectionApi.csproj" />
 	</ItemGroup>
 
 </Project>

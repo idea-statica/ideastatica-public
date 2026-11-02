@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option csharp_namespace = "IdeaStatiCa.CheckbotPlugin.Protos";
+
+package ideastatica.checkbotplugin.v1;
+
+import "model_object.proto";
+
+service ConnectionService {
+	rpc GetUnbalancedForces(GetUnbalancedForcesReq) returns (ListUnbalancedForcesRes);
+
+}
+
+message  ListUnbalancedForcesRes {
+	repeated UnbalancedForce objects = 1;
+}
+
+message GetUnbalancedForcesReq {
+	ModelObject connection = 1;
+}
+
+message UnbalancedForce {
+	string loadName = 1;
+	double x = 2;
+	double y = 3;
+	double z = 4;
+	double mx = 5;
+	double my = 6;
+	double mz = 7;
+}

@@ -2,6 +2,7 @@
 <Import Project="..\..\..\Common.props" />
   <PropertyGroup>
     <TargetFramework>net10.0-windows</TargetFramework>
+	<Configurations>Debug;Release;Release_IdeaStatiCa_Internal;Debug_IdeaStatiCa_Internal</Configurations>
 	<Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
@@ -13,10 +14,10 @@
 		<PackageReference Include="MathNet.Spatial" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="IdeaStatiCa.OpenModel" />
-		<PackageReference Include="IdeaStatica.BimApi" />
-		<PackageReference Include="IdeaStatiCa.BimImporter" />
-		<PackageReference Include="IdeaStatiCa.Plugin" />
+		<ProjectReference Include="..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj" />
+		<ProjectReference Include="..\..\..\IdeaStatiCa.BimApi\IdeaStatiCa.BimApi.csproj" />
+		<ProjectReference Include="..\..\..\IdeaStatiCa.BimImporter\IdeaStatiCa.BimImporter.csproj" />
+		<ProjectReference Include="..\..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
 	</ItemGroup>
 	<Import Project="..\IdeaStatiCa.BentleyCrossSections\IdeaStatiCa.BentleyCrossSections.projitems" Label="Shared" />
 
