@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "IdeaStatiCa.BimImporter.Tests": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}

@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RcsApiWpfClientApp", "RcsApiWpfClientApp\RcsApiWpfClientApp.csproj", "{24EF5EEC-EF0D-4BF9-AD79-B10628C9997C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.PluginLogger", "..\..\..\..\..\..\Logger\IdeaStatiCa.PluginLogger\IdeaStatiCa.PluginLogger.csproj", "{D10B147A-9DEF-4F83-859F-846D180BE785}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.Public", "..\..\..\..\..\..\IdeaStatiCa.Public\IdeaStatiCa.Public.csproj", "{B77F70C6-9DEF-4CB1-9E41-838599354247}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.RcsApi", "..\..\src\IdeaStatiCa.RcsApi\IdeaStatiCa.RcsApi.csproj", "{9ECFB719-A98B-4F68-9137-9EC0D0DB6582}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaRS.OpenModel", "..\..\..\..\..\..\IdeaRS.OpenModel\IdeaRS.OpenModel.csproj", "{A126E1DB-3025-4A63-AD9E-A35109540736}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaStatiCa.Api", "..\..\..\..\..\..\IdeaStatiCa.Api\IdeaStatiCa.Api.csproj", "{C78FCEF8-306F-4056-8374-E771B9965E57}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24EF5EEC-EF0D-4BF9-AD79-B10628C9997C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24EF5EEC-EF0D-4BF9-AD79-B10628C9997C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24EF5EEC-EF0D-4BF9-AD79-B10628C9997C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24EF5EEC-EF0D-4BF9-AD79-B10628C9997C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D10B147A-9DEF-4F83-859F-846D180BE785}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D10B147A-9DEF-4F83-859F-846D180BE785}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D10B147A-9DEF-4F83-859F-846D180BE785}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D10B147A-9DEF-4F83-859F-846D180BE785}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B77F70C6-9DEF-4CB1-9E41-838599354247}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B77F70C6-9DEF-4CB1-9E41-838599354247}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B77F70C6-9DEF-4CB1-9E41-838599354247}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B77F70C6-9DEF-4CB1-9E41-838599354247}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ECFB719-A98B-4F68-9137-9EC0D0DB6582}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ECFB719-A98B-4F68-9137-9EC0D0DB6582}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ECFB719-A98B-4F68-9137-9EC0D0DB6582}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ECFB719-A98B-4F68-9137-9EC0D0DB6582}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A126E1DB-3025-4A63-AD9E-A35109540736}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A126E1DB-3025-4A63-AD9E-A35109540736}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A126E1DB-3025-4A63-AD9E-A35109540736}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A126E1DB-3025-4A63-AD9E-A35109540736}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C78FCEF8-306F-4056-8374-E771B9965E57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C78FCEF8-306F-4056-8374-E771B9965E57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C78FCEF8-306F-4056-8374-E771B9965E57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C78FCEF8-306F-4056-8374-E771B9965E57}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D57E4919-7909-4267-BCA2-36C956858D5E}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\..\..\..\..\..\Logger\SerilogFacade\SerilogFacade.projitems*{d10b147a-9def-4f83-859f-846d180be785}*SharedItemsImports = 5
+	EndGlobalSection
+EndGlobal

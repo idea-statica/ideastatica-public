@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="IdeaStatiCa.Plugin" />
-    <PackageReference Include="IdeaStatiCa.Public" />
+    <ProjectReference Include="..\..\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
+    <ProjectReference Include="..\..\IdeaStatiCa.Public\IdeaStatiCa.Public.csproj" />
   </ItemGroup>
 
 </Project>

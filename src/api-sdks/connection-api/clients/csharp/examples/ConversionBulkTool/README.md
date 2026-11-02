@@ -16,10 +16,13 @@ Each file in the list is marked with a success or failure indicator; the error m
 
 ## Build & run
 
-The project references the `IdeaStatiCa.ConnectionApi` NuGet package.
+The project has four configurations (see `ConversionBulkTool.csproj`):
+
+- `Debug`, `Release` — project reference to `IdeaStatiCa.ConnectionApi` from this repository
+- `Debug_NuGet`, `Release_NuGet` — `IdeaStatiCa.ConnectionApi` NuGet package
 
 ```console
-dotnet run --project ConversionBulkTool.csproj
+dotnet run --project ConversionBulkTool.csproj -c Debug_NuGet
 ```
 
 In the app: set the IDEA StatiCa path, select the folder with `.ideaCon` files, pick the target design code, and press **Conversion**.
