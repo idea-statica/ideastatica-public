@@ -13,6 +13,8 @@
   href: connection-api/connection_api_examples.md
 - name: AI / LLM Reference
   href: connection-api/connection_api_llm_reference.md
+- name: Changelog
+  href: connection-api/connection_api_changelog.md
 - name: C# client
   href: connection-api/clients/csharp/toc.yml
 - name: Python client
