@@ -56,7 +56,7 @@ In most cases will want to open an existing project that is avaliable on our com
 
 ### Create project from IOM
 
-We can also **Create** a new RCS Project. To create a new RCS project file, we will need to define the RCS Model using IDEA Open Model(IOM). See [here](../../../../examples/iom/iom-rcs/IomToRcsExamples/RcsReinforcedBeam/rcs_reinforced_beam.md) for examples of creating IDEA Open Model for RCS can be found.
+We can also **Create** a new RCS Project. To create a new RCS project file, we will need to define the RCS Model using IDEA Open Model(IOM).
 
 > [!NOTE]
 > There is not currently a way to create projects from scratch without first defining an IOM Model.
