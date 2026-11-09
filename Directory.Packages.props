@@ -15,6 +15,7 @@
     <PackageVersion Include="IdeaStatica.BimApiLink" Version="26.1.0.5973" />
     <PackageVersion Include="IdeaStatiCa.SAF2IOM" Version="26.1.0.5973" />
     <PackageVersion Include="IdeaStatiCa.PluginLogger" Version="26.1.0.5973" />
+    <PackageVersion Include="IdeaStatiCa.ItemsSorter" Version="26.1.0.5973" />
     <PackageVersion Include="IdeaStatiCa.Public" Version="26.1.0.5973" />
     <PackageVersion Include="IdeaStatiCa.OpenModel" Version="26.1.0.5973" />
     <PackageVersion Include="Microsoft.Extensions.DependencyModel" Version="10.0.13" />

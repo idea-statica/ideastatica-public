@@ -1,54 +1,41 @@
 ﻿using BimApiLinkCadExample.BimApi;
-using BimApiLinkCadExample.CadExampleApi;
-using IdeaStatiCa.BimApiLink.BimApi;
+using BimApiLinkCadExample.Conversion;
+using CadExampleApi;
 using IdeaStatiCa.BimApi;
-using MathNet.Spatial.Euclidean;
+using IdeaStatiCa.BimApiLink.BimApi;
 using System.Collections.Generic;
-using BimApiLinkCadExample.Utils;
+using Member1DType = IdeaRS.OpenModel.Model.Member1DType;
 
 namespace BimApiLinkCadExample.Importers
 {
+	/// <summary>
+	/// Imports a member with its straight axis.
+	/// </summary>
 	internal class MemberImporter : BaseImporter<IIdeaMember1D>
 	{
-		public MemberImporter(ICadGeometryApi model) : base(model)
+		public MemberImporter(ICadGeometryApi cad)
+			: base(cad)
 		{
 		}
 
+		/// <summary>
+		/// Converts the member with the given CAD id. Its axis runs between the nodes at its two ends.
+		/// </summary>
 		public override IIdeaMember1D Create(int id)
 		{
-			CadMember member = Model.GetMember(id);
+			CadMember member = Cad.GetMember(id);
+			var axis = new Segment3D(id)
+			{
+				StartNodeId = NodeId.Of(member.Start),
+				EndNodeId = NodeId.Of(member.End),
+				LocalCoordinateSystem = Cad.GetMemberCoordinateSystem(id).ToIdea(),
+			};
+
 			return new Member1D(id)
 			{
-				Type = IdeaRS.OpenModel.Model.Member1DType.Beam,
-				CrossSectionNo = member.CrossSection,
-				Elements = new List<IIdeaElement1D>() { new IdeaElement1D(id) { Segment = CreateSegment(member), }, },
-			};
-		}
-
-		private IIdeaSegment3D CreateSegment(CadMember member)
-		{
-			var lcs = Model.GetMemberLcs(member.Id);
-
-			return new Segment3D(member.Id)
-			{
-				StartNodeNo = PointTranslator.GetPointId(member.StartPoint),
-				EndNodeNo = PointTranslator.GetPointId(member.EndPoint),
-				LocalCoordinateSystem = new IdeaRS.OpenModel.Geometry3D.CoordSystemByVector()
-				{
-					VecX = ConvertVector(lcs.X),
-					VecY = ConvertVector(lcs.Y),
-					VecZ = ConvertVector(lcs.Z),
-				},
-			};
-		}
-
-		private static IdeaRS.OpenModel.Geometry3D.Vector3D ConvertVector(UnitVector3D v)
-		{
-			return new IdeaRS.OpenModel.Geometry3D.Vector3D
-			{
-				X = v.X,
-				Y = v.Y,
-				Z = v.Z,
+				Type = Member1DType.Beam,
+				CrossSectionName = member.CrossSectionName,
+				Elements = new List<IIdeaElement1D> { new IdeaElement1D(id) { Segment = axis } },
 			};
 		}
 	}

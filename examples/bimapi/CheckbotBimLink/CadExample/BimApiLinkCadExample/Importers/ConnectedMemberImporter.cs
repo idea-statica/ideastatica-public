@@ -1,46 +1,34 @@
-﻿using BimApiLinkCadExample.CadExampleApi;
-using IdeaStatiCa.BimApi;
+﻿using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.BimApi;
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Importers;
 
 namespace BimApiLinkCadExample.Importers
 {
+	/// <summary>
+	/// A connected member is a member as one connection sees it. Its identifier carries the member's CAD id as text.
+	/// </summary>
 	internal class ConnectedMemberImporter : ImporterConnectedMemberIdentifier<IIdeaConnectedMember>
 	{
-		protected ICadGeometryApi Model { get; }
-
-		public ConnectedMemberImporter(ICadGeometryApi model)
-			: base()
-		{
-			Model = model;
-		}
-
+		/// <summary>
+		/// Creates the connected member for the member in the identifier. The settings below are the same for every
+		/// member here; a real link may read them from the CAD model.
+		/// </summary>
 		public override IIdeaConnectedMember Create(ConnectedMemberIdentifier<IIdeaConnectedMember> id)
 		{
-			IntIdentifier<IIdeaMember1D> intIdentifier = new IntIdentifier<IIdeaMember1D>(int.Parse(id.IdeaMember.GetId().ToString()));
+			string memberId = id.IdeaMember.GetId().ToString();
 
-			var ideaMember = GetMaybe<IIdeaMember1D>(intIdentifier);
-			if (ideaMember == null)
+			return new IdeaConnectedMember(memberId)
 			{
-				return null;
-			}
-
-			//For specific link value skip id value
-			var connectedMember = new IdeaConnectedMember(id.IdeaMember.GetId().ToString())
-			{
+				IdeaMember = Get<IIdeaMember1D>(int.Parse(memberId)),
+				ConnectedMemberType = id.ConnectedMemberType,
+				GeometricalType = IdeaGeometricalType.Ended,
+				ForcesIn = IdeaForcesIn.Position,
+				MemberSegmentType = IdeaBeamSegmentModelType.LoadedInXYZ,
 				IsReferenceLineInCenterOfGravity = true,
 				AutoAddCutByWorkplane = true,
-				IdeaMember = ideaMember,
-				ConnectedMemberType = id.ConnectedMemberType,
-				ForcesIn = IdeaForcesIn.Position,
-				GeometricalType = IdeaGeometricalType.Ended,
 				IsBearing = false,
-				Name = "",
-				MemberSegmentType = IdeaBeamSegmentModelType.LoadedInXYZ,
 			};
-			return connectedMember;
 		}
-
 	}
 }

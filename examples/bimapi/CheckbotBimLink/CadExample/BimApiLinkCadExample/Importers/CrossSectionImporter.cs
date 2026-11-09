@@ -1,40 +1,34 @@
 ﻿using BimApiLinkCadExample.BimApi;
-using IdeaStatiCa.BimApiLink.Importers;
+using CadExampleApi;
 using IdeaStatiCa.BimApi;
-using BimApiLinkCadExample.CadExampleApi;
+using IdeaStatiCa.BimApiLink.Importers;
 
 namespace BimApiLinkCadExample.Importers
 {
+	/// <summary>
+	/// Imports a cross-section by its name.
+	/// </summary>
 	internal class CrossSectionImporter : StringIdentifierImporter<IIdeaCrossSection>
 	{
-		protected ICadGeometryApi Model { get; }
+		private readonly ICadGeometryApi _cad;
 
-		public CrossSectionImporter(ICadGeometryApi model) 
+		public CrossSectionImporter(ICadGeometryApi cad)
 		{
-			Model = model;
+			_cad = cad;
 		}
 
-		public override IIdeaCrossSection Create(string id)
+		/// <summary>
+		/// The cross-section with the given name. Checkbot looks the name up in the IDEA StatiCa library.
+		/// </summary>
+		public override IIdeaCrossSection Create(string name)
 		{
-			//For now only converting Cross-Section By Name,
-			////Cross-sections can also be transfered from Parameters
+			CadCrossSection crossSection = _cad.GetCrossSection(name);
 
-			CadCrossSection css = Model.GetCrossSectionByName(id);
-
-			return new CrossSectionByName(id)
+			return new CrossSectionByName(name)
 			{
-				MaterialNo = Model.GetMaterialByName(css.MaterialId).Id,
-				Name = css.Name
+				Name = crossSection.Name,
+				MaterialName = crossSection.MaterialName,
 			};
 		}
-
-		//private static CrossSectionByName GetCrossSectionByName(CadCrossSection css)
-		//{
-		//	return new CrossSectionByName(css.Name)
-		//	{
-		//		BoltGradeNo = css.,
-		//		Name = css.Name
-		//	};
-		//}
 	}
 }

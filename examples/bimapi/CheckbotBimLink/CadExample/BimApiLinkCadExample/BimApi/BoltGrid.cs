@@ -1,24 +1,20 @@
-﻿using IdeaStatiCa.BimApiLink.BimApi;
-using IdeaStatiCa.BimApiLink.Identifiers;
-using IdeaStatiCa.BimApi;
+﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.BimApi;
 
 namespace BimApiLinkCadExample.BimApi
 {
+	/// <summary>
+	/// A bolt grid whose origin node is imported when BimApiLink reads it.
+	/// </summary>
 	internal class BoltGrid : IdeaBoltGrid
 	{
-		public BoltGrid(Identifier<IIdeaBoltGrid> identifier) : base(identifier)
-		{ }
-
-		public int No { get; }
-
-		public override IIdeaNode Origin => Get<IIdeaNode>(OriginNo);
-
-		public string OriginNo { get; set; }
-
-		public BoltGrid(int no)
-			: base(no)
+		public BoltGrid(int id)
+			: base(id)
 		{
-			No = no;
 		}
+
+		public string OriginNodeId { get; set; }
+
+		public override IIdeaNode Origin => Get<IIdeaNode>(OriginNodeId);
 	}
 }

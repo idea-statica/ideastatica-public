@@ -1,5 +1,7 @@
 ﻿using BimApiLinkCadExample;
-using BimApiLinkCadExample.CadExampleApi;
+using CadExampleApi;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace BimLinkExampleConsoleApp
@@ -15,7 +17,9 @@ namespace BimLinkExampleConsoleApp
 			ICadApi cadApi = new CadApi();
 
 			//start checkbot app 
-			Task.Run(() => TestPlugin.Run("C:\\Program Files\\IDEA StatiCa\\StatiCa 25.1\\IdeaCheckbot.exe", cadApi, Logger)).Wait();
+			string checkbotPath = "C:\\Program Files\\IDEA StatiCa\\StatiCa 26.1\\IdeaCheckbot.exe";
+			string projectPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CadExampleCheckbotProject");
+			Task.Run(() => CheckbotLink.Run(checkbotPath, projectPath, cadApi, Logger)).Wait();
 		}
 	}
 }

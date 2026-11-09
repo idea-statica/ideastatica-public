@@ -2,10 +2,9 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFrameworks>net10.0-windows;net48</TargetFrameworks>
+		<TargetFrameworks>net10.0-windows10.0.22621;net48</TargetFrameworks>
 		<UseWPF>true</UseWPF>
 		<ProjectGuid>{669835E3-E2A5-48E5-8CF4-752370CB7051}</ProjectGuid>
-		<Configurations>Debug;Release;Debug_NuGet;Release_NuGet</Configurations>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -18,12 +17,8 @@
 		<ProjectReference Include="..\FeaExample\BimApiLinkFeaExample\BimApiLinkFeaExample.csproj" />
 	</ItemGroup>
 		
-	<ItemGroup Condition="$(Configuration.Contains('NuGet'))">
+	<ItemGroup>
 		<PackageReference Include="IdeaStatiCa.Plugin"/>
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Release'">
-		<ProjectReference Include="..\..\..\..\src\IdeaStatiCa.Plugin\IdeaStatiCa.Plugin.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

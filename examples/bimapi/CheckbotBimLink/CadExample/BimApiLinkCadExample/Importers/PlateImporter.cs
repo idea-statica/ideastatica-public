@@ -1,50 +1,38 @@
 ﻿using BimApiLinkCadExample.BimApi;
+using BimApiLinkCadExample.Conversion;
+using CadExampleApi;
 using IdeaStatiCa.BimApi;
-using BimApiLinkCadExample.CadExampleApi;
 
 namespace BimApiLinkCadExample.Importers
 {
+	/// <summary>
+	/// Imports a plate.
+	/// </summary>
 	internal class PlateImporter : BaseImporter<IIdeaPlate>
 	{
-		public PlateImporter(ICadGeometryApi model): base(model)
+		public PlateImporter(ICadGeometryApi cad)
+			: base(cad)
 		{
 		}
 
+		/// <summary>
+		/// Converts the plate with the given CAD id. Its outline lies in the XY plane of its coordinate system, whose
+		/// origin is the plate's origin node.
+		/// </summary>
 		public override IIdeaPlate Create(int id)
 		{
-			var item = Model.GetPlate(id);
-			
-			if (item != null)
+			CadPlate plate = Cad.GetPlate(id);
+			CadCoordinateSystem plane = plate.Outline.CoordinateSystem;
+
+			return new Plate(id)
 			{
-				var p = new Plate(item.Id);
-				if (FillPlateInstance(item, p))
-				{
-					return p;
-				}
-				else
-				{
-					return null;
-				}
-			}
-
-			return null;
-		}
-
-		private bool FillPlateInstance(CadPlate cadplate, Plate plate) 
-		{
-			plate.MaterialNo = Model.GetMaterialByName(cadplate.Material).Id;
-
-			CadPlane3D plane = cadplate.CadOutline2D.Plane;
-
-			var localCoordinateSystem = plane.ToIdea();
-			
-			plate.LocalCoordinateSystem = localCoordinateSystem;
-
-			plate.Thickness = cadplate.Thickness;
-			plate.Geometry = cadplate.CadOutline2D.ToIdea();
-			plate.OriginNo = Utils.PointTranslator.GetPointId(cadplate.CadOutline2D.Plane.Origin);
-
-			return true;
+				Name = $"P{id}",
+				MaterialName = plate.MaterialName,
+				Thickness = plate.Thickness,
+				OriginNodeId = NodeId.Of(plane.Origin),
+				LocalCoordinateSystem = plane.ToIdea(),
+				Geometry = plate.Outline.ToIdea(),
+			};
 		}
 	}
 }

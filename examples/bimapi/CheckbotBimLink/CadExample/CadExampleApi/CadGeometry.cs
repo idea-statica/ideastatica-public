@@ -1,109 +1,128 @@
-﻿using MathNet.Numerics.LinearAlgebra;
-using MathNet.Numerics.LinearAlgebra.Double;
+﻿using System;
 using System.Collections.Generic;
 
-namespace BimApiLinkCadExample.CadExampleApi
+namespace CadExampleApi
 {
+	/// <summary>
+	/// A point in the model. Coordinates are in metres.
+	/// </summary>
 	public class CadPoint3D
 	{
-		public double X { get; set; }
-		public double Y { get; set; }
-		public double Z { get; set; }
-
 		public CadPoint3D(double x, double y, double z)
 		{
 			X = x;
 			Y = y;
 			Z = z;
 		}
+
+		public double X { get; }
+
+		public double Y { get; }
+
+		public double Z { get; }
+
+		/// <summary>
+		/// The vector from this point to the end point.
+		/// </summary>
+		public CadVector3D VectorTo(CadPoint3D end) => new CadVector3D(end.X - X, end.Y - Y, end.Z - Z);
 	}
 
+	/// <summary>
+	/// A point in the XY plane of a coordinate system.
+	/// </summary>
 	public class CadPoint2D
 	{
-		public double X { get; set; }
-		public double Y { get; set; }
-
 		public CadPoint2D(double x, double y)
 		{
 			X = x;
 			Y = y;
 		}
 
-		public static CadPoint3D Get2DPointInWorldCoords(CadPoint2D point2D, CadPlane3D plane)
-		{
+		public double X { get; }
 
-			// Create a translation matrix to move the 2D point to the global XY plane
-			var translationMatrix = DenseMatrix.OfArray(new double[,] {
-			{ plane.X.X, plane.Y.X, plane.Z.X },
-			{ plane.X.Y, plane.Y.Y, plane.Z.Y },
-			{ plane.X.Z, plane.Y.Z, plane.Z.Z }
-				});
-
-			// Create a 2D vector from the 2D point
-			var vector2D = Vector<double>.Build.DenseOfArray(new double[] { point2D.X, point2D.Y, 0 });
-
-			// Apply the translation matrix to the 2D vector to obtain the 3D vector
-			var vector3D = translationMatrix * vector2D;
-
-			// Add the origin point of the plane to the 3D vector to get the final 3D point
-			vector3D[0] += plane.Origin.X;
-			vector3D[1] += plane.Origin.Y;
-			vector3D[2] += plane.Origin.Z;
-
-			// Extract the X, Y, and Z coordinates from the resulting 3D vector
-			double x3D = vector3D[0];
-			double y3D = vector3D[1];
-			double z3D = vector3D[2];
-
-			return new CadPoint3D(x3D, y3D, z3D);
-		}
+		public double Y { get; }
 	}
 
+	/// <summary>
+	/// A direction or an offset in the model.
+	/// </summary>
 	public class CadVector3D
 	{
-		public double X { get; set; }
-		public double Y { get; set; }
-		public double Z { get; set; }
-
 		public CadVector3D(double x, double y, double z)
 		{
 			X = x;
 			Y = y;
 			Z = z;
 		}
+
+		public double X { get; }
+
+		public double Y { get; }
+
+		public double Z { get; }
+
+		/// <summary>
+		/// The length of the vector.
+		/// </summary>
+		public double Length => Math.Sqrt((X * X) + (Y * Y) + (Z * Z));
+
+		/// <summary>
+		/// The vector of length one in the same direction.
+		/// </summary>
+		public CadVector3D Normalize() => new CadVector3D(X / Length, Y / Length, Z / Length);
+
+		/// <summary>
+		/// The cross product: a vector perpendicular to both vectors.
+		/// </summary>
+		public CadVector3D Cross(CadVector3D other) => new CadVector3D(
+			(Y * other.Z) - (Z * other.Y),
+			(Z * other.X) - (X * other.Z),
+			(X * other.Y) - (Y * other.X));
 	}
 
-	public class CadPlane3D
+	/// <summary>
+	/// An origin and three unit axes. Plate outlines and bolt positions are given in the XY plane of one.
+	/// </summary>
+	public class CadCoordinateSystem
 	{
-		public CadPoint3D Origin { get; set; }
-		public CadVector3D X { get; set; }
-		public CadVector3D Y { get; set; }
-		public CadVector3D Z { get; set; }
-
-		public CadPlane3D(CadPoint3D origin, CadVector3D x, CadVector3D y, CadVector3D z)
+		public CadCoordinateSystem(CadPoint3D origin, CadVector3D x, CadVector3D y, CadVector3D z)
 		{
 			Origin = origin;
 			X = x;
 			Y = y;
 			Z = z;
 		}
+
+		public CadPoint3D Origin { get; }
+
+		public CadVector3D X { get; }
+
+		public CadVector3D Y { get; }
+
+		public CadVector3D Z { get; }
+
+		/// <summary>
+		/// Converts a point in the XY plane of this coordinate system to model coordinates.
+		/// </summary>
+		public CadPoint3D ToWorld(CadPoint2D point) => new CadPoint3D(
+			Origin.X + (point.X * X.X) + (point.Y * Y.X),
+			Origin.Y + (point.X * X.Y) + (point.Y * Y.Y),
+			Origin.Z + (point.X * X.Z) + (point.Y * Y.Z));
 	}
 
+	/// <summary>
+	/// A closed polygon in the XY plane of a coordinate system. The last point is the same as the first.
+	/// </summary>
 	public class CadOutline2D
 	{
-		public CadPlane3D Plane { get; set; }
-		public List<CadPoint2D> Points { get; set; }
-
-		public CadOutline2D(CadPlane3D plane, List<CadPoint2D> polyLinePoints)
+		public CadOutline2D(CadCoordinateSystem coordinateSystem, IReadOnlyList<CadPoint2D> points)
 		{
-			Plane = plane;
-			Points = polyLinePoints;
+			CoordinateSystem = coordinateSystem;
+			Points = points;
 		}
 
-		public void AddPoint(CadPoint2D point)
-		{
-			Points.Add(point);
-		}
+		public CadCoordinateSystem CoordinateSystem { get; }
+
+		public IReadOnlyList<CadPoint2D> Points { get; }
 	}
-
 }

@@ -1,305 +1,212 @@
-﻿using MathNet.Spatial.Euclidean;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BimApiLinkCadExample.CadExampleApi
+namespace CadExampleApi
 {
+	/// <summary>
+	/// Reads the model of the example CAD application. In a real link, this is the API of your application.
+	/// Lengths are in metres.
+	/// </summary>
 	public interface ICadGeometryApi
 	{
-		CadMember GetMember(int id);
+		/// <summary>
+		/// Asks the user for the point to design a connection at. Returns null when the user cancels.
+		/// </summary>
+		CadPoint3D PickConnectionPoint();
 
-		(UnitVector3D X, UnitVector3D Y, UnitVector3D Z) GetMemberLcs(int id);
-
-		IEnumerable<CadMember> GetAllMembers();
-
-		//Returns identifiers for the currently selected members in the model
+		/// <summary>
+		/// The members the user has selected.
+		/// </summary>
 		IEnumerable<CadMember> GetSelectedMembers();
 
-		//Returns identifiers of Connection objects which are currently selected in the model
-		IEnumerable<CadObject> GetSelectPartObjects();
+		/// <summary>
+		/// The plates, bolt grids and cuts the user has selected.
+		/// </summary>
+		IEnumerable<CadObject> GetSelectedConnectionObjects();
 
-		//This Api Method would allow prompting to the user to select a point in the model which should be used as the connection centre,
-		//This would be called on single connection import.
-		CadPoint3D GetConnectionPoint();
+		/// <summary>
+		/// Every member in the model.
+		/// </summary>
+		IEnumerable<CadMember> GetAllMembers();
 
-		List<CadObject> GetAllGeometricalItems();
+		/// <summary>
+		/// Every object in the model: members, plates, bolt grids and cuts.
+		/// </summary>
+		IEnumerable<CadObject> GetAllObjects();
 
-		IEnumerable<CadWeld> GetAllWelds();
+		/// <summary>
+		/// The member with the given id.
+		/// </summary>
+		CadMember GetMember(int id);
 
-		IEnumerable<CadCutByPart> GetAllCuts();
+		/// <summary>
+		/// The member's own axes, with the origin at its start. X runs from the start of the member to its end. Y is
+		/// horizontal, or global Y for a vertical member.
+		/// </summary>
+		CadCoordinateSystem GetMemberCoordinateSystem(int id);
 
-		IEnumerable<CadCutByPart> GetMemberCuts(int memberId);
-
-		IEnumerable<CadCutByPart> GetPlateCuts(int plateId);
-
-		IEnumerable<CadBoltGrid> GetAllBoltGrids();
-
+		/// <summary>
+		/// The plate with the given id. It can be a negative plate.
+		/// </summary>
 		CadPlate GetPlate(int id);
 
+		/// <summary>
+		/// The bolt grid with the given id.
+		/// </summary>
 		CadBoltGrid GetBoltGrid(int id);
 
-		CadWeld GetWeld(int id);
+		/// <summary>
+		/// The cut with the given id.
+		/// </summary>
+		CadCut GetCut(int id);
 
-		CadCutByPart GetCutByPart(int id);
+		/// <summary>
+		/// The cuts that shape the given member or plate.
+		/// </summary>
+		IEnumerable<CadCut> GetCutsOf(int partId);
 
-		IEnumerable<CadPlate> GetAllPlates();
+		/// <summary>
+		/// The cross-section with the given name.
+		/// </summary>
+		CadCrossSection GetCrossSection(string name);
 
-		CadCrossSection GetCrossSection(int id);
-		
-		CadCrossSection GetCrossSectionByName(string name);
-
-		CadMaterial GetMaterial(int id);
-
-		CadMaterial GetMaterialByName(string name);
-
-		CadObject GetObjectById(int id);
-
+		/// <summary>
+		/// The material with the given name.
+		/// </summary>
+		CadMaterial GetMaterial(string name);
 	}
 
+	/// <summary>
+	/// Serves a fixed model: a beam bolted to a column through an end plate, with an opening in the beam web.
+	/// The user is assumed to have selected everything.
+	/// </summary>
 	public class CadGeometryApi : ICadGeometryApi
 	{
-		private List<CadMember> _members = new List<CadMember>();
-		private List<CadPlate> _plates = new List<CadPlate>();
-		private List<CadWeld> _welds = new List<CadWeld>();
-		private List<CadBoltGrid> _boltGrids = new List<CadBoltGrid>();
-		private List<CadCutByPart> _cutByParts = new List<CadCutByPart>();
-		private List<CadMaterial> _materials = new List<CadMaterial>();
-		private List<CadCrossSection> _crossSections = new List<CadCrossSection>();
+		private readonly List<CadMaterial> _materials = new List<CadMaterial>();
+		private readonly List<CadCrossSection> _crossSections = new List<CadCrossSection>();
+		private readonly List<CadMember> _members = new List<CadMember>();
+		private readonly List<CadPlate> _plates = new List<CadPlate>();
+		private readonly List<CadBoltGrid> _boltGrids = new List<CadBoltGrid>();
+		private readonly List<CadCut> _cuts = new List<CadCut>();
 
-		public CadGeometryApi() 
+		public CadGeometryApi()
 		{
-			//Initializes the Test Geometry
-			//Replace 'Get' methods here with API methods to Geometry objects from your Application.
-
-			InitilizeTestGeometry(); 
+			CreateModel();
 		}
 
-		public List<CadObject> GetAllGeometricalItems()
-		{
-			List<CadObject> items = new List<CadObject>();
+		public CadPoint3D PickConnectionPoint() => new CadPoint3D(-2.0, 3.0, 3.0);
 
-			items.AddRange(GetAllMembers());
-			items.AddRange(GetAllPlates());
-			items.AddRange(GetAllWelds());
-			items.AddRange(GetAllBoltGrids());
-			items.AddRange(GetAllCuts());
+		public IEnumerable<CadMember> GetSelectedMembers() => _members;
 
-			return items;
-		}
-
-		public CadMember GetMember(int id) => _members.FirstOrDefault(m => m.Id == id);
-
-		public CadMaterial GetMaterial(int id) => _materials.FirstOrDefault(m => m.Id == id);
-
-		public CadMaterial GetMaterialByName(string name) => _materials.FirstOrDefault(m => m.Name == name);
-
-		public CadCrossSection GetCrossSection(int  id) => _crossSections.FirstOrDefault(m => m.Id == id);
-
-		public CadCrossSection GetCrossSectionByName(string name) => _crossSections.FirstOrDefault(m => m.Name == name);
-
-		public (UnitVector3D X, UnitVector3D Y, UnitVector3D Z) GetMemberLcs(int id)
-		{
-			var member = GetMember(id);
-			
-			CadPoint3D start = member.StartPoint;
-			CadPoint3D end = member.EndPoint;
-			
-			return CalculateMemberLcs(start, end);
-		}
+		public IEnumerable<CadObject> GetSelectedConnectionObjects()
+			=> _plates.Where(plate => !plate.IsNegative).Cast<CadObject>().Concat(_boltGrids).Concat(_cuts);
 
 		public IEnumerable<CadMember> GetAllMembers() => _members;
 
-		private static (UnitVector3D X, UnitVector3D Y, UnitVector3D Z) CalculateMemberLcs(CadPoint3D begin, CadPoint3D end)
+		public IEnumerable<CadObject> GetAllObjects()
+			=> _members.Cast<CadObject>().Concat(_plates).Concat(_boltGrids).Concat(_cuts);
+
+		public CadMember GetMember(int id) => _members.Single(member => member.Id == id);
+
+		public CadCoordinateSystem GetMemberCoordinateSystem(int id)
 		{
-			//Converting CadPoints to Math.Net Points to use Vector Math
+			CadMember member = GetMember(id);
+			CadVector3D x = member.Start.VectorTo(member.End).Normalize();
+			CadVector3D globalZ = new CadVector3D(0, 0, 1);
 
-			var beginPt = new Point3D(begin.X, begin.Y, begin.Z);
-			var endPt = new Point3D(end.X, end.Y, end.Z); 
+			bool isVertical = Math.Abs(Math.Abs(x.Z) - 1) < 1e-9;
+			CadVector3D y = isVertical
+				? new CadVector3D(0, 1, 0)
+				: globalZ.Cross(x).Normalize();
 
-			Vector3D memberX = endPt - beginPt;
-			
-			UnitVector3D globalZ = UnitVector3D.ZAxis;
-
-			UnitVector3D memberY;
-
-			if (memberX.IsParallelTo(globalZ))
-			{
-				// column
-				memberY = UnitVector3D.YAxis;
-			}
-			else
-			{
-				// beam
-				memberY = memberX.CrossProduct(globalZ).Normalize().Negate();
-			}
-
-			return (memberX.Normalize(), memberY, memberX.CrossProduct(memberY).Normalize());
+			return new CadCoordinateSystem(member.Start, x, y, x.Cross(y));
 		}
 
+		public CadPlate GetPlate(int id) => _plates.Single(plate => plate.Id == id);
 
-		//DUMBY CAD GEOMETRY DATA
-		private void InitilizeTestGeometry()
+		public CadBoltGrid GetBoltGrid(int id) => _boltGrids.Single(boltGrid => boltGrid.Id == id);
+
+		public CadCut GetCut(int id) => _cuts.Single(cut => cut.Id == id);
+
+		public IEnumerable<CadCut> GetCutsOf(int partId) => _cuts.Where(cut => cut.CutPart.Id == partId);
+
+		public CadCrossSection GetCrossSection(string name) => _crossSections.Single(section => section.Name == name);
+
+		public CadMaterial GetMaterial(string name) => _materials.Single(material => material.Name == name);
+
+		/// <summary>
+		/// Builds the fixed model described on the class.
+		/// </summary>
+		private void CreateModel()
 		{
-			int id = 1;
+			_materials.Add(new CadMaterial("S 355", CadMaterialType.Steel));
+			_materials.Add(new CadMaterial("8.8", CadMaterialType.BoltGrade));
 
-			//ADDING MATERIALS
-			_materials.Add(new CadMaterial("S 355", id++));
-			_materials.Add(new CadMaterial("S500", id++));
+			_crossSections.Add(new CadCrossSection("HE240B", "S 355", 0.240, 0.240));
+			_crossSections.Add(new CadCrossSection("HE200B", "S 355", 0.200, 0.200));
 
-			//ADDING CROSS-SECTIONS
-			_crossSections.Add(new CadCrossSection("HE240B", "S 355", 0.240, 0.240, id++));
-			_crossSections.Add(new CadCrossSection("HE200B", "S 355", 0.200, 0.200, id++));
-
-			//ADDING MEMBERS
-			CadMember column = new CadMember(new CadPoint3D(-2.0, 3.0, 0), new CadPoint3D(-2, 3, 6), "HE240B", id++);
+			var column = new CadMember(1, new CadPoint3D(-2.0, 3.0, 0.0), new CadPoint3D(-2.0, 3.0, 6.0), "HE240B");
+			var beam = new CadMember(2, new CadPoint3D(-2.0, 3.0, 3.0), new CadPoint3D(2.0, 3.0, 3.0), "HE200B");
 			_members.Add(column);
-			CadMember beam = new CadMember(new CadPoint3D(-2.0, 3.0, 3), new CadPoint3D(2, 3, 3), "HE200B", id++);
 			_members.Add(beam);
 
-			//ADDING PLATES
-			CadPlane3D plane = new CadPlane3D(new CadPoint3D(-1.87, 2.88, 2.7),
+			// The end plate stands on the column flange; the beam is cut back to it.
+			var endPlatePlane = new CadCoordinateSystem(
+				new CadPoint3D(-1.87, 2.88, 2.7),
 				new CadVector3D(0, 1, 0),
 				new CadVector3D(0, 0, 1),
 				new CadVector3D(1, 0, 0));
+			var endPlate = new CadPlate(3, Rectangle(endPlatePlane, 0.0, 0.0, 0.24, 0.5), "S 355", 0.020, isNegative: false);
+			_plates.Add(endPlate);
+			_cuts.Add(new CadCut(4, beam, endPlate, isSurfaceCut: false));
 
-			List<CadPoint2D> polyLine = new List<CadPoint2D>
-			{
-				new CadPoint2D(0, 0),
-				new CadPoint2D(0.24, 0),
-				new CadPoint2D(0.24, 0.5),
-				new CadPoint2D(0, 0.5),
-				new CadPoint2D(0, 0)
-			};
-			CadOutline2D outline = new CadOutline2D(plane, polyLine);
-			CadPlate plate = new CadPlate(outline, "S 355", 0.020, id++);
-
-			_plates.Add(plate);
-			//Add the cut of the plate and the member
-			_cutByParts.Add(new CadCutByPart(beam, plate, id++) { IsMemberYAxisContourCut = false });
-
-			//ADDING NEGATIVE PLATE FOR CUT THROUGH MEMBER
-			CadPlane3D np_plane = new CadPlane3D(new CadPoint3D(-1.75, 3.0, 3.0),
+			// A square opening in the beam web, cut by a negative plate.
+			var openingPlane = new CadCoordinateSystem(
+				new CadPoint3D(-1.75, 3.0, 3.0),
 				new CadVector3D(0, 0, 1),
 				new CadVector3D(-1, 0, 0),
 				new CadVector3D(0, -1, 0));
+			var opening = new CadPlate(5, Rectangle(openingPlane, -0.05, -0.05, 0.05, 0.05), "S 355", 0.050, isNegative: true);
+			_plates.Add(opening);
+			_cuts.Add(new CadCut(6, beam, opening, isSurfaceCut: true));
 
-			List<CadPoint2D> np_polyLine = new List<CadPoint2D>
+			var m16 = new CadBoltAssembly
 			{
-				new CadPoint2D(-0.05, -0.05),
-				new CadPoint2D(0.05, -0.05),
-				new CadPoint2D(0.05, 0.05),
-				new CadPoint2D(-0.05, 0.05),
-				new CadPoint2D(-0.05, -0.05)
+				Name = "M16 8.8",
+				GradeName = "8.8",
+				Diameter = 0.016,
+				HoleDiameter = 0.018,
+				HeadDiameter = 0.024,
+				HeadDiagonalDiameter = 0.026,
+				HeadHeight = 0.010,
+				NutThickness = 0.013,
+				GrossArea = 0.000201,
+				TensileStressArea = 0.000157,
 			};
-			CadOutline2D np_outline = new CadOutline2D(np_plane, np_polyLine);
-
-			//Material is set as dumby but is not required.
-			CadPlate np_plate = new CadPlate(np_outline, "S 355", 0.050, id++) { IsNegativeObject = true };
-
-			//Add the plate and the cut aswell
-			_plates.Add(np_plate);
-			_cutByParts.Add(new CadCutByPart(beam, np_plate, id++) { IsMemberYAxisContourCut = true });
-
-			//ADDING BOLT GRIDS
-			var positions = new List<CadPoint2D>() {
+			var boltPositions = new List<CadPoint2D>
+			{
 				new CadPoint2D(0.05, 0.05),
 				new CadPoint2D(0.05, 0.45),
 				new CadPoint2D(0.19, 0.05),
-				new CadPoint2D(0.19, 0.45)};
-
-			var connectedItems = new List<IConnectedPart>() { column, plate };
-			_boltGrids.Add(new CadBoltGrid("S500", "M16", plane, positions, connectedItems, id++));
-
+				new CadPoint2D(0.19, 0.45),
+			};
+			_boltGrids.Add(new CadBoltGrid(7, m16, endPlatePlane, boltPositions, new List<ICadPart> { column, endPlate }));
 		}
 
-		public IEnumerable<CadMember> GetSelectedMembers()
+		/// <summary>
+		/// A closed rectangle in the XY plane of the coordinate system.
+		/// </summary>
+		private static CadOutline2D Rectangle(CadCoordinateSystem plane, double minX, double minY, double maxX, double maxY)
 		{
-			//In the Dumby API we will automaticaly provide all the Id's of the populated Dumby Geometry
-			return GetAllMembers();
-		}
-
-		public IEnumerable<CadObject> GetSelectPartObjects()
-		{
-			//In the Dumby API we will automaticaly provide all the Id's of the populated Dumby conneciton Items
-			var connectionItems = new List<CadObject>();
-
-			connectionItems.AddRange(_plates);
-			connectionItems.AddRange(_boltGrids);
-			connectionItems.AddRange(_cutByParts);
-
-			return connectionItems;
-		}
-
-		public IEnumerable<CadWeld> GetAllWelds() => _welds;
-
-		public IEnumerable<CadBoltGrid> GetAllBoltGrids() => _boltGrids;
-
-		public IEnumerable<CadCutByPart> GetAllCuts() => _cutByParts;
-
-		public IEnumerable<CadPlate> GetAllPlates() => _plates;
-
-		public CadPoint3D GetConnectionPoint()
-		{
-			return new CadPoint3D(-2.0, 3.0, 3);
-		}
-
-		public CadPlate GetPlate(int id) => _plates.FirstOrDefault(m => m.Id == id);
-
-		public CadBoltGrid GetBoltGrid(int id) => _boltGrids.FirstOrDefault(m => m.Id == id);
-
-		public CadWeld GetWeld(int id) => _welds.FirstOrDefault(m => m.Id == id);
-
-		public CadCutByPart GetCutByPart(int id) => _cutByParts.FirstOrDefault(m => m.Id == id);
-
-		public CadObject GetObjectById(int id)
-		{
-			CadMember member = GetMember(id);
-			if (member != null)
-				return member;
-
-			CadPlate plate = GetPlate(id);
-			if(plate != null) 
-				return plate;
-			
-			CadWeld weld = GetWeld(id);
-			if (weld != null)
-				return weld;
-			
-			CadBoltGrid boltgrid = GetBoltGrid(id);
-			if(boltgrid != null)
-				return boltgrid;
-
-			CadCutByPart cutByPart = GetCutByPart(id);
-			if (cutByPart != null)
-				return cutByPart;
-
-			throw new System.Exception("Item was not found for id: " + id);
-		}
-
-		public IEnumerable<CadCutByPart> GetMemberCuts(int memberId)
-		{
-			List<CadCutByPart> cutsOnMember = new List<CadCutByPart>();
-
-			foreach (var cut in _cutByParts)
+			return new CadOutline2D(plane, new List<CadPoint2D>
 			{
-				if(cut.PartToCut.PartId == memberId)
-					cutsOnMember.Add(cut);
-			}
-
-			return cutsOnMember;
-		}
-
-		public IEnumerable<CadCutByPart> GetPlateCuts(int plateId)
-		{
-			List<CadCutByPart> cutsOnPlate = new List<CadCutByPart>();
-
-			foreach (var cut in _cutByParts)
-			{
-				if (cut.PartToCut.PartId == plateId)
-					cutsOnPlate.Add(cut);
-			}
-
-			return cutsOnPlate;
+				new CadPoint2D(minX, minY),
+				new CadPoint2D(maxX, minY),
+				new CadPoint2D(maxX, maxY),
+				new CadPoint2D(minX, maxY),
+				new CadPoint2D(minX, minY),
+			});
 		}
 	}
 }

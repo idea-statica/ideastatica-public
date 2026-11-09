@@ -1,20 +1,20 @@
 ﻿using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.BimApi;
-using IdeaStatiCa.BimApiLink.Identifiers;
-
 
 namespace BimApiLinkCadExample.BimApi
 {
+	/// <summary>
+	/// A bolt assembly whose grade is imported when BimApiLink reads it.
+	/// </summary>
 	internal class BoltAssembly : IdeaBoltAssemblyByParameters
 	{
-		public BoltAssembly(Identifier<IIdeaBoltAssemblyByParameters> identifier) : base(identifier)
-		{ }
+		public BoltAssembly(string name)
+			: base(name)
+		{
+		}
 
-		public BoltAssembly(string id) : base(id)
-		{ }
+		public string BoltGradeName { get; set; }
 
-		public override IIdeaMaterial BoltGrade => Get<IIdeaMaterial>(BoltGradeNo);
-
-		public int BoltGradeNo { get; set; }
+		public override IIdeaMaterial BoltGrade => Get<IIdeaMaterial>(BoltGradeName);
 	}
 }
