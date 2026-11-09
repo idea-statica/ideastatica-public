@@ -18,7 +18,7 @@ Before creating your own link we always encourage you to get in-touch with us to
 
 ### Architecture
 
-The Below relates to the FEA example, however the CAD example follows the exact same logic.
+The below relates to the FEA example. The CAD example is described in its own [README](CadExample/README.md).
 
 There are two main projects in each example:
 
@@ -66,7 +66,7 @@ This simple example will run Checkbot and allow you to import some simple Member
 2. We need to provide the link to the Checkbot executable. This allows you to select which version of IDEA StatiCa you would like to run. For example:
 
 ```text
-C:\Program Files\IDEA StatiCa\StatiCa 25.1\IdeaCheckbot.exe
+C:\Program Files\IDEA StatiCa\StatiCa 26.1\IdeaCheckbot.exe
 ```
 
 3. Now we can *Run IDEA StatiCa Checkbot*. This triggers the `TestPlug.Run()` command. 

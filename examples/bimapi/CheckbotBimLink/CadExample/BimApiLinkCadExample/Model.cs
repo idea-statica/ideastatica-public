@@ -1,252 +1,117 @@
-﻿using BimApiLinkCadExample.CadBulkSelection;
-using BimApiLinkCadExample.CadExampleApi;
+﻿using BimApiLinkCadExample.BulkSelection;
+using CadExampleApi;
 using IdeaRS.OpenModel;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Plugin;
-using IdeaStatiCa.Plugin;
-using IdeaStatiCa.BIM.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BimApiLinkCadExample
 {
+	/// <summary>
+	/// Tells Checkbot which connections the user selected in the CAD application. A connection is given by
+	/// identifiers only; Checkbot then asks the importers for each object.
+	/// </summary>
 	internal class Model : ICadModel
 	{
-		private readonly ICadGeometryApi _model;
-		private readonly IProgressMessaging _messagingService;
+		private readonly ICadGeometryApi _cad;
 
-		public Model(ICadGeometryApi geometry, IProgressMessaging messagingService)
+		public Model(ICadGeometryApi cad)
 		{
-			_model = geometry;
-			_messagingService = messagingService;
-		}
-
-		public OriginSettings GetOriginSettings()
-		{
-			return new OriginSettings()
-			{
-				ProjectName = "TestProject",
-			};
+			_cad = cad;
 		}
 
 		/// <summary>
-		/// Returns all members in the model to be able find all related (connected) members, when select node only.
+		/// Information about the source model that Checkbot keeps with the import. Only the project name is set here.
 		/// </summary>
-		/// <returns>All members in the model to be able find all related (connected) members, when select node only.</returns>
-		public IEnumerable<Identifier<IIdeaMember1D>> GetAllMembers()
-		{
-			return _model.GetAllMembers()
-				.Select(x => new IntIdentifier<IIdeaMember1D>(x.Id));
-		}
+		public OriginSettings GetOriginSettings() => new OriginSettings { ProjectName = "CAD example" };
 
 		/// <summary>
-		/// Get User Selection - Single connection
+		/// Every member of the model. BimApiLink builds a graph of nodes and members from them, to find which members
+		/// meet at each node.
+		/// </summary>
+		public IEnumerable<Identifier<IIdeaMember1D>> GetAllMembers()
+			=> _cad.GetAllMembers().Select(member => new IntIdentifier<IIdeaMember1D>(member.Id));
+
+		/// <summary>
+		/// Answers Checkbot's <b>One</b> import: one connection, at the point the user picks, made of what the user
+		/// selected. Returns null when the user cancels the pick, and Checkbot then imports nothing.
 		/// </summary>
 		public CadUserSelection GetUserSelection()
 		{
-			try
-			{
-				//The below can be implemented if the Authoring Software has a interface for Connection Design.
-				CadPoint3D point = _model.GetConnectionPoint();
-				var members = _model.GetSelectedMembers();
-				var selectedObjects = _model.GetSelectPartObjects();
-				return GetCadUserSelection(point, members, selectedObjects);
-			}
-			catch
+			CadPoint3D point = _cad.PickConnectionPoint();
+			if (point == null)
 			{
 				return null;
 			}
+
+			return CreateSelection(point, _cad.GetSelectedMembers(), _cad.GetSelectedConnectionObjects());
 		}
 
 		/// <summary>
-		/// Get User Selection - bulk
+		/// Answers Checkbot's <b>Bulk</b> import: every connection found among the objects the user selected.
 		/// </summary>
 		public IEnumerable<CadUserSelection> GetUserSelections()
-		{
-			var selections = new List<CadUserSelection>();
+			=> FindConnections(_cad.GetSelectedMembers().Concat(_cad.GetSelectedConnectionObjects()));
 
-			foreach (var joint in GetBulkSelection())
-			{
-				//Bulk selection is not searching for cuts between objects,
-				//Lets search them from the model and add them to the objects list.
-				List<CadObject> itemsWithCuts = new List<CadObject>(joint.Item3);
-				
-				foreach (var member in joint.Item2)
-				{
-					itemsWithCuts.AddRange(_model.GetMemberCuts(member.Id));
-				}
-				foreach (var item in joint.Item3)
-				{
-					if(item is CadPlate)
-						itemsWithCuts.AddRange(_model.GetPlateCuts(item.Id));
-				}
-
-				selections.Add(GetCadUserSelection(joint.Item1, joint.Item2, itemsWithCuts));
-			}
-
-			return selections;
-		}
-
+		/// <summary>
+		/// Answers an import of the whole model: every connection in the model.
+		/// </summary>
 		public IEnumerable<CadUserSelection> GetSelectionOfWholeModel()
+			=> FindConnections(_cad.GetAllObjects());
+
+		/// <summary>
+		/// Finds the connections among the objects. The joint finder does not look at cuts, so each connection gets the
+		/// cuts of its members and plates. A cut at the far end of a member is included as well; a real link would keep
+		/// only the cuts near the connection.
+		/// </summary>
+		private IEnumerable<CadUserSelection> FindConnections(IEnumerable<CadObject> objects)
 		{
-			throw new System.NotImplementedException();
+			return JointFinder.FindJoints(objects, _cad)
+				.Select(joint =>
+				{
+					IEnumerable<CadCut> cuts = joint.Members.Cast<ICadPart>()
+						.Concat(joint.ConnectionObjects.OfType<CadPlate>())
+						.SelectMany(part => _cad.GetCutsOf(part.Id));
+
+					return CreateSelection(joint.Location, joint.Members, joint.ConnectionObjects.Concat(cuts));
+				})
+				.ToList();
 		}
 
-		private CadUserSelection GetCadUserSelection(CadPoint3D point, IEnumerable<CadMember> members, IEnumerable<CadObject> selectedObject)
+		/// <summary>
+		/// Describes one connection by identifiers: its point, its members, and its plates, bolt grids and cuts.
+		/// </summary>
+		private static CadUserSelection CreateSelection(CadPoint3D point, IEnumerable<CadMember> members, IEnumerable<CadObject> connectionObjects)
 		{
-			CadUserSelection selection = new CadUserSelection()
+			return new CadUserSelection
 			{
 				ConnectionPoint = new ConnectionIdentifier<IIdeaConnectionPoint>(point.X, point.Y, point.Z),
 				Members = members
-								.Select(x => new ConnectedMemberIdentifier<IIdeaConnectedMember>(x.Id.ToString()))
-								.Cast<Identifier<IIdeaConnectedMember>>()
-								.ToList(),
-				Objects = new List<IIdentifier>(),
+					.Select(member => new ConnectedMemberIdentifier<IIdeaConnectedMember>(member.Id.ToString()))
+					.ToList<Identifier<IIdeaConnectedMember>>(),
+				Objects = connectionObjects.Select(GetIdentifier).ToList(),
 			};
-
-			List<IIdentifier> identifiers = new List<IIdentifier>();
-
-			foreach (var member in members)
-			{
-				identifiers.Add(GetIdentifier(member));
-			}
-
-			foreach (var part in selectedObject)
-			{
-				identifiers.Add(GetIdentifier(part));
-			}
-
-			selection.Objects = identifiers;
-
-			return selection;
 		}
-
-		//private CadUserSelection GetCadUserSelection(Point point, IEnumerable<TS.ModelObject> members, IEnumerable<TS.ModelObject> selectedObject)
-		//{
-		//	CadUserSelection selection = new CadUserSelection()
-		//	{
-		//		ConnectionPoint = new ConnectionIdentifier<IIdeaConnectionPoint>(point.X, point.Y, point.Z),
-		//		Members = members
-		//						.Select(x => new ConnectedMemberIdentifier<IIdeaConnectedMember>(x.Identifier.GUID.ToString()))
-		//						.Cast<Identifier<IIdeaConnectedMember>>()
-		//						.ToList(),
-		//		Objects = new List<IIdentifier>(),
-		//	};
-
-		//	List<IIdentifier> identifiers = new List<IIdentifier>();
-
-		//	selectedObject.ForEach(teklaObject => identifiers = IdentifierHelper.GetIdentifier(teklaObject, ref identifiers, connectionPoint: point));
-
-		//	members.ForEach(teklaObject =>
-		//	{
-		//		if (teklaObject is TS.Beam beam)
-		//		{
-		//			identifiers = IdentifierHelper.GetIdentifier(beam, ref identifiers, false, point);
-		//		}
-		//	});
-
-		//	identifiers.ForEach(id => (selection.Objects as List<IIdentifier>).Add(id));
-		//	return selection;
-		//}
-
-
-		private IIdentifier GetIdentifier(CadObject item)
-		{
-			if (item is CadMember)
-				return new IntIdentifier<IIdeaMember1D>(item.Id);
-			else if (item is CadPlate)
-				return new IntIdentifier<IIdeaPlate>(item.Id);
-			else if (item is CadCutByPart)
-				return new IntIdentifier<IIdeaCut>(item.Id);
-			else if (item is CadWeld)
-				return new IntIdentifier<IIdeaWeld>(item.Id);
-			else if (item is CadBoltGrid)
-				return new IntIdentifier<IIdeaBoltGrid>(item.Id);
-			else
-				throw new NotImplementedException(item.GetType().Name);
-		}
-
-
 
 		/// <summary>
-		/// User select bulk selection
+		/// The identifier Checkbot passes to the importer of that kind of object.
 		/// </summary>
-		/// <returns></returns>
-		public List<(CadPoint3D, List<CadMember>, List<CadObject>)> GetBulkSelection(bool selectWholeModel = false)
+		private static IIdentifier GetIdentifier(CadObject connectionObject)
 		{
-			//_plugInLogger.LogInformation("GetBulkSelection");
-
-			List<(CadPoint3D, List<CadMember>, List<CadObject>)> selections = new List<(CadPoint3D, List<CadMember>, List<CadObject>)>();
+			switch (connectionObject)
 			{
-				//Here we will get all the objects in the Geometry API.
-				//This would be where you would call your program to get the selection from the UI of your program.
-
-				List<int> allitems = _model.GetAllGeometricalItems().ConvertAll(x => x.Id);
-
-				SorterResult sortedJoints = BulkSelectionHelper.FindJoints(allitems, _model);
-
-				//_plugInLogger.LogInformation($"GetBulkSelection found joints {sortedJoints.Joints.Count}");
-
-				foreach (var joint in sortedJoints.Joints)
-				{
-					//_plugInLogger.LogInformation($"GetBulkSelection joint {joint.Location.X} {joint.Location.Y} {joint.Location.Z}");
-
-					List<CadMember> beams = new List<CadMember>();
-					List<CadObject> parts = new List<CadObject>();
-
-					var structuralMembers = joint.Members;
-					//.Where(m => (m.Parent as TS.Part)?.Name != BulkSelectionHelper.HaunchMemberName)
-					//.Where(m => (m.Parent as TS.Part)?.Name != BulkSelectionHelper.TeklaAnchorRodName)
-					//.Where(m => (m.Parent as TS.Part)?.Name != BulkSelectionHelper.TeklaAnchorWasherName)
-					//.Where(m => (m.Parent as TS.Part)?.Name != BulkSelectionHelper.TeklaAnchorNutName);
-
-					structuralMembers.ToList().ForEach(sm => beams.Add(sm.Parent as CadMember));
-
-					//_plugInLogger.LogInformation($"GetBulkSelection joint number of members {beams.Count}");
-
-					//_plugInLogger.LogInformation($"GetBulkSelection joint number of plates {joint.Plates.Count}");
-					foreach (var plate in joint.Plates)
-					{
-						if (plate.Parent is CadPlate pl)
-						{
-							parts.Add(pl);
-						}
-					}
-
-					//EXAMPLE IS NOT CURRENTLY SET UP FOR STIFFENING MEMBERS
-					//_plugInLogger.LogInformation($"GetBulkSelection joint number of stiffening members {joint.StiffeningMembers.Count}");
-					//foreach (var stiffeningmember in joint.StiffeningMembers)
-					//{
-					//	if (stiffeningmember.Parent is TS.ModelObject tsObject)
-					//	{
-					//		parts.Add(tsObject);
-					//	}
-					//}
-
-					//_plugInLogger.LogInformation($"GetBulkSelection joint number of fasteners {joint.Fasteners.Count}");
-					foreach (var jointFastener in joint.Fasteners)
-					{
-						if (jointFastener.Parent is CadBoltGrid bg)
-						{
-							parts.Add(bg);
-						}
-					}
-
-					//_plugInLogger.LogInformation($"GetBulkSelection joint number of welds {joint.Welds.Count}");
-					foreach (var jointWeld in joint.Welds)
-					{
-						if (jointWeld.Parent is CadWeld weld)
-						{
-							parts.Add(weld);
-						}
-					}
-
-					selections?.Add((new CadPoint3D(joint.Location.X, joint.Location.Y, joint.Location.Z), beams, parts));
-				}
+				case CadPlate plate:
+					return new IntIdentifier<IIdeaPlate>(plate.Id);
+				case CadBoltGrid boltGrid:
+					return new IntIdentifier<IIdeaBoltGrid>(boltGrid.Id);
+				case CadCut cut:
+					return new IntIdentifier<IIdeaCut>(cut.Id);
+				default:
+					throw new NotSupportedException($"A {connectionObject.GetType().Name} cannot be part of a connection.");
 			}
-			return selections;
 		}
 	}
 }

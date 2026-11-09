@@ -1,27 +1,24 @@
-﻿using IdeaStatiCa.BimApiLink.BimApi;
-using IdeaStatiCa.BimApi;
-
+﻿using IdeaStatiCa.BimApi;
+using IdeaStatiCa.BimApiLink.BimApi;
 
 namespace BimApiLinkCadExample.BimApi
 {
+	/// <summary>
+	/// A plate whose material and origin node are imported when BimApiLink reads them.
+	/// </summary>
 	internal class Plate : IdeaPlate
 	{
-		public override string Name { get; set; }
-
-		public override IIdeaMaterial Material => Get<IIdeaMaterial>(MaterialNo);
-
-		public int MaterialNo { get; set; }
-
-		public int No { get; }
-
-		public override IIdeaNode Origin => Get<IIdeaNode>(OriginNo);
-
-		public string OriginNo { get; set; }
-
-		public Plate(int no) : base(no)
+		public Plate(int id)
+			: base(id)
 		{
-			No = no;
-			Name = $"P{No}";
 		}
+
+		public string MaterialName { get; set; }
+
+		public string OriginNodeId { get; set; }
+
+		public override IIdeaMaterial Material => Get<IIdeaMaterial>(MaterialName);
+
+		public override IIdeaNode Origin => Get<IIdeaNode>(OriginNodeId);
 	}
 }

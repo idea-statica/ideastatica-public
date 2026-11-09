@@ -1,39 +1,52 @@
-﻿using IdeaStatiCa.BimApiLink.BimApi;
+﻿using CadExampleApi;
 using IdeaStatiCa.BimApi;
-using BimApiLinkCadExample.CadExampleApi;
+using IdeaStatiCa.BimApiLink.BimApi;
+using IdeaStatiCa.BimApiLink.Importers;
+using System;
 
 namespace BimApiLinkCadExample.Importers
 {
-	internal class MaterialImporter : BaseImporter<IIdeaMaterial>
+	/// <summary>
+	/// Imports a material by its name.
+	/// </summary>
+	internal class MaterialImporter : StringIdentifierImporter<IIdeaMaterial>
 	{
-		public MaterialImporter(ICadGeometryApi model)
-			: base(model)
+		private readonly ICadGeometryApi _cad;
+
+		public MaterialImporter(ICadGeometryApi cad)
 		{
+			_cad = cad;
 		}
 
-		public override IIdeaMaterial Create(int id)
+		/// <summary>
+		/// The material with the given name. Checkbot looks the name up among the IDEA StatiCa library materials of
+		/// that type.
+		/// </summary>
+		public override IIdeaMaterial Create(string name)
 		{
-			var material = Model.GetMaterial(id);
-			
-			string name = material.Name;
+			CadMaterial material = _cad.GetMaterial(name);
 
-			if (material == null)
+			return new IdeaMaterialByName(name)
 			{
-				name = string.IsNullOrWhiteSpace(name) ? "unknown material" : name;
-				
-				// e.g. the bolt materail 10.9
-				return new IdeaMaterialByName(id)
-				{
-					MaterialType = MaterialType.Steel,
-					Name = name,
-				};
-			}
-
-			return new IdeaMaterialByName(id)
-			{
-				MaterialType = MaterialType.Steel,
-				Name = name
+				Name = material.Name,
+				MaterialType = ToIdea(material.Type),
 			};
+		}
+
+		/// <summary>
+		/// The IDEA StatiCa material type for a CAD material type.
+		/// </summary>
+		private static MaterialType ToIdea(CadMaterialType type)
+		{
+			switch (type)
+			{
+				case CadMaterialType.Steel:
+					return MaterialType.Steel;
+				case CadMaterialType.BoltGrade:
+					return MaterialType.BoltGrade;
+				default:
+					throw new NotSupportedException($"Material type {type} is not supported.");
+			}
 		}
 	}
 }

@@ -1,16 +1,23 @@
-﻿using IdeaStatiCa.BimApiLink.Importers;
+﻿using CadExampleApi;
 using IdeaStatiCa.BimApi;
-using BimApiLinkCadExample.CadExampleApi;
+using IdeaStatiCa.BimApiLink.Importers;
 
 namespace BimApiLinkCadExample.Importers
 {
-	internal abstract class BaseImporter<T> : IntIdentifierImporter<T> where T : IIdeaObject
+	/// <summary>
+	/// Base of the importers of CAD model objects, which Checkbot asks for by their CAD id.
+	/// </summary>
+	internal abstract class BaseImporter<T> : IntIdentifierImporter<T>
+		where T : IIdeaObject
 	{
-		protected ICadGeometryApi Model { get; }
-
-		protected BaseImporter(ICadGeometryApi model)
+		protected BaseImporter(ICadGeometryApi cad)
 		{
-			Model = model;
+			Cad = cad;
 		}
+
+		/// <summary>
+		/// The CAD application the importer reads from.
+		/// </summary>
+		protected ICadGeometryApi Cad { get; }
 	}
 }
