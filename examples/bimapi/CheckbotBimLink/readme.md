@@ -1,9 +1,9 @@
 # Checkbot BIM link examples
 
-Two examples of a link between IDEA StatiCa Checkbot and another application, built on the
-[IdeaStatiCa.BimApiLink](https://www.nuget.org/packages/IdeaStatiCa.BimApiLink) package: one for a CAD application
-and one for an FEA application. Each comes with a fake API of that application, which your link replaces with the API
-of your application.
+Examples of a link between IDEA StatiCa Checkbot and another application, built on the
+[IdeaStatiCa.BimApiLink](https://www.nuget.org/packages/IdeaStatiCa.BimApiLink) package: one for a CAD application,
+and two for an FEA application, in C# and in C++. Each comes with a fake API of that application, which your link
+replaces with the API of your application.
 
 You can read more about this [here](https://github.com/idea-statica/ideastatica-public/wiki/Linking-an-Application-with-Checkbot).
 
@@ -15,7 +15,8 @@ Before creating your own link we always encourage you to get in touch with us to
 |---|---|
 | [CadExample](CadExample/README.md) | A link for a CAD application: a connection with its plates, bolts and cuts. |
 | [FeaExample](FeaExample/README.md) | A link for an FEA application: members, loads and internal forces. |
-| `BimLinkExampleRunner` | A small window that starts either link, so you can try them without a CAD or FEA application. |
+| [CppFeaExample](CppFeaExample/README.md) | The FEA link in C++/CLI, for an FEA application written in native C++. It has its own fake application, a native MFC window. |
+| `BimLinkExampleRunner` | A small window that starts the CAD or the FEA link, so you can try them without a CAD or FEA application. |
 
 Each README says what the example shows and how to run it.
 

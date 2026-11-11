@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<ItemGroup Label="ProjectConfigurations">
+		<ProjectConfiguration Include="Debug|x64">
+			<Configuration>Debug</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Release|x64">
+			<Configuration>Release</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+	</ItemGroup>
+
+	<PropertyGroup Label="Globals">
+		<VCProjectVersion>18.0</VCProjectVersion>
+		<ProjectGuid>{EC43C2B9-143E-4DDA-8B27-F52046F7564E}</ProjectGuid>
+		<RootNamespace>CppFeaExampleApi</RootNamespace>
+		<WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+	</PropertyGroup>
+
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+
+	<PropertyGroup Label="Configuration">
+		<ConfigurationType>DynamicLibrary</ConfigurationType>
+		<PlatformToolset>v145</PlatformToolset>
+		<CharacterSet>Unicode</CharacterSet>
+		<UseDebugLibraries Condition="'$(Configuration)' == 'Debug'">true</UseDebugLibraries>
+		<WholeProgramOptimization Condition="'$(Configuration)' == 'Release'">true</WholeProgramOptimization>
+	</PropertyGroup>
+
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+
+	<PropertyGroup>
+		<OutDir>$(MSBuildThisFileDirectory)..\bin\$(Configuration)\</OutDir>
+	</PropertyGroup>
+
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<PreprocessorDefinitions>CPPFEAEXAMPLEAPI_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<LanguageStandard>stdcpp17</LanguageStandard>
+			<ConformanceMode>true</ConformanceMode>
+			<WarningLevel>Level4</WarningLevel>
+			<TreatWarningAsError>true</TreatWarningAsError>
+			<SDLCheck>true</SDLCheck>
+		</ClCompile>
+	</ItemDefinitionGroup>
+
+	<ItemGroup>
+		<ClInclude Include="FeaApi.h" />
+		<ClInclude Include="FeaGeometryApi.h" />
+		<ClInclude Include="FeaLoadsApi.h" />
+		<ClInclude Include="FeaObjects.h" />
+		<ClInclude Include="FeaResultsApi.h" />
+		<ClInclude Include="FindById.h" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ClCompile Include="FeaApi.cpp" />
+		<ClCompile Include="FeaGeometryApi.cpp" />
+		<ClCompile Include="FeaLoadsApi.cpp" />
+		<ClCompile Include="FeaResultsApi.cpp" />
+	</ItemGroup>
+
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+
+</Project>
