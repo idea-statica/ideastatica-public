@@ -4,6 +4,7 @@ using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Results;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,14 +22,9 @@ namespace BimApiLinkFeaExample.Importers
 		private const double KiloToBase = 1000.0;
 
 		/// <summary>
-		/// Two positions closer than this, as a fraction of the member length, are the same position.
+		/// The smallest step kept between two results, as a fraction of the member length.
 		/// </summary>
-		private const double SamePosition = 1e-6;
-
-		/// <summary>
-		/// How far apart two results at the same position are moved, as a fraction of the member length.
-		/// </summary>
-		private const double Separation = 1e-5;
+		private const double MinimumStep = 1e-5;
 
 		private readonly IFeaApi _fea;
 
@@ -71,9 +67,10 @@ namespace BimApiLinkFeaExample.Importers
 		/// The position of each result as a fraction of the member length, from 0 at its start to 1 at its end.
 		/// </summary>
 		/// <remarks>
-		/// An FEA application can give two results at one position, for example on both sides of a point load. A
-		/// section takes only one result per load case, so the second result is moved a tiny bit further along the
-		/// member. At the end of the member, the first one is moved back instead.
+		/// An FEA application can give more than one result at a position, for example on both sides of a point load.
+		/// A section takes only one result per load case, so each result is moved, where needed, to at least a tiny step
+		/// after the one before it. Then, going back from the end, each result keeps that step to the one after it, and
+		/// the moves never push the last one past the end of the member.
 		/// </remarks>
 		private static IReadOnlyList<double> GetPositions(IReadOnlyList<FeaMemberResult> results, double length)
 		{
@@ -81,17 +78,14 @@ namespace BimApiLinkFeaExample.Importers
 
 			for (int i = 1; i < positions.Count; i++)
 			{
-				if (positions[i] - positions[i - 1] < SamePosition)
-				{
-					if (positions[i] > 1 - SamePosition)
-					{
-						positions[i - 1] = positions[i] - Separation;
-					}
-					else
-					{
-						positions[i] = positions[i - 1] + Separation;
-					}
-				}
+				positions[i] = Math.Max(positions[i], positions[i - 1] + MinimumStep);
+			}
+
+			int last = positions.Count - 1;
+			for (int i = last; i >= 0; i--)
+			{
+				double limit = i == last ? Math.Max(1, results[i].Position / length) : positions[i + 1] - MinimumStep;
+				positions[i] = Math.Min(positions[i], limit);
 			}
 
 			return positions;
