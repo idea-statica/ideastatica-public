@@ -4,6 +4,7 @@
 #include "resource.h"
 
 #include <filesystem>
+#include <string>
 
 namespace
 {
@@ -12,8 +13,14 @@ namespace
 	/// </summary>
 	CString GetDefaultProjectPath()
 	{
-		wchar_t applicationPath[MAX_PATH];
-		GetModuleFileNameW(nullptr, applicationPath, MAX_PATH);
+		std::wstring applicationPath(MAX_PATH, L'\0');
+		DWORD length = 0;
+		// A path longer than the buffer comes back cut off, with the buffer's full size as its length.
+		while ((length = GetModuleFileNameW(nullptr, applicationPath.data(), static_cast<DWORD>(applicationPath.size()))) == applicationPath.size())
+		{
+			applicationPath.resize(applicationPath.size() * 2);
+		}
+		applicationPath.resize(length);
 
 		std::filesystem::path projectPath = std::filesystem::path(applicationPath).parent_path() / L"CppFeaExampleCheckbotProject";
 		return projectPath.c_str();

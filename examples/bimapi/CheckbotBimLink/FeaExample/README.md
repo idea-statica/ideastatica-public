@@ -2,7 +2,8 @@
 
 This example links an FEA application to IDEA StatiCa Checkbot. It is built on the
 [IdeaStatiCa.BimApiLink](https://www.nuget.org/packages/IdeaStatiCa.BimApiLink) package. A small fake FEA application
-stands in for yours, so the example runs without any FEA software.
+stands in for yours, so the example runs without any FEA software. If your application is written in native C++, see
+the [C++ FEA link example](../CppFeaExample/README.md): the same model and the same link, in C++/CLI.
 
 The fake model is one corner of a steel frame: a 3 m column and a 5 m beam, both IPE200 in S 355, meeting at node 2.
 It has three load cases (self-weight, dead load and snow), four combinations of them, and the internal forces of both
