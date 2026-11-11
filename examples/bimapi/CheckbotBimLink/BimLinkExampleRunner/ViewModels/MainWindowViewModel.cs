@@ -1,6 +1,6 @@
-﻿using BimApiLinkFeaExample.FeaExampleApi;
-using CadExampleApi;
+﻿using CadExampleApi;
 using CommunityToolkit.Mvvm.Input;
+using FeaExampleApi;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -59,7 +59,8 @@ namespace BimLinkExampleRunner.ViewModels
 			else if (ApplicationType is ApplicationType.FEA)
 			{
 				IFeaApi feaApi = new FeaApi();
-				Task.Run(() => BimApiLinkFeaExample.TestPlugin.Run(CheckbotLocation, feaApi, Logger));
+				string projectPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FeaExampleCheckbotProject");
+				Task.Run(() => BimApiLinkFeaExample.CheckbotLink.Run(CheckbotLocation, projectPath, feaApi, Logger));
 			}
 			else
 			{

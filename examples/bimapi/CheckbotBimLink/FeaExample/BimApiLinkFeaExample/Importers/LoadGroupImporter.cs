@@ -1,39 +1,51 @@
-﻿using BimApiLinkFeaExample.FeaExampleApi;
+using FeaExampleApi;
+using IdeaRS.OpenModel.Loading;
 using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.BimApi;
 using IdeaStatiCa.BimApiLink.Importers;
+using System;
 
 namespace BimApiLinkFeaExample.Importers
 {
+	/// <summary>
+	/// Imports a load group by its FEA id.
+	/// </summary>
 	internal class LoadGroupImporter : IntIdentifierImporter<IIdeaLoadGroup>
 	{
-		private readonly IFeaLoadsApi loadsApi;
+		private readonly IFeaLoadsApi _loads;
 
-		public LoadGroupImporter(IFeaLoadsApi loadsApi)
+		public LoadGroupImporter(IFeaLoadsApi loads)
 		{
-			this.loadsApi = loadsApi;
+			_loads = loads;
 		}
 
+		/// <summary>
+		/// Converts the load group with the given FEA id.
+		/// </summary>
 		public override IIdeaLoadGroup Create(int id)
 		{
-			IFeaLoadGroup loadGroup = loadsApi.GetLoadGroup(id);
+			FeaLoadGroup loadGroup = _loads.GetLoadGroup(id);
+
 			return new IdeaLoadGroup(id)
 			{
 				Name = loadGroup.Name,
-				GroupType = GetLoadGroupType(loadGroup.LoadGroupCategory)
+				GroupType = ToIdea(loadGroup.Type),
 			};
 		}
 
-		private static IdeaRS.OpenModel.Loading.LoadGroupType GetLoadGroupType(LoadGroupCategory loadGroupCategory)
-		{ 
-			switch(loadGroupCategory) 
+		/// <summary>
+		/// The IDEA StatiCa load group type for an FEA load group type.
+		/// </summary>
+		private static LoadGroupType ToIdea(FeaLoadGroupType type)
+		{
+			switch (type)
 			{
-				case LoadGroupCategory.Permanent:
-					return IdeaRS.OpenModel.Loading.LoadGroupType.Permanent;
-				case LoadGroupCategory.Variable:
-					return IdeaRS.OpenModel.Loading.LoadGroupType.Variable;
+				case FeaLoadGroupType.Permanent:
+					return LoadGroupType.Permanent;
+				case FeaLoadGroupType.Variable:
+					return LoadGroupType.Variable;
 				default:
-					return IdeaRS.OpenModel.Loading.LoadGroupType.Permanent;
+					throw new NotSupportedException($"Load group type {type} is not supported.");
 			}
 		}
 	}

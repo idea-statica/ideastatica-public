@@ -1,32 +1,33 @@
-﻿using BimApiLinkFeaExample.FeaExampleApi;
+using FeaExampleApi;
+using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.BimApi;
 using IdeaStatiCa.BimApiLink.Importers;
-using IdeaStatiCa.BimApi;
 
 namespace BimApiLinkFeaExample.Importers
 {
+	/// <summary>
+	/// Imports a node by its FEA id.
+	/// </summary>
 	internal class NodeImporter : IntIdentifierImporter<IIdeaNode>
 	{
-		private readonly IFeaGeometryApi geometry;
+		private readonly IFeaGeometryApi _geometry;
 
 		public NodeImporter(IFeaGeometryApi geometry)
 		{
-			this.geometry = geometry;
+			_geometry = geometry;
 		}
 
+		/// <summary>
+		/// Creates the node at the coordinates of the FEA node.
+		/// </summary>
 		public override IIdeaNode Create(int id)
 		{
-			var v = GetLocation(id);
+			FeaNode node = _geometry.GetNode(id);
+
 			return new IdeaNode(id)
 			{
-				Vector = v,
+				Vector = new IdeaVector3D(node.X, node.Y, node.Z),
 			};
-		}
-
-		private IdeaVector3D GetLocation(int id)
-		{
-			IFeaNode feaNode = geometry.GetNode(id);
-			return new IdeaVector3D(feaNode.X, feaNode.Y, feaNode.Z);
 		}
 	}
 }

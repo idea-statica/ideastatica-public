@@ -1,81 +1,128 @@
-﻿using MathNet.Spatial.Euclidean;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BimApiLinkFeaExample.FeaExampleApi
+namespace FeaExampleApi
 {
+	/// <summary>
+	/// Reads the structure of the example FEA model. In a real link, this is the API of your application. Lengths are
+	/// in metres.
+	/// </summary>
 	public interface IFeaGeometryApi
 	{
-		IFeaMember GetMember(int id);
+		/// <summary>
+		/// The nodes the user has selected.
+		/// </summary>
+		IEnumerable<FeaNode> GetSelectedNodes();
 
-		(UnitVector3D X, UnitVector3D Y, UnitVector3D Z) GetMemberLcs(int id);
+		/// <summary>
+		/// The members the user has selected.
+		/// </summary>
+		IEnumerable<FeaMember> GetSelectedMembers();
 
-		IEnumerable<int> GetMembersIdentifiers();
+		/// <summary>
+		/// Every member in the model.
+		/// </summary>
+		IEnumerable<FeaMember> GetAllMembers();
 
-		IFeaNode GetNode(int id);
+		/// <summary>
+		/// The node with the given id.
+		/// </summary>
+		FeaNode GetNode(int id);
 
-		IEnumerable<int> GetNodesIdentifiers();
+		/// <summary>
+		/// The member with the given id.
+		/// </summary>
+		FeaMember GetMember(int id);
+
+		/// <summary>
+		/// The distance between the two end nodes of the member.
+		/// </summary>
+		double GetMemberLength(int id);
+
+		/// <summary>
+		/// The member's own axes. X runs from the start of the member to its end. Y is horizontal, or global Y for a
+		/// vertical member. The internal forces of the member are given in these axes.
+		/// </summary>
+		FeaAxes GetMemberAxes(int id);
+
+		/// <summary>
+		/// The cross-section with the given id.
+		/// </summary>
+		FeaCrossSection GetCrossSection(int id);
+
+		/// <summary>
+		/// The material with the given id.
+		/// </summary>
+		FeaMaterial GetMaterial(int id);
 	}
 
-	internal class FeaGeometryApi : IFeaGeometryApi
+	/// <summary>
+	/// Serves a fixed model: one corner of a steel frame. A 3 m column stands on node 1 and reaches up to node 2, where
+	/// a 5 m beam starts and runs to node 3. Both are IPE200 in S 355. The user has selected the frame corner: node 2
+	/// and both members.
+	/// </summary>
+	public class FeaGeometryApi : IFeaGeometryApi
 	{
-		private List<IFeaMember> _members = InitializeMembers();
-		private List<IFeaNode> _nodes = InitializeNodes();
-
-		public IFeaMember GetMember(int id) => _members.FirstOrDefault(m => m.Id == id);
-
-		public (UnitVector3D X, UnitVector3D Y, UnitVector3D Z) GetMemberLcs(int id)
+		private readonly List<FeaMaterial> _materials = new List<FeaMaterial>
 		{
-			var member = GetMember(id);
-			IFeaNode beg = GetNode(member.BeginNode);
-			IFeaNode end = GetNode(member.EndNode);
-			return CalculateMemberLcs(beg, end);
+			new FeaMaterial(1, "S 355"),
+		};
+
+		private readonly List<FeaCrossSection> _crossSections = new List<FeaCrossSection>
+		{
+			new FeaCrossSection(1, "IPE200", materialId: 1),
+		};
+
+		private readonly List<FeaNode> _nodes = new List<FeaNode>
+		{
+			new FeaNode(1, 0.0, 0.0, 0.0),
+			new FeaNode(2, 0.0, 0.0, 3.0),
+			new FeaNode(3, 5.0, 0.0, 3.0),
+		};
+
+		private readonly List<FeaMember> _members = new List<FeaMember>
+		{
+			new FeaMember(1, startNodeId: 1, endNodeId: 2, crossSectionId: 1),
+			new FeaMember(2, startNodeId: 2, endNodeId: 3, crossSectionId: 1),
+		};
+
+		public IEnumerable<FeaNode> GetSelectedNodes() => new[] { GetNode(2) };
+
+		public IEnumerable<FeaMember> GetSelectedMembers() => _members;
+
+		public IEnumerable<FeaMember> GetAllMembers() => _members;
+
+		public FeaNode GetNode(int id) => _nodes.Single(node => node.Id == id);
+
+		public FeaMember GetMember(int id) => _members.Single(member => member.Id == id);
+
+		public double GetMemberLength(int id) => GetMemberVector(id).Length;
+
+		public FeaAxes GetMemberAxes(int id)
+		{
+			FeaVector3D x = GetMemberVector(id).Normalize();
+			FeaVector3D globalZ = new FeaVector3D(0, 0, 1);
+
+			bool isVertical = Math.Abs(Math.Abs(x.Z) - 1) < 1e-9;
+			FeaVector3D y = isVertical
+				? new FeaVector3D(0, 1, 0)
+				: globalZ.Cross(x).Normalize();
+
+			return new FeaAxes(x, y, x.Cross(y));
 		}
 
-		public IEnumerable<int> GetMembersIdentifiers() => _members.Select(m => m.Id);
+		public FeaCrossSection GetCrossSection(int id) => _crossSections.Single(section => section.Id == id);
 
-		public IFeaNode GetNode(int id) => _nodes.FirstOrDefault(n => n.Id == id);
+		public FeaMaterial GetMaterial(int id) => _materials.Single(material => material.Id == id);
 
-		public IEnumerable<int> GetNodesIdentifiers() => _nodes.Select(n => n.Id);
-
-		private static (UnitVector3D X, UnitVector3D Y, UnitVector3D Z) CalculateMemberLcs(IFeaNode begin, IFeaNode end)
+		/// <summary>
+		/// The vector from the start node of the member to its end node.
+		/// </summary>
+		private FeaVector3D GetMemberVector(int id)
 		{
-			Vector3D memberX = end.Point - begin.Point;
-			UnitVector3D globalZ = UnitVector3D.ZAxis;
-
-			UnitVector3D memberY;
-
-			if (memberX.IsParallelTo(globalZ))
-			{
-				// column
-				memberY = UnitVector3D.YAxis;
-			}
-			else
-			{
-				// beam
-				memberY = memberX.CrossProduct(globalZ).Normalize().Negate();
-			}
-
-			return (memberX.Normalize(), memberY, memberX.CrossProduct(memberY).Normalize());
-		}
-
-		private static List<IFeaMember> InitializeMembers()
-		{
-			return new List<IFeaMember>()
-			{
-				new FeaMember { Id = 1, BeginNode = 1, EndNode = 2, CrossSectionId = 1, },
-				new FeaMember { Id = 2, BeginNode = 2, EndNode = 3, CrossSectionId = 1, },
-			};
-		}
-
-		private static List<IFeaNode> InitializeNodes()
-		{
-			return new List<IFeaNode>()
-			{
-				new FeaNode(1, 0, 0, 0),
-				new FeaNode(2, 0, 0, 3),
-				new FeaNode(3, 5, 0, 3),
-			};
+			FeaMember member = GetMember(id);
+			return GetNode(member.StartNodeId).VectorTo(GetNode(member.EndNodeId));
 		}
 	}
 }
