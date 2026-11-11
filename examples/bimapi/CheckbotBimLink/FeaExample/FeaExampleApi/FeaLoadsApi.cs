@@ -1,141 +1,92 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace BimApiLinkFeaExample.FeaExampleApi
+namespace FeaExampleApi
 {
+	/// <summary>
+	/// Reads the loads of the example FEA model. In a real link, this is the API of your application.
+	/// </summary>
 	public interface IFeaLoadsApi
 	{
-		IFeaLoadCase GetLoadCase(int id);
-		IFeaLoadGroup GetLoadGroup(int id);
-		IFeaLoadCombination GetLoadCombination(int id);
-		IEnumerable<int> GetLoadCasesIds();
-		IEnumerable<int> GetLoadGroupsIds();
-		IEnumerable<int> GetLoadCombinationsIds();
+		/// <summary>
+		/// The load group with the given id.
+		/// </summary>
+		FeaLoadGroup GetLoadGroup(int id);
+
+		/// <summary>
+		/// The load case with the given id.
+		/// </summary>
+		FeaLoadCase GetLoadCase(int id);
+
+		/// <summary>
+		/// Every load case in the model.
+		/// </summary>
+		IEnumerable<FeaLoadCase> GetAllLoadCases();
+
+		/// <summary>
+		/// The combination with the given id.
+		/// </summary>
+		FeaCombination GetCombination(int id);
+
+		/// <summary>
+		/// Every combination in the model.
+		/// </summary>
+		IEnumerable<FeaCombination> GetAllCombinations();
 	}
 
-	internal class FeaLoadsApi : IFeaLoadsApi
+	/// <summary>
+	/// Serves fixed loads: self-weight and dead load in a permanent group, snow in a variable group, and two ultimate
+	/// and two serviceability combinations of them.
+	/// </summary>
+	public class FeaLoadsApi : IFeaLoadsApi
 	{
-		private List<IFeaLoadCase> _loadCases = InitialiazeLoadCases();
-		private List<IFeaLoadGroup> _loadGroups = InitializeLoadGroups();
-		private List<IFeaLoadCombination> _loadCombinations = InitializeLoadCombinations();
-		
-		public IFeaLoadCase GetLoadCase(int id) => _loadCases.FirstOrDefault(x => x.Id == id);
-
-		public IEnumerable<int> GetLoadCasesIds() => _loadCases.Select(x => x.Id);
-
-		public IFeaLoadCombination GetLoadCombination(int id) => _loadCombinations.FirstOrDefault(x => x.Id == id);		
-
-		public IEnumerable<int> GetLoadCombinationsIds() => _loadCombinations.Select(x => x.Id);
-
-		public IFeaLoadGroup GetLoadGroup(int id) => _loadGroups.FirstOrDefault(x => x.Id == id);		
-
-		public IEnumerable<int> GetLoadGroupsIds() => _loadGroups.Select(x => x.Id);
-
-		private static List<IFeaLoadCombination> InitializeLoadCombinations()
+		private readonly List<FeaLoadGroup> _loadGroups = new List<FeaLoadGroup>
 		{
-			return new List<IFeaLoadCombination>
-			{
-				new FeaLoadCombination()
-				{
-					Id = 1,
-					Name = "ULS-CO1",
-					Category = Category.ULS,
-					Type = Type.Linear,
-					CombiFactors = new List<CombiFactor>()
-					{
-						new CombiFactor(1, 1.35),
-						new CombiFactor(2, 1.35)
-					}
-				},
-				new FeaLoadCombination()
-				{
-					Id = 2,
-					Name = "ULS-CO2",
-					Category = Category.ULS,
-					Type = Type.Linear,
-					CombiFactors = new List<CombiFactor>()
-					{
-						new CombiFactor(1, 1.35),
-						new CombiFactor(2, 1.35),
-						new CombiFactor(3, 1.5)
-					}
-				},
-				new FeaLoadCombination()
-				{
-					Id = 3,
-					Name = "SLS-CO3",
-					Category = Category.SLS,
-					Type = Type.Linear,
-					CombiFactors = new List<CombiFactor>()
-					{
-						new CombiFactor(1, 1.1),
-						new CombiFactor(2, 1.1)
-					}
-				},
-				new FeaLoadCombination()
-				{
-					Id = 4,
-					Name = "SLS-CO4",
-					Category = Category.SLS,
-					Type = Type.Linear,
-					CombiFactors = new List<CombiFactor>()
-					{
-						new CombiFactor(1, 1.0),
-						new CombiFactor(2, 1.0),
-						new CombiFactor(3, 0.9)
-					}
-				},
-			};
-		}
+			new FeaLoadGroup(1, "LG1", FeaLoadGroupType.Permanent),
+			new FeaLoadGroup(2, "LG2", FeaLoadGroupType.Variable),
+		};
 
-		private static List<IFeaLoadCase> InitialiazeLoadCases()
+		private readonly List<FeaLoadCase> _loadCases = new List<FeaLoadCase>
 		{
-			return new List<IFeaLoadCase>()
-			{
-				new FeaLoadCase()
-				{
-					Id = 1,
-					Name = "Selfweight",
-					ActionType = ActionType.Permanent,
-					LoadCaseType = TypeOfLoadCase.Selfweight,
-					LoadGroupId = 1,
-				},
-				new FeaLoadCase()
-				{
-					Id = 2,
-					Name = "Dead load",
-					ActionType = ActionType.Permanent,
-					LoadCaseType = TypeOfLoadCase.DeadLoad,
-					LoadGroupId = 1,
-				},
-				new FeaLoadCase()
-				{
-					Id = 3,
-					Name = "Snow",
-					ActionType = ActionType.Variable,
-					LoadCaseType = TypeOfLoadCase.Snow,
-					LoadGroupId = 2,
-				}
-			};
-		}
+			new FeaLoadCase(1, "Self-weight", FeaLoadCaseType.SelfWeight, loadGroupId: 1),
+			new FeaLoadCase(2, "Dead load", FeaLoadCaseType.DeadLoad, loadGroupId: 1),
+			new FeaLoadCase(3, "Snow", FeaLoadCaseType.Snow, loadGroupId: 2),
+		};
 
-		private static List<IFeaLoadGroup> InitializeLoadGroups()
+		private readonly List<FeaCombination> _combinations = new List<FeaCombination>
 		{
-			return new List<IFeaLoadGroup>()
+			new FeaCombination(1, "ULS-CO1", FeaLimitState.Ultimate, new[]
 			{
-				new FeaLoadGroup()
-				{
-					Id = 1,
-					Name = "LG1",
-					LoadGroupCategory = LoadGroupCategory.Permanent
-				},
-				new FeaLoadGroup()
-				{
-					Id = 2,
-					Name = "LG2",
-					LoadGroupCategory = LoadGroupCategory.Variable
-				}
-			};
-		}
+				new FeaCombinationFactor(1, 1.35),
+				new FeaCombinationFactor(2, 1.35),
+			}),
+			new FeaCombination(2, "ULS-CO2", FeaLimitState.Ultimate, new[]
+			{
+				new FeaCombinationFactor(1, 1.35),
+				new FeaCombinationFactor(2, 1.35),
+				new FeaCombinationFactor(3, 1.5),
+			}),
+			new FeaCombination(3, "SLS-CO3", FeaLimitState.Serviceability, new[]
+			{
+				new FeaCombinationFactor(1, 1.0),
+				new FeaCombinationFactor(2, 1.0),
+			}),
+			new FeaCombination(4, "SLS-CO4", FeaLimitState.Serviceability, new[]
+			{
+				new FeaCombinationFactor(1, 1.0),
+				new FeaCombinationFactor(2, 1.0),
+				new FeaCombinationFactor(3, 1.0),
+			}),
+		};
+
+		public FeaLoadGroup GetLoadGroup(int id) => _loadGroups.Single(group => group.Id == id);
+
+		public FeaLoadCase GetLoadCase(int id) => _loadCases.Single(loadCase => loadCase.Id == id);
+
+		public IEnumerable<FeaLoadCase> GetAllLoadCases() => _loadCases;
+
+		public FeaCombination GetCombination(int id) => _combinations.Single(combination => combination.Id == id);
+
+		public IEnumerable<FeaCombination> GetAllCombinations() => _combinations;
 	}
 }

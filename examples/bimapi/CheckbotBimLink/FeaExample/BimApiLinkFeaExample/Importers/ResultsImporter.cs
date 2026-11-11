@@ -1,120 +1,115 @@
-﻿using BimApiLinkFeaExample.FeaExampleApi;
+using BimApiLinkFeaExample.BimApi;
+using FeaExampleApi;
 using IdeaRS.OpenModel.Result;
 using IdeaStatiCa.BimApi;
-using IdeaStatiCa.BimApiLink.BimApi;
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Results;
-using MathNet.Numerics;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BimApiLinkFeaExample.Importers
 {
-	public class ResultsImporter : IInternalForcesImporter<IIdeaMember1D>
+	/// <summary>
+	/// Imports the internal forces of members for every load case. Checkbot builds the forces of each combination from
+	/// them.
+	/// </summary>
+	internal class ResultsImporter : IInternalForcesImporter<IIdeaMember1D>
 	{
-		private readonly IFeaLoadsApi loadsApi;
-		private readonly IFeaResultsApi resultsApi;
+		/// <summary>
+		/// The FEA application gives forces in kN and moments in kNm; IDEA StatiCa takes N and Nm.
+		/// </summary>
+		private const double KiloToBase = 1000.0;
 
-		// BimApi uses basic SI units
-		private const int unitConversionFactor = 1000;
-		
-		// Precision for check, if 2 results are in the same location
-		private const double resultSectionPositionPrecision = 1e-6;
+		/// <summary>
+		/// Two positions closer than this, as a fraction of the member length, are the same position.
+		/// </summary>
+		private const double SamePosition = 1e-6;
 
-		// BimApi can not handle more results in the same location,
-		// so in those cases it is necessary shift the location
-		private const double shift = 5e-6;
+		/// <summary>
+		/// How far apart two results at the same position are moved, as a fraction of the member length.
+		/// </summary>
+		private const double Separation = 1e-5;
 
-		public ResultsImporter(IFeaLoadsApi loadsApi, IFeaResultsApi resultsApi)
-		{ 
-			this.loadsApi = loadsApi;
-			this.resultsApi = resultsApi;
+		private readonly IFeaApi _fea;
+
+		public ResultsImporter(IFeaApi fea)
+		{
+			_fea = fea;
 		}
 
+		/// <summary>
+		/// The internal forces of the members for every load case, in each member's own axes. The members are the
+		/// ones <see cref="MemberImporter"/> created.
+		/// </summary>
 		public IEnumerable<ResultsData<IIdeaMember1D>> GetResults(IReadOnlyList<IIdeaMember1D> members)
 		{
-			IntIdentifier<IIdeaLoadCase>[] loadCases = loadsApi.GetLoadCasesIds().Select(x => new IntIdentifier<IIdeaLoadCase>(x)).ToArray();
-			InternalForcesBuilder<IIdeaMember1D> builder = new InternalForcesBuilder<IIdeaMember1D>(ResultLocalSystemType.Local);
-			
-			foreach (IdeaMember1D member in members) 
+			var builder = new InternalForcesBuilder<IIdeaMember1D>(ResultLocalSystemType.Local);
+
+			foreach (Member1D member in members)
 			{
-				foreach (var loadCase in loadCases)
+				int memberId = (int)member.Identifier.GetId();
+				double length = _fea.Geometry.GetMemberLength(memberId);
+
+				foreach (FeaLoadCase loadCase in _fea.Loads.GetAllLoadCases())
 				{
-					InternalForcesBuilder<IIdeaMember1D>.Sections sections = builder.For(member, loadCase);
-					GetResultsForMember(sections, member, loadCase, resultsApi);
+					InternalForcesBuilder<IIdeaMember1D>.Sections sections =
+						builder.For(member, new IntIdentifier<IIdeaLoadCase>(loadCase.Id));
+
+					IReadOnlyList<FeaMemberResult> results = _fea.Results.GetMemberResults(memberId, loadCase.Id);
+					IReadOnlyList<double> positions = GetPositions(results, length);
+					for (int i = 0; i < results.Count; i++)
+					{
+						Add(sections, positions[i], results[i]);
+					}
 				}
 			}
 
 			return builder;
 		}
 
-		private static void GetResultsForMember(InternalForcesBuilder<IIdeaMember1D>.Sections sections,
-										IdeaMember1D member, IntIdentifier<IIdeaLoadCase> loadCase,
-										IFeaResultsApi resultsApi)
-		{			
-			var results = resultsApi.GetMemberInternalForces((int)member.Identifier.GetId(), loadCase.Id);
-			var memberLength = GetLength(member.Elements.First().Segment.StartNode, member.Elements.Last().Segment.EndNode);
+		/// <summary>
+		/// The position of each result as a fraction of the member length, from 0 at its start to 1 at its end.
+		/// </summary>
+		/// <remarks>
+		/// An FEA application can give two results at one position, for example on both sides of a point load. A
+		/// section takes only one result per load case, so the second result is moved a tiny bit further along the
+		/// member. At the end of the member, the first one is moved back instead.
+		/// </remarks>
+		private static IReadOnlyList<double> GetPositions(IReadOnlyList<FeaMemberResult> results, double length)
+		{
+			List<double> positions = results.Select(result => result.Position / length).ToList();
 
-			double currentSection = Math.Max(0, results.ElementAt(0).Location / memberLength);						
-
-			for (var i = 1; i < results.Count(); ++i)
+			for (int i = 1; i < positions.Count; i++)
 			{
-				IFeaMemberResult result = results.ElementAt(i-1);
-				double nextSection = Math.Min(1, results.ElementAt(i).Location / memberLength);
-
-				// In source application there can be 2 results with the same location
-				// (e.g. local load force in node). BimApi is not able to handle that,
-				// so as workaround it is necessary to shift results a bit.
-				if (currentSection.AlmostEqual(nextSection, resultSectionPositionPrecision))
+				if (positions[i] - positions[i - 1] < SamePosition)
 				{
-					
-					if (i == 1)
+					if (positions[i] > 1 - SamePosition)
 					{
-						// first section should be always 0, move next section only
-						nextSection += shift;
-					}
-					else if (i == results.Count() - 1)
-					{
-						// last section should be always 1, move section before last only
-						currentSection -= shift;
+						positions[i - 1] = positions[i] - Separation;
 					}
 					else
 					{
-						currentSection -= shift / 2.0;
-						nextSection += shift / 2.0;
+						positions[i] = positions[i - 1] + Separation;
 					}
 				}
-
-				AddResult(sections, currentSection, result);
-				currentSection = nextSection;
 			}
 
-			// add the very last result
-			AddResult(sections, currentSection, results.Last());
+			return positions;
 		}
 
-		private static double GetLength(IIdeaNode startNode, IIdeaNode endNode)
+		/// <summary>
+		/// Adds one result at the position, in N and Nm.
+		/// </summary>
+		private static void Add(InternalForcesBuilder<IIdeaMember1D>.Sections sections, double position, FeaMemberResult result)
 		{
-			IdeaVector3D vector = new IdeaVector3D(
-				startNode.Vector.X - endNode.Vector.X,
-				startNode.Vector.Y - endNode.Vector.Y,
-				startNode.Vector.Z - endNode.Vector.Z);
-
-			return Math.Sqrt((vector.X * vector.X) + (vector.Y * vector.Y) + (vector.Z * vector.Z));
-		}
-
-		private static void AddResult(InternalForcesBuilder<IIdeaMember1D>.Sections sections, double location, IFeaMemberResult result)
-		{
-			// Convert source results to correct units
-			// and correct coordinate system if necessary
-			double N = result.N * unitConversionFactor;
-			double Vy = result.Vy * unitConversionFactor;
-			double Vz = result.Vz * unitConversionFactor;
-			double Tx = result.Mx * unitConversionFactor;
-			double My = result.My * unitConversionFactor;
-			double Mz = result.Mz * unitConversionFactor;
-			sections.Add(location, N, Vy, Vz, Tx, My, Mz);			
+			sections.Add(
+				position,
+				result.N * KiloToBase,
+				result.Vy * KiloToBase,
+				result.Vz * KiloToBase,
+				result.Mx * KiloToBase,
+				result.My * KiloToBase,
+				result.Mz * KiloToBase);
 		}
 	}
 }

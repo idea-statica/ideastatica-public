@@ -1,83 +1,70 @@
-﻿using BimApiLinkFeaExample.FeaExampleApi;
+using FeaExampleApi;
 using IdeaRS.OpenModel;
+using IdeaStatiCa.BimApi;
 using IdeaStatiCa.BimApiLink.Identifiers;
 using IdeaStatiCa.BimApiLink.Plugin;
-using IdeaStatiCa.BimApi;
-using IdeaStatiCa.Plugin;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BimApiLinkFeaExample
 {
+	/// <summary>
+	/// Tells Checkbot what the user selected in the FEA application and which combinations the model has. It answers
+	/// with identifiers only; Checkbot then asks the importers for each object.
+	/// </summary>
 	internal class Model : IFeaModel
 	{
-		private readonly IFeaGeometryApi geometry;
-		private readonly IFeaLoadsApi loads;
-		private readonly IProgressMessaging messagingService;
+		private readonly IFeaGeometryApi _geometry;
+		private readonly IFeaLoadsApi _loads;
 
-		public Model(IFeaGeometryApi geometry, IFeaLoadsApi loads, IProgressMessaging messagingService)
+		public Model(IFeaGeometryApi geometry, IFeaLoadsApi loads)
 		{
-			this.geometry = geometry;
-			this.loads = loads;
-			this.messagingService = messagingService;
-		}
-
-		public OriginSettings GetOriginSettings()
-		{
-			return new OriginSettings()
-			{
-				ProjectName = "TestProject",
-			};
+			_geometry = geometry;
+			_loads = loads;
 		}
 
 		/// <summary>
-		/// Returns all members in the model to be able find all related (connected) members, when select node only.
+		/// Information about the source model that Checkbot keeps with the import. Only the project name is set here.
 		/// </summary>
-		/// <returns>All members in the model to be able find all related (connected) members, when select node only.</returns>
+		public OriginSettings GetOriginSettings() => new OriginSettings { ProjectName = "FEA example" };
+
+		/// <summary>
+		/// Every member of the model. BimApiLink builds a graph of nodes and members from them, to find which members
+		/// meet at each node.
+		/// </summary>
 		public IEnumerable<Identifier<IIdeaMember1D>> GetAllMembers()
-		{
-			return geometry.GetMembersIdentifiers()
-				.Select(x => new IntIdentifier<IIdeaMember1D>(x));
-		}
+			=> _geometry.GetAllMembers().Select(member => new IntIdentifier<IIdeaMember1D>(member.Id));
 
 		/// <summary>
-		/// Returns user selection...nodes, members, ...
-		/// When nodes and members are selected, no more members are added from <see cref="GetAllMembers"/>.
-		/// From all selected nodes (that containes at least one member) are created connections.
-		/// When only members are selected, connection nodes are recognized automatically. From this nodes are created connections
+		/// Answers Checkbot's import: the nodes and members the user selected. Each selected node becomes a connection
+		/// of the selected members that meet there, and so does each node where two or more selected members meet.
 		/// </summary>
-		/// <returns></returns>
 		public FeaUserSelection GetUserSelection()
 		{
-			List<Identifier<IIdeaNode>> nodes = geometry.GetNodesIdentifiers()
-				.Select(x => new IntIdentifier<IIdeaNode>(x))
-				.Cast<Identifier<IIdeaNode>>()
-				.ToList();
-
-			List<Identifier<IIdeaMember1D>> members = geometry.GetMembersIdentifiers()
-				.Select(x => new IntIdentifier<IIdeaMember1D>(x))
-				.Cast<Identifier<IIdeaMember1D>>()
-				.ToList();
-
-			return new FeaUserSelection()
+			return new FeaUserSelection
 			{
-				Members = members,
-				Nodes = nodes			
+				Nodes = _geometry.GetSelectedNodes()
+					.Select(node => new IntIdentifier<IIdeaNode>(node.Id))
+					.ToList<Identifier<IIdeaNode>>(),
+				Members = _geometry.GetSelectedMembers()
+					.Select(member => new IntIdentifier<IIdeaMember1D>(member.Id))
+					.ToList<Identifier<IIdeaMember1D>>(),
 			};
 		}
 
+		/// <summary>
+		/// Every combination of the model. Checkbot imports them with the load cases and load groups they use, and
+		/// the connections are checked for them.
+		/// </summary>
 		public IEnumerable<Identifier<IIdeaCombiInput>> GetAllCombinations()
-		{
-			return loads.GetLoadCombinationsIds()
-				.Select(x => new IntIdentifier<IIdeaCombiInput>(x))
-				.Cast<Identifier<IIdeaCombiInput>>()
-				.ToList();
-		}
+			=> _loads.GetAllCombinations().Select(combination => new IntIdentifier<IIdeaCombiInput>(combination.Id));
 
-		/// <inheritdoc cref="SelectUserSelection"/>
-		public void SelectUserSelection(IEnumerable<Identifier<IIdeaNode>> nodes, IEnumerable<Identifier<IIdeaMember1D>> members) 
+		/// <summary>
+		/// Would select the nodes and members in the FEA application. <see cref="IdeaStatiCa.BimApiLink.FeaBimLink"/>
+		/// never calls it, so it does nothing here.
+		/// </summary>
+		public void SelectUserSelection(IEnumerable<Identifier<IIdeaNode>> nodes, IEnumerable<Identifier<IIdeaMember1D>> members)
 		{
-			//feaApi.SelectNodes(nodes, members);
 		}
 	}
 }

@@ -1,20 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net10.0-windows;net48</TargetFrameworks>
-		<!--<Nullable>enable</Nullable>-->
+		<TargetFrameworks>net10.0;net48</TargetFrameworks>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Autofac" />
-		<PackageReference Include="Autofac.Extensions.DependencyInjection" />
+		<PackageReference Include="IdeaStatica.BimApiLink" />
+		<PackageReference Include="IdeaStatiCa.Plugin" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\FeaExampleApi\FeaExampleApi.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="IdeaStatiCa.BimApiLink"/>
-	</ItemGroup>
 </Project>
