@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net10.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="IdeaStatiCa.PluginLogger" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\SafFeaExampleLink\SafFeaExampleLink.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\SafFiles\*.xlsx" Link="SafFiles\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
+
+</Project>
