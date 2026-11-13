@@ -4,6 +4,194 @@ Changes in the Connection REST API between releases. Each section compares the O
 
 <!-- Release sections start here; the newest is first. -->
 
+## 26.1.1
+
+Compared with 26.1.0. API version 5.0. Paths are shown without the `/api/5` prefix.
+
+### Breaking changes
+
+#### `DELETE /projects/{projectId}/connections/{connectionId}/templates/{templateId}`
+
+- for the `path` request parameter `templateId`, the `type/format` was changed from `string/uuid` to `integer/int32`
+
+#### `GET /projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties`
+
+- for the `path` request parameter `templateId`, the `type/format` was changed from `string/uuid` to `integer/int32`
+
+#### `PUT /projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties`
+
+- for the `path` request parameter `templateId`, the `type/format` was changed from `string/uuid` to `integer/int32`
+
+#### `POST /projects/{projectId}/connections/{connectionId}/templates/{templateId}/explode`
+
+- for the `path` request parameter `templateId`, the `type/format` was changed from `string/uuid` to `integer/int32`
+
+#### `POST /projects/{projectId}/connections/{connectionId}/templates/{templateId}/load-defaults`
+
+- for the `path` request parameter `templateId`, the `type/format` was changed from `string/uuid` to `integer/int32`
+
+### Other changes
+
+#### `POST /projects/{projectId}/connections/{connectionId}/operations/anchor-grid`
+
+- added the non-success response with the status `409`
+
+#### `PUT /projects/{projectId}/connections/{connectionId}/operations/anchor-grid`
+
+- added the non-success response with the status `409`
+
+#### `GET /projects/{projectId}/connections/{connectionId}/operations/anchor-grid/{operationId}`
+
+- added the non-success response with the status `409`
+
+#### `POST /projects/{projectId}/connections/{connectionId}/operations/bolt-grid`
+
+- added the non-success response with the status `409`
+
+#### `PUT /projects/{projectId}/connections/{connectionId}/operations/bolt-grid`
+
+- added the non-success response with the status `409`
+
+#### `GET /projects/{projectId}/connections/{connectionId}/operations/bolt-grid/{operationId}`
+
+- added the non-success response with the status `409`
+
+#### `POST /projects/{projectId}/connections/{connectionId}/operations/contact`
+
+- added the non-success response with the status `409`
+
+#### `PUT /projects/{projectId}/connections/{connectionId}/operations/contact`
+
+- added the non-success response with the status `409`
+
+#### `POST /projects/{projectId}/connections/{connectionId}/operations/contact-grid`
+
+- added the non-success response with the status `409`
+
+#### `PUT /projects/{projectId}/connections/{connectionId}/operations/contact-grid`
+
+- added the non-success response with the status `409`
+
+#### `GET /projects/{projectId}/connections/{connectionId}/operations/contact-grid/{operationId}`
+
+- added the non-success response with the status `409`
+
+#### `GET /projects/{projectId}/connections/{connectionId}/operations/contact/{operationId}`
+
+- added the non-success response with the status `409`
+
+#### `POST /projects/{projectId}/connections/{connectionId}/operations/cut`
+
+- added the non-success response with the status `409`
+
+#### `PUT /projects/{projectId}/connections/{connectionId}/operations/cut`
+
+- added the non-success response with the status `409`
+
+#### `GET /projects/{projectId}/connections/{connectionId}/operations/cut/{operationId}`
+
+- added the non-success response with the status `409`
+
+#### `POST /projects/{projectId}/connections/{connectionId}/operations/negative-member`
+
+- added the non-success response with the status `409`
+
+#### `PUT /projects/{projectId}/connections/{connectionId}/operations/negative-member`
+
+- added the non-success response with the status `409`
+
+#### `GET /projects/{projectId}/connections/{connectionId}/operations/negative-member/{operationId}`
+
+- added the non-success response with the status `409`
+
+#### `POST /projects/{projectId}/connections/{connectionId}/operations/negative-plate`
+
+- added the non-success response with the status `409`
+
+#### `PUT /projects/{projectId}/connections/{connectionId}/operations/negative-plate`
+
+- added the non-success response with the status `409`
+
+#### `GET /projects/{projectId}/connections/{connectionId}/operations/negative-plate/{operationId}`
+
+- added the non-success response with the status `409`
+
+#### `POST /projects/{projectId}/connections/{connectionId}/operations/pin-grid`
+
+- added the non-success response with the status `409`
+
+#### `PUT /projects/{projectId}/connections/{connectionId}/operations/pin-grid`
+
+- added the non-success response with the status `409`
+
+#### `GET /projects/{projectId}/connections/{connectionId}/operations/pin-grid/{operationId}`
+
+- added the non-success response with the status `409`
+
+#### `POST /projects/{projectId}/connections/{connectionId}/operations/plate-cut`
+
+- added the non-success response with the status `409`
+
+#### `PUT /projects/{projectId}/connections/{connectionId}/operations/plate-cut`
+
+- added the non-success response with the status `409`
+
+#### `GET /projects/{projectId}/connections/{connectionId}/operations/plate-cut/{operationId}`
+
+- added the non-success response with the status `409`
+
+#### `POST /projects/{projectId}/connections/{connectionId}/operations/stiffening-member`
+
+- added the non-success response with the status `409`
+
+#### `PUT /projects/{projectId}/connections/{connectionId}/operations/stiffening-member`
+
+- added the non-success response with the status `409`
+
+#### `GET /projects/{projectId}/connections/{connectionId}/operations/stiffening-member/{operationId}`
+
+- added the non-success response with the status `409`
+
+#### `POST /projects/{projectId}/connections/{connectionId}/operations/stiffening-plate`
+
+- added the non-success response with the status `409`
+
+#### `PUT /projects/{projectId}/connections/{connectionId}/operations/stiffening-plate`
+
+- added the non-success response with the status `409`
+
+#### `GET /projects/{projectId}/connections/{connectionId}/operations/stiffening-plate/{operationId}`
+
+- added the non-success response with the status `409`
+
+#### `POST /projects/{projectId}/connections/{connectionId}/operations/weld`
+
+- added the non-success response with the status `409`
+
+#### `PUT /projects/{projectId}/connections/{connectionId}/operations/weld`
+
+- added the non-success response with the status `409`
+
+#### `GET /projects/{projectId}/connections/{connectionId}/operations/weld/{operationId}`
+
+- added the non-success response with the status `409`
+
+#### `POST /projects/{projectId}/connections/{connectionId}/operations/work-plane`
+
+- added the non-success response with the status `409`
+
+#### `PUT /projects/{projectId}/connections/{connectionId}/operations/work-plane`
+
+- added the non-success response with the status `409`
+
+#### `GET /projects/{projectId}/connections/{connectionId}/operations/work-plane/{operationId}`
+
+- added the non-success response with the status `409`
+
+#### `PUT /projects/{projectId}/materials/cross-sections/library/{cssId}`
+
+- endpoint added
+
 ## 26.1.0
 
 Compared with 26.0.5. API version 4.0 to 5.0. Paths are shown without the `/api/5` prefix.
