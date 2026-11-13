@@ -1,652 +1,714 @@
 # Connection API — LLM Reference
 
-A single-file reference for the IDEA StatiCa Connection API, written to be pasted into (or fetched by) an AI coding assistant. It covers how to connect, the full client method catalog, key data models, canonical workflows, and the mistakes assistants most often make with this SDK. It is also usable as a human quick reference.
+A single-file HTTP reference for AI coding assistants (and people) that drive the IDEA StatiCa Connection REST API from any language. It states what the service's own OpenAPI document does not say, the canonical call sequence, request bodies for the common tasks, the known issues of this release, and every route.
 
 > [!NOTE]
-> Verified against SDK version 26.0.2.0407 (Python package `ideastatica-connection-api`, NuGet package `IdeaStatiCa.ConnectionApi`), June 2026; the API version and the cross-section endpoints below were updated for IDEA StatiCa 26.1 (REST API version 5.0). This page is re-verified with each SDK release. If your installed IDEA StatiCa version differs, install the matching SDK version — method surfaces change between versions.
+> Written for IDEA StatiCa **26.1.1**: service build **26.1.1.2809**, **API version 5.0**, all routes under **`/api/5`**, default port **5000**. Read the version of the service you talk to with `GET /api/5/clients/idea-service-version` (it answers a JSON string such as `"26.1.1.2809"`). Older services expose older route sets; the deprecated prefixes `/api/1` to `/api/4` are still served but have fewer routes. Use `/api/5`. If `/api/5` routes do not answer, the service predates API 5.0 and this page does not apply to it.
+>
+> Section 9 lists the defects of 26.1.1 with a workaround for each. A later service can behave differently where section 9 applies; for that service, its own OpenAPI document is right.
 
-## Scope
+Related pages: [Overview](connection_api_overview.md) | [Getting started](connection_api_getting_started.md) | [Concepts](connection_api_concepts.md) | [Changelog](connection_api_changelog.md) | [Parameters getting started](../api_parameters_getting_started.md) | [Expression parameter reference](../api_parameter_reference_guide.md)
 
-- **Product:** IDEA StatiCa Connection (structural steel connection design, CBFEM analysis). The Connection API requires IDEA StatiCa 24.1 or later; this page describes the surface shipped with version 26.1.
-- **What the API is:** a REST API (OpenAPI 3, base path `/api/5/`) exposed by a locally hosted service, `IdeaStatiCa.ConnectionRestApi.exe`, which ships with the desktop installation (worked example path: `C:\Program Files\IDEA StatiCa\StatiCa 26.0`).
-- **Primary client covered here:** the Python SDK `ideastatica_connection_api` (Python 3.8+, `pip install ideastatica-connection-api`). The C# client (`IdeaStatiCa.ConnectionApi` on NuGet) exposes the same surface; its accessors and extension methods are listed in [C# client surface](#c-client-surface).
-- **Escalation:** SDK bugs or missing functionality go to [GitHub Discussions](https://github.com/idea-statica/ideastatica-public/discussions). The OpenAPI specification lives in the [public repository](https://github.com/idea-statica/ideastatica-public/blob/main/src/api-sdks/connection-api/clients/csharp/api/openapi.yaml).
-- **Related pages:** [Overview](connection_api_overview.md) | [Getting started](connection_api_getting_started.md) | [Concepts](connection_api_concepts.md) | [Parameters getting started](../api_parameters_getting_started.md) | [Expression parameter reference](../api_parameter_reference_guide.md)
+## 1. Find or start the service
 
-## Core rules
+The service usually runs already. **Check before starting anything:**
 
-1. Use only the official SDK (`ideastatica-connection-api` on PyPI, `IdeaStatiCa.ConnectionApi` on NuGet). Never invent endpoints, method names, parameters, or response fields. If something is not on this page or in the generated client, it does not exist.
-2. Use the client accessors, not standalone API classes. In Python: `api_client.project`, `api_client.report`, `api_client.export`, and `api_client.connection_library` are extension wrappers with file-handling helpers; always prefer them over the raw generated equivalents.
-3. After opening a project, get its id from `api_client.project.active_project_id` (Python) or `client.Project.ProjectId` (C#). Almost every other call requires this id.
-4. Parameter expressions are always strings: `IdeaParameterUpdate(key="...", expression="15")`, never `expression=15`.
-5. Templates returned by `connection_library.get_template(...)` are BASE64-encoded. Decode to XML (`base64.b64decode(b64).decode("utf-8")`) before passing them to `get_default_template_mapping` or `apply_template`.
-6. The mapping returned by `get_default_template_mapping` is a `TemplateConversions` object whose `.conversions` member is a flat list. Material-type items carry a category label in `.description` (values include `"Steel"`, `"Concrete"`, `"Weld"`, `"Bolt Assembly"` — note the capital A — and `"Bolt grade"`); cross-section/member items instead carry the name of the item from the template (e.g. the operation or member name), not a fixed label. These strings are localized — the values listed apply to a service running in English. Filter on `.description` (or, more robustly, on `.original_value`), then set `.new_value` on the items you want to remap.
-7. The public API has no endpoints for adding individual plates, bolts, welds, or cuts. Geometry and manufacturing operations are authored by applying templates, by the Connection Library propose/apply pipeline, or by importing an IOM model. Do not generate code that calls `add_plate`, `add_bolt`, `add_weld`, `add_cut`, or similar — they do not exist.
-8. The SDK tracks one ACTIVE project id per client — the last one opened via `open_project_from_filepath` / `OpenProjectAsync`. The service itself can hold multiple open projects per client (`get_active_projects` returns all of them); each stays in server memory until `close_project` is called for it. On exit/disposal the SDK clients automatically close only the active project — close any others yourself.
-
-## Connecting to the service
-
-The service is local. Two patterns exist in both SDKs:
-
-- **Attacher** — connect to a service you started yourself. Run `IdeaStatiCa.ConnectionRestApi.exe` from the installation directory; by default it listens on port 5000 and serves a Swagger UI at `http://localhost:5000`. A specific port can be set with the `-port=NUMBER` command-line argument.
-- **Runner** — let the SDK start the service from the installation directory on a free port and wait for it to become ready (readiness is checked on `GET {base_url}/heartbeat`).
-
-### Python boilerplate (always start from this)
-
-```python
-import logging
-from ideastatica_connection_api.connection_api_service_attacher import ConnectionApiServiceAttacher
-
-logging.basicConfig(level=logging.INFO)
-
-BASE_URL = "http://localhost:5000"          # service started manually from the install dir
-PROJECT_FILE = r"C:\projects\my-connection.ideaCon"
-
-attacher = ConnectionApiServiceAttacher(BASE_URL)
-
-with attacher.create_api_client() as api_client:
-    try:
-        project = api_client.project.open_project_from_filepath(PROJECT_FILE)
-        project_id = api_client.project.active_project_id
-
-        # YOUR CODE HERE
-
-    except Exception as e:
-        print(f"Error: {e}")
-        raise
-# the active project is closed automatically when the with-block exits
+```
+GET http://localhost:5000/heartbeat                              -> 200
+GET http://localhost:5000/api/5/clients/idea-service-version     -> "26.1.1.2809"
 ```
 
-`open_project_from_filepath` accepts `.ideacon` files (opened directly) and `.xml`/`.iom` files (routed through the IOM import endpoint).
+Only if nothing answers, start `IdeaStatiCa.ConnectionRestApi.exe` from the installation folder (e.g. `C:\Program Files\IDEA StatiCa\StatiCa 26.1`) and poll `/heartbeat` until it answers 200. It listens on port 5000; for another port pass `-port:5193` (colon form: `IdeaStatiCa.ConnectionRestApi.exe -port:5193`). Running the service needs a licensed IDEA StatiCa installation on the same machine.
 
-Letting the SDK start the service instead (async runner):
+**The running service's OpenAPI document is the contract** for route names, methods, schemas and field names:
 
-```python
-import asyncio
-from ideastatica_connection_api.connection_api_service_runner import ConnectionApiServiceRunner
+- Swagger UI: `http://localhost:5000/index.html` (the root `/` answers 301 and redirects there).
+- OpenAPI document: `http://localhost:5000/swagger/5.0/swagger.json`. It is about 600 kB — search it for the path or schema name you need (e.g. `"ConLoadEffect"`) instead of loading it whole. Section 12 lists every route of API 5.0 and gives a one-line command that prints them from the running service.
+- `/swagger/index.html`, `/swagger/v1/swagger.json` and `/openapi.json` do not exist (404).
 
-SETUP_DIR = r"C:\Program Files\IDEA StatiCa\StatiCa 26.0"
+## 2. Core rules
 
-async def main():
-    async with ConnectionApiServiceRunner(SETUP_DIR) as runner:
-        with runner.create_api_client() as api_client:
-            project = api_client.project.open_project_from_filepath(r"C:\projects\my-connection.ideaCon")
-            project_id = api_client.project.active_project_id
-            # YOUR CODE HERE
+1. **`ClientId` header on every request.** `GET /api/5/clients/connect-client` returns the id as a raw GUID in `text/plain` (unquoted; do not JSON-parse it). Send it as the header `ClientId` on every other request; only `connect-client` and `idea-service-version` work without it. The 26.1.1 swagger does not declare the header (section 9). A request without it is refused with `401` *"The 'ClientId' header is required. Call ConnectClient to obtain one."* (`/api/4` answers `401` too; only `/api/1` to `/api/3` answer `400` *"Request failed Missing ClientId in headers"*).
+2. **Sessions are per client.** A project lives in service memory until you close it. One ClientId can hold several open projects (`GET /api/5/projects` lists them); another ClientId sees none of them and gets `404` on their ids. Use one ClientId per process and close only the projects you opened (section 9); there is no route to end a client session.
+3. **Use ids from live responses.** `projectId` is the GUID that `open` or `create` returns. Connection, member, operation and load-effect ids are opaque integers that may not start at 1 and may have gaps. Material, cross-section and bolt-assembly ids come from the project's `GET .../materials/...` lists; an id the project does not hold is `422` naming it.
+4. **SI units on input**: metres, radians, newtons, newton-metres, pascals. A 5 mm weld is `"size": 0.005`; a 300 kN axial force is `"n": 300000`.
+5. **Bare JSON arrays of connection ids** for `calculate`, `results`, `rawresults-text`, `calculate-async` and the multi-connection reports: `[1]`, `[1,2,3]` — never a single number or an object.
+6. **HTTP 200 is not success.** Operation POST/PUT answer `{operation, issues[], addedWithoutIssues}` and store an operation even when it fails; `calculate` answers 200 with `passed: false` and a diagnostic row. Read the body every time.
+7. **Operation order matters.** An operation can only reference operations before it. There is no reorder and **no per-operation DELETE**; `DELETE .../operations` removes **all** operations of the connection together with its applied templates and its parameters (and their links).
+8. **Send only the fields the schema lists, spelled as the schema spells them; read back what you wrote.** The service does not reject unknown or misplaced JSON fields today: they are ignored without an error, property names bind case-insensitively (`"Thickness"`, `"N"`), numeric strings are coerced, and a missing field gets its default. Do not rely on that; a later version may reject such requests. A misspelled key answers 200 and is lost — inside `sectionLoad` it stores a zero. On full-replace routes (typed-operation PUT, `PUT .../connections/{connectionId}`, `set-load-settings`) an omitted field is reset, not kept: a connection PUT with only `description` sets `name` to null.
+9. **Send `"active": true` on every operation POST.** An omitted `active` defaults to true, but an operation stored inactive looks exactly like a successful add (no geometry, no message).
+10. **JSON is camelCase; most enums are camelCase strings** (`ecen`, `doubleFillet`, `stress_Strain`). Exceptions to copy as they are: load-effect `position` (`Begin` / `End`) and `steelEdition` (`AISC_360_16_LRFD`, …). Take enum values from the swagger.
+11. **One calculation at a time per project.** Only a second *async* job answers `409`. A synchronous `calculate` or `rawresults-text` sent while a calculation runs is not refused: it waits until that calculation finishes, then answers 200; writes to the project wait for it too. Use async jobs for long runs, or a generous client timeout. A synchronous calculation the client abandons (timeout, dropped connection) is cancelled, stores no results and leaves the project unlocked.
+12. **A write empties stored results.** A write inside a connection empties that connection's results; a write to shared project data (materials, cross-sections, project data, settings, a connection rename) empties every connection's. This holds even for a write that changes nothing (a PUT of unchanged values, `PUT .../settings` with the current value). Finish editing, then calculate.
 
-asyncio.run(main())
+## 3. Canonical workflow
+
+```
+GET  /api/5/clients/connect-client                         -> ClientId (text/plain GUID)
+POST /api/5/projects/open      multipart/form-data, file field "ideaConFile"
+                                                           -> ConProject {projectId, projectInfo, connections[]}
+ or POST /api/5/projects       JSON ConProjectData         -> ConProject (holds one empty connection CON1, id 1)
+GET  /api/5/projects/{projectId}/connections               -> [ConConnection {id, name, ...}]
+     ... edit: materials, members, operations, load effects, parameters
+POST /api/5/projects/{projectId}/connections/calculate     body [1,2]  -> [ConResultSummary]
+POST /api/5/projects/{projectId}/connections/results       body [1,2]  -> [ConnectionCheckRes]
+GET  /api/5/projects/{projectId}/connections/{connectionId}/reports/pdf  -> PDF bytes
+GET  /api/5/projects/{projectId}/download                  -> .ideaCon bytes (all API changes included)
+GET  /api/5/projects/{projectId}/close                     -> 204
 ```
 
-### C# boilerplate
+- **Open:** `multipart/form-data` with the file in a part named exactly **`ideaConFile`**. Another name gives `400` *"The ideaConFile field is required."*; a JSON body gives `415`; a file that is not a valid `.ideaCon` is refused (26.1.1 answers `500`, section 9). Each entry of `connections[]` carries an integer `id` and a `name`.
+- **Create:** a JSON body is required (at least `{}`), e.g. `POST /api/5/projects` `{"name": "demo", "countryCode": "american", "steelEdition": "AISC_360_16_ASD"}`. `countryCode` picks the design code: `ecen` (default), `american`, `canada`, `australia`, `rus`, `chn`, `india`, `hkg` (`sia` is in the enum but refused with `422`). `steelEdition` picks the edition within the code and changes the results (AISC LRFD vs ASD):
 
-```csharp
-using System;
-using System.Threading.Tasks;
-using IdeaStatiCa.ConnectionApi;
+  | `countryCode` | default `steelEdition` | accepted |
+  |---|---|---|
+  | `ecen` | `EN_1993_1_8_2005` | `EN_1993_1_8_2005`, `EN_1993_1_8_2024` |
+  | `american` | `AISC_360_16_LRFD` | `AISC_360_10_LRFD`, `AISC_360_10_ASD`, `AISC_360_16_LRFD`, `AISC_360_16_ASD`, `AISC_360_22_LRFD`, `AISC_360_22_ASD` |
+  | `canada` | `CSA_S16_14` | `CSA_S16_14`, `CSA_S16_19` |
+  | other codes | `NotSpecified` | `NotSpecified` only |
 
-internal class Program
-{
-    private static async Task Main()
-    {
-        // Option A: attach to a running service (start IdeaStatiCa.ConnectionRestApi.exe first)
-        // The application name and version are optional. They are reported with every call the
-        // service serves, which is what attributes usage to this integration rather than to the
-        // service itself. Printable ASCII, ~60 characters; omitting them changes nothing else.
-        var factory = new ConnectionApiServiceAttacher("http://localhost:5000", "MyApplication", "1.0");
+  Another combination is `422`. Read the edition from `GET /api/5/projects/{projectId}` (the list `GET /api/5/projects` reports `NotSpecified`). `PUT /api/5/projects/{projectId}` changes it; it cannot change `countryCode` (`422`; convert it as described in section 7). The design code also decides which library names resolve (section 7).
+- **Report:** a report takes seconds to tens of seconds; use a generous timeout. It shows the connection's active load effects and calculates first when no matching calculation is stored. An unknown connection id is `422`. For several connections send one `POST /api/5/projects/{projectId}/reports/pdf` (or `/reports/word`) with an id array instead of looping. `.../reports/word` and `.../reports/htmlZip` exist per connection too.
+- **Close:** always close the projects you opened; `close` is a GET with a side effect, and it answers `204` also for a project that is already closed. Never close a project id another ClientId opened (section 9).
 
-        // Option B: start the service from the installation directory on a free port
-        // using var runner = new ConnectionApiServiceRunner(@"C:\Program Files\IDEA StatiCa\StatiCa 26.0", "MyApplication", "1.0");
-        // IConnectionApiClient client = await runner.CreateApiClient();
+## 4. Reading results
 
-        await using IConnectionApiClient client = await factory.CreateApiClient();
+**`calculate`** returns one `ConResultSummary` per requested connection: `id`, `passed` (bool), `resultSummary[]` of `CheckResSummary` rows (`name`, `checkValue`, `checkStatus` — true = satisfied, `loadCaseId`, `unityCheckMessage`, `skipped`). A trimmed response (values illustrative):
 
-        var project = await client.Project.OpenProjectAsync(@"C:\projects\my-connection.ideaCon");
-        Guid projectId = client.Project.ProjectId;
-
-        // YOUR CODE HERE
-
-        await client.Project.CloseProjectAsync(projectId);
-    } // DisposeAsync also closes the active project if it is still open
-}
+```json
+POST /api/5/projects/{projectId}/connections/calculate        body [1]
+[ { "id": 1, "passed": true,
+    "resultSummary": [
+      { "name": "Analysis", "checkValue": 100.0,  "checkStatus": true, "loadCaseId": 0, "unityCheckMessage": "100.0%",         "skipped": false },
+      { "name": "Plates",   "checkValue": 0.34,   "checkStatus": true, "loadCaseId": 2, "unityCheckMessage": "0.3 < 5.0%",     "skipped": false },
+      { "name": "Bolts",    "checkValue": 90.13,  "checkStatus": true, "loadCaseId": 6, "unityCheckMessage": " 90.1 < 100%",   "skipped": false },
+      { "name": "Welds",    "checkValue": 38.49,  "checkStatus": true, "loadCaseId": 6, "unityCheckMessage": " 38.5 < 100%",   "skipped": false },
+      { "name": "Buckling", "checkValue": -100.0, "checkStatus": true, "loadCaseId": 0, "unityCheckMessage": "Not calculated", "skipped": true } ] } ]
 ```
 
-### Calling REST directly
+- `checkValue` is **not one unit**: a percentage for Analysis, Welds, Bolts and Anchors (`85.35` = 85.35 %, already scaled — do not multiply by 100; for Analysis it is the share of the load applied, 100 % = the full load), a small number for Plates: the plastic strain in %, which the message compares with the strain limit (`0.3 < 5.0%`); it equals the largest `checkResPlate[].maxStrain` / 100. For display use `unityCheckMessage`, which matches the desktop application; for pass/fail use `checkStatus`, do not parse the message.
+- `skipped: true` means the check was not run; ignore its `checkValue`. A row reading `Not calculated` (`checkValue` -100, e.g. the buckling row) was not evaluated either. When it names a component the model contains, either the part is misplaced or an adjacent check is far above 100 %; lower the load to tell them apart.
+- `passed: false` alone does not mean the joint failed — read the Analysis row. A message **ending** in `There are no loads on members` (other warnings may be concatenated in front) means nothing to solve; `CBFEM analysis failed - the solver did not produce any results.` means the connection has no members. Read the Analysis row also when `passed` is true.
+- An unknown connection id (`[999]`, or `[2,999]`) fails the whole request with `404`, in `calculate` and in `results`; nothing is calculated.
 
-From any other language: call `GET /api/5/clients/connect-client` once, send the returned id in a `ClientId` header on every subsequent request, and work against the paths in the OpenAPI spec. The SDK clients do exactly this for you.
+**`results`** returns one `ConnectionCheckRes` per connection with per-element rows. Trimmed (values illustrative, matching the summary above):
 
-## API surface — Python client
+```json
+POST /api/5/projects/{projectId}/connections/results          body [1]
+[ { "id": 1, "name": "CON1", "connectionID": "00000000-0000-0000-0000-000000000000",
+    "checkResSummary": [ "...the same rows as calculate..." ],
+    "checkResPlate": [ { "name": "EP", "checkStatus": true, "loadCaseId": 2, "maxStress": 355.08, "maxStrain": 34.18, "items": [] } ],
+    "checkResWeld":  [ { "name": "BEAM-bfl 1", "id": 3, "unityCheck": 38.49, "checkStatus": true, "isFullStrength": false, "loadCaseId": 6, "items": [5] },
+                       { "name": "",           "id": 3, "unityCheck": 35.20, "checkStatus": true, "isFullStrength": false, "loadCaseId": 6, "items": [6] },
+                       { "name": "BEAM-tfl 1", "id": 4, "unityCheck": "NaN", "checkStatus": true, "isFullStrength": true,  "loadCaseId": 0, "items": [7] } ],
+    "checkResBolt":  [ { "name": "B15", "unityCheck": 90.13, "checkStatus": true, "loadCaseId": 6 } ],
+    "checkResAnchor": [], "checkResConcreteBlock": [], "bucklingResults": [],
+    "messages": { "messages": [] } } ]
+```
 
-Accessors on `api_client` (a `ConnectionApiClient` inside a `with` block). "ext" marks hand-written extension classes that add the file-handling methods listed in their tables; everything else is the generated client.
-
-| Accessor | Class | Notes |
+| list | fields | units |
 |---|---|---|
-| `api_client.project` | `ProjectExtApi` (ext) | also holds `active_project_id` |
-| `api_client.connection` | `ConnectionApi` | |
-| `api_client.member` | `MemberApi` | |
-| `api_client.operation` | `OperationApi` | read/delete/common-properties/weld-sizing only |
-| `api_client.template` | `TemplateApi` | |
-| `api_client.connection_library` | `ConnectionLibraryExtApi` (ext) | |
-| `api_client.parameter` | `ParameterApi` | |
-| `api_client.load_effect` | `LoadEffectApi` | |
-| `api_client.material` | `MaterialApi` | |
-| `api_client.calculation` | `CalculationApi` | |
-| `api_client.report` | `ReportExtApi` (ext) | |
-| `api_client.export` | `ExportExtApi` (ext) | |
-| `api_client.conversion` | `ConversionApi` | |
-| `api_client.settings` | `SettingsApi` | |
-| `api_client.presentation` | `PresentationApi` | |
-| `api_client.client_id` | str | set automatically on connect |
+| `checkResPlate` | `name`, `checkStatus`, `loadCaseId`, `maxStress`, `maxStrain`, `items` | `maxStress` in MPa; `maxStrain` on a ratio×10000 scale (plastic strain in % = `maxStrain` / 100) |
+| `checkResWeld` | `name`, `id`, `unityCheck`, `checkStatus`, `loadCaseId`, `isFullStrength`, `items` | `unityCheck` in % |
+| `checkResBolt`, `checkResAnchor`, `checkResConcreteBlock` | `name`, `unityCheck`, `checkStatus`, `loadCaseId` | `unityCheck` in % |
+| `bucklingResults` | `loadCaseId`, `shape`, `factor` | — |
 
-### Project — `api_client.project`
+- `results` **reads** the last calculation, it does not run one. Without a `calculate` after the last edit it answers 200 with empty lists and no error. A list is also empty when the connection has no such item.
+- A weld with `isFullStrength: true` (a `cjp` weld, or any `edgeToEdge` weld) has `unityCheck` as the **string** `"NaN"`; guard numeric parsing.
+- A `doubleFillet` weld gives two rows with the same `id`, one per leg (one of them with an empty `name`). Take the maximum per `id`.
+- A bolt `name` such as `B15` carries an opaque solver number; it need not start at 1 or be sequential.
+- `loadCaseId` on an element row is the load effect governing that element, so one response mixes load effects. For one load effect, calculate it alone (section 5), then read `results`.
+- `connectionID` (a GUID) reads all-zero for a connection created through the API; key on `id`.
+- `messages.messages[]` carries errors and warnings (`description`, `number`); it may also be `null`.
 
-| Method | Returns / notes |
-|---|---|
-| `open_project_from_filepath(file_path)` (ext, preferred) | `ConProject`; opens `.ideacon`, or imports `.xml`/`.iom`; sets `active_project_id` |
-| `download_project(projectId, fileName)` (ext) | saves the current project (including API-made changes) to an `.ideaCon` file |
-| `close_project(project_id)` | releases the project on the service |
-| `create_empty_project(con_project_data=None)` | `ConProject`; `ConProjectData.design_code` selects the code ("ECEN", "American", "AUS"; default ECEN). Does NOT set `active_project_id` — store the returned `project_id` yourself |
-| `get_active_projects()` | `List[ConProject]` opened by this client |
-| `get_project_data(project_id)` | `ConProject` |
-| `update_project_data(project_id, con_project_data)` | `ConProject` |
-| `import_iom(container_xml_file=..., connections_to_create=None)` | `ConProject` from an `OpenModelContainer` XML (bytes); optional list of IOM connection point ids to create. Does NOT set `active_project_id` |
-| `update_from_iom(project_id, container_xml_file)` | `ConProject`; updates an open project from IOM (model and results) |
-| `open_project(idea_con_file=...)` | raw generated upload; prefer `open_project_from_filepath` |
+**`rawresults-text`** is the full CBFEM result set, for computing rather than display. `POST /api/5/projects/{projectId}/connections/rawresults-text` with an id array returns an array of **strings**, each a JSON document — parse twice (`[json.loads(s) for s in response.json()]`). The single-connection form `POST .../connections/{connectionId}/rawresults-text` returns one string. For a connection without results the element is a sentence (`Results for connection {id} failed: …`), not JSON. Raw values are **SI**: Pa, m, N, and ratios 0..1 (`maxStress` Pa / 1e6 = the MPa of `results`; raw `maxStrain` × 10000 = `results` `maxStrain`; raw ratios × 100 = the percentages). Non-applicable fields are the string `"NaN"`. Most groups (`plates`, `bolts`, `welds`, `boltsAnchor`, `concreteBlocks`, `summary`, …) are objects keyed by element id as a string, one entry per element, for the governing load effect; per-load-effect forces of bolts, anchors and welds are in `forcesAllLoadCases`, keyed by load-effect id as a string. `rawresults-text` calculates again itself, so pass `?loadEffectIds=` to it as well when you need a subset.
 
-### Connection — `api_client.connection`
+## 5. Asynchronous calculation and load-effect subsets
 
-| Method | Returns / notes |
-|---|---|
-| `get_connections(project_id)` | `List[ConConnection]` |
-| `get_connection(project_id, connection_id)` | `ConConnection` |
-| `create_empty_connection(project_id, name=None)` | `ConConnection` |
-| `update_connection(project_id, connection_id, con_connection)` | `ConConnection` |
-| `delete_connection(project_id, connection_id)` | `List[ConConnection]` (remaining connections) |
-| `copy_connection(project_id, connection_id, name=None)` | `ConConnection` |
-| `get_production_cost(project_id, connection_id)` | `ConProductionCost` |
-| `get_connection_topology(project_id, connection_id)` | `str` (JSON) |
+```
+POST   /api/5/projects/{projectId}/connections/calculate-async                body [1,2]  -> 202 ConCalculationJob
+POST   /api/5/projects/{projectId}/connections/{connectionId}/calculate-async            -> 202 ConCalculationJob
+GET    /api/5/projects/{projectId}/calculation-jobs/{jobId}                               -> ConCalculationJob
+DELETE /api/5/projects/{projectId}/calculation-jobs/{jobId}                               -> 202, cancels
+```
 
-### Member — `api_client.member`
+Start, then poll about once a second until the status is terminal:
 
-| Method | Returns / notes |
-|---|---|
-| `get_members(project_id, connection_id)` | `List[ConMember]` |
-| `get_member(project_id, connection_id, member_id)` | `ConMember` |
-| `add_member(project_id, connection_id, con_member)` | `ConMember` |
-| `update_member(project_id, connection_id, con_member)` | `ConMember` |
-| `set_bearing_member(project_id, connection_id, member_id)` | `ConMember` |
+```json
+POST /api/5/projects/{projectId}/connections/1/calculate-async?loadEffectIds=1&loadEffectIds=3      (no body)
+-> 202 { "jobId": "<jobId>", "status": "queued", "progress": 0.0, "connectionIds": [1], ... }
 
-### Operation — `api_client.operation`
+GET  /api/5/projects/{projectId}/calculation-jobs/<jobId>
+-> 200 { "jobId": "<jobId>", "projectId": "<projectId>", "status": "running", "progress": 0.4,
+         "connectionIds": [1], "connectionsCompleted": 0, "currentConnectionId": 1,
+         "message": "<load effect and solver iteration being computed>", ... }
+-> 200 { ..., "status": "finished", "progress": 1.0, "connectionsCompleted": 1, "finishedAt": "...",
+         "results": [ { "id": 1, "passed": true, "resultSummary": [ ... ] } ] }
+```
 
-| Method | Returns / notes |
-|---|---|
-| `get_operations(project_id, connection_id)` | `List[ConOperation]` (read-only view: `operation_type`, `id`, `name`, `active`, `is_imported`) |
-| `delete_operations(project_id, connection_id)` | deletes ALL operations in the connection |
-| `get_common_operation_properties(project_id, connection_id)` | `ConOperationCommonProperties` |
-| `update_common_operation_properties(project_id, connection_id, con_operation_common_properties)` | sets common weld/plate/bolt-assembly material ids for all operations |
-| `pre_design_welds(project_id, connection_id, design_type=None)` | `str`; weld sizing pre-design; `design_type` is a `ConWeldSizingMethodEnum` (`fullStrength` default, `minimumDuctility`, `overStrengthFactor`, `capacityEstimation`) |
+- `ConCalculationJob`: `jobId`, `projectId`, `status`, `progress`, `connectionIds`, `connectionsCompleted`, `currentConnectionId`, `message`, `createdAt`, `finishedAt`, `error`, `results` (`ConResultSummary[]` once finished).
+- `status` ∈ `queued`, `running`, `finished`, `failed`, `cancelled`; poll until it is one of the last three. The 202 start response shows `queued` or already `running`. `progress` is a fraction 0..1 (not a percentage) of the **current connection**: it restarts at 0 when the job moves to the next connection, so it is not monotonic across a multi-connection job. On `failed`, read `error`.
+- Async is not faster. It avoids holding one HTTP request open for minutes, shows progress, and can be cancelled.
+- Starting a job while one is active for the project is `409`; an unknown connection id is `404` before any job is registered.
+- Cancel kills the running solver and skips the remaining connections. The cancelled job's `results` list is empty, even for connections that finished; a connection the cancel interrupted keeps the results it had stored before. Read `results` to see what is stored. Cancelling a finished job answers `202` and changes nothing.
+- **`?loadEffectIds=`** exists only on the single-connection routes (`.../connections/{connectionId}/calculate`, `.../rawresults-text`, `.../calculate-async`). Repeat it for several ids: `?loadEffectIds=1&loadEffectIds=2`. It solves only the listed load effects, overriding each load effect's `active` flag; an unknown id is `422`. In a parametric loop, restricting each run to the governing load effects is usually the biggest saving. The single-connection `calculate` returns one `ConResultSummary` object, not an array.
 
-There are no methods to create or edit individual operations (see Core rule 7).
+## 6. Typed operations
 
-### Template — `api_client.template`
+The model is built from **operations** of 13 kinds: `weld`, `cut`, `plate-cut`, `bolt-grid`, `anchor-grid`, `pin-grid`, `contact`, `contact-grid`, `negative-member`, `negative-plate`, `stiffening-member`, `stiffening-plate`, `work-plane`. Each kind has the same four routes:
 
-| Method | Returns / notes |
-|---|---|
-| `create_con_template(project_id, connection_id)` | `str` — template (.contemp content) created from the connection |
-| `create_template_from_connection(project_id, connection_id)` | `ConTemplateCreateResult` — template plus structured metadata |
-| `get_default_template_mapping(project_id, connection_id, con_template_mapping_get_param)` | `TemplateConversions`; pass `ConTemplateMappingGetParam(template=xml, member_ids=[...])` |
-| `apply_template(project_id, connection_id, con_template_apply_param)` | `ConTemplateApplyResult`; pass `ConTemplateApplyParam(connection_template=xml, mapping=mapping)` |
-| `get_templates_in_connection(project_id, connection_id)` | `List[ConConnectionTemplate]` |
-| `get_template_in_connection(project_id, connection_id, template_instance_id)` | `ConConnectionTemplate` |
-| `delete(project_id, connection_id, template_id)` | removes the template including its operations |
-| `delete_all(project_id, connection_id)` | removes all templates including operations |
-| `explode(project_id, connection_id, template_id)` | removes template parameters, keeps operations |
-| `explode_all(project_id, connection_id)` | explodes all templates |
-| `get_template_common_operation_properties(project_id, connection_id, template_id)` | `ConOperationCommonProperties` |
-| `update_template_common_operation_properties(project_id, connection_id, template_id, con_operation_common_properties)` | per-template common properties |
-| `load_defaults(project_id, connection_id, template_id)` | `ParameterUpdateResponse`; loads parameter defaults |
+```
+GET  /api/5/projects/{projectId}/connections/{connectionId}/operations/{kind}                 list (full typed objects)
+POST /api/5/projects/{projectId}/connections/{connectionId}/operations/{kind}                 add     -> ConAddOperationResult
+PUT  /api/5/projects/{projectId}/connections/{connectionId}/operations/{kind}                 update  -> ConAddOperationResult
+GET  /api/5/projects/{projectId}/connections/{connectionId}/operations/{kind}/{operationId}   one
+```
 
-C#-only helper: `client.Template.ImportTemplateFromFile(fileName)` reads a `.contemp` file from disk into a `ConTemplateMappingGetParam`. Python has no equivalent — read the file yourself.
+- **PUT targets the `id` in the body.** There is no PUT (405) and no DELETE on `.../{kind}/{operationId}`. An unknown id is `404`.
+- **An id that belongs to an operation of another kind is `409`** on the GET by id, the PUT and a POST; the message names both types. Retrying does not help — use the right `{kind}`. A POST carrying the id of an operation of the same kind replaces it; leave `id` out to append.
+- **The wrapper:** `{"operation": {"id": 5, "name": "CUT1", "operationType": "CutBeamData", "active": true, ...}, "issues": [{"operationId", "description", "details", "severity"}], "addedWithoutIssues": true}` with `severity` ∈ `info`, `warning`, `error`, `terminatedError`. The new operation's id is `operation.id`. A failed operation is still stored. A missing catalog item (material, bolt assembly) is refused with `422`; a reference to an object that does not exist (e.g. a `plateId`) answers 200 with `addedWithoutIssues: false`.
+- **`addedWithoutIssues: true` does not prove geometry** (section 9). After each add, count what you expected in `GET /api/5/projects/{projectId}/connections/{connectionId}/export-iom-connection-data` (JSON by default: `plates`, `welds`, `beams`, `boltGrids`, `anchorGrids`, `concreteBlocks`, …; negative volumes are listed with `isNegativeObject: true`). A weld appears there only as `{"id": N}`; read its type, size and parts from `GET .../export-iom` (XML).
+- When several operations fail, fix the **first** one; later ones often fail only because they depend on it.
+- **Edit = GET → change → PUT.** An unmodified typed GET body PUT back re-creates the operation. A PUT replaces the whole operation, so never PUT a hand-trimmed body: a grid sent without its `geometry.userPositions` is emptied and still reports success.
+- `GET .../connections/{connectionId}/operations` lists every operation as a thin `ConOperation` (`id`, `name`, `active`, `isImported`, `operationType`). `operationType` is a label (e.g. `CutBeamData` for a cut) that does not follow `{kind}`; do not match on it. Composite operations authored in the desktop application (e.g. a base-plate or end-plate assembly) appear only there and cannot be edited through typed routes.
+- Author bolt, anchor and pin grids with `"definedBy": "plate"`; `coordinateSystem` describes imported grids and is refused (`422`) for new ones.
+- **Reference parts with `ConConnectedItem`:** `{"operationId", "plateSubIndex": 1}` for the plate an operation created; `{"memberId", "plateSubIndex"}` for a wall of a member — in a weld, the wall's 0-based index in that member's `plates[]` of `export-iom-connection-data`; in a grid, see the example below. The index base differs by context (section 8).
 
-### Connection Library — `api_client.connection_library`
+```json
+POST /api/5/projects/{projectId}/connections/{connectionId}/operations/cut
+{ "name": "CUT1", "active": true,
+  "member": { "kind": "member", "memberId": 2 },
+  "cutBy":  { "kind": "member", "memberId": 1 },
+  "cuttingMethod": "surface", "cuttingPlane": "closer", "direction": "perpendicular",
+  "websWeld":    { "kind": "continuous", "type": "doubleFillet", "size": 0.004 },
+  "flangesWeld": { "kind": "continuous", "type": "doubleFillet", "size": 0.006 } }
+```
 
-| Method | Returns / notes |
-|---|---|
-| `get_design_sets()` | `List[ConDesignSet]` available to the signed-in user |
-| `propose(project_id, connection_id, con_connection_library_search_parameters=None)` | `List[ConDesignItem]` matching the connection topology |
-| `get_template(design_set_id=..., design_item_id=...)` | `str` — BASE64-encoded template; decode before use (Core rule 5) |
-| `get_design_item_picture(design_set_id=..., design_item_id=...)` | returns `None` in the generated client — use `save_design_item_picture` instead |
-| `save_design_item_picture(design_set_id, design_item_id, file_name)` (ext) | downloads the design item PNG and writes it to `file_name` |
-| `publish_connection(project_id, connection_id, con_template_publish_param=None)` | `bool`; publishes the connection as a template to the Private or Company set (`ConTemplatePublishParam(name=..., author=..., company_name=..., design_set_type=...)`, `ConDesignSetType` is `private` or `company`) |
+**Members** (`.../connections/{connectionId}/members`): POST adds a `ConMember` (the first member added becomes the bearing member; the project must already hold a cross-section), PUT updates the member named by the body `id`, `DELETE .../members/{memberId}` removes one, `PUT .../members/{memberId}/set-bearing-member` moves the bearing role. Angles in `position` are radians, offsets metres. `POST .../connections/{connectionId}/copy` is a deep copy with all members and operations; for a separate joint use `POST /api/5/projects/{projectId}/connections`.
 
-### Parameter — `api_client.parameter`
+### Example: beam bolted to a column through an end plate
 
-| Method | Returns / notes |
-|---|---|
-| `get_parameters(project_id, connection_id, include_hidden=None)` | `List[IdeaParameter]` |
-| `update(project_id, connection_id, idea_parameter_update)` | `ParameterUpdateResponse`; takes a `List[IdeaParameterUpdate]` |
-| `delete_parameters(project_id, connection_id)` | deletes all parameters and parameter-model links |
-| `evaluate_expression(project_id, connection_id, body=None)` | `str`; evaluates an expression string in the connection's parameter context |
+Built in the empty `CON1` (id 1) of a project created with `{"countryCode": "ecen"}`; `.../` stands for `/api/5/projects/{projectId}/`. `<NAME>` is the id an earlier response returned: `id` of a cross-section or member, `operation.id` of an operation. Check `addedWithoutIssues` after every operation POST.
 
-See the [parameters getting started guide](../api_parameters_getting_started.md) and the [expression reference](../api_parameter_reference_guide.md) for expression syntax.
+```json
+POST .../materials/cross-sections     {"mprlName": "HEB300", "materialName": "S 355"}   -> {"id": <HEB300>, "name": "HEB300", ...}
+POST .../materials/cross-sections     {"mprlName": "IPE300", "materialName": "S 355"}   -> {"id": <IPE300>, ...}
+POST .../materials/bolt-assemblies    {"mprlName": "M20 8.8"}      then <M20> = id of "M20 8.8" in GET .../materials/bolt-assemblies
 
-### Load effects — `api_client.load_effect`
+POST .../connections/1/members        column: vertical (gamaPitch = pi/2), starts at the node; bearing because it is first
+{ "name": "COL", "crossSectionId": <HEB300>, "isContinuous": false, "connectedBy": "begin",
+  "position": { "definedBy": "rotationsOfX", "betaDirection": 0, "gamaPitch": 1.5708, "alphaRotation": 0,
+                "offsetEx": 0, "offsetEy": 0, "offsetEz": 0 } }
+POST .../connections/1/members        beam: along +X, raised 0.6 m
+{ "name": "BEAM", "crossSectionId": <IPE300>, "isContinuous": false, "connectedBy": "begin",
+  "position": { "definedBy": "rotationsOfX", "betaDirection": 0, "gamaPitch": 0, "alphaRotation": 0,
+                "offsetEx": 0, "offsetEy": 0, "offsetEz": 0.6 } }
 
-| Method | Returns / notes |
-|---|---|
-| `get_load_effects(project_id, connection_id, is_percentage=None)` | `List[ConLoadEffect]` |
-| `get_load_effect(project_id, connection_id, load_effect_id, is_percentage=None)` | `ConLoadEffect` |
-| `add_load_effect(project_id, connection_id, con_load_effect)` | `ConLoadEffect` |
-| `update_load_effect(project_id, connection_id, con_load_effect)` | `ConLoadEffect` |
-| `delete_load_effect(project_id, connection_id, load_effect_id)` | `int` |
-| `get_load_settings(project_id, connection_id)` | `ConLoadSettings` (`loads_in_equilibrium`, `loads_in_percentage`) |
-| `set_load_settings(project_id, connection_id, con_load_settings)` | `ConLoadSettings` |
+POST .../connections/1/operations/stiffening-plate        end plate across the beam, mid-plane 0.15 + 0.02/2 from the node
+{ "name": "EP", "active": true, "plateType": "structural", "shape": "rectangular", "thickness": 0.02,
+  "width": 0.22, "width2": 0.22, "height": 0.10, "height2": 0.10,
+  "positioning": { "conPlatePositioningType": "memberLcs", "onMemberId": <BEAM>,
+                   "offset": {"x": 0.16, "y": 0, "z": 0}, "rotation": {"x": 0, "y": 0, "z": 0} } }
 
-### Material — `api_client.material`
+POST .../connections/1/operations/work-plane              plane on the outer face of the end plate
+{ "name": "WP-EP", "active": true, "method": "byNormalVector", "relatedTo": "member", "memberId": <BEAM>,
+  "origin": {"x": 0.17, "y": 0, "z": 0}, "normalVector": {"x": 1, "y": 0, "z": 0} }
+POST .../connections/1/operations/cut                     trim the beam there
+{ "name": "CUT-BEAM", "active": true, "member": {"kind": "member", "memberId": <BEAM>},
+  "cutBy": {"kind": "workPlane", "operationId": <WP-EP>}, "cuttingMethod": "surface", "direction": "perpendicular" }
 
-GET methods list items **used in the project**; ADD methods add an item **from the MPRL library** (the IDEA StatiCa material and product range library) to the project.
+POST .../connections/1/operations/weld                    beam web onto the end plate face; repeat for each flange
+{ "name": "W-WEB", "active": true, "placement": "edgeToSurface",
+  "firstMemberOrPlate":  {"memberId": <BEAM>, "plateSubIndex": <web>}, "firstPlateEdgeIndex": [1],
+  "secondMemberOrPlate": {"operationId": <EP>, "plateSubIndex": 1},   "secondPlateEdgeIndex": 1,
+  "weld": {"kind": "continuous", "type": "doubleFillet", "size": 0.005} }
 
-| Method | Returns / notes |
-|---|---|
-| `get_all_materials(project_id)` | all materials in the project |
-| `get_steel_materials` / `get_concrete_materials` / `get_bolt_grade_materials` / `get_welding_materials` / `get_headed_stud_grade_materials` / `get_bolt_assemblies` / `get_cross_sections` `(project_id)` | per-type lists of items used in the project |
-| `add_material_steel` / `add_material_concrete` / `add_material_bolt_grade` / `add_material_weld` / `add_material_headed_stud_grade` / `add_bolt_assembly` `(project_id, ConMprlElement(mprl_name="S 355"))` | adds the named MPRL item to the project |
-| `add_cross_section(project_id, ConMprlCrossSection(material_name="S 355", mprl_name="HEB200"))` | adds an MPRL cross-section; returns the `ConCrossSection` the listing shows |
-| `get_cross_sections(project_id)` / `get_cross_section(project_id, css_id)` | `ConCrossSection` items: `.id`, `.name`, `.definition`; in Python the definition is a union wrapper, so `.definition.actual_instance` is the concrete `ConCrossSectionLibraryDefinition` / `ConCrossSectionParametricDefinition` / `ConCrossSectionCustomDefinition` (dimensions of a parametric one likewise via `.actual_instance`); API 5.0 — earlier versions returned IOM objects here |
-| `get_cross_section_geometry(project_id, css_id)` | `ConCrossSectionGeometry`: per component the closed outline and openings as line/arc segment chains plus `material_name` |
-| `get_parametric_cross_section_shapes(project_id)` / `get_parametric_cross_section_shape_template(project_id, shape_type)` | shape names (e.g. `Iw`, `BoxDelta`) and the fill-in template of one shape with its dimensions at default values |
-| `add_parametric_cross_section(project_id, definition)` / `update_parametric_cross_section(project_id, css_id, definition)` | create a parametric section from a filled template; update replaces the whole definition (409 for a library or custom section) |
+POST .../connections/1/operations/bolt-grid               8 x M20 through the end plate and the column flange
+{ "name": "BOLTS", "active": true, "boltAssemblyId": <M20>, "boltShearForceTransfer": "tensionShearInteraction",
+  "connectedItems": [ {"operationId": <EP>, "plateSubIndex": 1}, {"memberId": <COL>, "plateSubIndex": <flange>} ],
+  "definedBy": "plate", "isExploded": true,
+  "geometry": { "type": "orthogonal", "userPositions": [
+      {"x": -0.18, "y": -0.05}, {"x": -0.18, "y": 0.05}, {"x": -0.09, "y": -0.05}, {"x": -0.09, "y": 0.05},
+      {"x":  0.09, "y": -0.05}, {"x":  0.09, "y": 0.05}, {"x":  0.18, "y": -0.05}, {"x":  0.18, "y": 0.05} ] } }
 
-### Calculation and results — `api_client.calculation`
+GET .../connections/1/export-iom-connection-data         expect 1 entry in boltGrids with 8 positions, the weld entries in welds
+```
 
-| Method | Returns / notes |
-|---|---|
-| `calculate(project_id, request_body)` | `List[ConResultSummary]`; `request_body` is the list of connection ids; runs the CBFEM analysis |
-| `get_results(project_id, request_body)` | `List[ConnectionCheckRes]` — detailed check results |
-| `get_raw_json_results(project_id, request_body)` | `List[str]` — raw CBFEM results, one JSON string per connection (serialized `CheckResultsData`); parse with `json.loads` |
+- `<web>`: 0-based index of the web in the beam's `plates[]` (`beams[]` entry named `BEAM` in `export-iom-connection-data`); for this beam the web is the wall whose `axisZ` runs along global Y, the flanges along Z. Take wall indexes from the export, never assume them.
+- `<flange>`: in a grid, a member's `plateSubIndex` counts only the member's walls **parallel to the first item**, so the column's two flanges are 0 and 1. Use the one facing the beam and check in the export that the bolts sit on it — a wrong but valid index still reports success.
+- The **first** `connectedItems` entry gives the grid its frame: `userPositions` are in the end plate's local x, y (here x along the beam depth). Positions are not clipped to the parts.
+- A plate in `memberLcs` is transverse to the member by default, and `offset.x` runs along the member axis. Its `width`/`width2` run along the section **depth** and `height`/`height2` across its width; each is an extent from the plate origin, so `width` = `width2` centres the plate.
+- Then add a load effect (section 7) and calculate.
 
-There is no endpoint returning FEM mesh stress/strain fields; `get_raw_json_results` is the deepest result level in the public API.
+## 7. Templates, Connection Library, parameters, load effects, materials
 
-### Report — `api_client.report`
+### Load effects
 
-| Method | Returns / notes |
-|---|---|
-| `save_report_pdf(project_id, connection_id, file_name)` (ext, preferred) | writes a single-connection PDF report |
-| `save_report_word(project_id, connection_id, file_name)` (ext, preferred) | writes a single-connection Word report |
-| `save_multiple_report_pdf(project_id, connection_ids, file_name)` (ext) | one PDF with a section per connection — use for batches, do not loop single reports |
-| `save_multiple_report_word(project_id, connection_ids, file_name)` (ext) | Word equivalent |
-| `generate_pdf` / `generate_word` / `generate_html_zip` / `generate_pdf_for_mutliple` / `generate_word_for_multiple` | raw generated methods; note `generate_pdf_for_mutliple` is spelled exactly like that (a shipped operationId typo) |
+```json
+POST /api/5/projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings
+{ "loadsInEquilibrium": false, "loadsInPercentage": false }
 
-### Export — `api_client.export`
+POST /api/5/projects/{projectId}/connections/{connectionId}/load-effects
+{ "name": "LE1", "active": true, "isPercentage": false,
+  "memberLoadings": [ { "memberId": 2, "position": "End",
+      "sectionLoad": { "n": 0, "vy": 0, "vz": -40000, "mx": 0, "my": 25000, "mz": 0 } } ] }
+-> 200 the stored ConLoadEffect, with its new "id"
 
-| Method | Returns / notes |
-|---|---|
-| `export_ifc_file(project_id, connection_id, file_name)` (ext, preferred) | writes the connection to an IFC file |
-| `export_iom(project_id, connection_id, version=None)` | `str` — IOM XML including `OpenModelContainer` |
-| `export_iom_connection_data(project_id, connection_id)` | `ConnectionData` (IdeaRS.OpenModel.Connection.ConnectionData) |
-| `export_ifc(project_id, connection_id)` | `str` — raw IFC content |
+PUT  /api/5/projects/{projectId}/connections/{connectionId}/load-effects
+{ "id": 1, "name": "LE1 heavier", "isPercentage": false,
+  "memberLoadings": [ { "memberId": 2, "position": "End",
+      "sectionLoad": { "n": 0, "vy": 0, "vz": -60000, "mx": 0, "my": 35000, "mz": 0 } } ] }
 
-### Design-code conversion — `api_client.conversion`
+GET  /api/5/projects/{projectId}/connections/{connectionId}/load-effects?isPercentage=false
+```
 
-Converts a whole project to a different design code. Per the spec, only ECEN (Eurocode) source projects are supported.
+- Forces in N, moments in N·m. The six components go **inside `sectionLoad`**; flat on the loading they are not read and the POST fails (26.1.1 answers `500`, section 9). A misspelled key inside `sectionLoad` is ignored and stores a zero.
+- A loading is a force vector in the member's local axes at the free end of the member's stub. A positive `n` is tension in a stub on the +x side of the node (a member connected by `begin`), compression on the -x side.
+- **Author and read in forces.** Send `"isPercentage": false` on POST and PUT, and read with `?isPercentage=false`. In 26.1.1 the percentage form is not reliable (section 9).
+- POST stores the loadings you send and, in addition, a zero row for every `(memberId, position)` pair that already exists in the connection from other load effects. The POST response does not show these rows; GET the load effect back. A member can get its first loading in a later load effect.
+- `PUT .../load-effects` updates the single load effect named by the body `id` (one object, not an array). It changes only `(memberId, position)` pairs that load effect already has (another is `422`); a member left out keeps its loading. The PUT response echoes what you sent; read the stored state with `GET .../load-effects/{loadEffectId}`. A load effect's own path takes no PUT.
+- The first load effect that loads a member fixes the end (`Begin`/`End`) it may be loaded at; reuse the `(memberId, position)` pairs of an existing load effect. A wrong pair is `422` *"… is not defined in connection …"*; an unknown `memberId` is `404` (in 26.1.1 its `detail` does not name the member, section 9).
+- `DELETE .../load-effects` deletes all of them (new ones are numbered from 1 again); `DELETE .../load-effects/{loadEffectId}` deletes one. `active: false` excludes a load effect from calculations and reports.
+- `set-load-settings` belongs to the connection, not to a load effect; set it before authoring load effects. It replaces both flags: send `loadsInEquilibrium` and `loadsInPercentage` every time — `{}` or a misspelled key resets both to `false`. `loadsInEquilibrium` (default `true`) requires the forces to balance; set it to `false` to load only the members that carry the applied forces (the bearing member takes the reactions).
 
-| Method | Returns / notes |
-|---|---|
-| `get_conversion_mapping(project_id, country_code=None)` | `ConConversionSettings` — default mappings to the target `CountryCode` (`ecen`, `american`, `canada`, `australia`, `india`, `sia`, `rus`, `chn`, `hkg`) |
-| `change_code(project_id, con_conversion_settings)` | `str`; applies the conversion. Edit the `ConversionMapping` lists (`steel`, `concrete`, `cross_sections`, `fasteners`, `welds`, `bolt_grade` — each item has `source_value`/`target_value`) before calling |
+### Parameters
 
-### Settings — `api_client.settings`
+```json
+POST .../connections/{connectionId}/parameters
+{ "key": "t", "parameterType": "Expression", "expression": "0.02", "valueType": "plateThickness" }
+-> { "key": "t", "expression": "0.02", "value": 0.02, "validationStatus": "Ok", ... }
 
-| Method | Returns / notes |
-|---|---|
-| `get_settings(project_id, search=None)` | `Dict[str, object]` of project setting values; `search` filters by key |
-| `update_settings(project_id, request_body)` | `Dict[str, object]`; pass a dict of key-value pairs to change |
+GET  .../connections/{connectionId}/operations/{operationId}/linkable-properties
+-> [ { "propertyId": "151", "name": "Thickness", "group": "Stiffening plate", "valueType": "Float", "currentValue": 0.01, ... }, ... ]
 
-Settings live here and only here — there is no `get_setup`/`update_setup` on the project API.
+POST .../connections/{connectionId}/parameters/links
+{ "parameter": "t", "kind": "operation", "operationId": 4, "propertyId": "151" }
+-> { "id": 1, "parameter": "t", "owner": { ... }, "propertyId": "151" }
 
-### Presentation — `api_client.presentation`
+PUT  .../connections/{connectionId}/parameters
+[ { "key": "t", "expression": "0.025" } ]
+-> { "setToModel": true, "parameters": [ ... ], "failedValidations": [] }
+```
 
-| Method | Returns / notes |
-|---|---|
-| `get_data_scene3_d(project_id, connection_id)` | `DrawData` for 3D scene visualization |
-| `get_data_scene3_d_text(project_id, connection_id)` | `str` — the same data serialized as JSON |
+- `parameterType` ∈ `Float`, `Bool`, `Int`, `String`, `Expression`; `Expression` reaches every drivable target. `expression` is always a **string**, evaluated before it is stored (a bad one is `422` explaining why). A text value needs inner quotes: `"'S 355'"`. Another parameter is referenced in square brackets: `"[t] * 2"`; units can be stated: `"Length(20,'mm')"`. Create a parameter before the ones that read it.
+- `PUT .../parameters` takes an **array** and answers `{setToModel, parameters, failedValidations}`. An unknown key is `422`. There is no PUT per key. Read `failedValidations` — a value the linked property cannot take is reported there.
+- A parameter drives nothing until it is linked. `propertyId` is an opaque string, per owner (`"151"` is a stiffening plate's thickness, not a global id) — always read it from `linkable-properties` of that owner (`.../operations/{operationId}/...`, `.../members/{memberId}/...`, or `.../parameters/linkable-properties` for all). `kind` ∈ `operation`, `member`, `crossSection`, `material`, `boltAssembly`, each with its own owner id field. Linking applies the value at once. `DELETE .../parameters/links/{linkId}` unlinks and keeps the last value.
+- A linked property belongs to its parameter: writing that property through its own route answers 200 and is overwritten. Change the parameter instead.
+- A 200 on a link or PUT does not prove the model changed; read the property back (e.g. plate `thickness` in `export-iom-connection-data`).
+- `POST .../connections/{connectionId}/evaluate-expression` takes a JSON string and returns a JSON string (`"1+2*3"` → `"7"`). An unknown property returns 200 with `Property '<name>' not found`; an expression that cannot be evaluated fails (26.1.1 answers `500`, section 9) — create it as a parameter to get a `422` that says why. Syntax: [Expression parameter reference](../api_parameter_reference_guide.md).
+- Template parameters that are not visible are listed only with `GET .../parameters?includeHidden=true`.
 
-### Client/service info
+### Templates and the Connection Library
 
-`connect_client` is called automatically; the id is at `api_client.client_id`. The service assembly version is available via the generated `ClientApi`:
+Apply a library design to a connection whose bearing member has id 1 and attached member id 2:
+
+```json
+GET  /api/5/connection-library/get-design-sets
+-> [ { "id": "<designSetId>", "name": "...", "description": "...", "ownerId": "...", "type": "Idea" }, ... ]
+
+POST /api/5/projects/{projectId}/connections/{connectionId}/propose
+{ "hasBolts": "must", "isMoment": "must" }
+-> [ { "name": "...", "designCode": "...", "conDesignSetId": "<guid>", "conDesignItemId": "<guid>", "version": "..." }, ... ]
+
+GET  /api/5/connection-library/get-template?designSetId=<guid>&designItemId=<guid>
+-> text/plain, Base64. Decode it: the result is the template XML string used below.
+
+POST /api/5/projects/{projectId}/connections/{connectionId}/get-default-mapping
+{ "template": "<template XML>", "memberIds": [1, 2] }
+-> { "countryCode": "...", "conversions": [
+       { "$type": "IdeaStatiCa.Api.Connection.Model.MemberTemplateConversion, IdeaStatiCa.Api",
+         "originalValue": "...", "newValue": "...", "isBearing": true, ... },
+       { "$type": "IdeaStatiCa.Api.Connection.Model.CssTemplateConversion, IdeaStatiCa.Api",
+         "originalValue": "...", "newValue": "...", ... }, ... ] }
+
+POST /api/5/projects/{projectId}/connections/{connectionId}/apply-template
+{ "connectionTemplate": "<template XML>", "mapping": <the get-default-mapping response> }
+-> { "appliedWithoutIssues": true, "templateModel": { ... }, "issues": [] }
+```
+
+- Note the two field names: `template` in `get-default-mapping`, **`connectionTemplate`** in `apply-template`. Send the mapping back as returned — the entries are matched by position — changing only `newValue` where you want another material or section; every entry keeps its `$type`.
+- `memberIds` is positional: index 0 is mapped onto the template's bearing member, 1+ onto its attached members. `[]` maps by member name. Sending only the attached member's id puts it in the bearing slot. To template two attachments of one bearing member, call once per attachment with `[bearingId, attachedId]`.
+- `propose` search flags (`hasBolts`, `hasWelds`, `hasAnchor`, `hasClipAngles`, `isMoment`, `isShear`, `isTruss`, `isParametric`) take `ignore` (default), `must`, `mustNot`. `GET /api/5/connection-library/get-picture` (same query) returns the PNG preview.
+- **Template of your own connection:** `GET .../connections/{connectionId}/get-template` (text/plain, used as is) or `POST .../connections/{connectionId}/templates/create-from-connection` (metadata plus the same string in `template`). `POST .../connections/{connectionId}/publish` stores a connection in your Private or Company design set.
+- A template parameter whose key already exists is added under a suffixed key (e.g. `D_2`).
+- `GET .../connections/{connectionId}/templates` lists the applied templates, each with an integer `templateId` that the per-template routes take. `templates/explode` drops the template's parameters and keeps its operations; `DELETE .../templates` removes the operations too.
+
+### Materials and cross-sections
+
+```json
+GET  /api/5/projects/{projectId}/materials/steel/library            -> [ "...", "S 355", "..." ]   names this design code accepts
+POST /api/5/projects/{projectId}/materials/steel                    { "mprlName": "S 355" }
+POST /api/5/projects/{projectId}/materials/cross-sections           { "mprlName": "HEB200", "materialName": "S 355" }
+-> { "id": 3, "name": "HEB200", "definition": { ... } }
+POST /api/5/projects/{projectId}/materials/bolt-assemblies          { "mprlName": "M16 8.8" }
+GET  /api/5/projects/{projectId}/materials/bolt-assemblies          -> [ { "id": 1, "name": "M16 8.8", "diameter": 0.016, ... } ]
+```
+
+- Routes are project-scoped: `GET .../materials/steel` (and likewise per type) lists what the project holds; `GET /api/5/projects/{projectId}/materials/{materialType}/library` lists the names the project's design code accepts. Types, spelled exactly: `steel`, `concrete`, `bolt-grade`, `welding`, `headed-stud-grade`, `reinforcement`, `pin`, `cross-sections`, `bolt-assemblies`.
+- Add from the library with **`mprlName`**, not `name`. Names match byte for byte (`S 355` resolves, `S355` is `422`; `M16 8.8` needs size and grade); copy them from the library list. The lists differ per design code: `M16 8.8` is `422` on an `american` project.
+- Every cross-section POST adds a new entry, even an identical one, and there is no DELETE; keep the `id` it returns. The other material POSTs answer the id of the **oldest** entry with that name, so take ids from the list.
+- Material objects come back in SI: `fy` of `S 355` is `355000000.0` (Pa), a bolt `diameter` `0.016` (m).
+- `GET .../materials/cross-sections/{cssId}/geometry` returns the outline. Sections from dimensions: `GET .../materials/cross-sections/parametric/shapes/{shapeType}` returns a template that is itself the body for `POST .../materials/cross-sections/parametric` once `materialName` is set. `PUT .../materials/cross-sections/library/{cssId}` swaps a library section in place; members using it follow.
+- Pins exist for the `ecen` design code only.
+
+### Design-code conversion, settings, exports
+
+- **Convert a project** to another code: `GET /api/5/projects/{projectId}/get-default-mapping?countryCode=american` returns `ConConversionSettings` (`targetDesignCode`, and lists `steel`, `crossSections`, `fasteners`, `welds`, `concrete`, `boltGrade` of `{sourceValue, targetValue}`). Review every `targetValue` — a name the suggestion table does not know gets one generic value of the target code — then send the object to `POST /api/5/projects/{projectId}/change-code` (`204`). Targets: `american`, `canada`, `australia`, `rus`, `chn`, `india`, `hkg`. `ecen` is never a target (`501`); the project's own code, a pin used by an operation, or (for `change-code`) a reinforcement or headed-stud material is `422`. `steelEdition` resets to the target's default; set it afterwards with `PUT /api/5/projects/{projectId}`.
+- **Settings:** `GET /api/5/projects/{projectId}/settings` without `search` returns the whole key → value dictionary (`search` matches a whole key part only). `PUT` takes an object of existing keys, all or nothing, e.g. `{"calculation/Analysis/CodeFactors/EN/GammaM0": 1.0}`.
+- **Exports:** `export-iom` (XML; in 26.1.1 the declaration does not match the encoding, section 9; the export is the input of `POST /api/5/projects/import-iom-file`, field `containerXmlFile`), `export-iom-connection-data` (JSON, or XML with `Accept: application/xml`), `export-ifc`, `export-dwg` (can take up to about 10 minutes).
+
+## 8. Where the swagger is not enough
+
+The swagger of the running service names every route and field. The rules below are what it does not tell you; each one fails quietly when ignored. Where the 26.1.1 service and its swagger disagree, section 9 says which one to follow.
+
+### Behaviour the swagger does not declare
+
+- **Send a `ClientId` header on every request** except `GET /api/5/clients/connect-client` (which returns the id) and `GET /api/5/clients/idea-service-version`. The header is part of the contract even though the 26.1.1 swagger does not declare it.
+- **Send only what the schemas list.** Most schemas are marked `additionalProperties: false` and almost no field `required`. The service does not enforce either today: unknown fields are ignored and missing ones get defaults (section 2, rule 8). Do not depend on that, and read back what you wrote.
+- **Read the status code first, then the body.** An error body is ProblemDetails-shaped JSON (`title`, `status`, `detail`; a `400` from the binder adds an `errors` map). Parse it whatever its media type says, and allow an empty body (section 9).
+- **Count what an operation created** in `GET .../connections/{connectionId}/export-iom-connection-data` after every add; a clean `addedWithoutIssues: true` is not proof (section 9).
+- **`POST /api/5/projects` creates a project with one empty connection** (`CON1`, id 1). Use it, or read the connection list; do not add a first connection on the assumption that there is none.
+- **Close only the projects your ClientId opened.**
+
+### Names and index bases that differ between schemas
+
+- **Library items are created by `mprlName`** (`ConMprlCrossSection`, `ConMprlElement`). The objects a GET returns carry `name` instead; do not post a GET result back to a create route.
+- **Axes are spelled two ways:** a grid's `coordinateSystem` (`ConLocalCoordinateSystem`) takes `xAxis` / `yAxis` / `zAxis`; a member's `position` (`ConMemberPosition`) and an added member's `positioning` (`ConAddedMemberPositioning`) take `axisX` / `axisY` / `axisZ`.
+- **Plate indexes on a member start at different numbers:** `onMemberPlateIndex` (added member) counts from 0, `plateOnMemberIndex` (plate positioned on a member) counts from 1.
+- **`plateSubIndex` depends on the operand** (`ConConnectedItem`): 0-based in a weld's member operand, 1-based in a weld's operation operand and in a cut operand.
+
+## 9. Known issues in 26.1.1
+
+Defects of service build 26.1.1.2809. Each entry gives what happens and what to do instead. Code that follows the workarounds also works against a service where the defect is fixed.
+
+1. **The swagger does not declare the `ClientId` header.** There is neither a header parameter nor a security scheme, so a client generated from the 26.1.1 swagger, or code written from it alone, sends no `ClientId`, and every call answers `401`. **Do:** add the header to every request after `connect-client` (section 2, rule 1). The official C# and Python clients add it themselves.
+2. **Error media types and bodies differ from the swagger.** The swagger declares most error responses as `application/json` (some as `text/plain`, `text/json` or `application/xml`). The service sends `404`, `409`, `422` and `500` as `application/problem+json`, and `400`, `401` and `415` as `application/json`. A `405`, and the `415` of `projects/open` when the body is not `multipart/form-data`, come with no body at all. **Do:** branch on the status code, parse the body as JSON whatever the media type, and allow an empty body.
+3. **`close` closes a project that another ClientId opened.** It answers `204` and the project is gone for its owner too. After that, the owner's `GET /api/5/projects` answers `404` for as long as the service runs. The `404` that the swagger declares for `close` does not occur. **Do:** close only the projects your ClientId opened, and use one ClientId per process.
+4. **The summary of `POST /api/5/projects` says "with no connections".** The new project holds one empty connection, `CON1` with id 1. **Do:** build in `CON1`, or read `GET /api/5/projects/{projectId}/connections` before adding connections.
+5. **Load effects in percentage are not reliable.**
+   - `GET .../load-effects?isPercentage=true` returns the forces in N and N·m, flagged `"isPercentage": true`. Without the query parameter, the flag follows the connection's `loadsInPercentage` setting; the values are forces either way.
+   - A POST with `"isPercentage": true` stores wrong forces and drops `mx`.
+
+   **Do:** author with `"isPercentage": false` in N and N·m on POST and PUT, and read with `?isPercentage=false`.
+6. **`addedWithoutIssues: true` does not prove geometry.** A bolt, anchor or pin grid with an empty `geometry.userPositions` list is a clean success that creates no fasteners. Values are not range-checked: a plate `thickness` of 0 or below is accepted with `addedWithoutIssues: true`. **Do:** count what you expected in `GET .../connections/{connectionId}/export-iom-connection-data` after every add.
+7. **Some client errors answer `500` with an internal message:**
+   - `projects/open` with a file that is not a valid `.ideaCon`;
+   - a load-effect POST with the forces flat on the loading instead of inside `sectionLoad`;
+   - `evaluate-expression` with an expression that cannot be evaluated.
+
+   **Do:** treat these `500`s as a fault in your request, and do not quote or parse their `detail`. To find out why an expression fails, create it as a parameter; that answers `422` with the reason.
+8. **A `404` for an unknown `memberId` in a load-effect body does not name the member.** Its `detail` is an internal message. **Do:** take member ids from `GET .../connections/{connectionId}/members`.
+9. **`export-iom` declares the wrong encoding.** The XML declaration says `utf-16`, but the bytes are UTF-8. **Do:** decode the bytes as UTF-8. Before sending the export to `POST /api/5/projects/import-iom-file`, re-encode it to UTF-16 so that the bytes match the declaration.
+
+## 10. Minimal example (Python, `requests` only)
 
 ```python
-from ideastatica_connection_api import ClientApi
-service_version = ClientApi(api_client.client).get_version()
+import requests
+
+BASE = "http://localhost:5000/api/5"
+s = requests.Session()
+
+requests.get("http://localhost:5000/heartbeat", timeout=5).raise_for_status()   # service must already run
+
+client_id = s.get(f"{BASE}/clients/connect-client").text.strip().strip('"')     # text/plain, not JSON
+s.headers["ClientId"] = client_id
+
+with open(r"C:\projects\my-connection.ideaCon", "rb") as f:
+    r = s.post(f"{BASE}/projects/open", files={"ideaConFile": ("model.ideaCon", f, "application/octet-stream")})
+r.raise_for_status()
+project = r.json()
+pid = project["projectId"]
+ids = [c["id"] for c in project["connections"]]
+
+try:
+    r = s.post(f"{BASE}/projects/{pid}/connections/calculate", json=ids, timeout=3600)
+    r.raise_for_status()
+    for con in r.json():
+        print(con["id"], "PASS" if con["passed"] else "FAIL")
+        for row in con["resultSummary"]:
+            if not row.get("skipped"):
+                print("   ", row["name"], row["unityCheckMessage"])
+
+    r = s.post(f"{BASE}/projects/{pid}/connections/results", json=ids)
+    r.raise_for_status()
+    for res in r.json():
+        for bolt in res.get("checkResBolt") or []:
+            print("   ", bolt["name"], bolt["unityCheck"], "%")
+
+    r = s.get(f"{BASE}/projects/{pid}/download")
+    r.raise_for_status()
+    with open(r"C:\projects\my-connection-calculated.ideaCon", "wb") as f:
+        f.write(r.content)
+finally:
+    s.get(f"{BASE}/projects/{pid}/close")
 ```
 
-## C# client surface
+## 11. Mistakes to avoid
 
-`IConnectionApiClient` (created by `ConnectionApiServiceAttacher` or `ConnectionApiServiceRunner`, both returning a connected client from `CreateApiClient()`; both constructors take an optional application name and version that attribute every call this client makes — see the example above). Accessors: `ClientApi`, `Calculation`, `Connection`, `ConnectionLibrary`, `Conversion`, `Export`, `LoadEffect`, `Material`, `Member`, `Operation`, `Parameter`, `Presentation`, `Project`, `Report`, `Settings`, `Template`, plus `ActiveProjectId` and `ClientId` properties.
-
-Generated method names are the Python names in PascalCase with an `Async` suffix and `Guid projectId` instead of a string: `calculate` → `CalculateAsync(Guid projectId, List<int> requestBody)`, `get_connections` → `GetConnectionsAsync(Guid projectId)`, `update` → `UpdateAsync`, `get_settings` → `GetSettingsAsync`, and so on. The extension methods differ from Python in these places:
-
-| C# extension member | Python equivalent / notes |
+| Wrong | Right |
 |---|---|
-| `Project.ProjectId` (Guid) | `project.active_project_id` |
-| `Project.OpenProjectAsync(filePath)` | `open_project_from_filepath` (.ideaCon only in C#) |
-| `Project.SaveProjectAsync(projectId, fileName)` | `download_project` |
-| `Project.CreateProjectFromIomFileAsync(iomFilePath, connectionsToCreate = null)` | IOM file import; sets `ProjectId` |
-| `Project.UpdateProjectFromIomFileAsync(projectId, iomFilePath)` | `update_from_iom` from a file path |
-| `Project.CreateProjectAsync(designCode)` / `CreateProjectAsync(designCode, name)` | empty project; design codes "ECEN", "American", "AUS"; sets `ProjectId` |
-| `Report.SaveReportPdfAsync(projectId, connectionId, filePath)` | `save_report_pdf` |
-| `Report.SaveMultipleReportsPdfAsync(projectId, connectionIds, filePath)` | `save_multiple_report_pdf` — note the C# name is plural "Reports", the Python name is singular "report" |
-| `Report.SaveReportWordAsync` / `SaveMultipleReportsWordAsync` | Word equivalents |
-| `Export.ExportIfcFileAsync(projectId, connectionId, filePath)` | `export_ifc_file` |
-| `Template.ImportTemplateFromFile(fileName)` | no Python equivalent; reads a `.contemp` file into `ConTemplateMappingGetParam` |
-| `ConnectionLibrary.GetDesignItemPictureDataAsync(designSetId, designItemId)` | returns `byte[]` |
-| `ConnectionLibrary.SaveDesignItemPictureAsync(designSetId, designItemId, filePath)` | `save_design_item_picture` |
-
-Most C# `Con*` model types live in the `IdeaStatiCa.Api.Connection.Model` namespace (e.g. `ConResultSummary.Passed`); the detailed check-result types (`ConnectionCheckRes`, `CheckResSummary`, ...) live in `IdeaRS.OpenModel.Connection` (e.g. `CheckResSummary.CheckValue`), and a few presentation/operation types (`DrawData`, `ConOperationCommonProperties`) in `IdeaStatiCa.ConnectionApi.Model`. All use PascalCase property names.
-
-## Key data models (Python field names, JSON aliases in parentheses)
-
-```text
-ConResultSummary                       # returned by calculation.calculate
-  .id              int                 # connection id
-  .passed          bool                # overall pass/fail for the connection
-  .result_summary  List[CheckResSummary]   (resultSummary)
-
-CheckResSummary                        # one check group (e.g. plates, bolts, welds)
-  .name            str                 # check description - USE THIS for the check name
-  .check_value     float               (checkValue)  utilization expressed as a percentage (85.0 = 85 %);
-                                       # already scaled by 100 by the service - do not multiply again
-                                       # use .check_status for pass/fail
-                                       # value is meaningless when .skipped is True - always gate on .skipped
-                                       # (declared optional in the generated model, so guard for None too)
-  .check_status    bool                (checkStatus) True = check satisfied
-  .unity_check_message str             (unityCheckMessage)
-  .skipped         bool                # True = check not performed; skip these when reporting
-  .load_case_id    int                 (loadCaseId)
-  # NO .check_section and NO .check_type - these fields do not exist
-
-IdeaParameterUpdate(key="gap", expression="15")   # expression is ALWAYS a string
-
-IdeaParameter                          # returned by parameter.get_parameters
-  .key .expression .default .value .unit .parameter_type (parameterType)
-  .description .validation_status (validationStatus) .is_visible (isVisible)
-  .lower_bound (lowerBound) .upper_bound (upperBound) .parameter_validation
-
-ConDesignSet                           # connection_library.get_design_sets
-  .id  .name  .description  .owner_id (ownerId)  .type
-
-ConDesignItem                          # connection_library.propose
-  .name  .design_code (designCode)  .version
-  .con_design_set_id  (conDesignSetId)   # UUID string
-  .con_design_item_id (conDesignItemId)  # UUID string
-  # NO .con_design_set_name - build a lookup: {ds.id: ds.name for ds in get_design_sets()}
-
-ConConnectionLibrarySearchParameters   # propose() filter
-  members: List[int], in_predefined_set/in_company_set/in_personal_set: bool,
-  has_bolts/has_welds/has_anchor/has_clip_angles/is_moment/is_shear/is_truss/is_parametric:
-  SearchOption ('ignore' | 'must' | 'mustNot')
-
-ConTemplateMappingGetParam(template=<xml str>, member_ids=[...])
-ConTemplateApplyParam(connection_template=<xml str>, mapping=<TemplateConversions>)
-
-TemplateConversions                    # returned by get_default_template_mapping
-  .conversions     List[BaseTemplateConversion]   # FLAT list - filter by .description
-  .country_code    str (countryCode)
-BaseTemplateConversion
-  .description     str                 # "Steel", "Concrete", "Weld", "Bolt Assembly", "Bolt grade",
-                                       # or the cross-section/member item name from the template
-                                       # (localized; English values shown)
-  .original_value  str (originalValue)
-  .new_value       str (newValue)      # set this to remap
-
-ConTemplateApplyResult
-  .applied_without_issues bool (appliedWithoutIssues)
-  .issues          List[ConNonConformityIssue]
-
-ConLoadEffect
-  .id int  .name str  .active bool
-  .is_percentage   bool (isPercentage)
-  .member_loadings List[ConLoadEffectMemberLoad] (memberLoadings)
-ConLoadEffectMemberLoad
-  .member_id       int (memberId)
-  .position        ConLoadEffectPositionEnum.END ('End') | .BEGIN ('Begin')
-  .section_load    ConLoadEffectSectionLoad (sectionLoad)
-ConLoadEffectSectionLoad(n=, vy=, vz=, mx=, my=, mz=)
-  # forces n, vy, vz in kN; moments mx, my, mz in kNm
-  # n: positive = tension at the End position; sign inverted at Begin
-  # my: sign inverted at Begin relative to the standard convention
-
-ConConnection
-  .id int  .identifier  .name  .description
-  .analysis_type (analysisType)  .include_buckling (includeBuckling)
-
-ConMember
-  .id int  .name  .active  .is_continuous (isContinuous)  .cross_section_id (crossSectionId)
-  .mirror_y .mirror_z  .is_bearing (isBearing)  .position  .model  .stiffness_analysis
-
-ConProject
-  .project_id (projectId)  .project_info (projectInfo, ConProjectData)  .connections
-ConProjectData
-  .name .description .project_number (projectNumber) .author .design_code (designCode) .var_date (date)
-
-ConMprlElement(mprl_name="S 355")
-ConMprlCrossSection(material_name="S 355", mprl_name="HEB200")
-ConLoadSettings(loads_in_equilibrium=..., loads_in_percentage=...)
-ConOperationCommonProperties(weld_material_id=..., plate_material_id=..., bolt_assembly_id=...)
-```
-
-## Workflows
-
-All Python snippets are complete programs. Replace the file paths and start the service (or switch to the runner pattern) before running.
-
-### 1. Calculate all connections and report results
-
-```python
-import logging
-from ideastatica_connection_api.connection_api_service_attacher import ConnectionApiServiceAttacher
-
-logging.basicConfig(level=logging.INFO)
-
-with ConnectionApiServiceAttacher("http://localhost:5000").create_api_client() as api_client:
-    api_client.project.open_project_from_filepath(r"C:\projects\my-connection.ideaCon")
-    project_id = api_client.project.active_project_id
-
-    connections = api_client.connection.get_connections(project_id)
-    conn_ids = [c.id for c in connections]
-
-    results = api_client.calculation.calculate(project_id, conn_ids)
-
-    for conn_result in results:
-        print(f"Connection {conn_result.id}: {'PASS' if conn_result.passed else 'FAIL'}")
-        for summary in conn_result.result_summary:
-            if summary.skipped:
-                continue
-            status = "OK" if summary.check_status else "NOT OK"
-            print(f"  {summary.name}: {summary.check_value:.1f} % ({status})")
-
-    # one PDF containing a section per connection - preferred for batches
-    api_client.report.save_multiple_report_pdf(project_id, conn_ids, r"C:\reports\all-connections.pdf")
-
-    # save the project including any changes made through the API
-    api_client.project.download_project(project_id, r"C:\projects\my-connection-calculated.ideaCon")
-```
-
-### 2. Apply a Connection Library template
-
-```python
-import base64
-import logging
-from ideastatica_connection_api.connection_api_service_attacher import ConnectionApiServiceAttacher
-from ideastatica_connection_api import (
-    ConConnectionLibrarySearchParameters,
-    ConTemplateMappingGetParam,
-    ConTemplateApplyParam,
-)
-
-logging.basicConfig(level=logging.INFO)
-
-with ConnectionApiServiceAttacher("http://localhost:5000").create_api_client() as api_client:
-    api_client.project.open_project_from_filepath(r"C:\projects\my-connection.ideaCon")
-    project_id = api_client.project.active_project_id
-
-    conn = api_client.connection.get_connections(project_id)[0]
-    member_ids = [m.id for m in api_client.member.get_members(project_id, conn.id)]
-
-    # 1) propose design items matching the connection topology
-    candidates = api_client.connection_library.propose(
-        project_id, conn.id,
-        ConConnectionLibrarySearchParameters(in_predefined_set=True))
-    if not candidates:
-        raise RuntimeError("No library design items match this connection.")
-    item = candidates[0]
-    print(f"Applying '{item.name}' ({item.design_code})")
-
-    # 2) download the template - it is BASE64, decode to XML before use
-    template_b64 = api_client.connection_library.get_template(
-        design_set_id=item.con_design_set_id,
-        design_item_id=item.con_design_item_id)
-    template_xml = base64.b64decode(template_b64).decode("utf-8")
-
-    # 3) get the default mapping of template entities onto this connection
-    mapping = api_client.template.get_default_template_mapping(
-        project_id, conn.id,
-        ConTemplateMappingGetParam(template=template_xml, member_ids=member_ids))
-
-    # optional: remap materials - .conversions is a FLAT list, filter by .description
-    for c in mapping.conversions:
-        if c.description == "Steel":
-            c.new_value = "S 450"
-
-    # 4) apply
-    result = api_client.template.apply_template(
-        project_id, conn.id,
-        ConTemplateApplyParam(connection_template=template_xml, mapping=mapping))
-    print("Applied without issues:", result.applied_without_issues)
-```
-
-### 3. Parameter sweep
-
-```python
-import json
-import logging
-from ideastatica_connection_api.connection_api_service_attacher import ConnectionApiServiceAttacher
-from ideastatica_connection_api import IdeaParameterUpdate
-
-logging.basicConfig(level=logging.INFO)
-
-with ConnectionApiServiceAttacher("http://localhost:5000").create_api_client() as api_client:
-    api_client.project.open_project_from_filepath(r"C:\projects\parametric-connection.ideaCon")
-    project_id = api_client.project.active_project_id
-    conn_id = api_client.connection.get_connections(project_id)[0].id
-
-    # discover available parameter keys first
-    for p in api_client.parameter.get_parameters(project_id, conn_id):
-        print(p.key, "=", p.expression)
-
-    for thickness_mm in [10, 12, 15, 20]:
-        api_client.parameter.update(
-            project_id, conn_id,
-            [IdeaParameterUpdate(key="plateThickness", expression=str(thickness_mm))])
-
-        summary = api_client.calculation.calculate(project_id, [conn_id])[0]
-
-        raw = api_client.calculation.get_raw_json_results(project_id, [conn_id])
-        detailed = json.loads(raw[0])   # CheckResultsData as a dict
-
-        print(f"t = {thickness_mm} mm -> passed: {summary.passed}")
-```
-
-`"plateThickness"` is an example — parameter keys are project-specific; always read them from `get_parameters` first.
-
-### 4. Convert a project to a different design code
-
-```python
-import logging
-from ideastatica_connection_api.connection_api_service_attacher import ConnectionApiServiceAttacher
-from ideastatica_connection_api import CountryCode
-
-logging.basicConfig(level=logging.INFO)
-
-with ConnectionApiServiceAttacher("http://localhost:5000").create_api_client() as api_client:
-    # source project must use the ECEN design code
-    api_client.project.open_project_from_filepath(r"C:\projects\ecen-connection.ideaCon")
-    project_id = api_client.project.active_project_id
-
-    settings = api_client.conversion.get_conversion_mapping(project_id, CountryCode.AMERICAN)
-    for m in settings.steel or []:
-        print(f"steel: {m.source_value} -> {m.target_value}")
-    # edit m.target_value entries here if the defaults are not what you want
-
-    api_client.conversion.change_code(project_id, settings)
-    api_client.project.download_project(project_id, r"C:\projects\aisc-connection.ideaCon")
-```
-
-### 5. C# end-to-end example
-
-```csharp
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using IdeaStatiCa.ConnectionApi;
-
-internal class Program
-{
-    private static async Task Main()
-    {
-        var factory = new ConnectionApiServiceAttacher("http://localhost:5000");
-        await using IConnectionApiClient client = await factory.CreateApiClient();
-
-        await client.Project.OpenProjectAsync(@"C:\projects\my-connection.ideaCon");
-        Guid projectId = client.Project.ProjectId;
-
-        var connections = await client.Connection.GetConnectionsAsync(projectId);
-        var connectionIds = connections.Select(c => c.Id).ToList();
-
-        var results = await client.Calculation.CalculateAsync(projectId, connectionIds);
-        foreach (var res in results)
-        {
-            Console.WriteLine($"Connection {res.Id}: {(res.Passed ? "PASS" : "FAIL")}");
-            foreach (var check in res.ResultSummary)
-            {
-                if (check.Skipped) continue;
-                Console.WriteLine($"  {check.Name}: {check.CheckValue:F1} %");
-            }
-        }
-
-        await client.Report.SaveMultipleReportsPdfAsync(projectId, connectionIds, @"C:\reports\all-connections.pdf");
-        await client.Project.SaveProjectAsync(projectId, @"C:\projects\my-connection-calculated.ideaCon");
-
-        await client.Project.CloseProjectAsync(projectId);
-    }
-}
-```
-
-More worked examples (both languages) are in the repository: <https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api>.
-
-## Mistakes to avoid
-
-| Wrong | Correct |
+| Starting the service without checking | `GET /heartbeat` first; start the exe only if nothing answers |
+| `-port=5193` | `-port:5193` |
+| `/swagger/index.html`, `/openapi.json` | `/index.html`, `/swagger/5.0/swagger.json` |
+| `resp.json()` on `connect-client` | Read the body as text and strip it |
+| No `ClientId` header (generated client, plain HTTP library) | Add `ClientId` to every request after `connect-client` |
+| Multipart field `idea_con_file` or `file` | `ideaConFile` |
+| `{"connectionIds": [1]}` or `1` as calculate body | `[1]` |
+| Millimetres or kN in a body | Metres and newtons (`0.005`, `300000`) |
+| Trusting `200` from an operation POST | Check `addedWithoutIssues` and `issues[]`, then count in `export-iom-connection-data` |
+| PUT with the operation id in the URL | `PUT .../operations/weld` with `"id": 7` in the body |
+| PUT of a hand-written or trimmed operation body | GET the operation, change one field, PUT the whole object back |
+| Deleting one operation | Not possible; `DELETE .../operations` removes all of them, templates and parameters included |
+| Assuming a member's wall order (`plateSubIndex`) | Read the walls from `export-iom-connection-data` |
+| `"name": "HEB200"` on a cross-section POST | `"mprlName": "HEB200"`, `"materialName": "S 355"` |
+| `"S355"`, `"ipe300"`, `"M16"` | Exact library spelling: `"S 355"`, `"IPE300"`, `"M16 8.8"` — copy from `.../library` |
+| `n`, `vz`, `my` directly on a member loading | Inside `"sectionLoad": {...}` |
+| `"isPercentage": true`, or `GET .../load-effects` without `?isPercentage=false` | Author and read with `isPercentage` false; in 26.1.1 the percentage form is not reliable (section 9) |
+| Closing a project id you did not open | Close only your own projects; 26.1.1 closes it for its owner too (section 9) |
+| `set-load-settings` with one flag or `{}` | Send both `loadsInEquilibrium` and `loadsInPercentage` |
+| `PUT .../connections/{connectionId}` with only the changed field | GET, change, PUT the whole object; omitted fields are reset |
+| Calling `results` without `calculate` | `calculate` first; empty lists mean "not calculated" |
+| Multiplying `unityCheck` or `checkValue` by 100 | They are already in % (plates: % plastic strain, see section 4) |
+| `float(row["unityCheck"])` on every weld | Guard the string `"NaN"` (full-strength welds) |
+| Passing the library `get-template` body straight to `apply-template` | Base64-decode it first |
+| `template` in the `apply-template` body | `connectionTemplate` |
+| `"expression": 15`, `"expression": "t * 2"` | `"expression": "15"`, `"expression": "[t] * 2"` |
+| Guessing a `propertyId` | Read it from `.../linkable-properties` of that owner |
+| Converting only `ecen` projects | Any code converts to any listed target except `ecen` |
+
+**Common errors**
+
+| Symptom | Cause |
 |---|---|
-| `IdeaParameterUpdate(key="gap", expression=15)` | `expression="15"` — expressions are always strings |
-| Passing the `connection_library.get_template` result straight to `apply_template` | Decode it first: `base64.b64decode(b64).decode("utf-8")` |
-| `summary.check_section`, `summary.check_type` | These fields do not exist; use `summary.name` |
-| `item.con_design_set_name` | Does not exist; build a lookup from `get_design_sets()`: `{ds.id: ds.name for ds in ...}` |
-| Looping `save_report_pdf` per connection for a batch | `save_multiple_report_pdf(project_id, conn_ids, file)` (C#: `SaveMultipleReportsPdfAsync`) |
-| `api_client.project.get_setup(...)` / `update_setup(...)` | `api_client.settings.get_settings(...)` / `update_settings(...)` |
-| `api_client.project.import_iom_file(...)` | `open_project_from_filepath(path)` for `.xml`/`.iom` files, or `api_client.project.import_iom(...)` |
-| Instantiating `ProjectApi()` / `ReportApi()` directly | Use the client accessors: `api_client.project`, `api_client.report`, `api_client.export`, `api_client.connection_library` |
-| Forgetting the project id after opening | `project_id = api_client.project.active_project_id` (C#: `client.Project.ProjectId`) |
-| `api_client.operation.add_plate(...)`, `add_bolt`, `add_weld`, `add_cut` | No such endpoints; author geometry via `apply_template`, the Connection Library pipeline, or IOM import |
+| Connection refused | Service not running, or another port |
+| `401` "The 'ClientId' header is required" on every call | `ClientId` header missing or misspelled |
+| `400` with an `errors` map | Body does not bind (wrong enum value, wrong nesting). Ignore the entry `"request": ["The request field is required."]`; the other key names the cause |
+| `404` on a project id | Project closed, or opened by another ClientId |
+| `404` on `calculate` / `results` | An unknown connection id in the array; nothing was calculated |
+| `404` on a load-effect POST | Unknown `memberId` in the body (the 26.1.1 `detail` does not name it) |
+| `409` | Operation id of another kind, or a second async job on the project (a synchronous calculate waits instead) |
+| `415` on `open` (no body in 26.1.1) | JSON body instead of `multipart/form-data` |
+| `405` (no body in 26.1.1) | Wrong method for the route, e.g. PUT with the operation id in the path |
+| `422` | Validation; the `detail` names the field, id or name that failed (a report for an unknown connection id is `422` too) |
+| `500` on `open` | The file is not a valid `.ideaCon` (section 9) |
+| `500` on a load-effect POST | Forces placed flat on the loading instead of inside `sectionLoad` (section 9) |
+| `500` on `evaluate-expression` | The expression cannot be evaluated; create it as a parameter to get a `422` that says why (section 9) |
+| `passed: false`, Analysis row "There are no loads on members" | No active load effect with forces |
 
-## Common error causes
+## 12. Every route
 
-- **Connection refused / timeout on the base URL** — the service is not running, or you attached to the wrong port. Start `IdeaStatiCa.ConnectionRestApi.exe` from the installation directory, or use the runner pattern. Readiness can be checked at `GET {base_url}/heartbeat`.
-- **`API executable not found at path: ...`** from the runner (Python: `FileNotFoundError`; C#: `FileNotFoundException`) — the `setup_dir` does not point at the directory containing `IdeaStatiCa.ConnectionRestApi.exe` (worked example: `C:\Program Files\IDEA StatiCa\StatiCa 26.0`).
-- **Method not found / unexpected 404** — SDK package version does not match the installed service version, or the method was hallucinated. Verify against this page and reinstall the SDK version matching your IDEA StatiCa installation.
-- **404 or empty results referencing a project id** — the project was closed (clients close the active project on exit) or you used a stale id. Re-open and re-read `active_project_id`.
-- **Pydantic validation error on a parameter update** — a non-string was passed to `expression`.
-- **Template apply produces no change or reports issues** — check `ConTemplateApplyResult.applied_without_issues` and `.issues`; verify the template XML was base64-decoded and that `member_ids` in the mapping request match members from `get_members`.
-- **Design-code conversion fails** — the source project is not ECEN; only ECEN projects can be converted.
+All 172 routes of API 5.0 in service build 26.1.1.2809, relative to `/api/5`. A line with several methods lists one route per method.
 
-## How to use this page with an AI assistant
+**Client**
 
-Paste this entire page into the assistant's context (or point the tool at this URL) before asking it to generate Connection API code. Instruct it to: use only methods listed here, start from the standard boilerplate, and state explicitly when something you ask for is not available in the public API rather than inventing a call. When the assistant's SDK version differs from yours, regenerate against the matching package — method surfaces are version-specific. Report SDK bugs and missing functionality at [GitHub Discussions](https://github.com/idea-statica/ideastatica-public/discussions).
+```
+GET  /clients/connect-client
+GET  /clients/idea-service-version
+```
+
+**Projects**
+
+```
+POST      /projects/open
+GET       /projects/{projectId}/close
+GET POST  /projects
+GET       /projects/{projectId}/download
+GET PUT   /projects/{projectId}
+POST      /projects/import-iom-file
+POST      /projects/{projectId}/update-iom-file
+```
+
+**Connections**
+
+```
+GET POST        /projects/{projectId}/connections
+GET PUT DELETE  /projects/{projectId}/connections/{connectionId}
+POST            /projects/{projectId}/connections/{connectionId}/copy
+GET             /projects/{projectId}/connections/{connectionId}/production-cost
+GET             /projects/{projectId}/connections/{connectionId}/get-topology
+```
+
+**Members**
+
+```
+GET POST PUT  /projects/{projectId}/connections/{connectionId}/members
+GET DELETE    /projects/{projectId}/connections/{connectionId}/members/{memberId}
+PUT           /projects/{projectId}/connections/{connectionId}/members/{memberId}/set-bearing-member
+```
+
+**Materials and cross-sections**
+
+```
+GET       /projects/{projectId}/materials
+GET POST  /projects/{projectId}/materials/steel
+GET POST  /projects/{projectId}/materials/concrete
+GET POST  /projects/{projectId}/materials/bolt-grade
+GET POST  /projects/{projectId}/materials/welding
+GET POST  /projects/{projectId}/materials/headed-stud-grade
+GET POST  /projects/{projectId}/materials/reinforcement
+GET POST  /projects/{projectId}/materials/cross-sections
+GET       /projects/{projectId}/materials/cross-sections/{cssId}
+GET       /projects/{projectId}/materials/cross-sections/{cssId}/geometry
+GET POST  /projects/{projectId}/materials/bolt-assemblies
+GET       /projects/{projectId}/materials/{materialType}/library
+POST      /projects/{projectId}/materials/cross-sections/parametric
+PUT       /projects/{projectId}/materials/cross-sections/parametric/{cssId}
+PUT       /projects/{projectId}/materials/cross-sections/library/{cssId}
+GET       /projects/{projectId}/materials/cross-sections/parametric/shapes
+GET       /projects/{projectId}/materials/cross-sections/parametric/shapes/{shapeType}
+GET POST  /projects/{projectId}/materials/pin
+```
+
+**Operations**
+
+```
+GET DELETE    /projects/{projectId}/connections/{connectionId}/operations
+GET PUT       /projects/{projectId}/connections/{connectionId}/operations/common-properties
+POST          /projects/{projectId}/connections/{connectionId}/operations/weld-sizing
+GET POST PUT  /projects/{projectId}/connections/{connectionId}/operations/weld
+GET           /projects/{projectId}/connections/{connectionId}/operations/weld/{operationId}
+GET POST PUT  /projects/{projectId}/connections/{connectionId}/operations/cut
+GET           /projects/{projectId}/connections/{connectionId}/operations/cut/{operationId}
+GET POST PUT  /projects/{projectId}/connections/{connectionId}/operations/plate-cut
+GET           /projects/{projectId}/connections/{connectionId}/operations/plate-cut/{operationId}
+GET POST PUT  /projects/{projectId}/connections/{connectionId}/operations/bolt-grid
+GET           /projects/{projectId}/connections/{connectionId}/operations/bolt-grid/{operationId}
+GET POST PUT  /projects/{projectId}/connections/{connectionId}/operations/anchor-grid
+GET           /projects/{projectId}/connections/{connectionId}/operations/anchor-grid/{operationId}
+GET POST PUT  /projects/{projectId}/connections/{connectionId}/operations/pin-grid
+GET           /projects/{projectId}/connections/{connectionId}/operations/pin-grid/{operationId}
+GET POST PUT  /projects/{projectId}/connections/{connectionId}/operations/contact
+GET           /projects/{projectId}/connections/{connectionId}/operations/contact/{operationId}
+GET POST PUT  /projects/{projectId}/connections/{connectionId}/operations/contact-grid
+GET           /projects/{projectId}/connections/{connectionId}/operations/contact-grid/{operationId}
+GET POST PUT  /projects/{projectId}/connections/{connectionId}/operations/negative-member
+GET           /projects/{projectId}/connections/{connectionId}/operations/negative-member/{operationId}
+GET POST PUT  /projects/{projectId}/connections/{connectionId}/operations/negative-plate
+GET           /projects/{projectId}/connections/{connectionId}/operations/negative-plate/{operationId}
+GET POST PUT  /projects/{projectId}/connections/{connectionId}/operations/stiffening-member
+GET           /projects/{projectId}/connections/{connectionId}/operations/stiffening-member/{operationId}
+GET POST PUT  /projects/{projectId}/connections/{connectionId}/operations/stiffening-plate
+GET           /projects/{projectId}/connections/{connectionId}/operations/stiffening-plate/{operationId}
+GET POST PUT  /projects/{projectId}/connections/{connectionId}/operations/work-plane
+GET           /projects/{projectId}/connections/{connectionId}/operations/work-plane/{operationId}
+```
+
+**Load effects**
+
+```
+GET POST PUT DELETE  /projects/{projectId}/connections/{connectionId}/load-effects
+GET DELETE           /projects/{projectId}/connections/{connectionId}/load-effects/{loadEffectId}
+GET                  /projects/{projectId}/connections/{connectionId}/load-effects/get-load-settings
+POST                 /projects/{projectId}/connections/{connectionId}/load-effects/set-load-settings
+POST                 /projects/{projectId}/connections/{connectionId}/load-effects/calculate-load-extremes
+```
+
+**Calculation and results**
+
+```
+POST  /projects/{projectId}/connections/calculate
+POST  /projects/{projectId}/connections/{connectionId}/calculate
+POST  /projects/{projectId}/connections/results
+POST  /projects/{projectId}/connections/rawresults-text
+POST  /projects/{projectId}/connections/{connectionId}/rawresults-text
+```
+
+**Asynchronous calculation**
+
+```
+POST        /projects/{projectId}/connections/calculate-async
+POST        /projects/{projectId}/connections/{connectionId}/calculate-async
+GET DELETE  /projects/{projectId}/calculation-jobs/{jobId}
+```
+
+**Reports**
+
+```
+POST  /projects/{projectId}/reports/pdf
+POST  /projects/{projectId}/reports/word
+GET   /projects/{projectId}/connections/{connectionId}/reports/pdf
+GET   /projects/{projectId}/connections/{connectionId}/reports/word
+GET   /projects/{projectId}/connections/{connectionId}/reports/htmlZip
+```
+
+**Exports**
+
+```
+GET  /projects/{projectId}/connections/{connectionId}/export-iom
+GET  /projects/{projectId}/connections/{connectionId}/export-iom-connection-data
+GET  /projects/{projectId}/connections/{connectionId}/export-ifc
+GET  /projects/{projectId}/connections/{connectionId}/export-dwg
+```
+
+**3D scene data**
+
+```
+GET  /projects/{projectId}/connections/{connectionId}/presentations
+GET  /projects/{projectId}/connections/{connectionId}/presentations/text
+```
+
+**Parameters**
+
+```
+GET POST PUT DELETE  /projects/{projectId}/connections/{connectionId}/parameters
+DELETE               /projects/{projectId}/connections/{connectionId}/parameters/{key}
+GET POST             /projects/{projectId}/connections/{connectionId}/parameters/links
+DELETE               /projects/{projectId}/connections/{connectionId}/parameters/links/{linkId}
+GET                  /projects/{projectId}/connections/{connectionId}/members/{memberId}/linkable-properties
+GET                  /projects/{projectId}/connections/{connectionId}/operations/{operationId}/linkable-properties
+GET                  /projects/{projectId}/connections/{connectionId}/parameters/linkable-properties
+POST                 /projects/{projectId}/connections/{connectionId}/evaluate-expression
+```
+
+**Templates**
+
+```
+GET         /projects/{projectId}/connections/{connectionId}/templates/{templateInstanceId}
+GET DELETE  /projects/{projectId}/connections/{connectionId}/templates
+GET         /projects/{projectId}/connections/{connectionId}/get-template
+POST        /projects/{projectId}/connections/{connectionId}/templates/create-from-connection
+POST        /projects/{projectId}/connections/{connectionId}/get-default-mapping
+POST        /projects/{projectId}/connections/{connectionId}/apply-template
+POST        /projects/{projectId}/connections/{connectionId}/templates/explode
+POST        /projects/{projectId}/connections/{connectionId}/templates/{templateId}/explode
+DELETE      /projects/{projectId}/connections/{connectionId}/templates/{templateId}
+GET PUT     /projects/{projectId}/connections/{connectionId}/templates/{templateId}/common-properties
+POST        /projects/{projectId}/connections/{connectionId}/templates/{templateId}/load-defaults
+```
+
+**Connection Library**
+
+```
+GET   /connection-library/get-design-sets
+POST  /projects/{projectId}/connections/{connectionId}/propose
+GET   /connection-library/get-template
+GET   /connection-library/get-picture
+POST  /projects/{projectId}/connections/{connectionId}/publish
+```
+
+**Design-code conversion**
+
+```
+GET   /projects/{projectId}/get-default-mapping
+POST  /projects/{projectId}/change-code
+```
+
+**Settings**
+
+```
+GET PUT  /projects/{projectId}/settings
+```
+
+The running service's OpenAPI document is the complete list for the service you talk to, with the request and response schema of each route. Print its routes with one command:
+
+```console
+curl -s http://localhost:5000/swagger/5.0/swagger.json | python -c "import json,sys; [print(m.upper(), p) for p, ops in json.load(sys.stdin)['paths'].items() for m in ops]"
+```
+
+Then search the same document for the path you picked to get its request and response schemas.
+
+## 13. Clients and how to use this page with an AI assistant
+
+The generated C# and Python clients mirror this OpenAPI one to one: [Python client](clients/python/README.md), [C# client](clients/csharp/README.md).
+
+Give this page to the assistant (paste it, or point the tool at its URL) before asking for Connection API code. Ask it to check that the service runs before starting one, to take route and field names from the running service's swagger, to use this page for the behaviour the swagger does not state, and to say so when something is not available rather than inventing a route or field. Report problems and missing functionality in [GitHub Discussions](https://github.com/idea-statica/ideastatica-public/discussions).

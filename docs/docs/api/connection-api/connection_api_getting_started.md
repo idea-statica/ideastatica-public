@@ -293,7 +293,7 @@ For detailed results beyond the summary, the calculation group also provides `ge
 - [Connection API overview](connection_api_overview.md) — architecture, capability map, and API history.
 - [Concepts](connection_api_concepts.md) — projects, connections, operations, templates, parameters, load effects, results, and reports.
 - [Getting started with Parameters](../api_parameters_getting_started.md) and the [Expression Parameter Reference Guide](../api_parameter_reference_guide.md) — drive parametric connection design through the API.
-- [AI / LLM reference](connection_api_llm_reference.md) — a single-page SDK reference designed to be pasted into an AI assistant's context.
+- [AI / LLM reference](connection_api_llm_reference.md) — a single-page HTTP reference of the REST API, designed to be given to an AI assistant.
 - [OpenAPI specification](https://developer.ideastatica.com/specs/connection-api/openapi.yaml) — the machine-readable contract for all REST endpoints, for calling the API without an SDK.
 - Client reference and examples on GitHub: [C# client](https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api/clients/csharp) ([examples](https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api/clients/csharp/examples), including **CodeSamples**) and [Python client](https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api/clients/python) ([examples](https://github.com/idea-statica/ideastatica-public/tree/main/src/api-sdks/connection-api/clients/python/examples)).
 - Questions, bug reports, or missing functionality: [GitHub Discussions](https://github.com/idea-statica/ideastatica-public/discussions).

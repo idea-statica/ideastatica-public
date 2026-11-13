@@ -1,6 +1,6 @@
 # IDEA StatiCa Developer Documentation
 
-> APIs and SDKs for IDEA StatiCa, structural engineering software for steel connection and concrete design. Covers the Connection REST API (a locally hosted OpenAPI 3 service with C# and Python SDK clients), the RCS API, the IDEA Open Model (IOM) data format, and BIM links to IDEA StatiCa Checkbot. Current product version: 26.0.
+> APIs and SDKs for IDEA StatiCa, structural engineering software for steel connection and concrete design. Covers the Connection REST API (a locally hosted OpenAPI 3 service with C# and Python SDK clients), the RCS API, the IDEA Open Model (IOM) data format, and BIM links to IDEA StatiCa Checkbot. Current product version: 26.1 (Connection REST API 5.0).
 
 The Connection and RCS APIs are exposed by services that ship with the IDEA StatiCa desktop installation (version 24.1 or later) and run on the local machine. SDK packages are released per product version: always install the SDK package version that matches the installed IDEA StatiCa version (C#: NuGet package IdeaStatiCa.ConnectionApi; Python: PyPI package ideastatica-connection-api).
 
@@ -9,10 +9,9 @@ The Connection and RCS APIs are exposed by services that ship with the IDEA Stat
 - [Overview](https://developer.ideastatica.com/docs/api/connection-api/connection_api_overview.html): what the Connection API is, architecture, clients, capabilities, API history
 - [Getting started](https://developer.ideastatica.com/docs/api/connection-api/connection_api_getting_started.html): run the local service, connect a client, open a project, calculate, and read results in Python and C#
 - [Concepts](https://developer.ideastatica.com/docs/api/connection-api/connection_api_concepts.html): service lifecycle, projects, connections, members, operations, templates, Connection Library, design-code conversion, parameters, load effects, materials, calculation results, reports, and exports
-- [AI / LLM reference](https://developer.ideastatica.com/docs/api/connection-api/connection_api_llm_reference.html): single-file Python SDK reference designed to be loaded into an AI assistant's context
-- [OpenAPI 3.0 specification](https://developer.ideastatica.com/specs/connection-api/openapi.yaml): machine-readable definition of all REST endpoints (base path /api/3/)
-- [C# client reference](https://developer.ideastatica.com/docs/api/connection-api/clients/csharp/README.html): documentation of the IdeaStatiCa.ConnectionApi NuGet package
-- [Python client reference](https://developer.ideastatica.com/docs/api/connection-api/clients/python/README.html): documentation of the ideastatica-connection-api PyPI package (import name: ideastatica_connection_api)
+- [AI / LLM reference](https://developer.ideastatica.com/docs/api/connection-api/connection_api_llm_reference.html): single-file HTTP reference of the Connection REST API 5.0 for AI assistants: the rules the OpenAPI document does not state, workflows, known issues of 26.1.1 and every route
+- [Changelog](https://developer.ideastatica.com/docs/api/connection-api/connection_api_changelog.html): what changed in the REST API between product releases
+- [OpenAPI 3.0 specification](https://developer.ideastatica.com/specs/connection-api/openapi.yaml): machine-readable definition of all REST endpoints (API 5.0, base path /api/5/); a running service serves its own at /swagger/5.0/swagger.json
 - [Examples](https://developer.ideastatica.com/docs/api/connection-api/connection_api_examples.html): annotated catalog of all C# and Python examples with GitHub links
 - [Getting started with Parameters](https://developer.ideastatica.com/docs/api/api_parameters_getting_started.html): parametrize connection designs with expression parameters
 - [Expression Parameter Reference Guide](https://developer.ideastatica.com/docs/api/api_parameter_reference_guide.html): expression syntax for connection parameters
@@ -45,6 +44,8 @@ The Connection and RCS APIs are exposed by services that ship with the IDEA Stat
 
 ## Optional
 
+- [C# client reference](https://developer.ideastatica.com/docs/api/connection-api/clients/csharp/README.html): Connection API C# client, documentation of the IdeaStatiCa.ConnectionApi NuGet package
+- [Python client reference](https://developer.ideastatica.com/docs/api/connection-api/clients/python/README.html): Connection API Python client, documentation of the ideastatica-connection-api PyPI package (import name: ideastatica_connection_api)
 - [GitHub repository](https://github.com/idea-statica/ideastatica-public): source of the SDKs, examples, and this documentation
 - [GitHub Discussions](https://github.com/idea-statica/ideastatica-public/discussions): questions, support, and SDK bug reports
 - [Issue tracker](https://github.com/idea-statica/ideastatica-public/issues)
