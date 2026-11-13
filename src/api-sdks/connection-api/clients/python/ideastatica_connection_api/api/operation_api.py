@@ -75,7 +75,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Adds a new anchor grid operation to the connection.
+        """Adds a new anchor grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -120,6 +120,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -153,7 +154,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Adds a new anchor grid operation to the connection.
+        """Adds a new anchor grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -198,6 +199,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -231,7 +233,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Adds a new anchor grid operation to the connection.
+        """Adds a new anchor grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -276,6 +278,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -387,7 +390,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Adds a new bolt grid operation to the connection.
+        """Adds a new bolt grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -432,6 +435,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -465,7 +469,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Adds a new bolt grid operation to the connection.
+        """Adds a new bolt grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -510,6 +514,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -543,7 +548,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Adds a new bolt grid operation to the connection.
+        """Adds a new bolt grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -588,6 +593,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -699,7 +705,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Adds a new contact grid operation to the connection.
+        """Adds a new contact grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -744,6 +750,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -777,7 +784,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Adds a new contact grid operation to the connection.
+        """Adds a new contact grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -822,6 +829,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -855,7 +863,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Adds a new contact grid operation to the connection.
+        """Adds a new contact grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -900,6 +908,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -1011,7 +1020,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Adds a new contact operation to the connection.
+        """Adds a new contact operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -1056,6 +1065,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -1089,7 +1099,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Adds a new contact operation to the connection.
+        """Adds a new contact operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -1134,6 +1144,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -1167,7 +1178,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Adds a new contact operation to the connection.
+        """Adds a new contact operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -1212,6 +1223,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -1323,7 +1335,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Adds a new cut operation to the connection.
+        """Adds a new cut operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -1368,6 +1380,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -1401,7 +1414,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Adds a new cut operation to the connection.
+        """Adds a new cut operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -1446,6 +1459,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -1479,7 +1493,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Adds a new cut operation to the connection.
+        """Adds a new cut operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -1524,6 +1538,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -1635,7 +1650,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Adds a new negative member operation to the connection.
+        """Adds a new negative member operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -1680,6 +1695,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -1713,7 +1729,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Adds a new negative member operation to the connection.
+        """Adds a new negative member operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -1758,6 +1774,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -1791,7 +1808,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Adds a new negative member operation to the connection.
+        """Adds a new negative member operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -1836,6 +1853,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -1947,7 +1965,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Adds a new negative plate operation to the connection.
+        """Adds a new negative plate operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -1992,6 +2010,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -2025,7 +2044,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Adds a new negative plate operation to the connection.
+        """Adds a new negative plate operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -2070,6 +2089,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -2103,7 +2123,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Adds a new negative plate operation to the connection.
+        """Adds a new negative plate operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -2148,6 +2168,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -2259,7 +2280,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Adds a new pin grid operation to the connection.
+        """Adds a new pin grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -2304,6 +2325,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -2337,7 +2359,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Adds a new pin grid operation to the connection.
+        """Adds a new pin grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -2382,6 +2404,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -2415,7 +2438,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Adds a new pin grid operation to the connection.
+        """Adds a new pin grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -2460,6 +2483,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -2571,7 +2595,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Adds a new plate cut operation to the connection.
+        """Adds a new plate cut operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -2616,6 +2640,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -2649,7 +2674,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Adds a new plate cut operation to the connection.
+        """Adds a new plate cut operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -2694,6 +2719,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -2727,7 +2753,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Adds a new plate cut operation to the connection.
+        """Adds a new plate cut operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -2772,6 +2798,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -2883,7 +2910,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Adds a new stiffening member operation to the connection.
+        """Adds a new stiffening member operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -2928,6 +2955,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -2961,7 +2989,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Adds a new stiffening member operation to the connection.
+        """Adds a new stiffening member operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -3006,6 +3034,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -3039,7 +3068,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Adds a new stiffening member operation to the connection.
+        """Adds a new stiffening member operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -3084,6 +3113,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -3195,7 +3225,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Adds a new stiffening plate operation to the connection.
+        """Adds a new stiffening plate operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -3240,6 +3270,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -3273,7 +3304,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Adds a new stiffening plate operation to the connection.
+        """Adds a new stiffening plate operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -3318,6 +3349,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -3351,7 +3383,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Adds a new stiffening plate operation to the connection.
+        """Adds a new stiffening plate operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -3396,6 +3428,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -3507,7 +3540,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Adds a new weld operation to the connection.
+        """Adds a new weld operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -3552,6 +3585,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -3585,7 +3619,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Adds a new weld operation to the connection.
+        """Adds a new weld operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -3630,6 +3664,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -3663,7 +3698,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Adds a new weld operation to the connection.
+        """Adds a new weld operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -3708,6 +3743,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -3819,7 +3855,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Adds a new work plane operation to the connection.
+        """Adds a new work plane operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
         A work plane is virtual reference geometry used by other operations (e.g. cuts) and for fatigue analysis.  It has no structural effect by itself.  Supports all three methods (ByAngles, ByNormalVector, ByIntersection) and all  coordinate system origins (Joint, Member, Plate).
 
@@ -3865,6 +3901,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -3898,7 +3935,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Adds a new work plane operation to the connection.
+        """Adds a new work plane operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
         A work plane is virtual reference geometry used by other operations (e.g. cuts) and for fatigue analysis.  It has no structural effect by itself.  Supports all three methods (ByAngles, ByNormalVector, ByIntersection) and all  coordinate system origins (Joint, Member, Plate).
 
@@ -3944,6 +3981,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -3977,7 +4015,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Adds a new work plane operation to the connection.
+        """Adds a new work plane operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
         A work plane is virtual reference geometry used by other operations (e.g. cuts) and for fatigue analysis.  It has no structural effect by itself.  Supports all three methods (ByAngles, ByNormalVector, ByIntersection) and all  coordinate system origins (Joint, Member, Plate).
 
@@ -4023,6 +4061,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -4460,6 +4499,7 @@ class OperationApi:
             '200': "ConAnchorGridOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -4537,6 +4577,7 @@ class OperationApi:
             '200': "ConAnchorGridOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -4614,6 +4655,7 @@ class OperationApi:
             '200': "ConAnchorGridOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -5037,6 +5079,7 @@ class OperationApi:
             '200': "ConBoltGridOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -5114,6 +5157,7 @@ class OperationApi:
             '200': "ConBoltGridOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -5191,6 +5235,7 @@ class OperationApi:
             '200': "ConBoltGridOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -5895,6 +5940,7 @@ class OperationApi:
             '200': "ConContactGridOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -5972,6 +6018,7 @@ class OperationApi:
             '200': "ConContactGridOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -6049,6 +6096,7 @@ class OperationApi:
             '200': "ConContactGridOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -6472,6 +6520,7 @@ class OperationApi:
             '200': "ConContactOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -6549,6 +6598,7 @@ class OperationApi:
             '200': "ConContactOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -6626,6 +6676,7 @@ class OperationApi:
             '200': "ConContactOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -7049,6 +7100,7 @@ class OperationApi:
             '200': "ConCutOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -7126,6 +7178,7 @@ class OperationApi:
             '200': "ConCutOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -7203,6 +7256,7 @@ class OperationApi:
             '200': "ConCutOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -7626,6 +7680,7 @@ class OperationApi:
             '200': "ConNegativeMemberOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -7703,6 +7758,7 @@ class OperationApi:
             '200': "ConNegativeMemberOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -7780,6 +7836,7 @@ class OperationApi:
             '200': "ConNegativeMemberOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -8203,6 +8260,7 @@ class OperationApi:
             '200': "ConNegativePlateOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -8280,6 +8338,7 @@ class OperationApi:
             '200': "ConNegativePlateOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -8357,6 +8416,7 @@ class OperationApi:
             '200': "ConNegativePlateOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -9061,6 +9121,7 @@ class OperationApi:
             '200': "ConPinGridOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -9138,6 +9199,7 @@ class OperationApi:
             '200': "ConPinGridOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -9215,6 +9277,7 @@ class OperationApi:
             '200': "ConPinGridOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -9638,6 +9701,7 @@ class OperationApi:
             '200': "ConPlateCutOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -9715,6 +9779,7 @@ class OperationApi:
             '200': "ConPlateCutOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -9792,6 +9857,7 @@ class OperationApi:
             '200': "ConPlateCutOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -10215,6 +10281,7 @@ class OperationApi:
             '200': "ConStiffeningMemberOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -10292,6 +10359,7 @@ class OperationApi:
             '200': "ConStiffeningMemberOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -10369,6 +10437,7 @@ class OperationApi:
             '200': "ConStiffeningMemberOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -10792,6 +10861,7 @@ class OperationApi:
             '200': "ConStiffeningPlateOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -10869,6 +10939,7 @@ class OperationApi:
             '200': "ConStiffeningPlateOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -10946,6 +11017,7 @@ class OperationApi:
             '200': "ConStiffeningPlateOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -11369,6 +11441,7 @@ class OperationApi:
             '200': "ConWeldOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -11446,6 +11519,7 @@ class OperationApi:
             '200': "ConWeldOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -11523,6 +11597,7 @@ class OperationApi:
             '200': "ConWeldOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -11946,6 +12021,7 @@ class OperationApi:
             '200': "ConWorkPlaneOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -12023,6 +12099,7 @@ class OperationApi:
             '200': "ConWorkPlaneOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -12100,6 +12177,7 @@ class OperationApi:
             '200': "ConWorkPlaneOperation",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '500': "ProblemDetails",
         }
         response_data = self.api_client.call_api(
@@ -12782,7 +12860,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Replaces an Anchor Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces an Anchor Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -12827,6 +12905,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -12860,7 +12939,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Replaces an Anchor Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces an Anchor Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -12905,6 +12984,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -12938,7 +13018,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Replaces an Anchor Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces an Anchor Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -12983,6 +13063,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -13094,7 +13175,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Replaces a Bolt Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Bolt Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -13139,6 +13220,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -13172,7 +13254,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Replaces a Bolt Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Bolt Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -13217,6 +13299,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -13250,7 +13333,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Replaces a Bolt Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Bolt Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -13295,6 +13378,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -13718,7 +13802,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Replaces a Contact Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Contact Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -13763,6 +13847,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -13796,7 +13881,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Replaces a Contact Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Contact Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -13841,6 +13926,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -13874,7 +13960,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Replaces a Contact Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Contact Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -13919,6 +14005,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -14030,7 +14117,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Replaces a Contact operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Contact operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -14075,6 +14162,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -14108,7 +14196,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Replaces a Contact operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Contact operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -14153,6 +14241,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -14186,7 +14275,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Replaces a Contact operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Contact operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -14231,6 +14320,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -14342,7 +14432,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Replaces a Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -14387,6 +14477,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -14420,7 +14511,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Replaces a Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -14465,6 +14556,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -14498,7 +14590,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Replaces a Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -14543,6 +14635,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -14654,7 +14747,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -14699,6 +14792,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -14732,7 +14826,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -14777,6 +14871,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -14810,7 +14905,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -14855,6 +14950,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -14966,7 +15062,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -15011,6 +15107,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -15044,7 +15141,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -15089,6 +15186,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -15122,7 +15220,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -15167,6 +15265,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -15278,7 +15377,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Replaces a Pin Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Pin Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -15323,6 +15422,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -15356,7 +15456,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Replaces a Pin Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Pin Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -15401,6 +15501,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -15434,7 +15535,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Replaces a Pin Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Pin Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -15479,6 +15580,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -15590,7 +15692,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Replaces a Plate Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Plate Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -15635,6 +15737,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -15668,7 +15771,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Replaces a Plate Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Plate Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -15713,6 +15816,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -15746,7 +15850,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Replaces a Plate Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Plate Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -15791,6 +15895,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -15902,7 +16007,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -15947,6 +16052,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -15980,7 +16086,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -16025,6 +16131,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -16058,7 +16165,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -16103,6 +16210,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -16214,7 +16322,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.
+        """Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -16259,6 +16367,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -16292,7 +16401,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.
+        """Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -16337,6 +16446,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -16370,7 +16480,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.
+        """Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -16415,6 +16525,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -16526,7 +16637,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Replaces a Weld operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Weld operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -16571,6 +16682,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -16604,7 +16716,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Replaces a Weld operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Weld operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -16649,6 +16761,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -16682,7 +16795,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Replaces a Weld operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Weld operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -16727,6 +16840,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -16838,7 +16952,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConAddOperationResult:
-        """Replaces a Work Plane operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Work Plane operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -16883,6 +16997,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -16916,7 +17031,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConAddOperationResult]:
-        """Replaces a Work Plane operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Work Plane operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -16961,6 +17076,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }
@@ -16994,7 +17110,7 @@ class OperationApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Replaces a Work Plane operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        """Replaces a Work Plane operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
         :param project_id: The unique identifier of the opened project in the ConnectionRestApi service. (required)
@@ -17039,6 +17155,7 @@ class OperationApi:
             '200': "ConAddOperationResult",
             '401': "ProblemDetails",
             '404': "ProblemDetails",
+            '409': "ProblemDetails",
             '422': "ProblemDetails",
             '500': "ProblemDetails",
         }

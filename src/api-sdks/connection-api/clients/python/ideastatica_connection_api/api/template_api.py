@@ -929,7 +929,7 @@ class TemplateApi:
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the template.")],
-        template_id: Annotated[StrictStr, Field(description="The ID of the template to delete.")],
+        template_id: Annotated[StrictInt, Field(description="TemplateId of the applied template as listed by GetTemplatesInConnection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -950,8 +950,8 @@ class TemplateApi:
         :type project_id: str
         :param connection_id: The ID of the connection containing the template. (required)
         :type connection_id: int
-        :param template_id: The ID of the template to delete. (required)
-        :type template_id: str
+        :param template_id: TemplateId of the applied template as listed by GetTemplatesInConnection. (required)
+        :type template_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1006,7 +1006,7 @@ class TemplateApi:
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the template.")],
-        template_id: Annotated[StrictStr, Field(description="The ID of the template to delete.")],
+        template_id: Annotated[StrictInt, Field(description="TemplateId of the applied template as listed by GetTemplatesInConnection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1027,8 +1027,8 @@ class TemplateApi:
         :type project_id: str
         :param connection_id: The ID of the connection containing the template. (required)
         :type connection_id: int
-        :param template_id: The ID of the template to delete. (required)
-        :type template_id: str
+        :param template_id: TemplateId of the applied template as listed by GetTemplatesInConnection. (required)
+        :type template_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1083,7 +1083,7 @@ class TemplateApi:
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the template.")],
-        template_id: Annotated[StrictStr, Field(description="The ID of the template to delete.")],
+        template_id: Annotated[StrictInt, Field(description="TemplateId of the applied template as listed by GetTemplatesInConnection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1104,8 +1104,8 @@ class TemplateApi:
         :type project_id: str
         :param connection_id: The ID of the connection containing the template. (required)
         :type connection_id: int
-        :param template_id: The ID of the template to delete. (required)
-        :type template_id: str
+        :param template_id: TemplateId of the applied template as listed by GetTemplatesInConnection. (required)
+        :type template_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1510,7 +1510,7 @@ class TemplateApi:
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the template.")],
-        template_id: Annotated[StrictStr, Field(description="The ID of the template to explode.")],
+        template_id: Annotated[StrictInt, Field(description="TemplateId of the applied template as listed by GetTemplatesInConnection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1531,8 +1531,8 @@ class TemplateApi:
         :type project_id: str
         :param connection_id: The ID of the connection containing the template. (required)
         :type connection_id: int
-        :param template_id: The ID of the template to explode. (required)
-        :type template_id: str
+        :param template_id: TemplateId of the applied template as listed by GetTemplatesInConnection. (required)
+        :type template_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1588,7 +1588,7 @@ class TemplateApi:
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the template.")],
-        template_id: Annotated[StrictStr, Field(description="The ID of the template to explode.")],
+        template_id: Annotated[StrictInt, Field(description="TemplateId of the applied template as listed by GetTemplatesInConnection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1609,8 +1609,8 @@ class TemplateApi:
         :type project_id: str
         :param connection_id: The ID of the connection containing the template. (required)
         :type connection_id: int
-        :param template_id: The ID of the template to explode. (required)
-        :type template_id: str
+        :param template_id: TemplateId of the applied template as listed by GetTemplatesInConnection. (required)
+        :type template_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1666,7 +1666,7 @@ class TemplateApi:
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the template.")],
-        template_id: Annotated[StrictStr, Field(description="The ID of the template to explode.")],
+        template_id: Annotated[StrictInt, Field(description="TemplateId of the applied template as listed by GetTemplatesInConnection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1687,8 +1687,8 @@ class TemplateApi:
         :type project_id: str
         :param connection_id: The ID of the connection containing the template. (required)
         :type connection_id: int
-        :param template_id: The ID of the template to explode. (required)
-        :type template_id: str
+        :param template_id: TemplateId of the applied template as listed by GetTemplatesInConnection. (required)
+        :type template_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2412,7 +2412,7 @@ class TemplateApi:
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the template.")],
-        template_id: Annotated[StrictStr, Field(description="The ID of the template.")],
+        template_id: Annotated[StrictInt, Field(description="TemplateId of the applied template as listed by GetTemplatesInConnection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2433,8 +2433,8 @@ class TemplateApi:
         :type project_id: str
         :param connection_id: The ID of the connection containing the template. (required)
         :type connection_id: int
-        :param template_id: The ID of the template. (required)
-        :type template_id: str
+        :param template_id: TemplateId of the applied template as listed by GetTemplatesInConnection. (required)
+        :type template_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2489,7 +2489,7 @@ class TemplateApi:
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the template.")],
-        template_id: Annotated[StrictStr, Field(description="The ID of the template.")],
+        template_id: Annotated[StrictInt, Field(description="TemplateId of the applied template as listed by GetTemplatesInConnection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2510,8 +2510,8 @@ class TemplateApi:
         :type project_id: str
         :param connection_id: The ID of the connection containing the template. (required)
         :type connection_id: int
-        :param template_id: The ID of the template. (required)
-        :type template_id: str
+        :param template_id: TemplateId of the applied template as listed by GetTemplatesInConnection. (required)
+        :type template_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -2566,7 +2566,7 @@ class TemplateApi:
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the template.")],
-        template_id: Annotated[StrictStr, Field(description="The ID of the template.")],
+        template_id: Annotated[StrictInt, Field(description="TemplateId of the applied template as listed by GetTemplatesInConnection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -2587,8 +2587,8 @@ class TemplateApi:
         :type project_id: str
         :param connection_id: The ID of the connection containing the template. (required)
         :type connection_id: int
-        :param template_id: The ID of the template. (required)
-        :type template_id: str
+        :param template_id: TemplateId of the applied template as listed by GetTemplatesInConnection. (required)
+        :type template_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3288,7 +3288,7 @@ class TemplateApi:
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the template.")],
-        template_id: Annotated[StrictStr, Field(description="The ID of the template whose parameter defaults are loaded.")],
+        template_id: Annotated[StrictInt, Field(description="TemplateId of the applied template as listed by GetTemplatesInConnection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3309,8 +3309,8 @@ class TemplateApi:
         :type project_id: str
         :param connection_id: The ID of the connection containing the template. (required)
         :type connection_id: int
-        :param template_id: The ID of the template whose parameter defaults are loaded. (required)
-        :type template_id: str
+        :param template_id: TemplateId of the applied template as listed by GetTemplatesInConnection. (required)
+        :type template_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3366,7 +3366,7 @@ class TemplateApi:
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the template.")],
-        template_id: Annotated[StrictStr, Field(description="The ID of the template whose parameter defaults are loaded.")],
+        template_id: Annotated[StrictInt, Field(description="TemplateId of the applied template as listed by GetTemplatesInConnection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3387,8 +3387,8 @@ class TemplateApi:
         :type project_id: str
         :param connection_id: The ID of the connection containing the template. (required)
         :type connection_id: int
-        :param template_id: The ID of the template whose parameter defaults are loaded. (required)
-        :type template_id: str
+        :param template_id: TemplateId of the applied template as listed by GetTemplatesInConnection. (required)
+        :type template_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3444,7 +3444,7 @@ class TemplateApi:
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the template.")],
-        template_id: Annotated[StrictStr, Field(description="The ID of the template whose parameter defaults are loaded.")],
+        template_id: Annotated[StrictInt, Field(description="TemplateId of the applied template as listed by GetTemplatesInConnection.")],
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -3465,8 +3465,8 @@ class TemplateApi:
         :type project_id: str
         :param connection_id: The ID of the connection containing the template. (required)
         :type connection_id: int
-        :param template_id: The ID of the template whose parameter defaults are loaded. (required)
-        :type template_id: str
+        :param template_id: TemplateId of the applied template as listed by GetTemplatesInConnection. (required)
+        :type template_id: int
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -3587,7 +3587,7 @@ class TemplateApi:
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the template.")],
-        template_id: Annotated[StrictStr, Field(description="The ID of the template.")],
+        template_id: Annotated[StrictInt, Field(description="TemplateId of the applied template as listed by GetTemplatesInConnection.")],
         con_operation_common_properties: Annotated[Optional[ConOperationCommonProperties], Field(description="Common properties to apply (specify material IDs, or keep as null).")] = None,
         _request_timeout: Union[
             None,
@@ -3609,8 +3609,8 @@ class TemplateApi:
         :type project_id: str
         :param connection_id: The ID of the connection containing the template. (required)
         :type connection_id: int
-        :param template_id: The ID of the template. (required)
-        :type template_id: str
+        :param template_id: TemplateId of the applied template as listed by GetTemplatesInConnection. (required)
+        :type template_id: int
         :param con_operation_common_properties: Common properties to apply (specify material IDs, or keep as null).
         :type con_operation_common_properties: ConOperationCommonProperties
         :param _request_timeout: timeout setting for this request. If one
@@ -3669,7 +3669,7 @@ class TemplateApi:
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the template.")],
-        template_id: Annotated[StrictStr, Field(description="The ID of the template.")],
+        template_id: Annotated[StrictInt, Field(description="TemplateId of the applied template as listed by GetTemplatesInConnection.")],
         con_operation_common_properties: Annotated[Optional[ConOperationCommonProperties], Field(description="Common properties to apply (specify material IDs, or keep as null).")] = None,
         _request_timeout: Union[
             None,
@@ -3691,8 +3691,8 @@ class TemplateApi:
         :type project_id: str
         :param connection_id: The ID of the connection containing the template. (required)
         :type connection_id: int
-        :param template_id: The ID of the template. (required)
-        :type template_id: str
+        :param template_id: TemplateId of the applied template as listed by GetTemplatesInConnection. (required)
+        :type template_id: int
         :param con_operation_common_properties: Common properties to apply (specify material IDs, or keep as null).
         :type con_operation_common_properties: ConOperationCommonProperties
         :param _request_timeout: timeout setting for this request. If one
@@ -3751,7 +3751,7 @@ class TemplateApi:
         self,
         project_id: Annotated[StrictStr, Field(description="The unique identifier of the opened project in the ConnectionRestApi service.")],
         connection_id: Annotated[StrictInt, Field(description="The ID of the connection containing the template.")],
-        template_id: Annotated[StrictStr, Field(description="The ID of the template.")],
+        template_id: Annotated[StrictInt, Field(description="TemplateId of the applied template as listed by GetTemplatesInConnection.")],
         con_operation_common_properties: Annotated[Optional[ConOperationCommonProperties], Field(description="Common properties to apply (specify material IDs, or keep as null).")] = None,
         _request_timeout: Union[
             None,
@@ -3773,8 +3773,8 @@ class TemplateApi:
         :type project_id: str
         :param connection_id: The ID of the connection containing the template. (required)
         :type connection_id: int
-        :param template_id: The ID of the template. (required)
-        :type template_id: str
+        :param template_id: TemplateId of the applied template as listed by GetTemplatesInConnection. (required)
+        :type template_id: int
         :param con_operation_common_properties: Common properties to apply (specify material IDs, or keep as null).
         :type con_operation_common_properties: ConOperationCommonProperties
         :param _request_timeout: timeout setting for this request. If one

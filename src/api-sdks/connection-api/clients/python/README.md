@@ -3,7 +3,7 @@
 The Python package for the Connection Rest API 5.0
 
 - API version: 5.0
-- Package version: 26.1.0.4245
+- Package version: 26.1.1.2809
 
 IDEA StatiCa Connection API, used for the automated design and calculation of steel connections.
 
@@ -113,36 +113,38 @@ with connection_api_service_attacher.ConnectionApiServiceAttacher(baseUrl).creat
         connection1 = connections_in_project[0]
         pprint(connection1)
 
-        # run stress-strain CBFEM analysis for the connection id = 1
-        calcParams = ideastatica_connection_api.ConCalculationParameter() # ConCalculationParameter | List of connections to calculate and a type of CBFEM analysis (optional)
-        calcParams.connection_ids = [connection1.id]
+        # connections to calculate
+        # the analysis type is taken from the connection itself (connection1.analysis_type),
+        # set it with api_client.connection.update_connection before calculating
+        connection_ids = [connection1.id]
 
-        # run stress-strain analysis for the connection
-        con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
+        # run CBFEM analysis for the connection
+        con1_cbfem_results = api_client.calculation.calculate(api_client.project.active_project_id, connection_ids)
         pprint(con1_cbfem_results)
-        
+
         # get detailed results. Results are list of strings
         # the number of strings in the list correspond to the number of calculated connections
-        results_text = api_client.calculation.get_raw_json_results(api_client.project.active_project_id, calcParams)
+        results_text = api_client.calculation.get_raw_json_results(api_client.project.active_project_id, connection_ids)
         firstConnectionResult = results_text[0]
         pprint(firstConnectionResult)
 
         raw_results = json.loads(firstConnectionResult)
         pprint(raw_results)
 
-        detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, calcParams)
+        detailed_results = api_client.calculation.get_results(api_client.project.active_project_id, connection_ids)
         pprint(detailed_results)
 
         # get connection setup
-        connection_setup =  api_client.project.get_setup(api_client.project.active_project_id)
+        connection_setup = api_client.settings.get_settings(api_client.project.active_project_id)
         pprint(connection_setup)
 
-        # modify setup
-        connection_setup.hss_limit_plastic_strain = 0.02
-        modifiedSetup = api_client.project.update_setup(api_client.project.active_project_id, connection_setup)
+        # modify setup - settings are addressed by key
+        modifiedSetupValues = {}
+        modifiedSetupValues["calculationCommon/Checks/Shared/LimitPlasticStrainForHighStrengthSteel@01"] = 0.02
+        modifiedSetup = api_client.settings.update_settings(api_client.project.active_project_id, modifiedSetupValues)
 
         # recalculate connection
-        recalculate_results = api_client.calculation.calculate(api_client.project.active_project_id, calcParams)
+        recalculate_results = api_client.calculation.calculate(api_client.project.active_project_id, connection_ids)
         pprint(recalculate_results)
 
     except Exception as e:
@@ -231,8 +233,8 @@ Methods marked with an **^** denote that they have an additional extension in th
   ------------- | -------------
 [**export_dwg^**](docs/ExportApi.md#export_dwg) | Exports the connection to DWG format. Internally opens the project on the cloud Viewer, starts a Forge work  item via the async DWG flow, blocks until completion (up to 10 minutes), then streams the generated DWG.  The client does not need to pass any authentication — the ConnectionRestApi reuses the IDEA license access  token from the Credential Manager (via AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer's  authenticated DWG endpoints. User identity (email) is part of that JWT.
 [**export_ifc^**](docs/ExportApi.md#export_ifc) | Exports the connection to IFC format.
-[**export_iom**](docs/ExportApi.md#export_iom) | Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
-[**export_iom_connection_data**](docs/ExportApi.md#export_iom_connection_data) | Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
+[**export_iom**](docs/ExportApi.md#export_iom) | Exports the connection to XML which includes the OpenModelContainer (IdeaRS.OpenModel.OpenModelContainer in the NuGet package https://www.nuget.org/packages/IdeaStatiCa.OpenModel).
+[**export_iom_connection_data**](docs/ExportApi.md#export_iom_connection_data) | Gets the ConnectionData for the specified connection (IdeaRS.OpenModel.Connection.ConnectionData in the NuGet package https://www.nuget.org/packages/IdeaStatiCa.OpenModel).
   ### LoadEffectApi
 
   
@@ -279,6 +281,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**get_reinforcement_materials**](docs/MaterialApi.md#get_reinforcement_materials) | Gets materials used in the specified project.
 [**get_steel_materials**](docs/MaterialApi.md#get_steel_materials) | Gets materials used in the specified project.
 [**get_welding_materials**](docs/MaterialApi.md#get_welding_materials) | Gets materials used in the specified project.
+[**update_library_cross_section**](docs/MaterialApi.md#update_library_cross_section) | Replaces the definition of library (MPRL rolled) cross-section cssId  with the given one — e.g. swaps HEA200 for HEA300. The id is kept, so every member  using the section takes the new one. A full replacement: send the complete definition  obtained from the section GET (mirror flags not sent are false). MaterialName must  name one of the project's steel materials. Answers 409 when the id stores a parametric  or general section.
 [**update_parametric_cross_section**](docs/MaterialApi.md#update_parametric_cross_section) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape's defaults,  so send the complete definition obtained from the section GET. Answers 409 when the id  stores a library or general section.
   ### MemberApi
 
@@ -298,19 +301,19 @@ Methods marked with an **^** denote that they have an additional extension in th
   
   Method | Description
   ------------- | -------------
-[**add_anchor_grid_operation**](docs/OperationApi.md#add_anchor_grid_operation) | Adds a new anchor grid operation to the connection.
-[**add_bolt_grid_operation**](docs/OperationApi.md#add_bolt_grid_operation) | Adds a new bolt grid operation to the connection.
-[**add_contact_grid_operation**](docs/OperationApi.md#add_contact_grid_operation) | Adds a new contact grid operation to the connection.
-[**add_contact_operation**](docs/OperationApi.md#add_contact_operation) | Adds a new contact operation to the connection.
-[**add_cut_operation**](docs/OperationApi.md#add_cut_operation) | Adds a new cut operation to the connection.
-[**add_negative_member_operation**](docs/OperationApi.md#add_negative_member_operation) | Adds a new negative member operation to the connection.
-[**add_negative_plate_operation**](docs/OperationApi.md#add_negative_plate_operation) | Adds a new negative plate operation to the connection.
-[**add_pin_grid_operation**](docs/OperationApi.md#add_pin_grid_operation) | Adds a new pin grid operation to the connection.
-[**add_plate_cut_operation**](docs/OperationApi.md#add_plate_cut_operation) | Adds a new plate cut operation to the connection.
-[**add_stiffening_member**](docs/OperationApi.md#add_stiffening_member) | Adds a new stiffening member operation to the connection.
-[**add_stiffening_plate**](docs/OperationApi.md#add_stiffening_plate) | Adds a new stiffening plate operation to the connection.
-[**add_weld_operation**](docs/OperationApi.md#add_weld_operation) | Adds a new weld operation to the connection.
-[**add_work_plane_operation**](docs/OperationApi.md#add_work_plane_operation) | Adds a new work plane operation to the connection.
+[**add_anchor_grid_operation**](docs/OperationApi.md#add_anchor_grid_operation) | Adds a new anchor grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_bolt_grid_operation**](docs/OperationApi.md#add_bolt_grid_operation) | Adds a new bolt grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_contact_grid_operation**](docs/OperationApi.md#add_contact_grid_operation) | Adds a new contact grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_contact_operation**](docs/OperationApi.md#add_contact_operation) | Adds a new contact operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_cut_operation**](docs/OperationApi.md#add_cut_operation) | Adds a new cut operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_negative_member_operation**](docs/OperationApi.md#add_negative_member_operation) | Adds a new negative member operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_negative_plate_operation**](docs/OperationApi.md#add_negative_plate_operation) | Adds a new negative plate operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_pin_grid_operation**](docs/OperationApi.md#add_pin_grid_operation) | Adds a new pin grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_plate_cut_operation**](docs/OperationApi.md#add_plate_cut_operation) | Adds a new plate cut operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_stiffening_member**](docs/OperationApi.md#add_stiffening_member) | Adds a new stiffening member operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_stiffening_plate**](docs/OperationApi.md#add_stiffening_plate) | Adds a new stiffening plate operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_weld_operation**](docs/OperationApi.md#add_weld_operation) | Adds a new weld operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_work_plane_operation**](docs/OperationApi.md#add_work_plane_operation) | Adds a new work plane operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 [**delete_operations**](docs/OperationApi.md#delete_operations) | Delete all operations for the connection.
 [**get_anchor_grid_operation**](docs/OperationApi.md#get_anchor_grid_operation) | Returns the Anchor Grid operation with the given id, with all fields populated.
 [**get_anchor_grid_operations**](docs/OperationApi.md#get_anchor_grid_operations) | Returns all Anchor Grid operations in the connection.
@@ -341,20 +344,20 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**get_work_plane_operation**](docs/OperationApi.md#get_work_plane_operation) | Returns the Work Plane operation with the given id, with all fields populated.
 [**get_work_plane_operations**](docs/OperationApi.md#get_work_plane_operations) | Returns all Work Plane operations in the connection.
 [**pre_design_welds**](docs/OperationApi.md#pre_design_welds) | Pre-designs welds in the connection.
-[**update_anchor_grid_operation**](docs/OperationApi.md#update_anchor_grid_operation) | Replaces an Anchor Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
-[**update_bolt_grid_operation**](docs/OperationApi.md#update_bolt_grid_operation) | Replaces a Bolt Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**update_anchor_grid_operation**](docs/OperationApi.md#update_anchor_grid_operation) | Replaces an Anchor Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
+[**update_bolt_grid_operation**](docs/OperationApi.md#update_bolt_grid_operation) | Replaces a Bolt Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 [**update_common_operation_properties**](docs/OperationApi.md#update_common_operation_properties) | Updates common properties for all operations.
-[**update_contact_grid_operation**](docs/OperationApi.md#update_contact_grid_operation) | Replaces a Contact Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
-[**update_contact_operation**](docs/OperationApi.md#update_contact_operation) | Replaces a Contact operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
-[**update_cut_operation**](docs/OperationApi.md#update_cut_operation) | Replaces a Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
-[**update_negative_member_operation**](docs/OperationApi.md#update_negative_member_operation) | Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
-[**update_negative_plate_operation**](docs/OperationApi.md#update_negative_plate_operation) | Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
-[**update_pin_grid_operation**](docs/OperationApi.md#update_pin_grid_operation) | Replaces a Pin Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
-[**update_plate_cut_operation**](docs/OperationApi.md#update_plate_cut_operation) | Replaces a Plate Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
-[**update_stiffening_member_operation**](docs/OperationApi.md#update_stiffening_member_operation) | Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
-[**update_stiffening_plate_operation**](docs/OperationApi.md#update_stiffening_plate_operation) | Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.
-[**update_weld_operation**](docs/OperationApi.md#update_weld_operation) | Replaces a Weld operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
-[**update_work_plane_operation**](docs/OperationApi.md#update_work_plane_operation) | Replaces a Work Plane operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+[**update_contact_grid_operation**](docs/OperationApi.md#update_contact_grid_operation) | Replaces a Contact Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
+[**update_contact_operation**](docs/OperationApi.md#update_contact_operation) | Replaces a Contact operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
+[**update_cut_operation**](docs/OperationApi.md#update_cut_operation) | Replaces a Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
+[**update_negative_member_operation**](docs/OperationApi.md#update_negative_member_operation) | Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
+[**update_negative_plate_operation**](docs/OperationApi.md#update_negative_plate_operation) | Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
+[**update_pin_grid_operation**](docs/OperationApi.md#update_pin_grid_operation) | Replaces a Pin Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
+[**update_plate_cut_operation**](docs/OperationApi.md#update_plate_cut_operation) | Replaces a Plate Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
+[**update_stiffening_member_operation**](docs/OperationApi.md#update_stiffening_member_operation) | Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
+[**update_stiffening_plate_operation**](docs/OperationApi.md#update_stiffening_plate_operation) | Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
+[**update_weld_operation**](docs/OperationApi.md#update_weld_operation) | Replaces a Weld operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
+[**update_work_plane_operation**](docs/OperationApi.md#update_work_plane_operation) | Replaces a Work Plane operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
   ### ParameterApi
 
   
@@ -392,9 +395,9 @@ Methods marked with an **^** denote that they have an additional extension in th
 [**download_project^**](docs/ProjectApi.md#download_project) | Downloads the current IdeaCon project from the service, including all changes made by previous API calls.
 [**get_active_projects**](docs/ProjectApi.md#get_active_projects) | Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient.
 [**get_project_data**](docs/ProjectApi.md#get_project_data) | Get data of the project.
-[**import_iom^**](docs/ProjectApi.md#import_iom) | Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs)
+[**import_iom^**](docs/ProjectApi.md#import_iom) | Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://www.nuget.org/packages/IdeaStatiCa.OpenModel)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://www.nuget.org/packages/IdeaStatiCa.OpenModel)
 [**open_project^**](docs/ProjectApi.md#open_project) | Opens an IdeaCon project from the provided file.
-[**update_from_iom^**](docs/ProjectApi.md#update_from_iom) | Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) should be used to generate the valid xml string
+[**update_from_iom^**](docs/ProjectApi.md#update_from_iom) | Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://www.nuget.org/packages/IdeaStatiCa.OpenModel)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://www.nuget.org/packages/IdeaStatiCa.OpenModel) should be used to generate the valid xml string
 [**update_project_data**](docs/ProjectApi.md#update_project_data) | Updates ConProjectData of project.
   ### ReportApi
 
@@ -544,6 +547,7 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConParameterDeleteResult](docs/ConParameterDeleteResult.md)
  - [ideastatica_connection_api.models.ConParameterLink](docs/ConParameterLink.md)
  - [ideastatica_connection_api.models.ConParameterLinkCreate](docs/ConParameterLinkCreate.md)
+ - [ideastatica_connection_api.models.ConParameterValueType](docs/ConParameterValueType.md)
  - [ideastatica_connection_api.models.ConPinGridOperation](docs/ConPinGridOperation.md)
  - [ideastatica_connection_api.models.ConPlateCutOperation](docs/ConPlateCutOperation.md)
  - [ideastatica_connection_api.models.ConPlateFunction](docs/ConPlateFunction.md)
@@ -559,8 +563,10 @@ Methods marked with an **^** denote that they have an additional extension in th
  - [ideastatica_connection_api.models.ConPropertyOwnerKind](docs/ConPropertyOwnerKind.md)
  - [ideastatica_connection_api.models.ConReinforcementAnchorShape](docs/ConReinforcementAnchorShape.md)
  - [ideastatica_connection_api.models.ConRemainingPart](docs/ConRemainingPart.md)
+ - [ideastatica_connection_api.models.ConRepeatedValue](docs/ConRepeatedValue.md)
  - [ideastatica_connection_api.models.ConResultSummary](docs/ConResultSummary.md)
  - [ideastatica_connection_api.models.ConShearForceTransferMethod](docs/ConShearForceTransferMethod.md)
+ - [ideastatica_connection_api.models.ConShearLugDto](docs/ConShearLugDto.md)
  - [ideastatica_connection_api.models.ConSlottedHole](docs/ConSlottedHole.md)
  - [ideastatica_connection_api.models.ConSteelCodeEditionEnum](docs/ConSteelCodeEditionEnum.md)
  - [ideastatica_connection_api.models.ConStiffeningMemberOperation](docs/ConStiffeningMemberOperation.md)
@@ -638,7 +644,7 @@ Methods marked with an **^** denote that they have an additional extension in th
 This Python package is automatically generated by the [OpenAPI Generator](https://openapi-generator.tech) project:
 
 - API version: 5.0
-- Package version: 26.1.0.4245
+- Package version: 26.1.1.2809
 - Generator version: 7.9.0
 - Build package: org.openapitools.codegen.languages.PythonClientCodegen
 For more information, please visit [https://github.com/idea-statica/ideastatica-public](https://github.com/idea-statica/ideastatica-public)

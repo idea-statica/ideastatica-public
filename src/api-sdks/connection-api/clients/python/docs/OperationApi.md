@@ -4,19 +4,19 @@ All URIs are relative to *http://localhost*
 
 Method | Description
 ------------- | -------------
-[**add_anchor_grid_operation**](OperationApi.md#add_anchor_grid_operation) | Adds a new anchor grid operation to the connection.
-[**add_bolt_grid_operation**](OperationApi.md#add_bolt_grid_operation) | Adds a new bolt grid operation to the connection.
-[**add_contact_grid_operation**](OperationApi.md#add_contact_grid_operation) | Adds a new contact grid operation to the connection.
-[**add_contact_operation**](OperationApi.md#add_contact_operation) | Adds a new contact operation to the connection.
-[**add_cut_operation**](OperationApi.md#add_cut_operation) | Adds a new cut operation to the connection.
-[**add_negative_member_operation**](OperationApi.md#add_negative_member_operation) | Adds a new negative member operation to the connection.
-[**add_negative_plate_operation**](OperationApi.md#add_negative_plate_operation) | Adds a new negative plate operation to the connection.
-[**add_pin_grid_operation**](OperationApi.md#add_pin_grid_operation) | Adds a new pin grid operation to the connection.
-[**add_plate_cut_operation**](OperationApi.md#add_plate_cut_operation) | Adds a new plate cut operation to the connection.
-[**add_stiffening_member**](OperationApi.md#add_stiffening_member) | Adds a new stiffening member operation to the connection.
-[**add_stiffening_plate**](OperationApi.md#add_stiffening_plate) | Adds a new stiffening plate operation to the connection.
-[**add_weld_operation**](OperationApi.md#add_weld_operation) | Adds a new weld operation to the connection.
-[**add_work_plane_operation**](OperationApi.md#add_work_plane_operation) | Adds a new work plane operation to the connection.
+[**add_anchor_grid_operation**](OperationApi.md#add_anchor_grid_operation) | Adds a new anchor grid operation to the connection.  A &#x60;request.Id&#x60; already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_bolt_grid_operation**](OperationApi.md#add_bolt_grid_operation) | Adds a new bolt grid operation to the connection.  A &#x60;request.Id&#x60; already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_contact_grid_operation**](OperationApi.md#add_contact_grid_operation) | Adds a new contact grid operation to the connection.  A &#x60;request.Id&#x60; already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_contact_operation**](OperationApi.md#add_contact_operation) | Adds a new contact operation to the connection.  A &#x60;request.Id&#x60; already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_cut_operation**](OperationApi.md#add_cut_operation) | Adds a new cut operation to the connection.  A &#x60;request.Id&#x60; already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_negative_member_operation**](OperationApi.md#add_negative_member_operation) | Adds a new negative member operation to the connection.  A &#x60;request.Id&#x60; already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_negative_plate_operation**](OperationApi.md#add_negative_plate_operation) | Adds a new negative plate operation to the connection.  A &#x60;request.Id&#x60; already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_pin_grid_operation**](OperationApi.md#add_pin_grid_operation) | Adds a new pin grid operation to the connection.  A &#x60;request.Id&#x60; already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_plate_cut_operation**](OperationApi.md#add_plate_cut_operation) | Adds a new plate cut operation to the connection.  A &#x60;request.Id&#x60; already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_stiffening_member**](OperationApi.md#add_stiffening_member) | Adds a new stiffening member operation to the connection.  A &#x60;request.Id&#x60; already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_stiffening_plate**](OperationApi.md#add_stiffening_plate) | Adds a new stiffening plate operation to the connection.  A &#x60;request.Id&#x60; already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_weld_operation**](OperationApi.md#add_weld_operation) | Adds a new weld operation to the connection.  A &#x60;request.Id&#x60; already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
+[**add_work_plane_operation**](OperationApi.md#add_work_plane_operation) | Adds a new work plane operation to the connection.  A &#x60;request.Id&#x60; already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 [**delete_operations**](OperationApi.md#delete_operations) | Delete all operations for the connection.
 [**get_anchor_grid_operation**](OperationApi.md#get_anchor_grid_operation) | Returns the Anchor Grid operation with the given id, with all fields populated.
 [**get_anchor_grid_operations**](OperationApi.md#get_anchor_grid_operations) | Returns all Anchor Grid operations in the connection.
@@ -47,27 +47,27 @@ Method | Description
 [**get_work_plane_operation**](OperationApi.md#get_work_plane_operation) | Returns the Work Plane operation with the given id, with all fields populated.
 [**get_work_plane_operations**](OperationApi.md#get_work_plane_operations) | Returns all Work Plane operations in the connection.
 [**pre_design_welds**](OperationApi.md#pre_design_welds) | Pre-designs welds in the connection.
-[**update_anchor_grid_operation**](OperationApi.md#update_anchor_grid_operation) | Replaces an Anchor Grid operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
-[**update_bolt_grid_operation**](OperationApi.md#update_bolt_grid_operation) | Replaces a Bolt Grid operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
+[**update_anchor_grid_operation**](OperationApi.md#update_anchor_grid_operation) | Replaces an Anchor Grid operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
+[**update_bolt_grid_operation**](OperationApi.md#update_bolt_grid_operation) | Replaces a Bolt Grid operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 [**update_common_operation_properties**](OperationApi.md#update_common_operation_properties) | Updates common properties for all operations.
-[**update_contact_grid_operation**](OperationApi.md#update_contact_grid_operation) | Replaces a Contact Grid operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
-[**update_contact_operation**](OperationApi.md#update_contact_operation) | Replaces a Contact operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
-[**update_cut_operation**](OperationApi.md#update_cut_operation) | Replaces a Cut operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
-[**update_negative_member_operation**](OperationApi.md#update_negative_member_operation) | Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
-[**update_negative_plate_operation**](OperationApi.md#update_negative_plate_operation) | Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
-[**update_pin_grid_operation**](OperationApi.md#update_pin_grid_operation) | Replaces a Pin Grid operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
-[**update_plate_cut_operation**](OperationApi.md#update_plate_cut_operation) | Replaces a Plate Cut operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
-[**update_stiffening_member_operation**](OperationApi.md#update_stiffening_member_operation) | Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
-[**update_stiffening_plate_operation**](OperationApi.md#update_stiffening_plate_operation) | Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection.
-[**update_weld_operation**](OperationApi.md#update_weld_operation) | Replaces a Weld operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
-[**update_work_plane_operation**](OperationApi.md#update_work_plane_operation) | Replaces a Work Plane operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection.
+[**update_contact_grid_operation**](OperationApi.md#update_contact_grid_operation) | Replaces a Contact Grid operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
+[**update_contact_operation**](OperationApi.md#update_contact_operation) | Replaces a Contact operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
+[**update_cut_operation**](OperationApi.md#update_cut_operation) | Replaces a Cut operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
+[**update_negative_member_operation**](OperationApi.md#update_negative_member_operation) | Replaces a Negative Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
+[**update_negative_plate_operation**](OperationApi.md#update_negative_plate_operation) | Replaces a Negative Plate operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
+[**update_pin_grid_operation**](OperationApi.md#update_pin_grid_operation) | Replaces a Pin Grid operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
+[**update_plate_cut_operation**](OperationApi.md#update_plate_cut_operation) | Replaces a Plate Cut operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
+[**update_stiffening_member_operation**](OperationApi.md#update_stiffening_member_operation) | Replaces a Stiffening Member operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
+[**update_stiffening_plate_operation**](OperationApi.md#update_stiffening_plate_operation) | Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  &#x60;request.Id&#x60;; returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a &#x60;positioning&#x60; block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
+[**update_weld_operation**](OperationApi.md#update_weld_operation) | Replaces a Weld operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
+[**update_work_plane_operation**](OperationApi.md#update_work_plane_operation) | Replaces a Work Plane operation (PUT semantics). Target id is taken from &#x60;request.Id&#x60;;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 
 <a id="add_anchor_grid_operation"></a>
 # **add_anchor_grid_operation**
 > ConAddOperationResult add_anchor_grid_operation(project_id, connection_id, con_anchor_grid_operation=con_anchor_grid_operation)
 
-Adds a new anchor grid operation to the connection.
+Adds a new anchor grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 ### Parameters
 
@@ -104,7 +104,7 @@ def add_anchor_grid_operationExampleFunc(api_client):
     con_anchor_grid_operation = ideastatica_connection_api.ConAnchorGridOperation() # ConAnchorGridOperation | Anchor grid operation definition. (optional)
 
     try:
-        # Adds a new anchor grid operation to the connection.
+        # Adds a new anchor grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
         api_response = api_client.operation.add_anchor_grid_operation(project_id, connection_id, con_anchor_grid_operation=con_anchor_grid_operation)
         print("The response of OperationApi->add_anchor_grid_operation:\n")
         pprint(api_response)
@@ -143,6 +143,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -152,7 +153,7 @@ No authorization required
 # **add_bolt_grid_operation**
 > ConAddOperationResult add_bolt_grid_operation(project_id, connection_id, con_bolt_grid_operation=con_bolt_grid_operation)
 
-Adds a new bolt grid operation to the connection.
+Adds a new bolt grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 ### Parameters
 
@@ -189,7 +190,7 @@ def add_bolt_grid_operationExampleFunc(api_client):
     con_bolt_grid_operation = ideastatica_connection_api.ConBoltGridOperation() # ConBoltGridOperation | Bolt grid operation definition. (optional)
 
     try:
-        # Adds a new bolt grid operation to the connection.
+        # Adds a new bolt grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
         api_response = api_client.operation.add_bolt_grid_operation(project_id, connection_id, con_bolt_grid_operation=con_bolt_grid_operation)
         print("The response of OperationApi->add_bolt_grid_operation:\n")
         pprint(api_response)
@@ -228,6 +229,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -237,7 +239,7 @@ No authorization required
 # **add_contact_grid_operation**
 > ConAddOperationResult add_contact_grid_operation(project_id, connection_id, con_contact_grid_operation=con_contact_grid_operation)
 
-Adds a new contact grid operation to the connection.
+Adds a new contact grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 ### Parameters
 
@@ -274,7 +276,7 @@ def add_contact_grid_operationExampleFunc(api_client):
     con_contact_grid_operation = ideastatica_connection_api.ConContactGridOperation() # ConContactGridOperation | Contact grid operation definition. (optional)
 
     try:
-        # Adds a new contact grid operation to the connection.
+        # Adds a new contact grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
         api_response = api_client.operation.add_contact_grid_operation(project_id, connection_id, con_contact_grid_operation=con_contact_grid_operation)
         print("The response of OperationApi->add_contact_grid_operation:\n")
         pprint(api_response)
@@ -313,6 +315,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -322,7 +325,7 @@ No authorization required
 # **add_contact_operation**
 > ConAddOperationResult add_contact_operation(project_id, connection_id, con_contact_operation=con_contact_operation)
 
-Adds a new contact operation to the connection.
+Adds a new contact operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 ### Parameters
 
@@ -359,7 +362,7 @@ def add_contact_operationExampleFunc(api_client):
     con_contact_operation = ideastatica_connection_api.ConContactOperation() # ConContactOperation | Contact operation definition. (optional)
 
     try:
-        # Adds a new contact operation to the connection.
+        # Adds a new contact operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
         api_response = api_client.operation.add_contact_operation(project_id, connection_id, con_contact_operation=con_contact_operation)
         print("The response of OperationApi->add_contact_operation:\n")
         pprint(api_response)
@@ -398,6 +401,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -407,7 +411,7 @@ No authorization required
 # **add_cut_operation**
 > ConAddOperationResult add_cut_operation(project_id, connection_id, con_cut_operation=con_cut_operation)
 
-Adds a new cut operation to the connection.
+Adds a new cut operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 ### Parameters
 
@@ -444,7 +448,7 @@ def add_cut_operationExampleFunc(api_client):
     con_cut_operation = ideastatica_connection_api.ConCutOperation() # ConCutOperation | Cut operation definition. (optional)
 
     try:
-        # Adds a new cut operation to the connection.
+        # Adds a new cut operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
         api_response = api_client.operation.add_cut_operation(project_id, connection_id, con_cut_operation=con_cut_operation)
         print("The response of OperationApi->add_cut_operation:\n")
         pprint(api_response)
@@ -483,6 +487,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -492,7 +497,7 @@ No authorization required
 # **add_negative_member_operation**
 > ConAddOperationResult add_negative_member_operation(project_id, connection_id, con_negative_member_operation=con_negative_member_operation)
 
-Adds a new negative member operation to the connection.
+Adds a new negative member operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 ### Parameters
 
@@ -529,7 +534,7 @@ def add_negative_member_operationExampleFunc(api_client):
     con_negative_member_operation = ideastatica_connection_api.ConNegativeMemberOperation() # ConNegativeMemberOperation | Negative member operation definition. (optional)
 
     try:
-        # Adds a new negative member operation to the connection.
+        # Adds a new negative member operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
         api_response = api_client.operation.add_negative_member_operation(project_id, connection_id, con_negative_member_operation=con_negative_member_operation)
         print("The response of OperationApi->add_negative_member_operation:\n")
         pprint(api_response)
@@ -568,6 +573,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -577,7 +583,7 @@ No authorization required
 # **add_negative_plate_operation**
 > ConAddOperationResult add_negative_plate_operation(project_id, connection_id, con_negative_plate_operation=con_negative_plate_operation)
 
-Adds a new negative plate operation to the connection.
+Adds a new negative plate operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 ### Parameters
 
@@ -614,7 +620,7 @@ def add_negative_plate_operationExampleFunc(api_client):
     con_negative_plate_operation = ideastatica_connection_api.ConNegativePlateOperation() # ConNegativePlateOperation | Negative plate operation definition. (optional)
 
     try:
-        # Adds a new negative plate operation to the connection.
+        # Adds a new negative plate operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
         api_response = api_client.operation.add_negative_plate_operation(project_id, connection_id, con_negative_plate_operation=con_negative_plate_operation)
         print("The response of OperationApi->add_negative_plate_operation:\n")
         pprint(api_response)
@@ -653,6 +659,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -662,7 +669,7 @@ No authorization required
 # **add_pin_grid_operation**
 > ConAddOperationResult add_pin_grid_operation(project_id, connection_id, con_pin_grid_operation=con_pin_grid_operation)
 
-Adds a new pin grid operation to the connection.
+Adds a new pin grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 ### Parameters
 
@@ -699,7 +706,7 @@ def add_pin_grid_operationExampleFunc(api_client):
     con_pin_grid_operation = ideastatica_connection_api.ConPinGridOperation() # ConPinGridOperation | Pin grid operation definition. (optional)
 
     try:
-        # Adds a new pin grid operation to the connection.
+        # Adds a new pin grid operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
         api_response = api_client.operation.add_pin_grid_operation(project_id, connection_id, con_pin_grid_operation=con_pin_grid_operation)
         print("The response of OperationApi->add_pin_grid_operation:\n")
         pprint(api_response)
@@ -738,6 +745,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -747,7 +755,7 @@ No authorization required
 # **add_plate_cut_operation**
 > ConAddOperationResult add_plate_cut_operation(project_id, connection_id, con_plate_cut_operation=con_plate_cut_operation)
 
-Adds a new plate cut operation to the connection.
+Adds a new plate cut operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 ### Parameters
 
@@ -784,7 +792,7 @@ def add_plate_cut_operationExampleFunc(api_client):
     con_plate_cut_operation = ideastatica_connection_api.ConPlateCutOperation() # ConPlateCutOperation | Plate cut operation definition. (optional)
 
     try:
-        # Adds a new plate cut operation to the connection.
+        # Adds a new plate cut operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
         api_response = api_client.operation.add_plate_cut_operation(project_id, connection_id, con_plate_cut_operation=con_plate_cut_operation)
         print("The response of OperationApi->add_plate_cut_operation:\n")
         pprint(api_response)
@@ -823,6 +831,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -832,7 +841,7 @@ No authorization required
 # **add_stiffening_member**
 > ConAddOperationResult add_stiffening_member(project_id, connection_id, con_stiffening_member_operation=con_stiffening_member_operation)
 
-Adds a new stiffening member operation to the connection.
+Adds a new stiffening member operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 ### Parameters
 
@@ -869,7 +878,7 @@ def add_stiffening_memberExampleFunc(api_client):
     con_stiffening_member_operation = ideastatica_connection_api.ConStiffeningMemberOperation() # ConStiffeningMemberOperation | Stiffening member operation definition. (optional)
 
     try:
-        # Adds a new stiffening member operation to the connection.
+        # Adds a new stiffening member operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
         api_response = api_client.operation.add_stiffening_member(project_id, connection_id, con_stiffening_member_operation=con_stiffening_member_operation)
         print("The response of OperationApi->add_stiffening_member:\n")
         pprint(api_response)
@@ -908,6 +917,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -917,7 +927,7 @@ No authorization required
 # **add_stiffening_plate**
 > ConAddOperationResult add_stiffening_plate(project_id, connection_id, con_stiffening_plate_operation=con_stiffening_plate_operation)
 
-Adds a new stiffening plate operation to the connection.
+Adds a new stiffening plate operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 ### Parameters
 
@@ -954,7 +964,7 @@ def add_stiffening_plateExampleFunc(api_client):
     con_stiffening_plate_operation = ideastatica_connection_api.ConStiffeningPlateOperation() # ConStiffeningPlateOperation | Stiffening plate operation definition. (optional)
 
     try:
-        # Adds a new stiffening plate operation to the connection.
+        # Adds a new stiffening plate operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
         api_response = api_client.operation.add_stiffening_plate(project_id, connection_id, con_stiffening_plate_operation=con_stiffening_plate_operation)
         print("The response of OperationApi->add_stiffening_plate:\n")
         pprint(api_response)
@@ -993,6 +1003,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -1002,7 +1013,7 @@ No authorization required
 # **add_weld_operation**
 > ConAddOperationResult add_weld_operation(project_id, connection_id, con_weld_operation=con_weld_operation)
 
-Adds a new weld operation to the connection.
+Adds a new weld operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 ### Parameters
 
@@ -1039,7 +1050,7 @@ def add_weld_operationExampleFunc(api_client):
     con_weld_operation = ideastatica_connection_api.ConWeldOperation() # ConWeldOperation | Weld operation definition. (optional)
 
     try:
-        # Adds a new weld operation to the connection.
+        # Adds a new weld operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
         api_response = api_client.operation.add_weld_operation(project_id, connection_id, con_weld_operation=con_weld_operation)
         print("The response of OperationApi->add_weld_operation:\n")
         pprint(api_response)
@@ -1078,6 +1089,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -1087,7 +1099,7 @@ No authorization required
 # **add_work_plane_operation**
 > ConAddOperationResult add_work_plane_operation(project_id, connection_id, con_work_plane_operation=con_work_plane_operation)
 
-Adds a new work plane operation to the connection.
+Adds a new work plane operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
 
 A work plane is virtual reference geometry used by other operations (e.g. cuts) and for fatigue analysis.  It has no structural effect by itself.  Supports all three methods (ByAngles, ByNormalVector, ByIntersection) and all  coordinate system origins (Joint, Member, Plate).
 
@@ -1126,7 +1138,7 @@ def add_work_plane_operationExampleFunc(api_client):
     con_work_plane_operation = ideastatica_connection_api.ConWorkPlaneOperation() # ConWorkPlaneOperation | Work plane definition (origin, normal, method). (optional)
 
     try:
-        # Adds a new work plane operation to the connection.
+        # Adds a new work plane operation to the connection.  A `request.Id` already in use replaces that operation when it is of the same kind,  and answers 409 otherwise.
         api_response = api_client.operation.add_work_plane_operation(project_id, connection_id, con_work_plane_operation=con_work_plane_operation)
         print("The response of OperationApi->add_work_plane_operation:\n")
         pprint(api_response)
@@ -1165,6 +1177,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -1326,6 +1339,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1490,6 +1504,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1735,6 +1750,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1899,6 +1915,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -2063,6 +2080,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -2227,6 +2245,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -2391,6 +2410,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -2636,6 +2656,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -2800,6 +2821,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -2964,6 +2986,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -3128,6 +3151,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -3292,6 +3316,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -3456,6 +3481,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -3630,7 +3656,7 @@ No authorization required
 # **update_anchor_grid_operation**
 > ConAddOperationResult update_anchor_grid_operation(project_id, connection_id, con_anchor_grid_operation=con_anchor_grid_operation)
 
-Replaces an Anchor Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+Replaces an Anchor Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 ### Parameters
 
@@ -3667,7 +3693,7 @@ def update_anchor_grid_operationExampleFunc(api_client):
     con_anchor_grid_operation = ideastatica_connection_api.ConAnchorGridOperation() # ConAnchorGridOperation | The anchor grid data to apply. (optional)
 
     try:
-        # Replaces an Anchor Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        # Replaces an Anchor Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
         api_response = api_client.operation.update_anchor_grid_operation(project_id, connection_id, con_anchor_grid_operation=con_anchor_grid_operation)
         print("The response of OperationApi->update_anchor_grid_operation:\n")
         pprint(api_response)
@@ -3706,6 +3732,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -3715,7 +3742,7 @@ No authorization required
 # **update_bolt_grid_operation**
 > ConAddOperationResult update_bolt_grid_operation(project_id, connection_id, con_bolt_grid_operation=con_bolt_grid_operation)
 
-Replaces a Bolt Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+Replaces a Bolt Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 ### Parameters
 
@@ -3752,7 +3779,7 @@ def update_bolt_grid_operationExampleFunc(api_client):
     con_bolt_grid_operation = ideastatica_connection_api.ConBoltGridOperation() # ConBoltGridOperation | The bolt grid data to apply. (optional)
 
     try:
-        # Replaces a Bolt Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        # Replaces a Bolt Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
         api_response = api_client.operation.update_bolt_grid_operation(project_id, connection_id, con_bolt_grid_operation=con_bolt_grid_operation)
         print("The response of OperationApi->update_bolt_grid_operation:\n")
         pprint(api_response)
@@ -3791,6 +3818,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -3881,7 +3909,7 @@ No authorization required
 # **update_contact_grid_operation**
 > ConAddOperationResult update_contact_grid_operation(project_id, connection_id, con_contact_grid_operation=con_contact_grid_operation)
 
-Replaces a Contact Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+Replaces a Contact Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 ### Parameters
 
@@ -3918,7 +3946,7 @@ def update_contact_grid_operationExampleFunc(api_client):
     con_contact_grid_operation = ideastatica_connection_api.ConContactGridOperation() # ConContactGridOperation | The contact grid data to apply. (optional)
 
     try:
-        # Replaces a Contact Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        # Replaces a Contact Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
         api_response = api_client.operation.update_contact_grid_operation(project_id, connection_id, con_contact_grid_operation=con_contact_grid_operation)
         print("The response of OperationApi->update_contact_grid_operation:\n")
         pprint(api_response)
@@ -3957,6 +3985,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -3966,7 +3995,7 @@ No authorization required
 # **update_contact_operation**
 > ConAddOperationResult update_contact_operation(project_id, connection_id, con_contact_operation=con_contact_operation)
 
-Replaces a Contact operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+Replaces a Contact operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 ### Parameters
 
@@ -4003,7 +4032,7 @@ def update_contact_operationExampleFunc(api_client):
     con_contact_operation = ideastatica_connection_api.ConContactOperation() # ConContactOperation | The contact data to apply. (optional)
 
     try:
-        # Replaces a Contact operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        # Replaces a Contact operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
         api_response = api_client.operation.update_contact_operation(project_id, connection_id, con_contact_operation=con_contact_operation)
         print("The response of OperationApi->update_contact_operation:\n")
         pprint(api_response)
@@ -4042,6 +4071,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -4051,7 +4081,7 @@ No authorization required
 # **update_cut_operation**
 > ConAddOperationResult update_cut_operation(project_id, connection_id, con_cut_operation=con_cut_operation)
 
-Replaces a Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+Replaces a Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 ### Parameters
 
@@ -4088,7 +4118,7 @@ def update_cut_operationExampleFunc(api_client):
     con_cut_operation = ideastatica_connection_api.ConCutOperation() # ConCutOperation | The cut data to apply. (optional)
 
     try:
-        # Replaces a Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        # Replaces a Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
         api_response = api_client.operation.update_cut_operation(project_id, connection_id, con_cut_operation=con_cut_operation)
         print("The response of OperationApi->update_cut_operation:\n")
         pprint(api_response)
@@ -4127,6 +4157,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -4136,7 +4167,7 @@ No authorization required
 # **update_negative_member_operation**
 > ConAddOperationResult update_negative_member_operation(project_id, connection_id, con_negative_member_operation=con_negative_member_operation)
 
-Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
 
 ### Parameters
 
@@ -4173,7 +4204,7 @@ def update_negative_member_operationExampleFunc(api_client):
     con_negative_member_operation = ideastatica_connection_api.ConNegativeMemberOperation() # ConNegativeMemberOperation | The negative member data to apply. (optional)
 
     try:
-        # Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        # Replaces a Negative Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
         api_response = api_client.operation.update_negative_member_operation(project_id, connection_id, con_negative_member_operation=con_negative_member_operation)
         print("The response of OperationApi->update_negative_member_operation:\n")
         pprint(api_response)
@@ -4212,6 +4243,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -4221,7 +4253,7 @@ No authorization required
 # **update_negative_plate_operation**
 > ConAddOperationResult update_negative_plate_operation(project_id, connection_id, con_negative_plate_operation=con_negative_plate_operation)
 
-Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 
 ### Parameters
 
@@ -4258,7 +4290,7 @@ def update_negative_plate_operationExampleFunc(api_client):
     con_negative_plate_operation = ideastatica_connection_api.ConNegativePlateOperation() # ConNegativePlateOperation | The negative plate data to apply. (optional)
 
     try:
-        # Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        # Replaces a Negative Plate operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
         api_response = api_client.operation.update_negative_plate_operation(project_id, connection_id, con_negative_plate_operation=con_negative_plate_operation)
         print("The response of OperationApi->update_negative_plate_operation:\n")
         pprint(api_response)
@@ -4297,6 +4329,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -4306,7 +4339,7 @@ No authorization required
 # **update_pin_grid_operation**
 > ConAddOperationResult update_pin_grid_operation(project_id, connection_id, con_pin_grid_operation=con_pin_grid_operation)
 
-Replaces a Pin Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+Replaces a Pin Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 ### Parameters
 
@@ -4343,7 +4376,7 @@ def update_pin_grid_operationExampleFunc(api_client):
     con_pin_grid_operation = ideastatica_connection_api.ConPinGridOperation() # ConPinGridOperation | The pin grid data to apply. (optional)
 
     try:
-        # Replaces a Pin Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        # Replaces a Pin Grid operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
         api_response = api_client.operation.update_pin_grid_operation(project_id, connection_id, con_pin_grid_operation=con_pin_grid_operation)
         print("The response of OperationApi->update_pin_grid_operation:\n")
         pprint(api_response)
@@ -4382,6 +4415,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -4391,7 +4425,7 @@ No authorization required
 # **update_plate_cut_operation**
 > ConAddOperationResult update_plate_cut_operation(project_id, connection_id, con_plate_cut_operation=con_plate_cut_operation)
 
-Replaces a Plate Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+Replaces a Plate Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 ### Parameters
 
@@ -4428,7 +4462,7 @@ def update_plate_cut_operationExampleFunc(api_client):
     con_plate_cut_operation = ideastatica_connection_api.ConPlateCutOperation() # ConPlateCutOperation | The plate cut data to apply. (optional)
 
     try:
-        # Replaces a Plate Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        # Replaces a Plate Cut operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
         api_response = api_client.operation.update_plate_cut_operation(project_id, connection_id, con_plate_cut_operation=con_plate_cut_operation)
         print("The response of OperationApi->update_plate_cut_operation:\n")
         pprint(api_response)
@@ -4467,6 +4501,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -4476,7 +4511,7 @@ No authorization required
 # **update_stiffening_member_operation**
 > ConAddOperationResult update_stiffening_member_operation(project_id, connection_id, con_stiffening_member_operation=con_stiffening_member_operation)
 
-Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
 
 ### Parameters
 
@@ -4513,7 +4548,7 @@ def update_stiffening_member_operationExampleFunc(api_client):
     con_stiffening_member_operation = ideastatica_connection_api.ConStiffeningMemberOperation() # ConStiffeningMemberOperation | The stiffening member data to apply. (optional)
 
     try:
-        # Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        # Replaces a Stiffening Member operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the member at the  joint, so send the positioning the GET returns unless that is what you want.
         api_response = api_client.operation.update_stiffening_member_operation(project_id, connection_id, con_stiffening_member_operation=con_stiffening_member_operation)
         print("The response of OperationApi->update_stiffening_member_operation:\n")
         pprint(api_response)
@@ -4552,6 +4587,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -4561,7 +4597,7 @@ No authorization required
 # **update_stiffening_plate_operation**
 > ConAddOperationResult update_stiffening_plate_operation(project_id, connection_id, con_stiffening_plate_operation=con_stiffening_plate_operation)
 
-Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.
+Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
 
 ### Parameters
 
@@ -4598,7 +4634,7 @@ def update_stiffening_plate_operationExampleFunc(api_client):
     con_stiffening_plate_operation = ideastatica_connection_api.ConStiffeningPlateOperation() # ConStiffeningPlateOperation | The stiffening plate data to apply. (optional)
 
     try:
-        # Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection.
+        # Replaces a Stiffening Plate operation (PUT semantics). Target id is taken from  `request.Id`; returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.  It is a full replacement: a body without a `positioning` block places the plate at the  joint, so send the positioning the GET returns unless that is what you want.
         api_response = api_client.operation.update_stiffening_plate_operation(project_id, connection_id, con_stiffening_plate_operation=con_stiffening_plate_operation)
         print("The response of OperationApi->update_stiffening_plate_operation:\n")
         pprint(api_response)
@@ -4637,6 +4673,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -4646,7 +4683,7 @@ No authorization required
 # **update_weld_operation**
 > ConAddOperationResult update_weld_operation(project_id, connection_id, con_weld_operation=con_weld_operation)
 
-Replaces a Weld operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+Replaces a Weld operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 ### Parameters
 
@@ -4683,7 +4720,7 @@ def update_weld_operationExampleFunc(api_client):
     con_weld_operation = ideastatica_connection_api.ConWeldOperation() # ConWeldOperation | The weld data to apply. (optional)
 
     try:
-        # Replaces a Weld operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        # Replaces a Weld operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
         api_response = api_client.operation.update_weld_operation(project_id, connection_id, con_weld_operation=con_weld_operation)
         print("The response of OperationApi->update_weld_operation:\n")
         pprint(api_response)
@@ -4722,6 +4759,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
@@ -4731,7 +4769,7 @@ No authorization required
 # **update_work_plane_operation**
 > ConAddOperationResult update_work_plane_operation(project_id, connection_id, con_work_plane_operation=con_work_plane_operation)
 
-Replaces a Work Plane operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+Replaces a Work Plane operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
 
 ### Parameters
 
@@ -4768,7 +4806,7 @@ def update_work_plane_operationExampleFunc(api_client):
     con_work_plane_operation = ideastatica_connection_api.ConWorkPlaneOperation() # ConWorkPlaneOperation | The work plane data to apply. (optional)
 
     try:
-        # Replaces a Work Plane operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection.
+        # Replaces a Work Plane operation (PUT semantics). Target id is taken from `request.Id`;  returns 404 when no operation with that id exists in the connection, and 409 when it  holds an operation of another kind or one that cannot be read.
         api_response = api_client.operation.update_work_plane_operation(project_id, connection_id, con_work_plane_operation=con_work_plane_operation)
         print("The response of OperationApi->update_work_plane_operation:\n")
         pprint(api_response)
@@ -4807,6 +4845,7 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**409** | Conflict |  -  |
 **422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 

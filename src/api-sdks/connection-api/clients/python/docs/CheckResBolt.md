@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **name** | **str** | Name of the bolt (e.g., \&quot;B15\&quot;). The numeric suffix is an opaque CBFEM solver identifier —  it may not start at 1 and may not be sequential. See IdeaRS.OpenModel.Connection.CheckResBolt remarks for details. | [optional] 
 **unity_check** | **float** | Unity Check | [optional] 
 **check_status** | **bool** | Status of the Check | [optional] 
+**load_case_id** | **int** | Id of Load Case | [optional] 
 
 ## Example
 

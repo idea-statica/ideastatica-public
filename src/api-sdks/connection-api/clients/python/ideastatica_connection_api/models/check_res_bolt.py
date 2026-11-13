@@ -30,7 +30,8 @@ class CheckResBolt(BaseModel):
     name: Optional[StrictStr] = Field(default=None, description="Name of the bolt (e.g., \"B15\"). The numeric suffix is an opaque CBFEM solver identifier —  it may not start at 1 and may not be sequential. See IdeaRS.OpenModel.Connection.CheckResBolt remarks for details.")
     unity_check: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Unity Check", alias="unityCheck")
     check_status: Optional[StrictBool] = Field(default=None, description="Status of the Check", alias="checkStatus")
-    __properties: ClassVar[List[str]] = ["name", "unityCheck", "checkStatus"]
+    load_case_id: Optional[StrictInt] = Field(default=None, description="Id of Load Case", alias="loadCaseId")
+    __properties: ClassVar[List[str]] = ["name", "unityCheck", "checkStatus", "loadCaseId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,7 +91,8 @@ class CheckResBolt(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "unityCheck": obj.get("unityCheck"),
-            "checkStatus": obj.get("checkStatus")
+            "checkStatus": obj.get("checkStatus"),
+            "loadCaseId": obj.get("loadCaseId")
         })
         return _obj
 

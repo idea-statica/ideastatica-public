@@ -23,6 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Union
 from ideastatica_connection_api.models.con_base_plate_contact_type import ConBasePlateContactType
 from ideastatica_connection_api.models.con_block_type import ConBlockType
 from ideastatica_connection_api.models.con_shear_force_transfer_method import ConShearForceTransferMethod
+from ideastatica_connection_api.models.con_shear_lug_dto import ConShearLugDto
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -41,7 +42,8 @@ class ConFoundationBlockDto(BaseModel):
     shear_force_transfer: Optional[ConShearForceTransferMethod] = Field(default=None, alias="shearForceTransfer")
     contact_type: Optional[ConBasePlateContactType] = Field(default=None, alias="contactType")
     mortar_thickness: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, alias="mortarThickness")
-    __properties: ClassVar[List[str]] = ["blockType", "existingBlockOperationId", "concreteMaterialId", "offsetTop", "offsetBottom", "offsetLeft", "offsetRight", "height", "shearForceTransfer", "contactType", "mortarThickness"]
+    shear_lug: Optional[ConShearLugDto] = Field(default=None, alias="shearLug")
+    __properties: ClassVar[List[str]] = ["blockType", "existingBlockOperationId", "concreteMaterialId", "offsetTop", "offsetBottom", "offsetLeft", "offsetRight", "height", "shearForceTransfer", "contactType", "mortarThickness", "shearLug"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -82,6 +84,9 @@ class ConFoundationBlockDto(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of shear_lug
+        if self.shear_lug:
+            _dict['shearLug'] = self.shear_lug.to_dict()
         # set to None if existing_block_operation_id (nullable) is None
         # and model_fields_set contains the field
         if self.existing_block_operation_id is None and "existing_block_operation_id" in self.model_fields_set:
@@ -109,7 +114,8 @@ class ConFoundationBlockDto(BaseModel):
             "height": obj.get("height"),
             "shearForceTransfer": obj.get("shearForceTransfer"),
             "contactType": obj.get("contactType"),
-            "mortarThickness": obj.get("mortarThickness")
+            "mortarThickness": obj.get("mortarThickness"),
+            "shearLug": ConShearLugDto.from_dict(obj["shearLug"]) if obj.get("shearLug") is not None else None
         })
         return _obj
 

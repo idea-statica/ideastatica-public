@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **default** | **str** |  | [optional] 
 **value** | **object** |  | [optional] 
 **unit** | **str** |  | [optional] 
+**value_type** | [**ConParameterValueType**](ConParameterValueType.md) |  | [optional] 
 **parameter_type** | **str** |  | [optional] 
 **description** | **str** |  | [optional] 
 **validation_status** | **str** |  | [optional] 

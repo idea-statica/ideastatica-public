@@ -20,6 +20,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from ideastatica_connection_api.models.con_repeated_value import ConRepeatedValue
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -28,7 +29,8 @@ class ConGridPositions(BaseModel):
     ConGridPositions
     """ # noqa: E501
     values: Optional[List[Union[StrictFloat, StrictInt]]] = None
-    __properties: ClassVar[List[str]] = ["values"]
+    rows: Optional[List[List[ConRepeatedValue]]] = None
+    __properties: ClassVar[List[str]] = ["values", "rows"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -69,10 +71,24 @@ class ConGridPositions(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in rows (list of list)
+        _items = []
+        if self.rows:
+            for _item_rows in self.rows:
+                if _item_rows:
+                    _items.append(
+                         [_inner_item.to_dict() for _inner_item in _item_rows if _inner_item is not None]
+                    )
+            _dict['rows'] = _items
         # set to None if values (nullable) is None
         # and model_fields_set contains the field
         if self.values is None and "values" in self.model_fields_set:
             _dict['values'] = None
+
+        # set to None if rows (nullable) is None
+        # and model_fields_set contains the field
+        if self.rows is None and "rows" in self.model_fields_set:
+            _dict['rows'] = None
 
         return _dict
 
@@ -86,7 +102,11 @@ class ConGridPositions(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "values": obj.get("values")
+            "values": obj.get("values"),
+            "rows": [
+                    [ConRepeatedValue.from_dict(_inner_item) for _inner_item in _item]
+                    for _item in obj["rows"]
+                ] if obj.get("rows") is not None else None
         })
         return _obj
 

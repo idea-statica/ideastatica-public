@@ -605,7 +605,7 @@ class ExportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> str:
-        """Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
+        """Exports the connection to XML which includes the OpenModelContainer (IdeaRS.OpenModel.OpenModelContainer in the NuGet package https://www.nuget.org/packages/IdeaStatiCa.OpenModel).
 
 
         :param project_id: The unique identifier of the opened project. (required)
@@ -682,7 +682,7 @@ class ExportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[str]:
-        """Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
+        """Exports the connection to XML which includes the OpenModelContainer (IdeaRS.OpenModel.OpenModelContainer in the NuGet package https://www.nuget.org/packages/IdeaStatiCa.OpenModel).
 
 
         :param project_id: The unique identifier of the opened project. (required)
@@ -759,7 +759,7 @@ class ExportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
+        """Exports the connection to XML which includes the OpenModelContainer (IdeaRS.OpenModel.OpenModelContainer in the NuGet package https://www.nuget.org/packages/IdeaStatiCa.OpenModel).
 
 
         :param project_id: The unique identifier of the opened project. (required)
@@ -903,7 +903,7 @@ class ExportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ConnectionData:
-        """Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
+        """Gets the ConnectionData for the specified connection (IdeaRS.OpenModel.Connection.ConnectionData in the NuGet package https://www.nuget.org/packages/IdeaStatiCa.OpenModel).
 
 
         :param project_id: The unique identifier of the opened project. (required)
@@ -976,7 +976,7 @@ class ExportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[ConnectionData]:
-        """Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
+        """Gets the ConnectionData for the specified connection (IdeaRS.OpenModel.Connection.ConnectionData in the NuGet package https://www.nuget.org/packages/IdeaStatiCa.OpenModel).
 
 
         :param project_id: The unique identifier of the opened project. (required)
@@ -1049,7 +1049,7 @@ class ExportApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
+        """Gets the ConnectionData for the specified connection (IdeaRS.OpenModel.Connection.ConnectionData in the NuGet package https://www.nuget.org/packages/IdeaStatiCa.OpenModel).
 
 
         :param project_id: The unique identifier of the opened project. (required)

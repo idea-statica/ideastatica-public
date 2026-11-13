@@ -279,7 +279,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
  **connection_id** | **int**| The ID of the connection containing the template. | 
- **template_id** | **str**| The ID of the template to delete. | 
+ **template_id** | **int**| TemplateId of the applied template as listed by GetTemplatesInConnection. | 
 
 ### Return type
 
@@ -302,7 +302,7 @@ def deleteExampleFunc(api_client):
     
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
     connection_id = 56 # int | The ID of the connection containing the template.
-    template_id = 'template_id_example' # str | The ID of the template to delete.
+    template_id = 56 # int | TemplateId of the applied template as listed by GetTemplatesInConnection.
 
     try:
         # Delete specific template.
@@ -435,7 +435,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
  **connection_id** | **int**| The ID of the connection containing the template. | 
- **template_id** | **str**| The ID of the template to explode. | 
+ **template_id** | **int**| TemplateId of the applied template as listed by GetTemplatesInConnection. | 
 
 ### Return type
 
@@ -458,7 +458,7 @@ def explodeExampleFunc(api_client):
     
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
     connection_id = 56 # int | The ID of the connection containing the template.
-    template_id = 'template_id_example' # str | The ID of the template to explode.
+    template_id = 56 # int | TemplateId of the applied template as listed by GetTemplatesInConnection.
 
     try:
         # Explode specific template (delete parameters, keep operations).
@@ -680,7 +680,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
  **connection_id** | **int**| The ID of the connection containing the template. | 
- **template_id** | **str**| The ID of the template. | 
+ **template_id** | **int**| TemplateId of the applied template as listed by GetTemplatesInConnection. | 
 
 ### Return type
 
@@ -704,7 +704,7 @@ def get_template_common_operation_propertiesExampleFunc(api_client):
     
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
     connection_id = 56 # int | The ID of the connection containing the template.
-    template_id = 'template_id_example' # str | The ID of the template.
+    template_id = 56 # int | TemplateId of the applied template as listed by GetTemplatesInConnection.
 
     try:
         # Get common properties for specific template.
@@ -929,7 +929,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
  **connection_id** | **int**| The ID of the connection containing the template. | 
- **template_id** | **str**| The ID of the template whose parameter defaults are loaded. | 
+ **template_id** | **int**| TemplateId of the applied template as listed by GetTemplatesInConnection. | 
 
 ### Return type
 
@@ -953,7 +953,7 @@ def load_defaultsExampleFunc(api_client):
     
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
     connection_id = 56 # int | The ID of the connection containing the template.
-    template_id = 'template_id_example' # str | The ID of the template whose parameter defaults are loaded.
+    template_id = 56 # int | TemplateId of the applied template as listed by GetTemplatesInConnection.
 
     try:
         # Load parameter defaults for specific template.
@@ -1013,7 +1013,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
  **connection_id** | **int**| The ID of the connection containing the template. | 
- **template_id** | **str**| The ID of the template. | 
+ **template_id** | **int**| TemplateId of the applied template as listed by GetTemplatesInConnection. | 
  **con_operation_common_properties** | [**ConOperationCommonProperties**](ConOperationCommonProperties.md)| Common properties to apply (specify material IDs, or keep as null). | [optional] 
 
 ### Return type
@@ -1038,7 +1038,7 @@ def update_template_common_operation_propertiesExampleFunc(api_client):
     
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
     connection_id = 56 # int | The ID of the connection containing the template.
-    template_id = 'template_id_example' # str | The ID of the template.
+    template_id = 56 # int | TemplateId of the applied template as listed by GetTemplatesInConnection.
     con_operation_common_properties = ideastatica_connection_api.ConOperationCommonProperties() # ConOperationCommonProperties | Common properties to apply (specify material IDs, or keep as null). (optional)
 
     try:

@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **description** | **str** |  | [optional] 
 **lower_bound** | **str** |  | [optional] 
 **upper_bound** | **str** |  | [optional] 
+**is_visible** | **bool** |  | [optional] 
+**value_type** | [**ConParameterValueType**](ConParameterValueType.md) |  | [optional] 
 
 ## Example
 

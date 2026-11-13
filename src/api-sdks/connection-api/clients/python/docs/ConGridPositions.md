@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **values** | **List[float]** |  | [optional] 
+**rows** | **List[List[ConRepeatedValue]]** |  | [optional] 
 
 ## Example
 

@@ -29,6 +29,7 @@ Method | Description
 [**get_reinforcement_materials**](MaterialApi.md#get_reinforcement_materials) | Gets materials used in the specified project.
 [**get_steel_materials**](MaterialApi.md#get_steel_materials) | Gets materials used in the specified project.
 [**get_welding_materials**](MaterialApi.md#get_welding_materials) | Gets materials used in the specified project.
+[**update_library_cross_section**](MaterialApi.md#update_library_cross_section) | Replaces the definition of library (MPRL rolled) cross-section cssId  with the given one — e.g. swaps HEA200 for HEA300. The id is kept, so every member  using the section takes the new one. A full replacement: send the complete definition  obtained from the section GET (mirror flags not sent are false). MaterialName must  name one of the project&#39;s steel materials. Answers 409 when the id stores a parametric  or general section.
 [**update_parametric_cross_section**](MaterialApi.md#update_parametric_cross_section) | Replaces the definition of parametric cross-section cssId with the  given one — a full replacement: dimensions not named revert to the shape&#39;s defaults,  so send the complete definition obtained from the section GET. Answers 409 when the id  stores a library or general section.
 
 
@@ -2034,6 +2035,92 @@ No authorization required
 **200** | OK |  -  |
 **401** | Unauthorized |  -  |
 **404** | Not Found |  -  |
+**500** | Internal Server Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="update_library_cross_section"></a>
+# **update_library_cross_section**
+> ConCrossSection update_library_cross_section(project_id, css_id, con_cross_section_library_definition=con_cross_section_library_definition)
+
+Replaces the definition of library (MPRL rolled) cross-section cssId  with the given one — e.g. swaps HEA200 for HEA300. The id is kept, so every member  using the section takes the new one. A full replacement: send the complete definition  obtained from the section GET (mirror flags not sent are false). MaterialName must  name one of the project's steel materials. Answers 409 when the id stores a parametric  or general section.
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
+ **css_id** | **int**| Id of the library cross-section to replace. | 
+ **con_cross_section_library_definition** | [**ConCrossSectionLibraryDefinition**](ConCrossSectionLibraryDefinition.md)| MPRL name, material and mirroring replacing the stored definition. | [optional] 
+
+### Return type
+
+[**ConCrossSection**](ConCrossSection.md)
+
+### Example
+
+Required Imports
+```python
+import ideastatica_connection_api
+from ideastatica_connection_api.models.con_cross_section import ConCrossSection
+from ideastatica_connection_api.models.con_cross_section_library_definition import ConCrossSectionLibraryDefinition
+from ideastatica_connection_api.rest import ApiException
+from pprint import pprint
+
+```
+
+For client instantiation instructions, refer to the [[README]](../README.md) documentation. 
+
+```python
+def update_library_cross_sectionExampleFunc(api_client):
+    
+    project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
+    css_id = 56 # int | Id of the library cross-section to replace.
+    con_cross_section_library_definition = ideastatica_connection_api.ConCrossSectionLibraryDefinition() # ConCrossSectionLibraryDefinition | MPRL name, material and mirroring replacing the stored definition. (optional)
+
+    try:
+        # Replaces the definition of library (MPRL rolled) cross-section cssId  with the given one — e.g. swaps HEA200 for HEA300. The id is kept, so every member  using the section takes the new one. A full replacement: send the complete definition  obtained from the section GET (mirror flags not sent are false). MaterialName must  name one of the project's steel materials. Answers 409 when the id stores a parametric  or general section.
+        api_response = api_client.material.update_library_cross_section(project_id, css_id, con_cross_section_library_definition=con_cross_section_library_definition)
+        print("The response of MaterialApi->update_library_cross_section:\n")
+        pprint(api_response)
+        return api_response
+    except Exception as e:
+        print("Exception when calling MaterialApi->update_library_cross_section: %s\n" % e)
+```
+
+
+
+### Code Samples
+
+Looking for a code sample? request some help on our [discussion](https://github.com/idea-statica/ideastatica-public/discussions) page. 
+
+### REST Usage
+
+#### Http Request
+
+All URIs are relative to *http://localhost*
+
+> **PUT** /api/5/projects/{projectId}/materials/cross-sections/library/{cssId} 
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**401** | Unauthorized |  -  |
+**404** | Not Found |  -  |
+**409** | Conflict |  -  |
+**422** | Unprocessable Content |  -  |
 **500** | Internal Server Error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

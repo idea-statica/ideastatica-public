@@ -113,6 +113,7 @@ docs/ConParameterCreate.md
 docs/ConParameterDeleteResult.md
 docs/ConParameterLink.md
 docs/ConParameterLinkCreate.md
+docs/ConParameterValueType.md
 docs/ConPinGridOperation.md
 docs/ConPlateCutOperation.md
 docs/ConPlateFunction.md
@@ -128,8 +129,10 @@ docs/ConPropertyOwner.md
 docs/ConPropertyOwnerKind.md
 docs/ConReinforcementAnchorShape.md
 docs/ConRemainingPart.md
+docs/ConRepeatedValue.md
 docs/ConResultSummary.md
 docs/ConShearForceTransferMethod.md
+docs/ConShearLugDto.md
 docs/ConSlottedHole.md
 docs/ConSteelCodeEditionEnum.md
 docs/ConStiffeningMemberOperation.md
@@ -344,6 +347,7 @@ ideastatica_connection_api/models/con_parameter_create.py
 ideastatica_connection_api/models/con_parameter_delete_result.py
 ideastatica_connection_api/models/con_parameter_link.py
 ideastatica_connection_api/models/con_parameter_link_create.py
+ideastatica_connection_api/models/con_parameter_value_type.py
 ideastatica_connection_api/models/con_pin_grid_operation.py
 ideastatica_connection_api/models/con_plate_cut_operation.py
 ideastatica_connection_api/models/con_plate_function.py
@@ -359,8 +363,10 @@ ideastatica_connection_api/models/con_property_owner.py
 ideastatica_connection_api/models/con_property_owner_kind.py
 ideastatica_connection_api/models/con_reinforcement_anchor_shape.py
 ideastatica_connection_api/models/con_remaining_part.py
+ideastatica_connection_api/models/con_repeated_value.py
 ideastatica_connection_api/models/con_result_summary.py
 ideastatica_connection_api/models/con_shear_force_transfer_method.py
+ideastatica_connection_api/models/con_shear_lug_dto.py
 ideastatica_connection_api/models/con_slotted_hole.py
 ideastatica_connection_api/models/con_steel_code_edition_enum.py
 ideastatica_connection_api/models/con_stiffening_member_operation.py

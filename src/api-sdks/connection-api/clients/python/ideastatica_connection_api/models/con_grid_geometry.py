@@ -36,15 +36,13 @@ class ConGridGeometry(BaseModel):
     shear_plane_in_thread: Optional[StrictBool] = Field(default=None, alias="shearPlaneInThread")
     rows_grid_layout: Optional[ConGridLayout] = Field(default=None, alias="rowsGridLayout")
     top_layers: Optional[ConGridPositions] = Field(default=None, alias="topLayers")
-    bottom_layers: Optional[ConGridPositions] = Field(default=None, alias="bottomLayers")
     left_layers: Optional[ConGridPositions] = Field(default=None, alias="leftLayers")
-    right_layers: Optional[ConGridPositions] = Field(default=None, alias="rightLayers")
     polar_input: Optional[ConPolarInputType] = Field(default=None, alias="polarInput")
     radii: Optional[ConGridPositions] = None
     polar_counts: Optional[List[StrictInt]] = Field(default=None, alias="polarCounts")
     angles: Optional[ConGridPositions] = None
     user_positions: Optional[List[ConFastenerPosition]] = Field(default=None, alias="userPositions")
-    __properties: ClassVar[List[str]] = ["type", "shearPlaneInThread", "rowsGridLayout", "topLayers", "bottomLayers", "leftLayers", "rightLayers", "polarInput", "radii", "polarCounts", "angles", "userPositions"]
+    __properties: ClassVar[List[str]] = ["type", "shearPlaneInThread", "rowsGridLayout", "topLayers", "leftLayers", "polarInput", "radii", "polarCounts", "angles", "userPositions"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -88,15 +86,9 @@ class ConGridGeometry(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of top_layers
         if self.top_layers:
             _dict['topLayers'] = self.top_layers.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of bottom_layers
-        if self.bottom_layers:
-            _dict['bottomLayers'] = self.bottom_layers.to_dict()
         # override the default output from pydantic by calling `to_dict()` of left_layers
         if self.left_layers:
             _dict['leftLayers'] = self.left_layers.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of right_layers
-        if self.right_layers:
-            _dict['rightLayers'] = self.right_layers.to_dict()
         # override the default output from pydantic by calling `to_dict()` of radii
         if self.radii:
             _dict['radii'] = self.radii.to_dict()
@@ -136,9 +128,7 @@ class ConGridGeometry(BaseModel):
             "shearPlaneInThread": obj.get("shearPlaneInThread"),
             "rowsGridLayout": obj.get("rowsGridLayout"),
             "topLayers": ConGridPositions.from_dict(obj["topLayers"]) if obj.get("topLayers") is not None else None,
-            "bottomLayers": ConGridPositions.from_dict(obj["bottomLayers"]) if obj.get("bottomLayers") is not None else None,
             "leftLayers": ConGridPositions.from_dict(obj["leftLayers"]) if obj.get("leftLayers") is not None else None,
-            "rightLayers": ConGridPositions.from_dict(obj["rightLayers"]) if obj.get("rightLayers") is not None else None,
             "polarInput": obj.get("polarInput"),
             "radii": ConGridPositions.from_dict(obj["radii"]) if obj.get("radii") is not None else None,
             "polarCounts": obj.get("polarCounts"),

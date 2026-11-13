@@ -9,9 +9,9 @@ Method | Description
 [**download_project**](ProjectApi.md#download_project) | Downloads the current IdeaCon project from the service, including all changes made by previous API calls.
 [**get_active_projects**](ProjectApi.md#get_active_projects) | Gets the list of projects in the service that were opened by the client connected via M:IdeaStatiCa.ConnectionRestApi.Controllers.ClientController.ConnectClient.
 [**get_project_data**](ProjectApi.md#get_project_data) | Get data of the project.
-[**import_iom**](ProjectApi.md#import_iom) | Create the IDEA Connection project from IOM provided in xml format.  The parameter &#39;containerXmlFile&#39; passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs)
+[**import_iom**](ProjectApi.md#import_iom) | Create the IDEA Connection project from IOM provided in xml format.  The parameter &#39;containerXmlFile&#39; passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://www.nuget.org/packages/IdeaStatiCa.OpenModel)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://www.nuget.org/packages/IdeaStatiCa.OpenModel)
 [**open_project**](ProjectApi.md#open_project) | Opens an IdeaCon project from the provided file.
-[**update_from_iom**](ProjectApi.md#update_from_iom) | Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) should be used to generate the valid xml string
+[**update_from_iom**](ProjectApi.md#update_from_iom) | Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://www.nuget.org/packages/IdeaStatiCa.OpenModel)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://www.nuget.org/packages/IdeaStatiCa.OpenModel) should be used to generate the valid xml string
 [**update_project_data**](ProjectApi.md#update_project_data) | Updates ConProjectData of project.
 
 
@@ -402,7 +402,7 @@ No authorization required
 # **import_iom**
 > ConProject import_iom(container_xml_file=container_xml_file, connections_to_create=connections_to_create)
 
-Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs)
+Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://www.nuget.org/packages/IdeaStatiCa.OpenModel)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://www.nuget.org/packages/IdeaStatiCa.OpenModel)
 
 ### Parameters
 
@@ -436,7 +436,7 @@ def import_iomExampleFunc(api_client):
     connections_to_create = [56] # List[int] |  (optional)
 
     try:
-        # Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs)
+        # Create the IDEA Connection project from IOM provided in xml format.  The parameter 'containerXmlFile' passed in HTTP body represents :  [IdeaRS.OpenModel.OpenModelContainer](https://www.nuget.org/packages/IdeaStatiCa.OpenModel)  which is serialized to XML string by  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://www.nuget.org/packages/IdeaStatiCa.OpenModel)
         api_response = api_client.project.import_iom(container_xml_file=container_xml_file, connections_to_create=connections_to_create)
         print("The response of ProjectApi->import_iom:\n")
         pprint(api_response)
@@ -562,7 +562,7 @@ No authorization required
 # **update_from_iom**
 > ConProject update_from_iom(project_id, container_xml_file=container_xml_file)
 
-Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) should be used to generate the valid xml string
+Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://www.nuget.org/packages/IdeaStatiCa.OpenModel)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://www.nuget.org/packages/IdeaStatiCa.OpenModel) should be used to generate the valid xml string
 
 ### Parameters
 
@@ -596,7 +596,7 @@ def update_from_iomExampleFunc(api_client):
     container_xml_file = None # bytearray | IdeaRS.OpenModel.OpenModelContainer serialized to xml. (optional)
 
     try:
-        # Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Tools.cs) should be used to generate the valid xml string
+        # Update the IDEA Connection project by [IdeaRS.OpenModel.OpenModelContainer](https://www.nuget.org/packages/IdeaStatiCa.OpenModel)  (model and results).  IOM is passed in the body of the request as the xml string.  [IdeaRS.OpenModel.Tools.OpenModelContainerToXml](https://www.nuget.org/packages/IdeaStatiCa.OpenModel) should be used to generate the valid xml string
         api_response = api_client.project.update_from_iom(project_id, container_xml_file=container_xml_file)
         print("The response of ProjectApi->update_from_iom:\n")
         pprint(api_response)
@@ -652,7 +652,7 @@ Updates ConProjectData of project.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **str**| The unique identifier of the opened project in the ConnectionRestApi service. | 
- **con_project_data** | [**ConProjectData**](ConProjectData.md)| New project data to apply. The CountryCode field may keep the project&#39;s              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code. | [optional] 
+ **con_project_data** | [**ConProjectData**](ConProjectData.md)| New project data to apply. The CountryCode field cannot change the design              code: it may only repeat the project&#39;s current code, and None or leaving the field out keeps it.              Any other value is refused with 422; use change-code to convert a project to another code. | [optional] 
 
 ### Return type
 
@@ -676,7 +676,7 @@ For client instantiation instructions, refer to the [[README]](../README.md) doc
 def update_project_dataExampleFunc(api_client):
     
     project_id = 'project_id_example' # str | The unique identifier of the opened project in the ConnectionRestApi service.
-    con_project_data = ideastatica_connection_api.ConProjectData() # ConProjectData | New project data to apply. The CountryCode field may keep the project's              current design code or switch it to one of ECEN, American, Canada, Australia, RUS, CHN, India or              HKG; switching to any other value of the enum is refused with 422. None keeps the current code. (optional)
+    con_project_data = ideastatica_connection_api.ConProjectData() # ConProjectData | New project data to apply. The CountryCode field cannot change the design              code: it may only repeat the project's current code, and None or leaving the field out keeps it.              Any other value is refused with 422; use change-code to convert a project to another code. (optional)
 
     try:
         # Updates ConProjectData of project.

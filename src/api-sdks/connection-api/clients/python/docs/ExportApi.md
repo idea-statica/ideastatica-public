@@ -6,8 +6,8 @@ Method | Description
 ------------- | -------------
 [**export_dwg**](ExportApi.md#export_dwg) | Exports the connection to DWG format. Internally opens the project on the cloud Viewer, starts a Forge work  item via the async DWG flow, blocks until completion (up to 10 minutes), then streams the generated DWG.  The client does not need to pass any authentication — the ConnectionRestApi reuses the IDEA license access  token from the Credential Manager (via AuthenticatedHttpRequestsDelegatingHandler) when calling the Viewer&#39;s  authenticated DWG endpoints. User identity (email) is part of that JWT.
 [**export_ifc**](ExportApi.md#export_ifc) | Exports the connection to IFC format.
-[**export_iom**](ExportApi.md#export_iom) | Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
-[**export_iom_connection_data**](ExportApi.md#export_iom_connection_data) | Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
+[**export_iom**](ExportApi.md#export_iom) | Exports the connection to XML which includes the OpenModelContainer (IdeaRS.OpenModel.OpenModelContainer in the NuGet package https://www.nuget.org/packages/IdeaStatiCa.OpenModel).
+[**export_iom_connection_data**](ExportApi.md#export_iom_connection_data) | Gets the ConnectionData for the specified connection (IdeaRS.OpenModel.Connection.ConnectionData in the NuGet package https://www.nuget.org/packages/IdeaStatiCa.OpenModel).
 
 
 <a id="export_dwg"></a>
@@ -168,7 +168,7 @@ No authorization required
 # **export_iom**
 > str export_iom(project_id, connection_id, version=version)
 
-Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
+Exports the connection to XML which includes the OpenModelContainer (IdeaRS.OpenModel.OpenModelContainer in the NuGet package https://www.nuget.org/packages/IdeaStatiCa.OpenModel).
 
 ### Parameters
 
@@ -203,7 +203,7 @@ def export_iomExampleFunc(api_client):
     version = 'version_example' # str | Optional version string for downgrading the IOM model. (optional)
 
     try:
-        # Exports the connection to XML which includes the OpenModelContainer (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/OpenModelContainer.cs).
+        # Exports the connection to XML which includes the OpenModelContainer (IdeaRS.OpenModel.OpenModelContainer in the NuGet package https://www.nuget.org/packages/IdeaStatiCa.OpenModel).
         api_response = api_client.export.export_iom(project_id, connection_id, version=version)
         print("The response of ExportApi->export_iom:\n")
         pprint(api_response)
@@ -250,7 +250,7 @@ No authorization required
 # **export_iom_connection_data**
 > ConnectionData export_iom_connection_data(project_id, connection_id)
 
-Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
+Gets the ConnectionData for the specified connection (IdeaRS.OpenModel.Connection.ConnectionData in the NuGet package https://www.nuget.org/packages/IdeaStatiCa.OpenModel).
 
 ### Parameters
 
@@ -284,7 +284,7 @@ def export_iom_connection_dataExampleFunc(api_client):
     connection_id = 56 # int | The ID of the connection to export.
 
     try:
-        # Gets the ConnectionData for the specified connection (https://github.com/idea-statica/ideastatica-public/blob/main/src/IdeaRS.OpenModel/Connection/ConnectionData.cs).
+        # Gets the ConnectionData for the specified connection (IdeaRS.OpenModel.Connection.ConnectionData in the NuGet package https://www.nuget.org/packages/IdeaStatiCa.OpenModel).
         api_response = api_client.export.export_iom_connection_data(project_id, connection_id)
         print("The response of ExportApi->export_iom_connection_data:\n")
         pprint(api_response)
