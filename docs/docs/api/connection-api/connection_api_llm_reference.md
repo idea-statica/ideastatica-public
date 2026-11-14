@@ -1,11 +1,11 @@
 # Connection API — LLM Reference
 
-A single-file HTTP reference for AI coding assistants (and people) that drive the IDEA StatiCa Connection REST API from any language. It states what the service's own OpenAPI document does not say, the canonical call sequence, request bodies for the common tasks, the known issues of this release, and every route.
+A single-file HTTP reference for AI coding assistants (and people) that drive the IDEA StatiCa Connection REST API from any language. It states what the service's own OpenAPI document does not say, the canonical call sequence, request bodies for the common tasks, the known issues of the release it was checked against, and a map of the routes.
 
 > [!NOTE]
-> Written for IDEA StatiCa **26.1.1**: service build **26.1.1.2809**, **API version 5.0**, all routes under **`/api/5`**, default port **5000**. Read the version of the service you talk to with `GET /api/5/clients/idea-service-version` (it answers a JSON string such as `"26.1.1.2809"`). Older services expose older route sets; the deprecated prefixes `/api/1` to `/api/4` are still served but have fewer routes. Use `/api/5`. If `/api/5` routes do not answer, the service predates API 5.0 and this page does not apply to it.
+> Written for IDEA StatiCa **26.1** and checked against the **26.1.1** release: **API version 5.0**, all routes under **`/api/5`**, default port **5000**. Read the version of the service you talk to with `GET /api/5/clients/idea-service-version` (a JSON string, `"<major>.<minor>.<patch>.<build>"`). Older services expose older route sets; the deprecated prefixes `/api/1` to `/api/4` are still served but have fewer routes. Use `/api/5`. If `/api/5` routes do not answer, the service predates API 5.0 and this page does not apply to it.
 >
-> Section 9 lists the defects of 26.1.1 with a workaround for each. A later service can behave differently where section 9 applies; for that service, its own OpenAPI document is right.
+> Section 9 lists the known defects of that release, each with a workaround that still works once the defect is fixed. Where a later service differs from this page, its own OpenAPI document is right.
 
 Related pages: [Overview](connection_api_overview.md) | [Getting started](connection_api_getting_started.md) | [Concepts](connection_api_concepts.md) | [Changelog](connection_api_changelog.md) | [Parameters getting started](../api_parameters_getting_started.md) | [Expression parameter reference](../api_parameter_reference_guide.md)
 
@@ -15,7 +15,7 @@ The service usually runs already. **Check before starting anything:**
 
 ```
 GET http://localhost:5000/heartbeat                              -> 200
-GET http://localhost:5000/api/5/clients/idea-service-version     -> "26.1.1.2809"
+GET http://localhost:5000/api/5/clients/idea-service-version     -> "<major>.<minor>.<patch>.<build>"
 ```
 
 Only if nothing answers, start `IdeaStatiCa.ConnectionRestApi.exe` from the installation folder (e.g. `C:\Program Files\IDEA StatiCa\StatiCa 26.1`) and poll `/heartbeat` until it answers 200. It listens on port 5000; for another port pass `-port:5193` (colon form: `IdeaStatiCa.ConnectionRestApi.exe -port:5193`). Running the service needs a licensed IDEA StatiCa installation on the same machine.
@@ -23,12 +23,12 @@ Only if nothing answers, start `IdeaStatiCa.ConnectionRestApi.exe` from the inst
 **The running service's OpenAPI document is the contract** for route names, methods, schemas and field names:
 
 - Swagger UI: `http://localhost:5000/index.html` (the root `/` answers 301 and redirects there).
-- OpenAPI document: `http://localhost:5000/swagger/5.0/swagger.json`. It is about 600 kB — search it for the path or schema name you need (e.g. `"ConLoadEffect"`) instead of loading it whole. Section 12 lists every route of API 5.0 and gives a one-line command that prints them from the running service.
+- OpenAPI document: `http://localhost:5000/swagger/5.0/swagger.json`. It is large — search it for the path or schema name you need (e.g. `"ConLoadEffect"`) instead of loading it whole. Section 12 maps the routes of API 5.0 and gives a one-line command that prints the routes of the running service.
 - `/swagger/index.html`, `/swagger/v1/swagger.json` and `/openapi.json` do not exist (404).
 
 ## 2. Core rules
 
-1. **`ClientId` header on every request.** `GET /api/5/clients/connect-client` returns the id as a raw GUID in `text/plain` (unquoted; do not JSON-parse it). Send it as the header `ClientId` on every other request; only `connect-client` and `idea-service-version` work without it. The 26.1.1 swagger does not declare the header (section 9). A request without it is refused with `401` *"The 'ClientId' header is required. Call ConnectClient to obtain one."* (`/api/4` answers `401` too; only `/api/1` to `/api/3` answer `400` *"Request failed Missing ClientId in headers"*).
+1. **`ClientId` header on every request.** `GET /api/5/clients/connect-client` returns the id as a raw GUID in `text/plain` (unquoted; do not JSON-parse it). Send it as the header `ClientId` on every other request; only `connect-client` and `idea-service-version` work without it. The swagger may not declare the header (section 9). A request without it is refused with `401` *"The 'ClientId' header is required. Call ConnectClient to obtain one."* (`/api/4` answers `401` too; only `/api/1` to `/api/3` answer `400` *"Request failed Missing ClientId in headers"*).
 2. **Sessions are per client.** A project lives in service memory until you close it. One ClientId can hold several open projects (`GET /api/5/projects` lists them); another ClientId sees none of them and gets `404` on their ids. Use one ClientId per process and close only the projects you opened (section 9); there is no route to end a client session.
 3. **Use ids from live responses.** `projectId` is the GUID that `open` or `create` returns. Connection, member, operation and load-effect ids are opaque integers that may not start at 1 and may have gaps. Material, cross-section and bolt-assembly ids come from the project's `GET .../materials/...` lists; an id the project does not hold is `422` naming it.
 4. **SI units on input**: metres, radians, newtons, newton-metres, pascals. A 5 mm weld is `"size": 0.005`; a 300 kN axial force is `"n": 300000`.
@@ -57,7 +57,7 @@ GET  /api/5/projects/{projectId}/download                  -> .ideaCon bytes (al
 GET  /api/5/projects/{projectId}/close                     -> 204
 ```
 
-- **Open:** `multipart/form-data` with the file in a part named exactly **`ideaConFile`**. Another name gives `400` *"The ideaConFile field is required."*; a JSON body gives `415`; a file that is not a valid `.ideaCon` is refused (26.1.1 answers `500`, section 9). Each entry of `connections[]` carries an integer `id` and a `name`.
+- **Open:** `multipart/form-data` with the file in a part named exactly **`ideaConFile`**. Another name gives `400` *"The ideaConFile field is required."*; a JSON body gives `415`; a file that is not a valid `.ideaCon` is refused (status code: section 9). Each entry of `connections[]` carries an integer `id` and a `name`.
 - **Create:** a JSON body is required (at least `{}`), e.g. `POST /api/5/projects` `{"name": "demo", "countryCode": "american", "steelEdition": "AISC_360_16_ASD"}`. `countryCode` picks the design code: `ecen` (default), `american`, `canada`, `australia`, `rus`, `chn`, `india`, `hkg` (`sia` is in the enum but refused with `422`). `steelEdition` picks the edition within the code and changes the results (AISC LRFD vs ASD):
 
   | `countryCode` | default `steelEdition` | accepted |
@@ -155,7 +155,7 @@ GET  /api/5/projects/{projectId}/calculation-jobs/<jobId>
 
 ## 6. Typed operations
 
-The model is built from **operations** of 13 kinds: `weld`, `cut`, `plate-cut`, `bolt-grid`, `anchor-grid`, `pin-grid`, `contact`, `contact-grid`, `negative-member`, `negative-plate`, `stiffening-member`, `stiffening-plate`, `work-plane`. Each kind has the same four routes:
+The model is built from **operations** of these kinds: `weld`, `cut`, `plate-cut`, `bolt-grid`, `anchor-grid`, `pin-grid`, `contact`, `contact-grid`, `negative-member`, `negative-plate`, `stiffening-member`, `stiffening-plate`, `work-plane`. Each kind has the same four routes:
 
 ```
 GET  /api/5/projects/{projectId}/connections/{connectionId}/operations/{kind}                 list (full typed objects)
@@ -262,12 +262,12 @@ PUT  /api/5/projects/{projectId}/connections/{connectionId}/load-effects
 GET  /api/5/projects/{projectId}/connections/{connectionId}/load-effects?isPercentage=false
 ```
 
-- Forces in N, moments in N·m. The six components go **inside `sectionLoad`**; flat on the loading they are not read and the POST fails (26.1.1 answers `500`, section 9). A misspelled key inside `sectionLoad` is ignored and stores a zero.
+- Forces in N, moments in N·m. The six components go **inside `sectionLoad`**; flat on the loading they are not read and the POST fails (section 9). A misspelled key inside `sectionLoad` is ignored and stores a zero.
 - A loading is a force vector in the member's local axes at the free end of the member's stub. A positive `n` is tension in a stub on the +x side of the node (a member connected by `begin`), compression on the -x side.
-- **Author and read in forces.** Send `"isPercentage": false` on POST and PUT, and read with `?isPercentage=false`. In 26.1.1 the percentage form is not reliable (section 9).
+- **Author and read in forces.** Send `"isPercentage": false` on POST and PUT, and read with `?isPercentage=false`. The percentage form has known issues (section 9).
 - POST stores the loadings you send and, in addition, a zero row for every `(memberId, position)` pair that already exists in the connection from other load effects. The POST response does not show these rows; GET the load effect back. A member can get its first loading in a later load effect.
 - `PUT .../load-effects` updates the single load effect named by the body `id` (one object, not an array). It changes only `(memberId, position)` pairs that load effect already has (another is `422`); a member left out keeps its loading. The PUT response echoes what you sent; read the stored state with `GET .../load-effects/{loadEffectId}`. A load effect's own path takes no PUT.
-- The first load effect that loads a member fixes the end (`Begin`/`End`) it may be loaded at; reuse the `(memberId, position)` pairs of an existing load effect. A wrong pair is `422` *"… is not defined in connection …"*; an unknown `memberId` is `404` (in 26.1.1 its `detail` does not name the member, section 9).
+- The first load effect that loads a member fixes the end (`Begin`/`End`) it may be loaded at; reuse the `(memberId, position)` pairs of an existing load effect. A wrong pair is `422` *"… is not defined in connection …"*; an unknown `memberId` is `404` (section 9).
 - `DELETE .../load-effects` deletes all of them (new ones are numbered from 1 again); `DELETE .../load-effects/{loadEffectId}` deletes one. `active: false` excludes a load effect from calculations and reports.
 - `set-load-settings` belongs to the connection, not to a load effect; set it before authoring load effects. It replaces both flags: send `loadsInEquilibrium` and `loadsInPercentage` every time — `{}` or a misspelled key resets both to `false`. `loadsInEquilibrium` (default `true`) requires the forces to balance; set it to `false` to load only the members that carry the applied forces (the bearing member takes the reactions).
 
@@ -295,7 +295,7 @@ PUT  .../connections/{connectionId}/parameters
 - A parameter drives nothing until it is linked. `propertyId` is an opaque string, per owner (`"151"` is a stiffening plate's thickness, not a global id) — always read it from `linkable-properties` of that owner (`.../operations/{operationId}/...`, `.../members/{memberId}/...`, or `.../parameters/linkable-properties` for all). `kind` ∈ `operation`, `member`, `crossSection`, `material`, `boltAssembly`, each with its own owner id field. Linking applies the value at once. `DELETE .../parameters/links/{linkId}` unlinks and keeps the last value.
 - A linked property belongs to its parameter: writing that property through its own route answers 200 and is overwritten. Change the parameter instead.
 - A 200 on a link or PUT does not prove the model changed; read the property back (e.g. plate `thickness` in `export-iom-connection-data`).
-- `POST .../connections/{connectionId}/evaluate-expression` takes a JSON string and returns a JSON string (`"1+2*3"` → `"7"`). An unknown property returns 200 with `Property '<name>' not found`; an expression that cannot be evaluated fails (26.1.1 answers `500`, section 9) — create it as a parameter to get a `422` that says why. Syntax: [Expression parameter reference](../api_parameter_reference_guide.md).
+- `POST .../connections/{connectionId}/evaluate-expression` takes a JSON string and returns a JSON string (`"1+2*3"` → `"7"`). An unknown property returns 200 with `Property '<name>' not found`; an expression that cannot be evaluated fails (section 9) — create it as a parameter to get a `422` that says why. Syntax: [Expression parameter reference](../api_parameter_reference_guide.md).
 - Template parameters that are not visible are listed only with `GET .../parameters?includeHidden=true`.
 
 ### Templates and the Connection Library
@@ -355,15 +355,15 @@ GET  /api/5/projects/{projectId}/materials/bolt-assemblies          -> [ { "id":
 
 - **Convert a project** to another code: `GET /api/5/projects/{projectId}/get-default-mapping?countryCode=american` returns `ConConversionSettings` (`targetDesignCode`, and lists `steel`, `crossSections`, `fasteners`, `welds`, `concrete`, `boltGrade` of `{sourceValue, targetValue}`). Review every `targetValue` — a name the suggestion table does not know gets one generic value of the target code — then send the object to `POST /api/5/projects/{projectId}/change-code` (`204`). Targets: `american`, `canada`, `australia`, `rus`, `chn`, `india`, `hkg`. `ecen` is never a target (`501`); the project's own code, a pin used by an operation, or (for `change-code`) a reinforcement or headed-stud material is `422`. `steelEdition` resets to the target's default; set it afterwards with `PUT /api/5/projects/{projectId}`.
 - **Settings:** `GET /api/5/projects/{projectId}/settings` without `search` returns the whole key → value dictionary (`search` matches a whole key part only). `PUT` takes an object of existing keys, all or nothing, e.g. `{"calculation/Analysis/CodeFactors/EN/GammaM0": 1.0}`.
-- **Exports:** `export-iom` (XML; in 26.1.1 the declaration does not match the encoding, section 9; the export is the input of `POST /api/5/projects/import-iom-file`, field `containerXmlFile`), `export-iom-connection-data` (JSON, or XML with `Accept: application/xml`), `export-ifc`, `export-dwg` (can take up to about 10 minutes).
+- **Exports:** `export-iom` (XML; decode it as section 9 says; the export is the input of `POST /api/5/projects/import-iom-file`, field `containerXmlFile`), `export-iom-connection-data` (JSON, or XML with `Accept: application/xml`), `export-ifc`, `export-dwg` (can take up to about 10 minutes).
 
 ## 8. Where the swagger is not enough
 
-The swagger of the running service names every route and field. The rules below are what it does not tell you; each one fails quietly when ignored. Where the 26.1.1 service and its swagger disagree, section 9 says which one to follow.
+The swagger of the running service names every route and field. The rules below are what it does not tell you; each one fails quietly when ignored. Where the service and its swagger disagree, section 9 says which one to follow.
 
 ### Behaviour the swagger does not declare
 
-- **Send a `ClientId` header on every request** except `GET /api/5/clients/connect-client` (which returns the id) and `GET /api/5/clients/idea-service-version`. The header is part of the contract even though the 26.1.1 swagger does not declare it.
+- **Send a `ClientId` header on every request** except `GET /api/5/clients/connect-client` (which returns the id) and `GET /api/5/clients/idea-service-version`. The header is part of the contract even where the swagger does not declare it (section 9).
 - **Send only what the schemas list.** Most schemas are marked `additionalProperties: false` and almost no field `required`. The service does not enforce either today: unknown fields are ignored and missing ones get defaults (section 2, rule 8). Do not depend on that, and read back what you wrote.
 - **Read the status code first, then the body.** An error body is ProblemDetails-shaped JSON (`title`, `status`, `detail`; a `400` from the binder adds an `errors` map). Parse it whatever its media type says, and allow an empty body (section 9).
 - **Count what an operation created** in `GET .../connections/{connectionId}/export-iom-connection-data` after every add; a clean `addedWithoutIssues: true` is not proof (section 9).
@@ -377,9 +377,9 @@ The swagger of the running service names every route and field. The rules below 
 - **Plate indexes on a member start at different numbers:** `onMemberPlateIndex` (added member) counts from 0, `plateOnMemberIndex` (plate positioned on a member) counts from 1.
 - **`plateSubIndex` depends on the operand** (`ConConnectedItem`): 0-based in a weld's member operand, 1-based in a weld's operation operand and in a cut operand.
 
-## 9. Known issues in 26.1.1
+## 9. Known issues
 
-Defects of service build 26.1.1.2809. Each entry gives what happens and what to do instead. Code that follows the workarounds also works against a service where the defect is fixed.
+Defects of the 26.1.1 release. Each entry gives what happens and what to do instead. Code that follows the workarounds also works against a service where the defect is fixed.
 
 1. **The swagger does not declare the `ClientId` header.** There is neither a header parameter nor a security scheme, so a client generated from the 26.1.1 swagger, or code written from it alone, sends no `ClientId`, and every call answers `401`. **Do:** add the header to every request after `connect-client` (section 2, rule 1). The official C# and Python clients add it themselves.
 2. **Error media types and bodies differ from the swagger.** The swagger declares most error responses as `application/json` (some as `text/plain`, `text/json` or `application/xml`). The service sends `404`, `409`, `422` and `500` as `application/problem+json`, and `400`, `401` and `415` as `application/json`. A `405`, and the `415` of `projects/open` when the body is not `multipart/form-data`, come with no body at all. **Do:** branch on the status code, parse the body as JSON whatever the media type, and allow an empty body.
@@ -398,7 +398,7 @@ Defects of service build 26.1.1.2809. Each entry gives what happens and what to 
 
    **Do:** treat these `500`s as a fault in your request, and do not quote or parse their `detail`. To find out why an expression fails, create it as a parameter; that answers `422` with the reason.
 8. **A `404` for an unknown `memberId` in a load-effect body does not name the member.** Its `detail` is an internal message. **Do:** take member ids from `GET .../connections/{connectionId}/members`.
-9. **`export-iom` declares the wrong encoding.** The XML declaration says `utf-16`, but the bytes are UTF-8. **Do:** decode the bytes as UTF-8. Before sending the export to `POST /api/5/projects/import-iom-file`, re-encode it to UTF-16 so that the bytes match the declaration.
+9. **`export-iom` declares the wrong encoding.** The XML declaration says `utf-16`, but the bytes are UTF-8. **Do:** decode by the bytes, not by the declaration: UTF-16 when they start with a byte-order mark (`FF FE` or `FE FF`), UTF-8 otherwise. Before sending the export to `POST /api/5/projects/import-iom-file`, make the bytes match the encoding the declaration names (for 26.1.1: re-encode to UTF-16).
 
 ## 10. Minimal example (Python, `requests` only)
 
@@ -463,8 +463,8 @@ finally:
 | `"name": "HEB200"` on a cross-section POST | `"mprlName": "HEB200"`, `"materialName": "S 355"` |
 | `"S355"`, `"ipe300"`, `"M16"` | Exact library spelling: `"S 355"`, `"IPE300"`, `"M16 8.8"` — copy from `.../library` |
 | `n`, `vz`, `my` directly on a member loading | Inside `"sectionLoad": {...}` |
-| `"isPercentage": true`, or `GET .../load-effects` without `?isPercentage=false` | Author and read with `isPercentage` false; in 26.1.1 the percentage form is not reliable (section 9) |
-| Closing a project id you did not open | Close only your own projects; 26.1.1 closes it for its owner too (section 9) |
+| `"isPercentage": true`, or `GET .../load-effects` without `?isPercentage=false` | Author and read with `isPercentage` false (section 9) |
+| Closing a project id you did not open | Close only your own projects; it can close the project for its owner too (section 9) |
 | `set-load-settings` with one flag or `{}` | Send both `loadsInEquilibrium` and `loadsInPercentage` |
 | `PUT .../connections/{connectionId}` with only the changed field | GET, change, PUT the whole object; omitted fields are reset |
 | Calling `results` without `calculate` | `calculate` first; empty lists mean "not calculated" |
@@ -485,19 +485,19 @@ finally:
 | `400` with an `errors` map | Body does not bind (wrong enum value, wrong nesting). Ignore the entry `"request": ["The request field is required."]`; the other key names the cause |
 | `404` on a project id | Project closed, or opened by another ClientId |
 | `404` on `calculate` / `results` | An unknown connection id in the array; nothing was calculated |
-| `404` on a load-effect POST | Unknown `memberId` in the body (the 26.1.1 `detail` does not name it) |
+| `404` on a load-effect POST | Unknown `memberId` in the body (section 9) |
 | `409` | Operation id of another kind, or a second async job on the project (a synchronous calculate waits instead) |
-| `415` on `open` (no body in 26.1.1) | JSON body instead of `multipart/form-data` |
-| `405` (no body in 26.1.1) | Wrong method for the route, e.g. PUT with the operation id in the path |
+| `415` on `open` (the body can be empty, section 9) | JSON body instead of `multipart/form-data` |
+| `405` (the body can be empty, section 9) | Wrong method for the route, e.g. PUT with the operation id in the path |
 | `422` | Validation; the `detail` names the field, id or name that failed (a report for an unknown connection id is `422` too) |
 | `500` on `open` | The file is not a valid `.ideaCon` (section 9) |
 | `500` on a load-effect POST | Forces placed flat on the loading instead of inside `sectionLoad` (section 9) |
 | `500` on `evaluate-expression` | The expression cannot be evaluated; create it as a parameter to get a `422` that says why (section 9) |
 | `passed: false`, Analysis row "There are no loads on members" | No active load effect with forces |
 
-## 12. Every route
+## 12. Route map
 
-All 172 routes of API 5.0 in service build 26.1.1.2809, relative to `/api/5`. A line with several methods lists one route per method.
+The routes of API 5.0 as released in 26.1.1, relative to `/api/5`. A line with several methods lists one route per method. A later service can add routes; its OpenAPI document is the complete list (command at the end of this section).
 
 **Client**
 
