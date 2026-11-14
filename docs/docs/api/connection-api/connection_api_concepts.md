@@ -365,6 +365,6 @@ To learn the format itself, start with the [IOM documentation](../../iom/iom_get
 
 - [Connection API overview](connection_api_overview.md) — what the API is, architecture, and version history
 - [Getting started](connection_api_getting_started.md) — run the service and make your first call
-- [LLM reference](connection_api_llm_reference.md) — single-file SDK reference for AI assistants
+- [LLM reference](connection_api_llm_reference.md) — single-file HTTP reference of the REST API for AI assistants
 - [Getting started with Parameters](../api_parameters_getting_started.md) and the [Expression Parameter Reference Guide](../api_parameter_reference_guide.md)
 - SDK reference: C# and Python client documentation under this section
