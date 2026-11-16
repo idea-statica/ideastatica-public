@@ -72,5 +72,5 @@ If you are on an older version of IDEA StatiCa, we recommend updating to the lat
 
 ## AI assistants
 
-* [LLM reference](connection_api_llm_reference.md) — a single-page, verified reference of the Python SDK surface, designed to be pasted into an AI assistant's context.
+* [LLM reference](connection_api_llm_reference.md) — a single-page HTTP reference of the REST API for AI assistants: the rules the OpenAPI document does not state, workflows, known issues and every route.
 * Using ChatGPT? Try the official [IDEA StatiCa Connection API Assistant for Python](https://chatgpt.com/g/g-69ba8672efa081918789abcd0acb8d6b-idea-statica-connection-api-assistant-for-python), a custom GPT that helps you write Python scripts for the Connection API.

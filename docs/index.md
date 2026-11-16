@@ -64,5 +64,5 @@ Low-code tools built on top of the APIs and IOM — for structural engineers and
 ## For AI tools
 
 * Machine-readable index of this site: [llms.txt](https://developer.ideastatica.com/llms.txt)
-* [Connection API LLM reference](docs/api/connection-api/connection_api_llm_reference.md) — a single-file SDK reference designed for AI assistant context windows.
+* [Connection API LLM reference](docs/api/connection-api/connection_api_llm_reference.md) — a single-file HTTP reference of the Connection REST API, written for AI assistants.
 * Using ChatGPT? Try the official [IDEA StatiCa Connection API Assistant for Python](https://chatgpt.com/g/g-69ba8672efa081918789abcd0acb8d6b-idea-statica-connection-api-assistant-for-python).
