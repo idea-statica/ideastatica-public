@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Input;
 using IdeaStatiCa.Plugin;
 using IdeaStatiCa.Public;
 using System;
@@ -9,6 +9,10 @@ using System.Windows.Threading;
 
 namespace BimLinkExampleRunner.ViewModels
 {
+	/// <summary>
+	/// The log of the link, shown in the window. The link logs from any thread, so each message is added on the UI
+	/// thread.
+	/// </summary>
 	internal class AppLogger : IPluginLogger
 	{
 		private readonly Dispatcher uiDispatcher;
@@ -16,46 +20,22 @@ namespace BimLinkExampleRunner.ViewModels
 		public AppLogger(Dispatcher uiDispatcher)
 		{
 			this.uiDispatcher = uiDispatcher;
-
-			ClearCommand = new RelayCommand(OnClear);
+			ClearCommand = new RelayCommand(Messages.Clear);
 		}
 
+		/// <summary>
+		/// Removes all messages.
+		/// </summary>
 		public ICommand ClearCommand { get; }
 
-		public bool EnableTrace { get; set; }
-
-		public bool EnableDebug { get; set; }
-
+		/// <summary>
+		/// The messages, oldest first.
+		/// </summary>
 		public ObservableCollection<MessageViewModel> Messages { get; } = new ObservableCollection<MessageViewModel>();
-
-		public void LogDebug(string message, Exception ex = null)
-		{
-			if (EnableDebug)
-			{
-				Log(MessageSeverity.Debug, message, ex);
-			}
-		}
 
 		public void LogError(string message, Exception ex = null)
 		{
 			Log(MessageSeverity.Error, message, ex);
-		}
-
-		public void LogEventInformation(IIdeaUserEvent userEvent, string screenName = null, Dictionary<int, string> eventCustomDimensions = null)
-		{
-		}
-
-		public void LogInformation(string message, Exception ex = null)
-		{
-			Log(MessageSeverity.Information, message, ex);
-		}
-
-		public void LogTrace(string message, Exception ex = null)
-		{
-			if (EnableTrace)
-			{
-				Log(MessageSeverity.Trace, message, ex);
-			}
 		}
 
 		public void LogWarning(string message, Exception ex = null)
@@ -63,17 +43,33 @@ namespace BimLinkExampleRunner.ViewModels
 			Log(MessageSeverity.Warning, message, ex);
 		}
 
-		private void Log(MessageSeverity severity, string message, Exception ex)
+		public void LogInformation(string message, Exception ex = null)
 		{
-			uiDispatcher.BeginInvoke(new Action(() =>
-			{
-				Messages.Add(new MessageViewModel(severity, message, ex));
-			}));
+			Log(MessageSeverity.Information, message, ex);
 		}
 
-		private void OnClear()
+		public void LogDebug(string message, Exception ex = null)
 		{
-			Messages.Clear();
+			Log(MessageSeverity.Debug, message, ex);
+		}
+
+		/// <summary>
+		/// Not shown: the import writes a trace message for every object it imports.
+		/// </summary>
+		public void LogTrace(string message, Exception ex = null)
+		{
+		}
+
+		/// <summary>
+		/// Not shown: usage events are statistics for IDEA StatiCa, not messages for the user.
+		/// </summary>
+		public void LogEventInformation(IIdeaUserEvent userEvent, string screenName = null, Dictionary<int, string> eventCustomDimensions = null)
+		{
+		}
+
+		private void Log(MessageSeverity severity, string message, Exception ex)
+		{
+			uiDispatcher.BeginInvoke(new Action(() => Messages.Add(new MessageViewModel(severity, message, ex))));
 		}
 	}
 }

@@ -4,27 +4,18 @@
 		<OutputType>WinExe</OutputType>
 		<TargetFrameworks>net10.0-windows10.0.22621;net48</TargetFrameworks>
 		<UseWPF>true</UseWPF>
-		<ProjectGuid>{669835E3-E2A5-48E5-8CF4-752370CB7051}</ProjectGuid>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" />
-		<PackageReference Include="PropertyChanged.Fody" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
 		<ProjectReference Include="..\CadExample\BimApiLinkCadExample\BimApiLinkCadExample.csproj" />
 		<ProjectReference Include="..\FeaExample\BimApiLinkFeaExample\BimApiLinkFeaExample.csproj" />
 	</ItemGroup>
-		
-	<ItemGroup>
-		<PackageReference Include="IdeaStatiCa.Plugin"/>
-	</ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="System.Private.Uri" />
-	</ItemGroup>
-	
 	<ItemGroup>
 		<Compile Update="Properties\Settings.Designer.cs">
 			<DesignTimeSharedInput>True</DesignTimeSharedInput>

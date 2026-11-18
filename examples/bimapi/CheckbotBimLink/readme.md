@@ -18,7 +18,7 @@ Before creating your own link we always encourage you to get in touch with us to
 | [FeaExample](FeaExample/README.md) | A link for an FEA application: members, loads and internal forces. |
 | [CppFeaExample](CppFeaExample/README.md) | The FEA link in C++/CLI, for an FEA application written in native C++. It has its own fake application, a native MFC window. |
 | [SafFeaExample](SafFeaExample/README.md) | A link for an FEA application that saves its model as SAF files: connections, members, and a sync after the model changes. It has its own fake application, a small window. |
-| `BimLinkExampleRunner` | A small window that starts the CAD or the FEA link, so you can try them without a CAD or FEA application. |
+| [BimLinkExampleRunner](BimLinkExampleRunner/README.md) | A small window that starts the CAD or the FEA link, so you can try them without a CAD or FEA application. |
 
 Each README says what the example shows and how to run it.
 

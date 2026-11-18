@@ -1,11 +1,11 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
+<?xml version='1.0' encoding='utf-8'?>
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="BimLinkExampleRunner.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="CheckbotLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Program Files\IDEA StatiCa\StatiCa 26.1\IdeaCheckbot.exe</Value>
     </Setting>
-    <Setting Name="ApplicationType" Type="System.String" Scope="User">
+    <Setting Name="ApplicationType" Type="BimLinkExampleRunner.ViewModels.ApplicationType" Scope="User">
       <Value Profile="(Default)">CAD</Value>
     </Setting>
   </Settings>
