@@ -1,30 +1,34 @@
-﻿using System;
+using System;
 
 namespace BimLinkExampleRunner.ViewModels
 {
+	/// <summary>
+	/// One message of the log.
+	/// </summary>
 	internal class MessageViewModel
 	{
-		public MessageViewModel(MessageSeverity severity, string message, Exception exception = null)
+		public MessageViewModel(MessageSeverity severity, string message, Exception exception)
 		{
+			Severity = severity;
 			Message = message;
 			Exception = exception;
-			Severity = severity;
 		}
 
-		public string Message { get; set; }
+		public MessageSeverity Severity { get; }
 
-		public Exception Exception { get; set; }
+		public string Message { get; }
 
-		public MessageSeverity Severity { get; set; }
+		/// <summary>
+		/// The exception logged with the message, or null.
+		/// </summary>
+		public Exception Exception { get; }
 
+		/// <summary>
+		/// The message with its exception, as Ctrl+C copies it.
+		/// </summary>
 		public override string ToString()
 		{
-			if (Exception != null)
-			{
-				return $"{Message}\r\n{Exception}";
-			}
-
-			return Message;
+			return Exception == null ? Message : Message + Environment.NewLine + Exception;
 		}
 	}
 }
