@@ -7,7 +7,7 @@ the user closes Checkbot.
 ## What it shows
 
 - Running a link from a console: `Main` awaits `CheckbotLink.Run` of the link. `CheckbotLink.Run` waits a few
-  seconds for Checkbot to start before it returns its task, and the task ends when the user closes Checkbot. A
+  seconds for Checkbot to start before it returns its task, and the task ends when Checkbot closes. A
   console has no window to keep responsive, so `Main` simply waits. An application with a window starts the link on
   a pool thread instead, as the [BimLinkExampleRunner](../BimLinkExampleRunner/README.md) does.
 - Writing the log of the link: `ConsoleLogger` implements `IPluginLogger` and writes each message to the console.
@@ -37,8 +37,11 @@ The app targets .NET Framework 4.8 and .NET 10. All packages come from nuget.org
    the step where Checkbot opens.
 4. Close Checkbot. The app ends.
 
-The console shows the log of the link: each error, warning, information and debug message with its time. The app
-ends with exit code 0 when the user closes Checkbot, and 1 when Checkbot is not found or the link fails.
+The console shows the log of the link: each error, warning, information and debug message with its time. Most of
+them are debug messages about what the link and Checkbot send each other. Checkbot, and IDEA StatiCa Connection when
+you open a connection from Checkbot, write a few lines of their own to the same console, without the time.
+
+The app ends with exit code 0 when Checkbot closes, and 1 when Checkbot is not found or the link fails.
 
 The Checkbot project is kept next to the app, in the folder `CadExampleCheckbotProject`, and the next run opens it
 again. Delete the folder to start over.

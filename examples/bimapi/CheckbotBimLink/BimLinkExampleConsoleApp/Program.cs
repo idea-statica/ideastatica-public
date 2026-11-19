@@ -22,7 +22,7 @@ namespace BimLinkExampleConsoleApp
 		/// <param name="args">
 		/// Optional: the full path to IdeaCheckbot.exe. Without it, the app uses <see cref="DefaultCheckbotPath"/>.
 		/// </param>
-		/// <returns>0 when the user has closed Checkbot, 1 when Checkbot is not found or the link fails.</returns>
+		/// <returns>0 when Checkbot has closed, 1 when Checkbot is not found or the link fails.</returns>
 		private static async Task<int> Main(string[] args)
 		{
 			string checkbotPath = args.Length > 0 ? args[0] : DefaultCheckbotPath;
