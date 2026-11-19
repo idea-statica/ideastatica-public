@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFrameworks>net10.0-windows10.0.22621;net48</TargetFrameworks>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\CadExample\BimApiLinkCadExample\BimApiLinkCadExample.csproj" />
+	</ItemGroup>
+
+</Project>
