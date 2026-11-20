@@ -1,0 +1,15 @@
+<Window x:Class="Saf2IomExample.MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	Title="SAF to IOM" Height="450" Width="800">
+
+	<DockPanel>
+		<ToolBar DockPanel.Dock="Top">
+			<Button x:Name="OpenSafButton" Content="Open SAF..." Click="OpenSaf_Click" />
+			<Button x:Name="SaveIomButton" Content="Save IOM..." Click="SaveIom_Click" IsEnabled="False" />
+		</ToolBar>
+		<TextBox x:Name="Output" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+			Text="Open a SAF file to convert it to IOM." />
+	</DockPanel>
+
+</Window>

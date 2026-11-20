@@ -6,7 +6,8 @@ package converts the file for Checkbot. A small fake FEA application stands in f
 any FEA software.
 
 To link through the API of your application instead, see the [FEA link example](../FeaExample/README.md).
-[Why use SAF for a Checkbot link?](what_is_SAF.md) helps you choose.
+[Why use SAF for a Checkbot link?](what_is_SAF.md) helps you choose. To see what SAF2IOM makes of a SAF file of
+your application, without Checkbot, use the [SAF to IOM example](../../Saf2IomExample/README.md).
 
 The fake model is a steel truss: 25 members, one load case, and the internal forces of the members. It comes as two
 SAF files in the `SafFiles` folder: the truss as designed, and the same truss with smaller cross-sections.
@@ -71,7 +72,7 @@ opens it again. Delete the folder to start over. The application writes its log 
 ## Make it your own
 
 1. Copy `SafFeaExampleLink` and rename it, for example to `MySafLink`. Its package references take their versions
-   from `Directory.Packages.props` at the root of this repository, so add `Version="26.1.0.5973"` to each of them.
+   from `Directory.Packages.props` at the root of this repository, so add `Version="26.1.1.2809"` to each of them.
 2. Implement `ISafExport` with the SAF export of your application. Give every object the same SAF id in every export.
 3. Call `CheckbotLink.Run` from a command in your application. Give it a writable folder for the Checkbot project,
    one per model, for example next to the model file.
