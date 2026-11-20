@@ -58,6 +58,7 @@ requires. All packages come from nuget.org.
 ## Run it
 
 The link is a library. `BimLinkExampleRunner`, in the folder next to this one, is a small window that starts it.
+[BimLinkExampleConsoleApp](../BimLinkExampleConsoleApp/README.md) starts it from a console instead.
 
 1. Build `examples/IdeaStatiCa-SDK-Examples.sln`.
 2. Start `BimLinkExampleRunner`.
