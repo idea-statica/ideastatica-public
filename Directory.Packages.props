@@ -10,14 +10,14 @@
     <PackageVersion Include="IdeaStatiCa.ConnectionApi" Version="26.1.0.5973" />
     <PackageVersion Include="IdeaStatiCa.RcsApi" Version="26.1.0.5973" />
     <PackageVersion Include="IdeaStatiCa.Api" Version="26.1.0.5973" />
-    <PackageVersion Include="IdeaStatiCa.Plugin" Version="26.1.0.5973" />
-    <PackageVersion Include="IdeaStatica.BimApi" Version="26.1.0.5973" />
-    <PackageVersion Include="IdeaStatica.BimApiLink" Version="26.1.0.5973" />
-    <PackageVersion Include="IdeaStatiCa.SAF2IOM" Version="26.1.0.5973" />
-    <PackageVersion Include="IdeaStatiCa.PluginLogger" Version="26.1.0.5973" />
-    <PackageVersion Include="IdeaStatiCa.ItemsSorter" Version="26.1.0.5973" />
-    <PackageVersion Include="IdeaStatiCa.Public" Version="26.1.0.5973" />
-    <PackageVersion Include="IdeaStatiCa.OpenModel" Version="26.1.0.5973" />
+    <PackageVersion Include="IdeaStatiCa.Plugin" Version="26.1.1.2809" />
+    <PackageVersion Include="IdeaStatica.BimApi" Version="26.1.1.2809" />
+    <PackageVersion Include="IdeaStatica.BimApiLink" Version="26.1.1.2809" />
+    <PackageVersion Include="IdeaStatiCa.SAF2IOM" Version="26.1.1.2809" />
+    <PackageVersion Include="IdeaStatiCa.PluginLogger" Version="26.1.1.2809" />
+    <PackageVersion Include="IdeaStatiCa.ItemsSorter" Version="26.1.1.2809" />
+    <PackageVersion Include="IdeaStatiCa.Public" Version="26.1.1.2809" />
+    <PackageVersion Include="IdeaStatiCa.OpenModel" Version="26.1.1.2809" />
     <PackageVersion Include="Microsoft.Extensions.DependencyModel" Version="10.0.13" />
     <PackageVersion Include="Microsoft.Bcl.HashCode" Version="6.0.0" />
     <!--<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.9.2" />-->
