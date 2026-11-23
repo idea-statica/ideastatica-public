@@ -1,5 +1,6 @@
 using IdeaStatiCa.IntermediateModel.Extensions;
 using IdeaStatiCa.IntermediateModel.IRModel;
+using IdeaStatiCa.IOM.VersioningService.Exceptions;
 using IdeaStatiCa.IOM.VersioningService.Extension;
 using IdeaStatiCa.IOM.VersioningService.Tools;
 using IdeaStatiCa.Plugin;
@@ -12,6 +13,8 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 	/// <summary>
 	/// 3.3.2 - WeldData: consolidate Material(name) + WeldMaterial(ref) into a single Material
 	/// reference, and migrate ConnectedPartIds (strings) to ConnectedParts (ReferenceElements).
+	/// The up step throws <see cref="UnresolvedMaterialNameException"/> for the welds without a
+	/// WeldMaterial reference whose name neither MatWelding nor MatSteel lists.
 	/// </summary>
 	internal class Step332 : BaseStep
 	{
@@ -35,6 +38,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 			// Material lists are model-global.
 			var weldMatNameToId = ConnectionRefTool.BuildNameToId(openModel, "MatWelding");
 			var steelMatNameToId = ConnectionRefTool.BuildNameToId(openModel, "MatSteel");
+			var unresolved = new List<UnresolvedMaterialName>();
 
 			// Connected-part identity (Id/OriginalModelId) is unique only within a connection,
 			// so resolve references per connection.
@@ -70,7 +74,7 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 					}
 					else if (!string.IsNullOrEmpty(name))
 					{
-						_logger.LogTrace($"Weld material '{name}' not found in MatWelding/MatSteel; reference left empty");
+						unresolved.Add(new UnresolvedMaterialName(ConnectionElementKind.Weld, weld.TryGetElementValue("Id"), weld.TryGetElementValue("Name"), weld.TryGetElementValue("OriginalModelId"), name));
 					}
 
 					// ConnectedPartIds (strings) -> ConnectedParts (ReferenceElements)
@@ -87,6 +91,11 @@ namespace IdeaStatiCa.IOM.VersioningService.VersionSteps.Steps
 					}
 					weld.RemoveElementProperty("ConnectedPartIds");
 				}
+			}
+
+			if (unresolved.Count > 0)
+			{
+				throw new UnresolvedMaterialNameException(unresolved);
 			}
 		}
 
