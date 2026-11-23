@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="IdeaStatiCa.OpenModel" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="SampleFiles\IOM-SteelFrame.xmlR" CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
+
+</Project>

@@ -86,7 +86,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BimLinkExampleRunner", "..\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BimLinkExampleConsoleApp", "..\examples\bimapi\CheckbotBimLink\BimLinkExampleConsoleApp\BimLinkExampleConsoleApp.csproj", "{D4839311-3A97-499B-8B49-A85726D92BFA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.SteelFrameExample", "..\examples\iom\csharp\SteelFrameExample\IOM.SteelFrameExample\IOM.SteelFrameExample.csproj", "{8B5CEAF9-0553-4156-ABFA-B8A27E251514}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.SteelFrameModel", "..\examples\iom\csharp\SteelFrameExample\IOM.SteelFrameModel\IOM.SteelFrameModel.csproj", "{8B5CEAF9-0553-4156-ABFA-B8A27E251514}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.SteelFrameDesktop", "..\examples\iom\csharp\SteelFrameExample\IOM.SteelFrameDesktop\IOM.SteelFrameDesktop.csproj", "{AB4430E2-EAA3-4DE0-92C8-3298BB7A81C3}"
 EndProject
