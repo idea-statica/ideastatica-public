@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BIMAPI", "BIMAPI", "{E7FE4B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SteelFrameExample", "SteelFrameExample", "{9756E859-52D8-4270-9456-4CD495E001DB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.SteelFrameExample", "iom\csharp\SteelFrameExample\IOM.SteelFrameExample\IOM.SteelFrameExample.csproj", "{8B5CEAF9-0553-4156-ABFA-B8A27E251514}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.SteelFrameModel", "iom\csharp\SteelFrameExample\IOM.SteelFrameModel\IOM.SteelFrameModel.csproj", "{8B5CEAF9-0553-4156-ABFA-B8A27E251514}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOM.SteelFrameDesktop", "iom\csharp\SteelFrameExample\IOM.SteelFrameDesktop\IOM.SteelFrameDesktop.csproj", "{AB4430E2-EAA3-4DE0-92C8-3298BB7A81C3}"
 EndProject
@@ -47,18 +47,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8B5CEAF9-0553-4156-ABFA-B8A27E251514}.Debug|Any CPU.ActiveCfg = Debug_NuGet|Any CPU
-		{8B5CEAF9-0553-4156-ABFA-B8A27E251514}.Debug|Any CPU.Build.0 = Debug_NuGet|Any CPU
-		{8B5CEAF9-0553-4156-ABFA-B8A27E251514}.Release|Any CPU.ActiveCfg = Release_NuGet|Any CPU
-		{8B5CEAF9-0553-4156-ABFA-B8A27E251514}.Release|Any CPU.Build.0 = Release_NuGet|Any CPU
-		{AB4430E2-EAA3-4DE0-92C8-3298BB7A81C3}.Debug|Any CPU.ActiveCfg = Debug_NuGet|Any CPU
-		{AB4430E2-EAA3-4DE0-92C8-3298BB7A81C3}.Debug|Any CPU.Build.0 = Debug_NuGet|Any CPU
-		{AB4430E2-EAA3-4DE0-92C8-3298BB7A81C3}.Release|Any CPU.ActiveCfg = Release_NuGet|Any CPU
-		{AB4430E2-EAA3-4DE0-92C8-3298BB7A81C3}.Release|Any CPU.Build.0 = Release_NuGet|Any CPU
-		{DA9CE85E-7B4D-408B-9116-53A5918CAD1A}.Debug|Any CPU.ActiveCfg = Debug_NuGet|Any CPU
-		{DA9CE85E-7B4D-408B-9116-53A5918CAD1A}.Debug|Any CPU.Build.0 = Debug_NuGet|Any CPU
-		{DA9CE85E-7B4D-408B-9116-53A5918CAD1A}.Release|Any CPU.ActiveCfg = Release_NuGet|Any CPU
-		{DA9CE85E-7B4D-408B-9116-53A5918CAD1A}.Release|Any CPU.Build.0 = Release_NuGet|Any CPU
+		{8B5CEAF9-0553-4156-ABFA-B8A27E251514}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B5CEAF9-0553-4156-ABFA-B8A27E251514}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B5CEAF9-0553-4156-ABFA-B8A27E251514}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B5CEAF9-0553-4156-ABFA-B8A27E251514}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB4430E2-EAA3-4DE0-92C8-3298BB7A81C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB4430E2-EAA3-4DE0-92C8-3298BB7A81C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB4430E2-EAA3-4DE0-92C8-3298BB7A81C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB4430E2-EAA3-4DE0-92C8-3298BB7A81C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA9CE85E-7B4D-408B-9116-53A5918CAD1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA9CE85E-7B4D-408B-9116-53A5918CAD1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA9CE85E-7B4D-408B-9116-53A5918CAD1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA9CE85E-7B4D-408B-9116-53A5918CAD1A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{669835E3-E2A5-48E5-8CF4-752370CB7051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{669835E3-E2A5-48E5-8CF4-752370CB7051}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{669835E3-E2A5-48E5-8CF4-752370CB7051}.Release|Any CPU.ActiveCfg = Release|Any CPU

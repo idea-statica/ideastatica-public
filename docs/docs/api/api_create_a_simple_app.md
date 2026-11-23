@@ -36,10 +36,10 @@ It is up to the developer to define what features they want to include in the ex
 
 The primary exercise is to convert the base application geometry schema to an IOM Model, which can be read by IDEA StatiCa Connection. 
 
-The [Steel Frame Example](../../../examples/iom/csharp/SteelFrameExample/readme.md) walks step-by-step through the primary class and generation of an IOM Model for a Steel Structure. 
+The [Steel Frame Example](../../../examples/iom/csharp/SteelFrameExample/README.md) walks step-by-step through the primary class and generation of an IOM Model for a Steel Structure. 
 
 #### Notes on the Steel Frame Example
-* In the Steel Frame Example only **one** `ConnectionPoint` is defined within the Open Model output. IDEA StatiCa connection only allows for one connection to be imported through IOM (although the program itself does allow multiple connections). This is worth noting when trying to create multiple IDEA StatiCa connection files using this method. A separate IOM `.xml` file will need to be created with all relevant data. 
+* The Steel Frame Example defines two connection points. The Connection API creates the connections whose connection point ids you give to `CreateProjectFromIomFileAsync`; without the ids, it creates only the first one. The web service creates only the first connection. 
 
 The [IOM Wiki page](../iom/iom_getting_started.md) provides some further in-depth documentation on more complex aspects of generating an IOM model. 
 
@@ -47,7 +47,7 @@ The [IOM Wiki page](../iom/iom_getting_started.md) provides some further in-dept
 
 For IOM coming from an FEA application, it is important that an IOM OpenModelResult `.xml/.xmlR` is created. This file provides all the result data required to provide load effects on the connection. 
 
-Again, [Steel Frame Example](../../../examples/iom/csharp/SteelFrameExample/readme.md) provides a brief explanation on how this is generated. 
+Again, [Steel Frame Example](../../../examples/iom/csharp/SteelFrameExample/README.md) provides a brief explanation on how this is generated. 
 
 #### Notes on the Steel Frame Example
 * In contrary to the above, you can reference one single result file for the creation of all connection IOM exports. Result Forces for members not in the connection file will be ignored.

@@ -1,99 +1,77 @@
-﻿using IdeaRS.OpenModel;
-using IdeaRS.OpenModel.Result;
+using IdeaRS.OpenModel;
 using IdeaStatiCa.ConnectionApi;
-using IOM.GeneratorExample;
+using IOM.SteelFrameModel;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace IOM.SteelFrameDesktop
 {
-	class Program
+	/// <summary>
+	/// Builds a frame in IOM, saves it, and creates an IDEA StatiCa Connection project from it with the Connection API
+	/// of the IDEA StatiCa installed on this computer.
+	/// </summary>
+	internal static class Program
 	{
-		private static string IdeaInstallDir;
-		public static async Task Main(string[] args)
+		/// <summary>
+		/// Where IDEA StatiCa 26.1 is installed unless the user chooses another folder.
+		/// </summary>
+		private const string DefaultSetupDir = @"C:\Program Files\IDEA StatiCa\StatiCa 26.1";
+
+		/// <summary>
+		/// Asks which frame to build, then builds it, saves it and creates the Connection project.
+		/// </summary>
+		/// <param name="args">
+		/// Optional: the folder IDEA StatiCa is installed in. Without it, the app uses <see cref="DefaultSetupDir"/>.
+		/// </param>
+		/// <returns>0 when the project is saved, 1 when IDEA StatiCa is not found or the Connection API fails.</returns>
+		private static async Task<int> Main(string[] args)
 		{
-			IdeaInstallDir = IOM.SteelFrameDesktop.Properties.Settings.Default.IdeaInstallDir;
-
-			if (!Directory.Exists(IdeaInstallDir))
+			string setupDir = args.Length > 0 ? args[0] : DefaultSetupDir;
+			if (!File.Exists(Path.Combine(setupDir, "IdeaStatiCa.ConnectionRestApi.exe")))
 			{
-				Console.WriteLine("IDEA StatiCa installation was not found in '{0}'", IdeaInstallDir);
-				return;
+				Console.Error.WriteLine($"IDEA StatiCa is not in '{setupDir}'. Give the folder it is installed in as the first argument.");
+				return 1;
 			}
 
-			Console.WriteLine("IDEA StatiCa installation directory is '{0}'", IdeaInstallDir);
+			Console.WriteLine("Which frame?");
+			Console.WriteLine("  1 - Steel frame, EN, with internal forces");
+			Console.WriteLine("  2 - Simple frame, AS (Australia), without internal forces");
+			bool australian = Console.ReadLine()?.Trim() == "2";
 
-			Console.WriteLine("Select the required example");
-			Console.WriteLine("1  - Steel frame ECEN");
-			Console.WriteLine("2  - Simple frame AUS");
+			string name = australian ? "SimpleFrameAus" : "SteelFrame";
+			var container = australian
+				? new OpenModelContainer { OpenModel = SimpleFrameAus.CreateIOM() }
+				: new OpenModelContainer { OpenModel = SteelFrame.CreateIOM(), OpenModelResult = SteelFrame.LoadInternalForces() };
 
-			var option = Console.ReadLine();
+			string iomPath = Path.GetFullPath(name + ".xml");
+			Tools.OpenModelContainerToFile(container, iomPath);
+			Console.WriteLine($"The IOM is saved in {iomPath}");
 
-			OpenModel iom = null;
-			OpenModelResult iomResult = null;
-
-			if (option.Equals("2", StringComparison.InvariantCultureIgnoreCase))
+			// Without the ids of the connection points, the Connection API creates only the first connection.
+			var connectionIds = container.OpenModel.ConnectionPoint.Select(cp => cp.Id).ToList();
+			string projectPath = Path.GetFullPath(name + ".ideaCon");
+			try
 			{
-				Console.WriteLine("Generating Australian steel frame ...");
+				Console.WriteLine($"Starting the Connection API of {setupDir} ...");
+				using var runner = new ConnectionApiServiceRunner(setupDir);
+				using var client = await runner.CreateApiClient();
 
-				// create IOM and results
-				iom = SimpleFrameAUS.CreateIOM();
-				iomResult = null;
+				var project = await client.Project.CreateProjectFromIomFileAsync(iomPath, connectionIds);
+				Console.WriteLine($"Connections in the project: {string.Join(", ", project.Connections.Select(c => c.Name))}");
+
+				await client.Project.SaveProjectAsync(project.ProjectId, projectPath);
+				await client.Project.CloseProjectAsync(project.ProjectId);
 			}
-			else
+			catch (Exception ex)
 			{
-				Console.WriteLine("Generating ECEN steel frame ...");
-
-				// create IOM and results
-				iom = SteelFrameExample.CreateIOM();
-				iomResult = Helpers.GetResults();
-			}
-
-			//Combine into a Container for Project Creation
-			OpenModelContainer iomContainer = new OpenModelContainer()
-			{
-				OpenModel = iom,
-				OpenModelResult = iomResult
-			};
-
-			string iomFileName = "example.xml";
-			IdeaRS.OpenModel.Tools.OpenModelContainerToFile(iomContainer, iomFileName);
-
-			var desktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-			var fileConnFileNameFromLocal = Path.Combine(desktopDir, "connectionFromIOM-local.ideaCon");
-
-			//Automatically start API service and Attach it.
-			using (var clientFactory = new ConnectionApiServiceRunner(IdeaInstallDir))
-			{
-				// create ConnectionApiClient
-				using (var conClient = await clientFactory.CreateApiClient())
-				{
-					try
-					{
-						//Create the Connection project from the IOM file.
-						//This creates the project on the server side. 
-						Console.WriteLine("Creating Idea connection project ");
-						var projData = await conClient.Project.CreateProjectFromIomFileAsync(iomFileName, null);
-						Console.WriteLine($"Generated Connection Project from IOM. Project is active on the Server with Guid: {conClient.ActiveProjectId}.", fileConnFileNameFromLocal);
-
-						//Save connection to local computer.
-						await conClient.Project.SaveProjectAsync(conClient.ActiveProjectId, fileConnFileNameFromLocal);
-						Console.WriteLine($"Save Project to local disk at path: {fileConnFileNameFromLocal}.");
-
-						//Close project on server.
-						await conClient.Project.CloseProjectAsync(projData.ProjectId);
-						Console.WriteLine($"Project with Id {conClient.ActiveProjectId} closed on Server");
-					}
-					catch (Exception e)
-					{
-						Console.WriteLine("Error '{0}'", e.Message);
-					}
-				}
+				Console.Error.WriteLine($"The Connection API failed: {ex.Message}");
+				return 1;
 			}
 
-			// end console application
-			Console.WriteLine("Done. Press any key to exit.");
-			Console.ReadKey();
+			Console.WriteLine($"The project is saved in {projectPath}");
+			return 0;
 		}
 	}
 }

@@ -29,7 +29,7 @@ The Connection and RCS APIs are exposed by services that ship with the IDEA Stat
 - [Connection point](https://developer.ideastatica.com/docs/iom/iom_connection_point.html): describing a steel connection within an IOM model
 - [Loading](https://developer.ideastatica.com/docs/iom/iom_loading.html)
 - [IdeaRS.OpenModel API reference](https://developer.ideastatica.com/api-iom/IdeaRS.OpenModel.html): generated class reference for the IOM object model
-- [Steel frame example (C#)](https://developer.ideastatica.com/examples/iom/csharp/SteelFrameExample/readme.html): build an IOM model of a steel frame from code
+- [Steel frame example (C#)](https://developer.ideastatica.com/examples/iom/csharp/SteelFrameExample/README.html): build an IOM model of a steel frame from code
 
 ## BIM API (Checkbot links)
 
