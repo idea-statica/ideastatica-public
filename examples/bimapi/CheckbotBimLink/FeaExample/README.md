@@ -71,7 +71,7 @@ again. Delete the folder to start over.
 ## Make it your own
 
 1. Copy `BimApiLinkFeaExample` and rename it, for example to `MyFeaLink`. Its package references take their versions
-   from `Directory.Packages.props` at the root of this repository, so add `Version="26.1.0.5973"` to each of them.
+   from `Directory.Packages.props` at the root of this repository, so add `Version="26.1.1.2809"` to each of them.
 2. Replace `FeaExampleApi` with the API of your application. `IFeaGeometryApi`, `IFeaLoadsApi` and `IFeaResultsApi`
    list what the link needs from it.
 3. Call `CheckbotLink.Run` from a command in your application. Give it a writable folder for the Checkbot project,
