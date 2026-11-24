@@ -75,7 +75,9 @@ Connection API fails. For frame `2`, see [The Australian frame](#the-australian-
 
 `SteelFrame.CreateIOM` builds the model, with one method for each part: the settings, nodes, material, cross-sections,
 members, load cases, combinations and the two connections. `SteelFrame.LoadInternalForces` loads the internal forces.
-Short helpers in `IomHelpers.cs` add the nodes, members and connection points. All values are in [SI units](https://developer.ideastatica.com/docs/iom/iom_units.html):
+Short helpers in `IomHelpers.cs` add the nodes, members and connection points. `IomHelpers.Add` adds every object to
+the model and throws when the model refuses it: `OpenModel.AddObject` adds nothing, without an exception, when the model
+already has an object of that type with the same `Id`. All values are in [SI units](https://developer.ideastatica.com/docs/iom/iom_units.html):
 metres, newtons, pascals. The [IOM API reference](https://developer.ideastatica.com/api-iom/IdeaRS.OpenModel.OpenModel.html)
 describes every class.
 
@@ -179,7 +181,7 @@ groups, `PERM1` for permanent loads and `VAR1` for variable loads, and three loa
 | LiveLoad | VAR1 |
 
 ```csharp
-model.AddObject(new LoadCase
+IomHelpers.Add(model, new LoadCase
 {
 	Id = 1,
 	Name = "SelfWeight",

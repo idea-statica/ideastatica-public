@@ -98,14 +98,14 @@ namespace IOM.SteelFrameModel
 				DiagramType = SteelDiagramType.Bilinear,
 			};
 			material.G = material.E / (2 * (1 + material.Poisson));
-			model.AddObject(material);
+			IomHelpers.Add(model, material);
 		}
 
 		private static void AddCrossSections(OpenModel model)
 		{
 			MatSteel material = model.MatSteel.First();
-			model.AddObject(IomHelpers.CreateRolledI(1, "HE200B", material));
-			model.AddObject(IomHelpers.CreateRolledI(2, "HE240B", material));
+			IomHelpers.Add(model, IomHelpers.CreateRolledI(1, "HE200B", material));
+			IomHelpers.Add(model, IomHelpers.CreateRolledI(2, "HE240B", material));
 		}
 
 		private static void AddMembers(OpenModel model)
@@ -134,7 +134,7 @@ namespace IOM.SteelFrameModel
 				GammaGInf = 1,
 				GammaGSup = 1.35,
 			};
-			model.AddObject(permanent);
+			IomHelpers.Add(model, permanent);
 
 			var variable = new LoadGroupEC
 			{
@@ -150,9 +150,9 @@ namespace IOM.SteelFrameModel
 				Psi1 = 0.5,
 				Psi2 = 0.3,
 			};
-			model.AddObject(variable);
+			IomHelpers.Add(model, variable);
 
-			model.AddObject(new LoadCase
+			IomHelpers.Add(model, new LoadCase
 			{
 				Id = 1,
 				Name = "SelfWeight",
@@ -161,7 +161,7 @@ namespace IOM.SteelFrameModel
 				Variable = VariableType.Standard,
 				LoadGroup = new ReferenceElement(permanent),
 			});
-			model.AddObject(new LoadCase
+			IomHelpers.Add(model, new LoadCase
 			{
 				Id = 2,
 				Name = "PermanentLoading",
@@ -170,7 +170,7 @@ namespace IOM.SteelFrameModel
 				Variable = VariableType.Standard,
 				LoadGroup = new ReferenceElement(permanent),
 			});
-			model.AddObject(new LoadCase
+			IomHelpers.Add(model, new LoadCase
 			{
 				Id = 3,
 				Name = "LiveLoad",
@@ -211,7 +211,7 @@ namespace IOM.SteelFrameModel
 				});
 			}
 
-			model.AddObject(combination);
+			IomHelpers.Add(model, combination);
 		}
 
 		/// <summary>
@@ -262,7 +262,7 @@ namespace IOM.SteelFrameModel
 
 			// Four M16 bolts of grade 8.8 join the end plate and the column.
 			var boltGrade = new MaterialBoltGradeEc2 { Id = 1, Name = "8.8", LoadFromLibrary = true };
-			model.AddObject(boltGrade);
+			IomHelpers.Add(model, boltGrade);
 			var boltAssembly = new BoltAssembly
 			{
 				Id = 1,
@@ -277,7 +277,7 @@ namespace IOM.SteelFrameModel
 				TensileStressArea = 0.000157,
 				NutThickness = 0.013,
 			};
-			model.AddObject(boltAssembly);
+			IomHelpers.Add(model, boltAssembly);
 			connection.BoltGrids.Add(new BoltGrid
 			{
 				Id = 41,
