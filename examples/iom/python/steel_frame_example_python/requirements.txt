@@ -1,0 +1,4 @@
+pythonnet >= 3.0, < 4
+ideastatica-connection-api ~= 26.1.0
+# ideastatica-connection-api needs aiohttp but does not install it.
+aiohttp >= 3.11.7, < 4

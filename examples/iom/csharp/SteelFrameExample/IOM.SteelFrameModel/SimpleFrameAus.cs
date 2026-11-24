@@ -36,12 +36,12 @@ namespace IOM.SteelFrameModel
 
 			// Only the name: the properties of the material come from the library.
 			var material = new MatSteelAUS { Id = 1, Name = "C350", LoadFromLibrary = true };
-			model.AddObject(material);
+			IomHelpers.Add(model, material);
 
 			CrossSection columnSection = IomHelpers.CreateRolledI(1, "125TFB", material);
 			CrossSection beamSection = IomHelpers.CreateRolledI(2, "100TFB", material);
-			model.AddObject(columnSection);
-			model.AddObject(beamSection);
+			IomHelpers.Add(model, columnSection);
+			IomHelpers.Add(model, beamSection);
 
 			Member1D column = IomHelpers.AddMember(model, 1, Member1DType.Column, columnSection, "N1", "N2", "N3");
 			Member1D beam = IomHelpers.AddMember(model, 2, Member1DType.Beam, beamSection, "N2", "N4");

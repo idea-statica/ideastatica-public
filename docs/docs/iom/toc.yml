@@ -23,7 +23,7 @@
 - name: Steel frame example
   href: ../../../examples/iom/csharp/SteelFrameExample/README.md
 - name: Steel frame example (python)
-  href: ../../../examples/iom/python/steel_frame_example_python/iom_steel_frame_example_python.md
+  href: ../../../examples/iom/python/steel_frame_example_python/README.md
 - name: API Reference
 - name: IdeaRS.OpenModel 
   href: ../../api-iom/toc.yml

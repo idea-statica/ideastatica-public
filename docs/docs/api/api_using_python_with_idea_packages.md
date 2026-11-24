@@ -31,7 +31,7 @@ Python code can be run directly in the visual programming tool Grasshopper using
 * [Guide to Getting started with GhPython](api_using_api_in_grasshopper.md)
 
 ## Examples
-* [Create IOM with Python Steel Frame](../../../examples/iom/python/steel_frame_example_python/iom_steel_frame_example_python.md)
+* [Create IOM with Python Steel Frame](../../../examples/iom/python/steel_frame_example_python/README.md)
 
 ## Further Resources
 * [VIKTOR](https://www.viktor.ai/) provides a web-based application that allows integration with IDEA StatiCa online apps through a python based environment.

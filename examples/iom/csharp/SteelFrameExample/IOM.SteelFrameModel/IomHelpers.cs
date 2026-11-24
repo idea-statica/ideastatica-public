@@ -5,6 +5,7 @@ using IdeaRS.OpenModel.Geometry2D;
 using IdeaRS.OpenModel.Geometry3D;
 using IdeaRS.OpenModel.Material;
 using IdeaRS.OpenModel.Model;
+using System;
 using System.Linq;
 
 namespace IOM.SteelFrameModel
@@ -15,11 +16,24 @@ namespace IOM.SteelFrameModel
 	internal static class IomHelpers
 	{
 		/// <summary>
+		/// Adds the object to the model. <see cref="OpenModel.AddObject(OpenElementId)"/> refuses an object with an Id
+		/// the model already has, and an object of a type it has no list for, without an exception. This throws instead.
+		/// </summary>
+		public static void Add(OpenModel model, OpenElementId obj)
+		{
+			int result = model.AddObject(obj);
+			if (result != 0)
+			{
+				throw new InvalidOperationException($"The model did not add the {obj.GetType().Name} with Id {obj.Id}: AddObject returned {result}.");
+			}
+		}
+
+		/// <summary>
 		/// Adds a node. Coordinates are in metres.
 		/// </summary>
 		public static void AddNode(OpenModel model, int id, string name, double x, double y, double z)
 		{
-			model.AddObject(new Point3D { Id = id, Name = name, X = x, Y = y, Z = z });
+			Add(model, new Point3D { Id = id, Name = name, X = x, Y = y, Z = z });
 		}
 
 		/// <summary>
@@ -71,19 +85,19 @@ namespace IOM.SteelFrameModel
 						InPlane = Plane.ZX,
 					};
 				}
-				model.AddObject(segment);
+				Add(model, segment);
 				polyline.Segments.Add(new ReferenceElement(segment));
 
 				var element = new Element1D { Segment = new ReferenceElement(segment) };
 				element.Id = model.GetMaxId(element) + 1;
 				element.Name = "E" + element.Id;
-				model.AddObject(element);
+				Add(model, element);
 				member.Elements1D.Add(new ReferenceElement(element));
 			}
 
 			polyline.Id = model.GetMaxId(polyline) + 1;
-			model.AddObject(polyline);
-			model.Member1D.Add(member);
+			Add(model, polyline);
+			Add(model, member);
 			return member;
 		}
 
@@ -114,7 +128,7 @@ namespace IOM.SteelFrameModel
 			};
 			connectionPoint.Id = model.GetMaxId(connectionPoint) + 1;
 			connectionPoint.ConnectedMembers.AddRange(members);
-			model.AddObject(connectionPoint);
+			Add(model, connectionPoint);
 			return connectionPoint;
 		}
 
